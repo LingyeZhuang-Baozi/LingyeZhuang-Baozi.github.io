@@ -83,20 +83,49 @@
 	transform: translateY(-3px);
 }
 
-.timeline_nav_info {  /* about me div: timeline icon explanation. */
-	display: none;
-	font-size: 14px;
+.nav_info {  /* about me div: navigation icon explanation. */
+	visibility: hidden;
+	position: relative;
+	font-size: 15px;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	color: #FFFFFF;
-	vertical-align: top;
 	margin-right: 3px;
-	transition: all 120ms;
+	transition: visibility 135ms;
+	transition: background-color 135ms ease-in;
 }
 
+#journey_info {
+	visibility: hidden;
+	position: absolute;
+	color: #205373;
+}
+#journey:hover .nav_info {
+	visibility: visible;
+}
+#journey:hover ~ .nav_info #journey_info {
+	visibility: visible;
+}
+#journey:hover ~ .nav_info span {
+	background-color: #FFFFFF;
+}
+
+#resume_info {
+	visibility: hidden;
+	position: absolute;
+	color: #205373;
+}
+#resume:hover .nav_info {
+	visibility: visible;
+}
+#resume:hover ~ .nav_info #resume_info {
+	visibility: visible;
+}
+#resume:hover ~ .nav_info span {
+	background-color: #FFFFFF;
+}
 
 .case_study {  /* case study div. */
 	position: relative;
-	margin: 0 4% 16px 0;
+	margin: 0 1.5% 16px 0;
 	max-width: 400px;
 	min-width: 220px;
 }
