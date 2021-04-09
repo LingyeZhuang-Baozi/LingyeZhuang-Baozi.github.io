@@ -16,11 +16,6 @@
 	/*background-color: #E3E3E3;*/  /* For testing. */
 }
 
-.flex_div div {  /* flex item: div. */
-	flex-grow: 1;
-	/*background-color: #F0F0F0;*/  /* For testing. */
-}
-
 .center {
 	margin: 0 auto;
 	text-align: center;
@@ -36,6 +31,7 @@
 
 .about_me {  /* about me div. */
 	width: 50%;
+	flex-grow: 1;
 	padding: 0 20px 0 6%;
 }
 
@@ -53,14 +49,14 @@
 	color: #333333;
 }
 
-.navbar {  /* about me div: nav bar div. */
+.navbar {  /* about me div: navigation bar div. */
 	display: flex;
+	flex-grow: 0;
 	justify-content: flex-start;
 	align-items: flex-start;
-	align-content: flex-start;
 }
 
-.contact {  /* about me div: contact button div. */
+.nav_but {  /* about me div: navigation button div. */
 	font-size: 24px;
 	margin: 0 15px 0 0;
 }
@@ -70,24 +66,18 @@
 	transition: transform 120ms;
 }
 
-.contact:hover .contact_but {  /* about me div: contact button (hover effect). */
+.nav_but:hover .contact_but {  /* about me div: navigation button (hover effect). */
 	transform: translateY(-3px);
 }
 
-.timeline_nav {  /* about me div: timeline link div. */
-	font-size: 24px;
-	margin: 0 15px 0 0;
-	border-radius: 3px;
-	height: 24px;
-	display: inline-block;
-}
-
-.timeline_nav a {  /* to remove link underline. */
-	text-decoration: none;
-}
-
-.timeline_nav_icon {  /* about me div: timeline icon. */
+.timeline_but {  /* about me div: timeline icon. */
 	color: #205373;
+	cursor: zoom-in;
+	transition: transform 120ms;
+}
+
+.nav_but:hover .timeline_but {  /* about me div: navigation button (hover effect). */
+	transform: translateY(-3px);
 }
 
 .timeline_nav_info {  /* about me div: timeline icon explanation. */
@@ -96,18 +86,8 @@
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	color: #FFFFFF;
 	vertical-align: top;
-}
-
-.timeline_nav:hover {
-	background-color: #205373;
-}
-
-.timeline_nav:hover .timeline_nav_icon {
-	color: #FFFFFF;
-}
-
-.timeline_nav:hover .timeline_nav_info {
-	display: inline;
+	margin-right: 3px;
+	transition: all 120ms;
 }
 
 
@@ -184,6 +164,12 @@
 
 
 /* Responsive. */
+
+@media screen and (min-width: 1200px), (max-width: 880px) {
+	.case_title { font-size: 18px; }
+	.case_info { font-size: 14px; }
+	.case_des { font-size: 15px; }
+}
 
 @media screen and (max-width: 1100px) and (min-width: 880px) {
 	.case_title { font-size: 15px; }
