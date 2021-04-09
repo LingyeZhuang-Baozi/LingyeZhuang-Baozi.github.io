@@ -32,7 +32,7 @@
 .about_me {  /* about me div. */
 	width: 50%;
 	flex-grow: 1;
-	padding: 0 20px 0 6%;
+	padding: 0 2vw 0 6%;
 }
 
 .name {  /* about me div: my name. */
@@ -92,7 +92,7 @@
 
 .case_study {  /* case study div. */
 	position: relative;
-	margin: 0 4% 20px 0;
+	margin: 0 4% 16px 0;
 	max-width: 400px;
 	min-width: 220px;
 }
@@ -168,12 +168,13 @@
 
 @media screen and (max-width: 880px), (orientation: portrait) {
 	.flex_div { flex-wrap: wrap; }
+	.profile_pic { margin-bottom: 1.8vh; }
 	.selfintro { font-size: 16.5px; }
 	.name { font-size: 18px; }
 }
 
 
 /* Cursor customize. */
-#email { cursor: alias; }
+#email { cursor: grab; }
 #journey { cursor: zoom-in; }
 #resume { cursor: zoom-in; }
