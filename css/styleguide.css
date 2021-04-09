@@ -2,7 +2,7 @@
 
 .page {  /* page width limitation. */
 	width: 75vw;
-	min-width: 500px;
+	min-width: 400px;
 	margin: 0 auto;
 	padding: 5vh 0;
 	/*background-color: #FAF5EF;*/  /* For testing. */
@@ -21,26 +21,18 @@
 	/*background-color: #F0F0F0;*/  /* For testing. */
 }
 
+.center {
+	margin: 0 auto;
+	text-align: center;
+}
+
 
 /* Contents. */
 
-.timeline {  /* timeline div. */
-	width: 50%;
-}
-
-.profile_pic {  /* timeline div: profile picture. */
+.profile_pic {  /* profile picture. */
 	width: 100%;
+	max-width: 500px;
 }
-
-.timestamp {  /* timeline div: timestamp. */
-}
-
-.timestamp_node {  /* timeline div: timestamp node. */
-}
-
-.timestamp:hover .timestamp_node {  /* timeline div: timestamp node (hover effect). */
-}
-
 
 .about_me {  /* about me div. */
 	width: 50%;
@@ -49,27 +41,27 @@
 
 .name {  /* about me div: my name. */
 	font-size: 20px;
-	font-family: Georgia, serif;
+	font-family: Georgia, Times, "Times New Roman", serif;
 	font-weight: bold;
-	color: #205373;
+	color: #0C1D40;
 }
 
 .selfintro {  /* about me div: sel introduction paragraph. */
 	font-size: 18px;
-	font-family: Helvetica, sans-serif;
-	font-weight: 80%;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	line-height: 150%;
 	color: #333333;
 }
 
-.contact_div {  /* about me div: contact bar div. */
+.navbar {  /* about me div: nav bar div. */
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-start;
+	align-content: flex-start;
 }
 
 .contact {  /* about me div: contact button div. */
-	font-size:24px;
+	font-size: 24px;
 	margin: 0 15px 0 0;
 }
 
@@ -79,19 +71,57 @@
 }
 
 .contact:hover .contact_but {  /* about me div: contact button (hover effect). */
-	transform: translateY(-5px);
+	transform: translateY(-3px);
+}
+
+.timeline_nav {  /* about me div: timeline link div. */
+	font-size: 24px;
+	margin: 0 15px 0 0;
+	border-radius: 3px;
+	height: 24px;
+	display: inline-block;
+}
+
+.timeline_nav a {  /* to remove link underline. */
+	text-decoration: none;
+}
+
+.timeline_nav_icon {  /* about me div: timeline icon. */
+	color: #205373;
+}
+
+.timeline_nav_info {  /* about me div: timeline icon explanation. */
+	display: none;
+	font-size: 14px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	color: #FFFFFF;
+	vertical-align: top;
+}
+
+.timeline_nav:hover {
+	background-color: #205373;
+}
+
+.timeline_nav:hover .timeline_nav_icon {
+	color: #FFFFFF;
+}
+
+.timeline_nav:hover .timeline_nav_info {
+	display: inline;
 }
 
 
 .case_study {  /* case study div. */
-	margin: 0 4% 20px 0;
 	position: relative;
+	margin: 0 4% 20px 0;
+	max-width: 400px;
+	min-width: 220px;
 }
 
 .case_header {  /* case study div: header div. */
 	position: absolute;
 	top: 50%;
-	left: 50%;
+	left: 52%;
 	transform: translate(-50%, -50%);
 	width: 80%;
 	color: #333333;
@@ -102,14 +132,20 @@
 }
 
 .case_title {  /* case study div: title. */
-	font-size: 18px;
-	font-family: Georgia, serif;
+	font-size: 16.5px;
+	font-family: Georgia, Times, "Times New Roman", serif;
 	font-weight: bold;
 }
 
+.case_info {  /* case study div: information. */
+	font-size: 13px;
+	line-height: 150%;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
 .case_des {  /* case study div: description. */
-	font-size: 15px;
-	font-family: Helvetica, sans-serif;
+	font-size: 14px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .case_pic_static {  /* case study div: img (static). */
@@ -124,9 +160,43 @@
 }
 
 .case_study:hover .case_header span {  /* case study div: header div (hover effect). */
+	color: #000000;
 	background-color: #FFFFFF;
 }
 
 .case_study:hover .case_pic_static{  /* case study div: img (hover effect). */
 	opacity:0;
+}
+
+
+.timeline {  /* timeline div. */
+	width: 50%;
+}
+
+.timestamp {  /* timeline div: timestamp. */
+}
+
+.timestamp_node {  /* timeline div: timestamp node. */
+}
+
+.timestamp:hover .timestamp_node {  /* timeline div: timestamp node (hover effect). */
+}
+
+
+/* Responsive. */
+
+@media screen and (max-width: 1100px) and (min-width: 880px) {
+	.case_title { font-size: 15px; }
+	.case_info { font-size: 12px; }
+	.case_des { font-size: 12.5px; }
+}
+
+@media screen and (max-width: 960px) and (min-width: 880px) {
+	.case_info { display: none; }
+}
+
+@media screen and (max-width: 880px), (orientation: portrait) {
+	.flex_div { flex-wrap: wrap; }
+	.selfintro { font-size: 16.5px; }
+	.name { font-size: 18px; }
 }
