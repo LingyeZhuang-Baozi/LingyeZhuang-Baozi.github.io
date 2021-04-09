@@ -72,7 +72,6 @@
 
 .timeline_but {  /* about me div: timeline icon. */
 	color: #205373;
-	cursor: zoom-in;
 	transition: transform 120ms;
 }
 
@@ -149,20 +148,6 @@
 }
 
 
-.timeline {  /* timeline div. */
-	width: 50%;
-}
-
-.timestamp {  /* timeline div: timestamp. */
-}
-
-.timestamp_node {  /* timeline div: timestamp node. */
-}
-
-.timestamp:hover .timestamp_node {  /* timeline div: timestamp node (hover effect). */
-}
-
-
 /* Responsive. */
 
 @media screen and (min-width: 1200px), (max-width: 880px) {
@@ -186,3 +171,9 @@
 	.selfintro { font-size: 16.5px; }
 	.name { font-size: 18px; }
 }
+
+
+/* Cursor customize. */
+#email { cursor: alias; }
+#journey { cursor: zoom-in; }
+#resume { cursor: zoom-in; }
