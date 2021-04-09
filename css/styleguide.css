@@ -84,40 +84,40 @@
 }
 
 .nav_info {  /* about me div: navigation icon explanation. */
-	visibility: hidden;
 	position: relative;
 	font-size: 15px;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	margin-right: 3px;
-	transition: visibility 135ms;
-	transition: background-color 135ms ease-in;
+}
+.nav_info span {
+	transition: background-color 120ms ease-in;
 }
 
 #journey_info {
-	visibility: hidden;
+	opacity: 0;
 	position: absolute;
+	margin: 0;
+	width: 100px;
 	color: #205373;
-}
-#journey:hover .nav_info {
-	visibility: visible;
+	transition: opacity 120ms ease-in;
 }
 #journey:hover ~ .nav_info #journey_info {
-	visibility: visible;
+	opacity: 1;
 }
 #journey:hover ~ .nav_info span {
 	background-color: #FFFFFF;
 }
 
 #resume_info {
-	visibility: hidden;
+	opacity: 0;
 	position: absolute;
+	margin: 0;
+	width: 80px;
 	color: #205373;
-}
-#resume:hover .nav_info {
-	visibility: visible;
+	transition: opacity 120ms ease-in;
 }
 #resume:hover ~ .nav_info #resume_info {
-	visibility: visible;
+	opacity: 1;
 }
 #resume:hover ~ .nav_info span {
 	background-color: #FFFFFF;
@@ -177,7 +177,7 @@
 }
 
 .case_study:hover .case_pic_static{  /* case study div: img (hover effect). */
-	opacity:0;
+	opacity: 0;
 }
 
 
