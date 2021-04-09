@@ -85,7 +85,7 @@
 
 .case_study {  /* case study div. */
 	margin: 0 4% 20px 0;
-	position: relative
+	position: relative;
 }
 
 .case_header {  /* case study div: header div. */
@@ -95,6 +95,10 @@
 	transform: translate(-50%, -50%);
 	width: 80%;
 	color: #333333;
+}
+
+.case_header span {  /* to help bgcolor animation. */
+	transition: background-color 135ms ease-in;
 }
 
 .case_title {  /* case study div: title. */
@@ -111,7 +115,7 @@
 .case_pic_static {  /* case study div: img (static). */
 	width: 100%;
 	position: absolute;
-	transition: opacity 135ms;
+	transition: opacity 135ms ease-in;
 }
 
 .case_pic_active {  /* case study div: img (active). */
@@ -125,13 +129,4 @@
 
 .case_study:hover .case_pic_static{  /* case study div: img (hover effect). */
 	opacity:0;
-}
-
-.case_pic {  /* case study div: img. */
-	width: 100%;
-	transition: transform 120ms;
-}
-
-.case_study:hover .case_pic {  /* case study div: img (hover effect). */
-	transform: translateY(-10px);
 }
