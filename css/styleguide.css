@@ -21,6 +21,10 @@
 	text-align: center;
 }
 
+.zoomin {  /* cursor customize. */
+	cursor: zoom-in;
+}
+
 
 /* Contents. */
 
@@ -172,9 +176,3 @@
 	.selfintro { font-size: 16.5px; }
 	.name { font-size: 18px; }
 }
-
-
-/* Cursor customize. */
-#email { cursor: grab; }
-#journey { cursor: zoom-in; }
-#resume { cursor: zoom-in; }
