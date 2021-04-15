@@ -118,6 +118,7 @@ body {  /* default body style. */
 }
 .nav_info span {
 	transition: background-color 120ms ease-in;
+	transition: box-shadow 0s;
 }
 
 #journey_info {
@@ -133,6 +134,8 @@ body {  /* default body style. */
 }
 #journey:hover ~ .nav_info span {
 	background-color: #FFFFFF;
+	box-shadow: 5px 0 0 #FFFFFF;
+	transition: box-shadow 120ms ease;
 }
 
 #resume_info {
@@ -148,6 +151,8 @@ body {  /* default body style. */
 }
 #resume:hover ~ .nav_info span {
 	background-color: #FFFFFF;
+	box-shadow: 5px 0 0 #FFFFFF;
+	transition: box-shadow 120ms ease;
 }
 
 .case_study {  /* case study div. */
@@ -164,7 +169,6 @@ body {  /* default body style. */
 	width: 80%;
 	color: #333333;
 }
-
 .case_header span {  /* to help bgcolor animation. */
 	transition: background-color 135ms ease-in;
 	transition: box-shadow 0s;
@@ -239,10 +243,11 @@ body {  /* default body style. */
 		flex-wrap: wrap;
 		padding: 35px 15px 0 15px;
 	}
+	#top_div { padding-top: 0; }
 	.only_mobile { display: inline; }
 	.only_desktop { display: none; }
 	.profile_pic {
-		height: 30vh;
+		height: 35vh;
 		margin-bottom: 1.8vh;
 	}
 	.name { font-size: 18px; }
