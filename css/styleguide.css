@@ -141,6 +141,7 @@
 
 .case_header span {  /* to help bgcolor animation. */
 	transition: background-color 135ms ease-in;
+	transition: box-shadow 0s;
 }
 
 .case_title {  /* case study div: title. */
@@ -174,6 +175,8 @@
 .case_study:hover .case_header span {  /* case study div: header div (hover effect). */
 	color: #000000;
 	background-color: #FFFFFF;
+	box-shadow: 5px 0 0 #FFFFFF, -5px 0 0 #FFFFFF;
+	transition: box-shadow 120ms ease;
 }
 
 .case_study:hover .case_pic_static{  /* case study div: img (hover effect). */
