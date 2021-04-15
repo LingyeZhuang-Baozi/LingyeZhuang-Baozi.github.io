@@ -1,10 +1,15 @@
 /* Layout. */
 
+body {  /* default body style. */
+	background-color: #FAF5EF;
+	margin: 0;
+}
+
 .page {  /* page width limitation. */
 	width: 75vw;
 	min-width: 400px;
 	margin: 0 auto;
-	padding: 5vh 0;
+	padding: 3vh 0 0 0;
 	/*background-color: #FAF5EF;*/  /* For testing. */
 }
 
@@ -12,7 +17,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 30px 0 0 15px;
+	padding: 35px 0 0 15px;
 	/*background-color: #E3E3E3;*/  /* For testing. */
 }
 
@@ -21,20 +26,38 @@
 	text-align: center;
 }
 
+.only_desktop {}  /* hide in the mobile version. */
+.only_mobile {  /* hide in the desktop version. */
+	display: none;
+}
+
 .zoomin {  /* cursor customize. */
 	cursor: zoom-in;
+}
+
+.supsub {  /* to display supsub together. */
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: space-between;
+	vertical-align: middle;
+	font-size: 50%;
 }
 
 
 /* Contents. */
 
 .profile_pic {  /* profile picture. */
+	height: 45vh;
+	min-height: 200px;
+	object-fit: cover;
+	object-position: 100% 35%;
 	width: 100%;
 	max-width: 500px;
 }
 
 .about_me {  /* about me div. */
 	width: 50%;
+	max-width: 500px;
 	flex-grow: 1;
 	padding: 0 2vw 0 6%;
 }
@@ -58,11 +81,15 @@
 	flex-grow: 0;
 	justify-content: flex-start;
 	align-items: flex-start;
+	margin: 20px 0 0;
 }
 
 .nav_but {  /* about me div: navigation button div. */
-	font-size: 24px;
+	font-size: 26px;
 	margin: 0 15px 0 0;
+}
+.nav_but .material-icons {
+	font-size: 26px;
 }
 
 .contact_but {  /* about me div: contact button. */
@@ -96,7 +123,7 @@
 #journey_info {
 	opacity: 0;
 	position: absolute;
-	margin: 2px 0;
+	margin: 3px 0;
 	width: 100px;
 	color: #205373;
 	transition: opacity 120ms ease-in;
@@ -111,7 +138,7 @@
 #resume_info {
 	opacity: 0;
 	position: absolute;
-	margin: 2px 0;
+	margin: 3px 0;
 	width: 80px;
 	color: #205373;
 	transition: opacity 120ms ease-in;
@@ -126,8 +153,7 @@
 .case_study {  /* case study div. */
 	position: relative;
 	margin: 0 1.5% 16px 0;
-	max-width: 400px;
-	min-width: 220px;
+	max-width: 500px;
 }
 
 .case_header {  /* case study div: header div. */
@@ -161,14 +187,19 @@
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-.case_pic_static {  /* case study div: img (static). */
+.case_pic {
+	height: 35vh;
+	min-height: 200px;
+	object-fit: cover;
 	width: 100%;
+}
+
+.case_pic_static {  /* case study div: img (static). */
 	position: absolute;
 	transition: opacity 135ms ease-in;
 }
 
 .case_pic_active {  /* case study div: img (active). */
-	width: 100%;
 	z-index: -1;
 }
 
@@ -186,25 +217,40 @@
 
 /* Responsive. */
 
-@media screen and (min-width: 1200px), (max-width: 880px) {
+@media screen and (min-width: 1100px) {
 	.case_title { font-size: 18px; }
 	.case_info { font-size: 14px; }
 	.case_des { font-size: 15px; }
 }
 
-@media screen and (max-width: 1100px) and (min-width: 880px) {
+@media screen and (max-width: 1000px) {
 	.case_title { font-size: 15px; }
 	.case_info { font-size: 12px; }
 	.case_des { font-size: 12.5px; }
 }
 
-@media screen and (max-width: 960px) and (min-width: 880px) {
+@media screen and (max-width: 880px) {
 	.case_info { display: none; }
 }
 
-@media screen and (max-width: 880px), (orientation: portrait) {
-	.flex_div { flex-wrap: wrap; }
-	.profile_pic { margin-bottom: 1.8vh; }
-	.selfintro { font-size: 16.5px; }
+@media screen and (max-width: 580px), (orientation: portrait) {
+	.page { padding: 0; }
+	.flex_div {
+		flex-wrap: wrap;
+		padding: 35px 15px 0 15px;
+	}
+	.only_mobile { display: inline; }
+	.only_desktop { display: none; }
+	.profile_pic {
+		height: 30vh;
+		margin-bottom: 1.8vh;
+	}
 	.name { font-size: 18px; }
+	.case_title { font-size: 16.5px; }
+	.case_info {
+		display: inline;
+		font-size: 14px;
+	}
+	.case_des { font-size: 15px; }
+	.case_pic { height: 20vh; }
 }
