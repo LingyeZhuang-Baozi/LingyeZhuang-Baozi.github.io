@@ -45,18 +45,22 @@
 }
 #node_19F {
 	top: 75px;
-	bottom: 68px;
+	bottom: 84px;
 }
 #node_20W {
 	top: 91px;
-	bottom: 52px;
+	bottom: 68px;
 }
 #node_20S {
 	top: 107px;
+	bottom: 52px;
+}
+#node_20su {
+	top: 123px;
 	bottom: 36px;
 }
 #node_20F {
-	top: 123px;
+	top: 139px;
 	bottom: 20px;
 }
 
@@ -84,11 +88,63 @@
 }
 
 .info_div {  /* quarter info div. */
-	margin-left: 100px;
+	margin: 0 0 3vh 120px;
 }
 
-.flex_div {  /* flex div container wrap-able for the all journeys page. */
-	flex-wrap: wrap;
+.flex_div {  /* customize flex div for the all journeys page. */
+	flex-wrap: wrap;  /* flex div container wrap-able. */
+	padding: 3vh 0 12px 0;
+}
+
+.slide {  /* slideshow helper. */
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 50vw;
+	text-align: center;
+}
+
+.light {  /* slideshow background color. */
+	background-color: #FFFFFF;
+}
+.dark {
+	background-color: #333333;
+}
+
+.slide_pic {  /* slideshow: image. */
+	height: 35vh;
+	min-height: 200px;
+	object-fit: contain;
+	margin: 0 calc(25vw-50%);
+}
+
+.slide_but {  /* slideshow: prev & next buttons. */
+	color: #4BCAD1;
+	background: none;
+	border: none;
+	height: 35vh;
+	min-height: 200px;
+}
+.slide_but span {
+	font-size: 45px;
+}
+
+.slidenode_div {  /* slideshow: slidenodes div. */
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.slidenode {  /* slideshow: slidenode. */
+	border: none;
+	padding: 0;
+	margin: 10px 4px 0;
+	background-color: #E3E3E3;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
 }
 
 .case_study {  /* case study div. */

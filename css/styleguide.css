@@ -18,6 +18,13 @@ body {  /* default body style. */
 	to { opacity: 1; }
 }
 
+html {  /* control scrolling effects. */
+	scroll-behavior: smooth;
+}
+body {
+	overscroll-behavior: none;
+}
+
 .flex_div {  /* flex container. */
 	display: flex;
 	justify-content: center;
@@ -29,10 +36,6 @@ body {  /* default body style. */
 .center {
 	margin: 0 auto;
 	text-align: center;
-}
-
-html {  /* smooth scrolling effect. */
-  scroll-behavior: smooth;
 }
 
 .only_desktop {}  /* hide in the mobile version. */
