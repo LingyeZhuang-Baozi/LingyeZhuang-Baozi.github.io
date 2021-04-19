@@ -4,12 +4,25 @@ Flex container:
 	https://www.w3schools.com/css/css3_flexbox.asp
 	https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 
-Hover animation:
+Position arrangement:
+	https://www.w3schools.com/howto/howto_css_image_text.asp
+	https://www.w3schools.com/css/css_positioning.asp
+	https://www.w3schools.com/cssref/css3_pr_mediaquery.asp
+	https://stackoverflow.com/questions/3742975/subscript-and-superscript-for-the-same-element
+	https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit
+	https://www.w3schools.com/howto/howto_css_sticky_element.asp
+	https://stackoverflow.com/questions/2519923/get-rid-of-spaces-between-spans
+	https://css-tricks.com/when-do-you-use-inline-block/
+
+Animation:
+	https://youtu.be/zWB219zf1og
 	https://www.joshwcomeau.com/animation/css-transitions/
+	https://www.w3schools.com/css/css3_animations.asp
 	https://codepen.io/QDeltaE/pen/VWGYOB
 	https://www.geeksforgeeks.org/how-to-add-image-in-text-background-using-html-and-css/
 	https://css-tricks.com/using-css-cursors/
 	https://stackoverflow.com/questions/4502633/how-to-affect-other-elements-when-one-element-is-hovered
+	https://www.w3schools.com/howto/howto_css_smooth_scroll.asp
 
 Fonts:
 	https://www.tutorialbrain.com/css_tutorial/css_font_family_list/
@@ -19,14 +32,13 @@ Fonts:
 
 Theme color:
 	https://color.adobe.com/create/color-wheel
-
-Position arrangement:
-	https://www.w3schools.com/howto/howto_css_image_text.asp
-	https://www.w3schools.com/css/css_positioning.asp
-	https://www.w3schools.com/cssref/css3_pr_mediaquery.asp
-	https://stackoverflow.com/questions/3742975/subscript-and-superscript-for-the-same-element
-	https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit
+	https://www.w3schools.com/howto/howto_css_text_selection.asp
 
 Material icons:
 	https://fonts.google.com/icons
 	https://www.w3schools.com/icons/tryit.asp?filename=tryicons_fa-instagram
+
+Logics:
+	https://www.arungudelli.com/tutorial/css/disable-text-selection-in-html-using-user-select-css-property/
+	https://davidwalsh.name/detect-sticky
+	https://stackoverflow.com/questions/7182342/how-to-detect-when-the-user-has-scrolled-to-a-certain-area-on-the-page-using-jqu/7182403

@@ -10,7 +10,12 @@ body {  /* default body style. */
 	min-width: 400px;
 	margin: 0 auto;
 	padding: 3vh 0 0 0;
+	animation: load 0.6s;
 	/*background-color: #FAF5EF;*/  /* For testing. */
+}
+@keyframes load {  /* animation when a new page is loaded. */
+	from { opacity: 0; }
+	to { opacity: 1; }
 }
 
 .flex_div {  /* flex container. */
@@ -26,6 +31,10 @@ body {  /* default body style. */
 	text-align: center;
 }
 
+html {  /* smooth scrolling effect. */
+  scroll-behavior: smooth;
+}
+
 .only_desktop {}  /* hide in the mobile version. */
 .only_mobile {  /* hide in the desktop version. */
 	display: none;
@@ -33,6 +42,28 @@ body {  /* default body style. */
 
 .zoomin {  /* cursor customize. */
 	cursor: zoom-in;
+}
+
+::selection {  /* selection customize. */
+	color: #FAF5EF;
+	background: #205373;
+}
+::-moz-selection {
+	color: #FAF5EF;
+	background: #205373;
+}
+
+.dis_select {  /* to disable selecting this element. */
+	user-select: none; /* Chrome, Opera */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+@keyframes bounce {  /* bouncing animation. */
+	0%, 100% { transform: translateY(0px); }
+	50% { transform: translateY(-3px); }
 }
 
 .supsub {  /* to display supsub together. */
