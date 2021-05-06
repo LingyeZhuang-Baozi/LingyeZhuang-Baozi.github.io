@@ -147,6 +147,10 @@
 	border-radius: 50%;
 }
 
+.slidenode.light {  /* slideshow: when lighting a slidenode. */
+	background-color: #4BCAD1;
+}
+
 .case_study {  /* case study div. */
 	position: relative;
 	margin: 0 1.5% 16px 0;

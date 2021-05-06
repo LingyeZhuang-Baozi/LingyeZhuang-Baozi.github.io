@@ -46,6 +46,9 @@ body {
 .zoomin {  /* cursor customize. */
 	cursor: zoom-in;
 }
+.zoomout {
+	cursor: zoom-out;
+}
 
 ::selection {  /* selection customize. */
 	color: #FAF5EF;

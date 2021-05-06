@@ -126,20 +126,20 @@
 	<div class="info_div dis_select" id="20W">
 		<div><!-- slideshow. -->
 			<div class="slide">
-				<button class="prev slide_but">
+				<button class="prev slide_but" id="siema_20W_1_prev">
 					<span class="material-icons">arrow_left</span>
 				</button>
 				<div class="siema_20W_1">
 					<div><img src="image/tumbnail-ENG100L(C).PNG" alt="Thumbnail: PadPal" class="slide_pic"></div>
 					<div><img src="image/tumbnail-ENG100L(C).PNG" alt="Thumbnail: PadPal" class="slide_pic"></div>
 				</div>
-				<button class="next slide_but">
+				<button class="next slide_but" id="siema_20W_1_next">
 					<span class="material-icons">arrow_right</span>
 				</button>
 			</div>
 			<div class="slidenode_div">
-				<button class="slidenode slidenode_0"></button>
-				<button class="slidenode slidenode_1"></button>
+				<button class="slidenode light" id="siema_20W_1_slidenode_0" value="0"></button>
+				<button class="slidenode" id="siema_20W_1_slidenode_1" value="1"></button>
 			</div>
 		</div>
 	</div>
@@ -361,23 +361,39 @@
 </div></div>
 
 <script>/* for semia slides. */
-	const all_siema = {
-		siema_20W_1:
-			new Siema({
+	var all_siema = {  /* { siema [slide, length] }. */
+		siema_20W_1: [new Siema ({
 				selector: ".siema_20W_1",
+				easing: 'ease-in-out',
 				perPage: 1,
 				loop: true,
-			})
+			}), 2]
 	};
 	for (key in all_siema) {
-		console.log ("here");
-		document.querySelector('.prev').addEventListener('click', () => all_siema[key].prev());
-		document.querySelector('.next').addEventListener('click', () => all_siema[key].next());
-		document.querySelector('.slidenode_0').addEventListener('click', () => {
-			all_siema[key].goTo(0);
-
+		document.querySelector('#'+key+'_prev').addEventListener('click', () => {
+			all_siema[key][0].prev();
+			move_slidenode (key);
 		});
-		document.querySelector('.slidenode_1').addEventListener('click', () => all_siema[key].goTo(1));
+		document.querySelector('#'+key+'_next').addEventListener('click', () => {
+			all_siema[key][0].next();
+			move_slidenode (key);
+		});
+		for (var n = 0; n < all_siema[key][1]; n++) { (function assign_slidenode () {
+			var select_node = document.querySelector('#'+key+'_slidenode_'+n.toString());
+			select_node.addEventListener('click', () => {
+				all_siema[key][0].goTo(parseInt(select_node.value, 10));
+				move_slidenode (key);
+			});
+		}()); } // immediate invocation
+	}
+	function move_slidenode (key) {
+		for (var n = 0; n < all_siema[key][1]; n++) {
+			if (n == all_siema[key][0].currentSlide) {
+				document.querySelector('#'+key+'_slidenode_'+n.toString()).classList.add("light");
+			} else {
+				document.querySelector('#'+key+'_slidenode_'+n.toString()).classList.remove("light");
+			}
+		}
 	}
 </script>
 
