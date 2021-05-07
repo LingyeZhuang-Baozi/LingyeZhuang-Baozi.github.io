@@ -22,7 +22,7 @@ html {  /* control scrolling effects. */
 	scroll-behavior: smooth;
 }
 body {
-	overscroll-behavior: none;
+	overscroll-behavior-y: none;
 }
 
 .flex_div {  /* flex container. */
