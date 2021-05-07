@@ -80,6 +80,10 @@ body {
 	font-size: 50%;
 }
 
+.margin {  /* margin between sections. */
+	height: 3vh;
+}
+
 
 /* Responsive. */
 
