@@ -7,6 +7,10 @@
 	animation: load 0.6s;
 }
 
+body.avoid_swipe {
+	overscroll-behavior-x: none;
+}
+
 .flex_div {  /* customize flex div for the case studies. */
 	justify-content: space-between;
 	padding: 15px 35px;
