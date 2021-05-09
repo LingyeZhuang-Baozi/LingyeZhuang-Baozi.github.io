@@ -116,6 +116,7 @@
 	border-radius: 2.5px;
 	transform: translate(-50%, -50%);
 	color: #333333;
+	transition: color 135ms ease-in;
 	transition: background-color 135ms ease-in;
 }
 .case_header p {
@@ -134,12 +135,14 @@
 	font-size: 16.5px;
 	font-family: Georgia, Times, "Times New Roman", serif;
 	font-weight: bold;
+	transition: color 135ms ease-in;
 }
 
 .case_info {  /* case study div: information. */
 	font-size: 13px;
 	line-height: 150%;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	transition: color 135ms ease-in;
 }
 
 .case_des {  /* case study div: description. */
@@ -156,6 +159,8 @@
 
 .case_pic_static {  /* case study div: img (static). */
 	position: absolute;
+	/*border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
+	border-radius: 35% 15% 15% 35% / 30% 20% 30% 20%;*/
 	transition: opacity 135ms ease-in;
 }
 
@@ -166,6 +171,12 @@
 .case_study:hover .case_header {  /* case study div: header div (hover effect). */
 	color: #000000;
 	background-color: rgba(255, 255, 255, 0.75);
+}
+.case_study:hover .case_title {
+	color: #071126;
+}
+.case_study:hover .case_info {
+	color: #205373;
 }
 
 .case_study:hover .case_pic_static{  /* case study div: img (hover effect). */
