@@ -94,6 +94,11 @@ b {
 	margin-left: 10px;
 }
 
+.full_width {  /* content that extents to full screen width. */
+	width: 98vw;
+	margin-left: -14vw;
+}
+
 .img_div {
 	display: flex;
 	justify-content: space-between;

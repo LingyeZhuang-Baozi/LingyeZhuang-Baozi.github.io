@@ -1,5 +1,10 @@
 /* Contents. */
 
+body {  /* dcustomize page color. */
+	background-color: #205373;
+	margin: 0;
+}
+
 .timeline {  /* line of time line on the left. */
 	border-left: 3px solid #4BCAD1;
 	margin-left: 15px;
@@ -11,7 +16,7 @@
 	transform: translateX(-50%) translateX(-1.35px);
 	top: 0;
 	height: 50px;
-	background-color: #FAF5EF;
+	background-color: #205373;
 	padding: 5px;
 }
 
@@ -21,7 +26,7 @@
 }
 .home_icon {  /* home button: icon. */
 	margin-top: 20px;
-	color: #205373;
+	color: #FAF5EF;
 }
 
 .home_but:hover .home_icon {
@@ -41,7 +46,7 @@
 	height: 10px;
 	border: 3px solid #4BCAD1;
 	border-radius: 50%;
-	background-color: #FAF5EF;
+	background-color: #205373;
 }
 #node_19F {
 	top: 75px;
@@ -84,11 +89,11 @@
 }
 
 .timestamp.stuck .timestamp_time {  /* visible timestamp. */
-	color: #205373;
+	color: #FAF5EF;
 }
 
 .info_div {  /* quarter info div. */
-	margin: 0 0 3vh 120px;
+	margin-left: 120px;
 }
 
 .flex_div {  /* customize flex div for the all journeys page. */
