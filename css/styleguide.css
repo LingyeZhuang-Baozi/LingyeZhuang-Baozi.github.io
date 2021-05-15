@@ -53,10 +53,12 @@ body {
 ::selection {  /* selection customize. */
 	color: #FAF5EF;
 	background: #205373;
+	text-shadow: none;
 }
 ::-moz-selection {
 	color: #FAF5EF;
 	background: #205373;
+	text-shadow: none;
 }
 
 .dis_select {  /* to disable selecting this element. */

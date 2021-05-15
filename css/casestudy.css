@@ -110,6 +110,16 @@ b {
 	margin: 0 10px;
 }
 
+.caption {
+	text-align: center;
+	margin: 0;
+	font-size: 13.5px;
+	color: #333333;
+}
+.caption span {  /* arrow. */
+	font-size: 16px;
+}
+
 .case_img {
 	vertical-align: text-top;
 	margin: 10px 0;
