@@ -9,6 +9,7 @@
 
 body.avoid_swipe {
 	overscroll-behavior-x: none;
+	overflow: hidden;  /* for the rest of body to stop scrolling. */
 }
 
 .flex_div {  /* customize flex div for the case studies. */
@@ -92,6 +93,10 @@ b {
 }
 .box_section p {
 	margin-left: 10px;
+}
+
+.box_section_title {  /* for better layout, long box section have more margin at the beginning. */
+	padding-top: 4px;
 }
 
 .full_width {  /* content that extents to full screen width. */

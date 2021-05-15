@@ -71,21 +71,33 @@
 		</div>
 
 		<div class="section">
-			<div class="section_title"><p>&#9654 Only after a thousand entreaties does she appear</p></div>
+			<div class="section_title zoomin" id="song_of_the_lute_player"><p>&#9654 Only after a thousand entreaties does she appear</p></div>
 			<div>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(This part is to specifically talk about some features that we focused on and the reasons behind final decisions. Showcase pictures of the many versions and iterations that we created.)
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I want to tell you about three features that I am most proud of. Through many iterations did we came to these solutions that work the best.
 				</p>
 			</div>
-			<div class="box_section">
+			<div class="box_section box_section_title">
 				<p><b>Sub-community page</b></p>
 				<div>
-					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desktop version: the lovely color bar to smartly distinguish sections. More text here more text here more text here.</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On the old website, sub-communities appeared merely as names. The users had to click them one by one to get further information. Even then, some of the links directly led to the sub-co's discords instead of any description page, which was very unacceptable according to our interviewees.</p>
 				</div>
 				<div class="img_div">
-					<div style="width:30%"><img src="../image/community-lowfi.png" alt="Low-fi prototype of community page" class="case_img"></div>
+					<div>
+						<img src="../image/community-lowfi.png" alt="Low-fi prototype of community page" class="case_img" style="width:30%;margin-right:20px;" align="left">
+						<!--<p class="caption"><span>&#9652 </span>low fidelity prototype for communities page</p>-->
+						<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To collectively provide introduction to sub-co, we thought of using an accordion list under a new "communities" tab.</p>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Without any clicking, the user would be able to read and compare the basic descriptions of all sub-co. While upon clicking, videos and images of the sub-co's events and projects would expand to show.</p>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then we heard that most sub-co wanted to customize their own website beyond our main one, since their contents varied widely. So we decided to only offer the most basic and important information in text on the communities page, with links to each sub-co's social medias and own website.</p>
+					</div>
+				</div>
+				<div>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then we heard that most of the sub-communities wanted to customize their own webpage, so we decided that in the communities page of the website we </p>
+				</div>
+				<div class="img_div">
 					<div style="width:30%"><img src="../image/community-compare.png" alt="Community page without side bar" class="mined_img mined_desktop zoomin"></div>
 					<div style="width:35%"><img src="../image/community.png" alt="Community page without side bar" class="mined_img mined_desktop zoomin chosen"></div>
 				</div>
+				<!--<p class="caption"><span>&#9652 </span>from low-fi sketch to refined hi-fi prototype</p>-->
 				<div>
 					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mobile version: long scroll → more readable multiple pages → better navigation. More text here more text here more text here.</p>
 				</div>
@@ -106,7 +118,7 @@
 			</div>
 			<div class="margin"></div>
 
-			<div class="box_section">
+			<div class="box_section box_section_title">
 				<p><b>Board member section</b></p>
 				<div>
 					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: Dropdown vs. tabs vs. bubbles, chose the bubbles style. Color choice and toggle effect. More text here more text here more text here.</p>
@@ -137,7 +149,7 @@
 			</div>
 			<div class="margin"></div>
 
-			<div class="box_section">
+			<div class="box_section box_section_title">
 				<p><b>Navigation bar</b></p>
 				<div>
 					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desktop version: ordering and wording. More text here more text here more text here. More text here more text here more text here.</p>
@@ -207,4 +219,15 @@
 </div>
 
 <script src="../js/casestudy.js"></script>
+<script>
+	var allusion = document.querySelector("#song_of_the_lute_player");  // special img embed for "Only after a thousand entreaties does she appear"
+	var modal_desktop = document.querySelector(".modal_desktop");
+	var modal_img_desktop = document.querySelector(".modal_img_desktop");
+	var body = document.querySelector("body");
+	allusion.addEventListener('click', event => {  // open modal img
+		modal_img_desktop.src = "../image/song_of_the_lute_player.png";
+		modal_desktop.style.display = "block";
+		body.classList.add("avoid_swipe");  // avoid swiping back or background scrolling
+	});
+</script>
 </body>
