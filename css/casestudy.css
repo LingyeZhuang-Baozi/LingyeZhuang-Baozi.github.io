@@ -144,8 +144,8 @@ b {
 	box-shadow: 0 0 0 2px #4BCAD1, 0 0 4px 2px #E3E3E3, 0 0 4px 2px #FFFFFF;
 	transform: scale(1.012);
 }
-.mined_desktop{}
-.mined_img{}
+.mined_desktop{ width: 100%; }
+.mined_img{ width: 100%; }
 
 .chosen {
 	width: 120%;
@@ -153,6 +153,19 @@ b {
 }
 .mined_img.chosen:hover {
 	box-shadow: 0 0 0 2px #4BCAD1, 0 0 1px #FFFFFF, 0 0 2px #FFFFFF, 0 0 3px #4BCAD1, 0 0 4px #4BCAD1, 0 0 8px #4BCAD1, 0 0 8px #FFFFFF;
+}
+
+.short_img {  /* for displaying scrollable short img. */
+	display:inline-block;
+	object-fit: cover;
+	overflow: scroll;
+	scrollbar-color: transparent transparent;
+	overflow: -moz-scrollbars-none;  /* hide scrollbar: mozilla. */
+	scrollbar-width: none;  /* hide scrollbar: firefox. */
+	-ms-overflow-style: none;  /* hide scrollbar: internet explorers. */
+}
+.scroll-hide ul::-webkit-scrollbar {  /* hide scrollbar: webkit. */
+	display: none; 
 }
 
 .modal {  /* max-min img: modal background when max. */

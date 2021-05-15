@@ -1,6 +1,8 @@
 /* Starry effect. */
-/* Credit: @screenshake (Saransh Sinha). */
-/* Reference: https://codemyui.com/parallax-pixel-stars-using-pure-css. */
+/* Bsed on reference:
+	https://codemyui.com/parallax-pixel-stars-using-pure-css.
+	by @screenshake (Saransh Sinha).
+*/
 
 #stars1 {
   position: fixed;
