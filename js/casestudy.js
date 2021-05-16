@@ -30,12 +30,13 @@ modal_mobile.addEventListener('click', () => {
 });
 
 /* Nav menu. */
-var scrollPos = 0;  // Initial state
+var scrollPos = (document.body.getBoundingClientRect()).top;;  // Initial state
 var navbar = document.querySelector(".home_nav");
 window.addEventListener('scroll', function(){
-	if ((document.body.getBoundingClientRect()).top > scrollPos) {  // scroll up
+	console.log (scrollPos);
+	if ((document.body.getBoundingClientRect()).top > (scrollPos+20) /*&& window.scrollY > 0*/ ) {  // scroll up
 		navbar.classList.add("home_nav_down");
-	} else {  // scroll down
+	} else if ((document.body.getBoundingClientRect()).top < scrollPos) {  // scroll down
 		navbar.classList.remove("home_nav_down");
 	}
 	scrollPos = (document.body.getBoundingClientRect()).top;  // save the new position for iteration
