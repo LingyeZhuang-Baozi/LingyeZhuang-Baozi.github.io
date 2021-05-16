@@ -28,3 +28,15 @@ modal_mobile.addEventListener('click', () => {
 	modal_mobile.style.display = "none";
 	body.classList.remove("avoid_swipe");
 });
+
+/* Nav menu. */
+var scrollPos = 0;  // Initial state
+var navbar = document.querySelector(".home_nav");
+window.addEventListener('scroll', function(){
+	if ((document.body.getBoundingClientRect()).top > scrollPos) {  // scroll up
+		navbar.classList.add("home_nav_down");
+	} else {  // scroll down
+		navbar.classList.remove("home_nav_down");
+	}
+	scrollPos = (document.body.getBoundingClientRect()).top;  // save the new position for iteration
+});

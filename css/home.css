@@ -170,7 +170,7 @@
 
 .case_study:hover .case_header {  /* case study div: header div (hover effect). */
 	color: #000000;
-	background-color: rgba(255, 255, 255, 0.75);
+	background-color: rgba(255, 255, 255, 0.75);  /* #FFFFFF. */
 }
 .case_study:hover .case_title {
 	color: #071126;

@@ -193,6 +193,32 @@ b {
 	height: 100%;
 }
 
+.home_nav {  /* navigate home dic. */
+	position: fixed;
+	transform: translateX(6.25vw) translateX(-50%);
+	top: -41px;
+	padding: 5px;
+	background-color: rgba(250, 245, 239, 0.75);  /* #FAF5EF. */
+	border-radius: 2.5px;
+	transition: top 135ms ease-in 500ms;
+}
+
+.home_but {}  /* nav home: icon container. */
+.home_but .material-icons {
+	font-size: 30px;
+}
+.home_icon {  /* nav home: home icon. */
+	color: #205373;
+}
+
+.home_but:hover .home_icon {
+	animation: bounce 0.6s infinite;
+}
+
+.home_nav_down {  /* nav home: when page scroll up. */
+	top: 20;
+}
+
 .link {
 	font-size: 18px;
 	color: #333333;
