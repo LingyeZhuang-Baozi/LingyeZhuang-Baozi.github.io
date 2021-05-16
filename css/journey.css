@@ -3,6 +3,13 @@
 body {  /* dcustomize page color. */
 	background-color: #205373;
 	margin: 0;
+	animation: load_journey 0.9s;
+}
+
+@keyframes load_journey {  /* customize animation onload. */
+	0% { background-color: #FAF5EF; }
+	35% { background-color: #071126; }
+	100% { background-color: #205373; }
 }
 
 .timeline {  /* line of time line on the left. */
@@ -18,6 +25,7 @@ body {  /* dcustomize page color. */
 	height: 50px;
 	background-color: #205373;
 	padding: 5px;
+	animation: load_journey 0.9s;
 }
 
 .home_but {}  /* home button: icon container. */
