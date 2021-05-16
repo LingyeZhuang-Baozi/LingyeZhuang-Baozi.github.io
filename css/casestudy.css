@@ -145,7 +145,8 @@ b {
 	transform: scale(1.012);
 }
 .mined_desktop{ width: 100%; }
-.mined_img{ width: 100%; }
+.mined_mobile{ width: 100%; }
+.mined_wide { width: 100%; }
 
 .chosen {
 	width: 120%;
@@ -181,6 +182,7 @@ b {
 }
 .modal_desktop{}
 .modal_mobile{}
+.modal_wide{}
 
 .modal_img_desktop {  /* max-min img: img in the maxed modal (desktop). */
 	margin: auto;
@@ -191,6 +193,13 @@ b {
 	margin: auto;
 	display: block;
 	height: 100%;
+}
+.modal_img_wide {  /* max-min img: img in the maxed modal (wide). */
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: block;
+	width: 100%;
 }
 
 .home_nav {  /* navigate home dic. */

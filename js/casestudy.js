@@ -1,10 +1,13 @@
 /* Max-min img. */
 var img_desktop = document.querySelectorAll(".mined_desktop");
 var img_mobile = document.querySelectorAll(".mined_mobile");
+var img_wide = document.querySelectorAll(".mined_wide");
 var modal_desktop = document.querySelector(".modal_desktop");
 var modal_img_desktop = document.querySelector(".modal_img_desktop");
 var modal_mobile = document.querySelector(".modal_mobile");
 var modal_img_mobile = document.querySelector(".modal_img_mobile");
+var modal_wide = document.querySelector(".modal_wide");
+var modal_img_wide = document.querySelector(".modal_img_wide");
 var body = document.querySelector("body");
 img_desktop.forEach(item => {
 	item.addEventListener('click', event => {  // open modal img
@@ -28,12 +31,22 @@ modal_mobile.addEventListener('click', () => {
 	modal_mobile.style.display = "none";
 	body.classList.remove("avoid_swipe");
 });
+img_wide.forEach(item => {
+	item.addEventListener('click', event => {
+		modal_img_wide.src = item.src;
+		modal_wide.style.display = "block";
+		body.classList.add("avoid_swipe");
+	})
+});
+modal_wide.addEventListener('click', () => {
+	modal_wide.style.display = "none";
+	body.classList.remove("avoid_swipe");
+});
 
 /* Nav menu. */
 var scrollPos = (document.body.getBoundingClientRect()).top;;  // Initial state
 var navbar = document.querySelector(".home_nav");
 window.addEventListener('scroll', function(){
-	console.log (scrollPos);
 	if ((document.body.getBoundingClientRect()).top > (scrollPos+20) /*&& window.scrollY > 0*/ ) {  // scroll up
 		navbar.classList.add("home_nav_down");
 	} else if ((document.body.getBoundingClientRect()).top < scrollPos) {  // scroll down
