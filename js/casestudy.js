@@ -43,16 +43,19 @@ modal_wide.addEventListener('click', () => {
 	body.classList.remove("avoid_swipe");
 });
 
-/* Nav menu. */
+/* Nav menu and bottom overscroll. */
 var scrollPos = (document.body.getBoundingClientRect()).top;;  // Initial state
 var navbar = document.querySelector(".home_nav");
-var body_div = document.querySelector("body");  // assist overscroll bounce at bottom of page
+var body_div = document.querySelector("body");
 window.addEventListener('scroll', function(){
 	if ((document.body.getBoundingClientRect()).top > (scrollPos+20) /*&& window.scrollY > 0*/ ) {  // scroll up
 		navbar.classList.add("home_nav_down");
-		body.classList.remove("bottom_bounce");
 	} else if ((document.body.getBoundingClientRect()).top < scrollPos) {  // scroll down
 		navbar.classList.remove("home_nav_down");
+	}
+	if ((document.body.getBoundingClientRect()).top >= scrollPos) {  // scroll up
+		body.classList.remove("bottom_bounce");
+	} else {  // scroll down
 		body.classList.add("bottom_bounce");
 	}
 	scrollPos = (document.body.getBoundingClientRect()).top;  // save the new position for iteration
