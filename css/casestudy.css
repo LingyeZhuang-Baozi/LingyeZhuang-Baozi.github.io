@@ -28,6 +28,7 @@ b {
 
 .title {
 	margin-bottom: 3vh;
+	overscroll-behavior-y: none;
 }
 
 .title_text {  /* title text font. */
