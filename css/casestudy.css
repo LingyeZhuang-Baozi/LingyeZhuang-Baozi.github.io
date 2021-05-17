@@ -12,6 +12,14 @@ body.avoid_swipe {
 	overflow: hidden;  /* for the rest of body to stop scrolling. */
 }
 
+.bottom_bounce {  /* customize overscroll bahavior at page bottom. */
+	overscroll-behavior-y: contain;
+}
+html {
+	background-color: #4BCAD1;
+	/*background-image: url("../image/tumbnail-ACM.png");*/
+}
+
 .flex_div {  /* customize flex div for the case studies. */
 	justify-content: space-between;
 	padding: 15px 35px;
