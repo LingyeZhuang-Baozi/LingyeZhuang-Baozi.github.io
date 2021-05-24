@@ -2,12 +2,15 @@
 var img_desktop = document.querySelectorAll(".mined_desktop");
 var img_mobile = document.querySelectorAll(".mined_mobile");
 var img_wide = document.querySelectorAll(".mined_wide");
+var img_huge = document.querySelectorAll(".mined_huge");
 var modal_desktop = document.querySelector(".modal_desktop");
 var modal_img_desktop = document.querySelector(".modal_img_desktop");
 var modal_mobile = document.querySelector(".modal_mobile");
 var modal_img_mobile = document.querySelector(".modal_img_mobile");
 var modal_wide = document.querySelector(".modal_wide");
 var modal_img_wide = document.querySelector(".modal_img_wide");
+var modal_huge = document.querySelector(".modal_huge");
+var modal_img_huge = document.querySelector(".modal_img_huge");
 var body = document.querySelector("body");
 img_desktop.forEach(item => {
 	item.addEventListener('click', event => {  // open modal img
@@ -40,6 +43,17 @@ img_wide.forEach(item => {
 });
 modal_wide.addEventListener('click', () => {
 	modal_wide.style.display = "none";
+	body.classList.remove("avoid_swipe");
+});
+img_huge.forEach(item => {
+	item.addEventListener('click', event => {
+		modal_img_huge.src = item.src;
+		modal_huge.style.display = "block";
+		body.classList.add("avoid_swipe");
+	})
+});
+modal_huge.addEventListener('click', () => {
+	modal_huge.style.display = "none";
 	body.classList.remove("avoid_swipe");
 });
 

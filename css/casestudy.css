@@ -151,6 +151,7 @@ b {
 .mined_desktop{ width: 100%; }
 .mined_mobile{ width: 100%; }
 .mined_wide { width: 100%; }
+.mined_huge { width: 100%; }
 
 .chosen {
 	width: 120%;
@@ -187,6 +188,7 @@ b {
 .modal_desktop{}
 .modal_mobile{}
 .modal_wide{}
+.modal_huge{}
 
 .modal_img_desktop {  /* max-min img: img in the maxed modal (desktop). */
 	margin: auto;
@@ -205,6 +207,7 @@ b {
 	display: block;
 	width: 100%;
 }
+.modal_img_wide {}  /* max-min img: img in the maxed modal (huge). */
 
 .wider_width {  /* content as wide as title image. */
 	width: 75vw;
