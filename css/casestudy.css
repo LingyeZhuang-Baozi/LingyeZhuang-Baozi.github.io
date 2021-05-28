@@ -290,7 +290,7 @@ b {
 	font-size: 30px;
 }
 .nav_icon {  /* home button: icon. */
-	color: #205373;
+	color: #4BCAD1;
 }
 
 .nav_info_box {  /* nav icon explanation. */
@@ -303,9 +303,12 @@ b {
 .nav_info {
 	position: absolute;
 	margin: 4px 0 2px 8px;
-	width: 150px;
-	color: #205373;
+	color: #4BCAD1;
 	transition: transform 135ms;
+}
+
+.nav_next {  /* highlight to guide to next case study. */
+	color: #205373;
 }
 
 .nav_info span {  /* to help with hover animation. */
@@ -316,4 +319,8 @@ b {
 }
 .nav_but:hover .nav_info {
 	transform: translateX(2px);
+}
+
+.nav_next:hover .nav_icon {  /* highlight to guide to next case study. */
+	animation: bounce 0.6s infinite;
 }
