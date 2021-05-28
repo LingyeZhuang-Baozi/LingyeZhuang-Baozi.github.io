@@ -114,7 +114,7 @@ b {
 	padding-bottom: 10px;
 }
 
-.img_div div {
+.img_div>div {
 	margin: 0 10px;
 }
 
@@ -122,10 +122,22 @@ b {
 	text-align: center;
 	margin: 0;
 	font-size: 13.5px;
+	line-height: 18px;
 	color: #333333;
 }
-.caption span {  /* arrow. */
+
+.caption br {  /* margin from short caption to explaination. */
+	content: "";
+	margin: 6px;
+	display: block;
+}
+
+.caption_arrow {  /* arrow. */
 	font-size: 16px;
+}
+
+.caption_note {   /* notes including: scroll me. */
+	color: #4BCAD1;
 }
 
 .case_img {
@@ -161,6 +173,7 @@ b {
 }
 
 .short_img {  /* for displaying scrollable short img. */
+	position: relative;
 	display:inline-block;
 	object-fit: cover;
 	overflow: scroll;
