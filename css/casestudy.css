@@ -132,12 +132,8 @@ b {
 	display: block;
 }
 
-.caption_arrow {  /* arrow. */
+.caption span {  /* arrow. */
 	font-size: 16px;
-}
-
-.caption_note {   /* notes including: scroll me. */
-	color: #4BCAD1;
 }
 
 .case_img {
@@ -182,8 +178,42 @@ b {
 	scrollbar-width: none;  /* hide scrollbar: firefox. */
 	-ms-overflow-style: none;  /* hide scrollbar: internet explorers. */
 }
-.scroll-hide ul::-webkit-scrollbar {  /* hide scrollbar: webkit. */
-	display: none; 
+
+.short_img_note:before {  /* scrollable image indicator. */
+	content: "← scroll me →";
+	position: absolute;
+	left: 100%;
+	top: 20px;
+	z-index: 1;
+	writing-mode: vertical-rl;
+	text-orientation: sideways-right;
+	font-size: 16px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	color: #4BCAD1;
+}
+.short_img_note_200:before {  /* → ACM_website, 200% width. */
+	content: "← scroll me →";
+	position: absolute;
+	left: 200%;
+	top: 20px;
+	z-index: 1;
+	writing-mode: vertical-rl;
+	text-orientation: sideways-right;
+	font-size: 16px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	color: #4BCAD1;
+}
+.short_img_note_240:before {  /* → ACM_website, 200%*120%+chosen=242% width. */
+	content: "← scroll me →";
+	position: absolute;
+	left: 242%;
+	top: 20px;
+	z-index: 1;
+	writing-mode: vertical-rl;
+	text-orientation: sideways-right;
+	font-size: 16px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	color: #4BCAD1;
 }
 
 .modal {  /* max-min img: modal background when max. */
