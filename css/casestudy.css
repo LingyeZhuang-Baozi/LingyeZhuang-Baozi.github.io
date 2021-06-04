@@ -29,11 +29,6 @@ p {
 	margin: 10px 0;
 }
 
-b {
-	font-family: Georgia, Times, "Times New Roman", serif;
-	color: #205373;
-}
-
 .title {
 	margin-bottom: 3vh;
 	overscroll-behavior-y: none;
@@ -105,6 +100,11 @@ b {
 
 .box_section_title {  /* for better layout, long box section have more margin at the beginning. */
 	padding-top: 4px;
+}
+
+.box_title {  /* font of box section title. */
+	font-family: Georgia, Times, "Times New Roman", serif;
+	color: #205373;
 }
 
 .img_div {
