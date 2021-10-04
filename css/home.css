@@ -1,11 +1,11 @@
 /* Contents. */
 
 .profile_pic {  /* profile picture. */
-	height: 45vh;
-	min-height: 200px;
 	object-fit: cover;
-	object-position: 100% 35%;
-	width: 100%;
+	object-position: 0% 15%;
+	height: 45vh;
+	min-height: 300px;
+	width: 35vw;
 	max-width: 500px;
 }
 
@@ -152,7 +152,7 @@
 
 .case_pic {
 	height: 35vh;
-	min-height: 200px;
+	min-height: 300px;
 	object-fit: cover;
 	width: 100%;
 }
