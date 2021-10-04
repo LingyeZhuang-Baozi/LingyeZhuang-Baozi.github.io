@@ -9,6 +9,18 @@
 	max-width: 500px;
 }
 
+.profile_pic_static {  /* profile picture: img (static). */
+	position: absolute;
+	transition: opacity 135ms ease-in;
+}
+
+.profile_pic_active {  /* profile picture: img (active). */
+	z-index: -1;
+}
+.profile_pic_div:hover .profile_pic_static{  /* profile picture: img (hover effect). */
+	opacity: 0;
+}
+
 .about_me {  /* about me div. */
 	width: 50%;
 	max-width: 500px;
@@ -213,6 +225,7 @@
 	.selfintro .only_desktop { display: none; }
 	.profile_pic {
 		height: 35vh;
+		width: 100vw;
 		margin-bottom: 1.8vh;
 	}
 	.name { font-size: 18px; }
