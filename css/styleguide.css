@@ -9,7 +9,6 @@ body {  /* default body style. */
 	width: 75vw;
 	min-width: 400px;
 	margin: 0 auto;
-	padding: 3vh 0 0 0;
 	animation: load 0.6s;
 	/*background-color: #FAF5EF;*/  /* For testing. */
 }

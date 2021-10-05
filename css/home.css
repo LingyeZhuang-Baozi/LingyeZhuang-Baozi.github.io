@@ -183,6 +183,7 @@
 .case_study:hover .case_header {  /* case study div: header div (hover effect). */
 	color: #000000;
 	background-color: rgba(255, 255, 255, 0.75);  /* #FFFFFF. */
+	backdrop-filter: saturate(200%) blur(2.5px);
 }
 .case_study:hover .case_title {
 	color: #071126;
@@ -228,12 +229,35 @@
 		width: 100vw;
 		margin-bottom: 1.8vh;
 	}
+	.profile_pic_static{ opacity: 0; }
 	.name { font-size: 18px; }
-	.case_title { font-size: 16.5px; }
+	.name span { pointer-events: none; }
+	#journey:hover ~ .nav_info #journey_info { opacity: 0; }
+	#resume:hover ~ .nav_info #resume_info { opacity: 0; }
+	.case_header {
+		color: #000000;
+		background-color: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(1px);
+	}
+	.case_title {
+		font-size: 16.5px;
+		color: #071126;
+	}
 	.case_info {
 		display: inline;
 		font-size: 14px;
+		color: #205373;
 	}
 	.case_des { font-size: 15px; }
 	.case_pic { height: 20vh; }
+	.case_pic_static{  /* case study div: img (hover effect). */
+		opacity: 0.15;
+	}
+	.case_study:hover .case_header {
+		background-color: rgba(255, 255, 255, 0.75);
+		backdrop-filter: saturate(200%) blur(2.5px);
+	}
+	.case_study:hover .case_pic_static{  /* case study div: img (hover effect). */
+		opacity: 0;
+	}
 }
