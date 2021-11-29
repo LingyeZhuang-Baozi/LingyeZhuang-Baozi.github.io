@@ -107,7 +107,8 @@
 	position: absolute;
 	margin: 3px 0;
 	width: 80px;
-	color: #4BCAD1;
+	/*color: #4BCAD1;*/
+	color: #205373;
 	transition: opacity 120ms ease-in;
 }
 #resume:hover ~ .nav_info #resume_info {
