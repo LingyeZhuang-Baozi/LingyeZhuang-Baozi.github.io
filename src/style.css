@@ -745,13 +745,22 @@ span {
 	/*border: 2px solid var(--color-gray1-33);*/
 }
 
+.resume {
+	width: 100%;
+	min-width: 1000px;
+}
+
+.resume_div {
+	overflow: scroll;
+}
+
 /* GlassMagnifier */
 
-.resume {
+.resume_GM {
 	margin: 0px auto auto;
 }
 
-.resume>div { /* magnifier glass */
+.resume_GM>div { /* magnifier glass */
 	-webkit-border-radius: var(--radius-m) !important;
 	-khtml-border-radius: var(--radius-m) !important;
 	-moz-border-radius: var(--radius-m) !important;
@@ -760,7 +769,7 @@ span {
 	height: 240px !important;*/
 }
 
-.resume>img { /* small img */
+.resume_GM>img { /* small img */
 	width: 100% !important;
 /*	max-height: 100vh !important;
 	min-height: 100vh !important;
@@ -768,7 +777,7 @@ span {
 	object-fit: contain !important;*/
 }
 
-.resume>div>img { /* big img */
+.resume_GM>div>img { /* big img */
 	width: 100vw !important;
 	min-width: 1000px !important;
 }

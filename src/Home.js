@@ -1,8 +1,9 @@
 import React, { useState , useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Outlet, Link } from "react-router-dom";
 
 /* Foreign components */
 import { Modebtn, Bio } from "./components.js";
-import Nav from "./Nav.js"
+import Nav from "./Nav.js";
 
 /* Assets */
 import me1 from "./assets/me-1.jpg";
@@ -48,6 +49,7 @@ import object_CruzRoja_blink_light from "./assets/object_CruzRoja_light_blink@2x
 import object_CruzRoja_blink_dark from "./assets/object_CruzRoja_dark_blink@2x.png";
 
 /* Libraries */
+import { isSafari, isIE } from "react-device-detect";
 import { GlassMagnifier } from "react-image-magnifiers";
 import Spline from '@splinetool/react-spline'; // under experiment
 
@@ -67,14 +69,30 @@ export default function Home (props) {
 
 	/* Page */
 	const [page, setPage] = useState("home");	// resume, home*, journey
+	useEffect (() => {
+		console.log ("window pathname: '", window.location.pathname, "'\npage hook: '", page, "'"); //DEBUG
+		if (window.location.pathname==="/resume" && page!=="resume") {
+			setPage("resume");
+		} else if (window.location.pathname==="/" && page!=="home") {
+			setPage("home");
+		} else if (window.location.pathname==="/journey" && page!=="journey") {
+			setPage("journey");
+		}
+	}, [window.location.href]);
 
 	/* Primary nav tabs and their animation state */
 	const PNtabs = ["resume", "home", "journey"];
 	const [PNisChanging, setPNisChanging] = useState(false);
 	const [PNanimation, setPNanimation] = useState("");
-	const handle_PNT_click = (tab) => {
+	const handle_PNT_click = (e, tab) => {
+		// e.preventDefault(); // no need to preventDefault here since the default is to switch path
 		setPage(tab);
 		if (page!==tab) {
+			// if (tab === "home") {
+			// 	window.location.href = "/";
+			// } else {
+			// 	window.location.href = "/"+tab;
+			// }
 			setPNisChanging(true);
 			setPNanimation("home_tabs_primary_selected_" + page + "_to_" + tab);
 			setTimeout(() => {
@@ -86,7 +104,14 @@ export default function Home (props) {
 		}
 	}
 
-	/* Case object */
+	/* Case objects and relative functions */
+	const caseObjects = [ // animation helper: [name, light default, dark default, light figure, dark figure, light active, dark active, light blink, dark blink]
+		["ACM", object_ACM_light, object_ACM_dark, object_ACM_figure_light, object_ACM_figure_dark, object_ACM_active_light, object_ACM_active_dark, object_ACM_blink_light, object_ACM_blink_dark],
+		["Bitsrealm", object_Bitsrealm_light, object_Bitsrealm_dark, object_Bitsrealm_figure_light, object_Bitsrealm_figure_dark, object_Bitsrealm_active_light, object_Bitsrealm_active_dark, object_Bitsrealm_blink_light, object_Bitsrealm_blink_dark],
+		["RehaBuddy", object_RehaBuddy_light, object_RehaBuddy_dark, object_RehaBuddy_figure_light, object_RehaBuddy_figure_dark, object_RehaBuddy_active_light, object_RehaBuddy_active_dark, object_RehaBuddy_blink_light, object_RehaBuddy_blink_dark],
+		["CruzRoja", object_CruzRoja_light, object_CruzRoja_dark, object_CruzRoja_figure_light, object_CruzRoja_figure_dark, object_CruzRoja_active_light, object_CruzRoja_active_dark, object_CruzRoja_blink_light, object_CruzRoja_blink_dark]
+	];
+
 	const [hoveringObject, setHoveringObject] = useState(false);
 	const [hoveredCase, setHoveredCase] = useState(""); // ACM, Bitsrealm, RehaBuddy, CurzRoja
 	const [timer, setTimer] = useState(true); // true(tic)*, false(tac)
@@ -98,19 +123,19 @@ export default function Home (props) {
 			setTimeout (() => {
 				const random = Math.random() * 5; // min=0 is inclusive, max=5 is exclusive
 				if (random < 1) { setBlinkingObject(""); }
-				else if (random < 2) { setBlinkingObject("ACM"); }
-				else if (random < 3) { setBlinkingObject("Bitsrealm"); }
-				else if (random < 4) { setBlinkingObject("RehaBuddy"); }
-				else /*if (random < 5)*/ { setBlinkingObject("CruzRoja"); }
+				else if (random < 2) { setBlinkingObject(caseObjects[0][0]); }
+				else if (random < 3) { setBlinkingObject(caseObjects[1][0]); }
+				else if (random < 4) { setBlinkingObject(caseObjects[2][0]); }
+				else if (random < 5) { setBlinkingObject(caseObjects[3][0]); }
 				setTimer(true);
 			}, 2000); // tic-tac every 2s
 		}
 	}, [timer]);
-	useEffect(() => { console.log (timer==true? "tic" : "tac"); }, [timer]); //DEBUG
+	// useEffect(() => { console.log (timer==true? "tic" : "tac"); }, [timer]); //DEBUG
 
 	useEffect(() => {
 		if (blinkingObject!=="") {
-			console.log (blinkingObject + " blinks"); //DEBUG
+			// console.log (blinkingObject + " blinks"); //DEBUG
 			setTimeout (() => { setBlinkingObject(""); }, 135); // blink for var(--delay-s)
 		}
 	}, [blinkingObject]);
@@ -152,7 +177,7 @@ export default function Home (props) {
 						<PNT
 							tab={tab}
 							active={page===tab}
-							onclick={() => { handle_PNT_click(tab); }}
+							onclick={(e) => { handle_PNT_click(e, tab); }}
 							mode={props.mode}
 							PNisChanging={PNisChanging}
 						/>
@@ -176,29 +201,23 @@ export default function Home (props) {
 						: "") + " " +
 						"home_display_div_"+props.mode
 					}>
+						
 						{(() => {
-							if (page === "resume") {
-								// window.history.replaceState(null, "Resume", "/resume");
-								// window.location.href = "/resume";
-								return ( <Resume mode={props.mode}/> );
-							} else if (page === "home") {
+							if (page === "home") {
 								if (hoveringObject==false) {
-									return (
-										<AboutMe mode={props.mode}/>
-									);									
+									return ( <AboutMe mode={props.mode}/> );									
 								} else {
-									return (
-										<CaseBrief hoveredCase={hoveredCase} mode={props.mode} />
-									);
+									return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
 								}
-							} else if (page === "journey") {
-								return ( <Journey mode={props.mode}/> );
+							} else {
+								return ( <Outlet /> );
 							}
 						})()}
 				</div></div>
 
 				<div className={"case_objects_div zlift " + (page==="home" ? "case_objects_div_active" : "")}>
 					<CaseObjects
+						caseObjects={caseObjects}
 						hoveringObject={hoveringObject}
 						setHoveringObject={setHoveringObject}
 						hoveredCase={hoveredCase}
@@ -236,15 +255,17 @@ export default function Home (props) {
 function PNT (props) {
 	return (
 		<div className="home_tab_div">
-			<div
-				className = {
-					"home_tab cursor_pointer " +
-					"home_tab_primary_" + props.tab + (props.active==true ? "_active" : "") + " " +
-					"home_tab_primary_" + (props.active==true ? "active" : "default") + "_" + props.mode + " " +
-					(props.PNisChanging ? "home_tab_switching" : "")
-				}
-				onClick={props.onclick}
-			/>
+			<Link to={(props.tab==="home" ? "/" : ("/"+props.tab))}>
+				<div
+					className = {
+						"home_tab cursor_pointer " +
+						"home_tab_primary_" + props.tab + (props.active==true ? "_active" : "") + " " +
+						"home_tab_primary_" + (props.active==true ? "active" : "default") + "_" + props.mode + " " +
+						(props.PNisChanging ? "home_tab_switching" : "")
+					}
+					onClick={props.onclick}
+				/>
+			</Link>
 		</div>
 	);
 }
@@ -372,19 +393,13 @@ function AboutMe (props) {
  * CaseObjects
  * 
  * props:
+ *	- caseObjects
  *	- [hoveringObject, setHoveringObject]
  *	- [hoveredCase, setHoveredCase]
  *	- mode (str)
  *	- blinkingObject (str)
  */
 function CaseObjects (props) {
-
-	const caseobjects = [ // animation helper: [name, light default, dark default, light figure, dark figure, light active, dark active, light blink, dark blink]
-		["ACM", object_ACM_light, object_ACM_dark, object_ACM_figure_light, object_ACM_figure_dark, object_ACM_active_light, object_ACM_active_dark, object_ACM_blink_light, object_ACM_blink_dark],
-		["Bitsrealm", object_Bitsrealm_light, object_Bitsrealm_dark, object_Bitsrealm_figure_light, object_Bitsrealm_figure_dark, object_Bitsrealm_active_light, object_Bitsrealm_active_dark, object_Bitsrealm_blink_light, object_Bitsrealm_blink_dark],
-		["RehaBuddy", object_RehaBuddy_light, object_RehaBuddy_dark, object_RehaBuddy_figure_light, object_RehaBuddy_figure_dark, object_RehaBuddy_active_light, object_RehaBuddy_active_dark, object_RehaBuddy_blink_light, object_RehaBuddy_blink_dark],
-		["CruzRoja", object_CruzRoja_light, object_CruzRoja_dark, object_CruzRoja_figure_light, object_CruzRoja_figure_dark, object_CruzRoja_active_light, object_CruzRoja_active_dark, object_CruzRoja_blink_light, object_CruzRoja_blink_dark]
-	];
 
 	const handle_object_mouseenter = (object_case) => {
 		props.setHoveringObject(true);
@@ -402,7 +417,7 @@ function CaseObjects (props) {
 
 	return (
 		<div className="case_objects">
-			{caseobjects.map ((item) =>
+			{props.caseObjects.map ((item) =>
 				<div className="case_object_div">
 					<div
 						className="case_object cursor_readmore"
@@ -509,20 +524,28 @@ function CaseBrief (props) {
  * Resume page
  */
 function Resume (props) {
-	return (
-		<GlassMagnifier
-			className="resume"
-			imageSrc={resume}
-			largeImageSrc={resume}
-			imageAlt="My resume! If not showing up, view at: https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing"
-			magnifierSize={"360px"}
-			square={true}
-			magnifierBorderSize={2} //2px
-			magnifierBorderColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-			allowOverflow={false}
-			// magnifierBackgroundColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-		/>
-	);
+	if (isSafari || isIE) {
+		return (
+			<div className="resume_div">
+				<img className="resume" src={resume} />
+			</div>
+		);
+	} else {
+		return (
+			<GlassMagnifier
+				className="resume_GM"
+				imageSrc={resume}
+				largeImageSrc={resume}
+				imageAlt="My resume! If not showing up, view at: https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing"
+				magnifierSize={"360px"}
+				square={true}
+				magnifierBorderSize={2} //2px
+				magnifierBorderColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
+				allowOverflow={false}
+				// magnifierBackgroundColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
+			/>
+		);
+	}
 }
 
 
@@ -555,3 +578,7 @@ function JourneyTimeline (props) {
 	);
 }
 
+
+
+/* Export */
+export { Resume, Journey };

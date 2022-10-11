@@ -105,5 +105,50 @@ function Bio (props) {
 
 
 
+/**
+ * Contents
+ *
+ * props:
+ *	- list (2D array): [ section title (str), hierarchy (int) ]
+ *	- object large, small*, tiny, text
+ *	- mode (str)
+ */
+function Contents (props) {
+
+	// "text" as bullet → props.list must be 2D array.
+	if (props.bullet_type==="text") {
+		return (
+			<ul className="bio_list bio_list_text">
+				{props.list.map (item =>
+					<li><span className={"bio_item bio_item_text text_"+props.mode}>
+						<div className="bio_fieldname_container">
+							<div className={"bio_fieldname bio_fieldname_"+props.mode}>
+								{item[0]}
+							</div>
+						</div>
+						{item[1]}
+					</span></li>
+				)}
+			</ul>
+		);
+	}
+
+	// Use bullet dot → props.list is an array of items.
+	else {
+		let type = props.bullet_type ? props.bullet_type : "small";
+		return (
+			<ul className={"bio_list bio_list_" + type + "_" + props.mode}>
+				{props.list.map (item =>
+					<li><span className={"bio_item text_"+props.mode}>
+						{item}
+					</span></li>
+				)}
+			</ul>
+		);
+	}
+}
+
+
+
 /* Export */
 export { Modebtn, Bio };
