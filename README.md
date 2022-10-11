@@ -53,6 +53,7 @@ Made with React JS and ♡.
 - [JS forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 - [JS+CSS prevent scroll below modal](https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/)
 - [CSS disable selection](https://www.arungudelli.com/tutorial/css/disable-text-selection-in-html-using-user-select-css-property/)
+- [react-device-detect](https://www.npmjs.com/package/react-device-detect)
 
 ### Deploy:
 - [react-gh-pages](https://github.com/gitname/react-gh-pages)
