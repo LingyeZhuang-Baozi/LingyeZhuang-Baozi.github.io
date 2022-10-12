@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.be6fe94c.css",
-    "main.js": "/static/js/main.962b9f47.js",
+    "main.css": "/static/css/main.b1152ee0.css",
+    "main.js": "/static/js/main.34f17914.js",
     "static/js/227.dc911ef6.chunk.js": "/static/js/227.dc911ef6.chunk.js",
     "static/js/526.97f8e965.chunk.js": "/static/js/526.97f8e965.chunk.js",
     "static/js/232.72cedfc0.chunk.js": "/static/js/232.72cedfc0.chunk.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
-    "static/media/CruzRoja_thumbnail_dark.png": "/static/media/CruzRoja_thumbnail_dark.9313555031e855a17203.png",
-    "static/media/CruzRoja_thumbnail_light.png": "/static/media/CruzRoja_thumbnail_light.562d7200abfb8265da9f.png",
-    "static/media/Bitsrealm_thumbnail_dark.png": "/static/media/Bitsrealm_thumbnail_dark.9a6fba07dbc1ff7eaed6.png",
-    "static/media/Bitsrealm_thumbnail_light.png": "/static/media/Bitsrealm_thumbnail_light.54a439d0cb90e23d0b5a.png",
-    "static/media/RehaBuddy_thumbnail_dark.png": "/static/media/RehaBuddy_thumbnail_dark.cc2aada6f1293f54c1e6.png",
-    "static/media/RehaBuddy_thumbnail_light.png": "/static/media/RehaBuddy_thumbnail_light.cba68247dc4a0cf85c4e.png",
-    "static/media/ACM_thumbnail_dark.png": "/static/media/ACM_thumbnail_dark.6935621e09305bcc0616.png",
-    "static/media/ACM_thumbnail_light.png": "/static/media/ACM_thumbnail_light.5821c5662b6fd83aa32d.png",
+    "static/media/CruzRoja_thumbnail_dark.png": "/static/media/CruzRoja_thumbnail_dark.d70e0502524d56cfc4c7.png",
+    "static/media/CruzRoja_thumbnail_light.png": "/static/media/CruzRoja_thumbnail_light.5a49c7fddbaa31dc0926.png",
+    "static/media/Bitsrealm_thumbnail_dark.png": "/static/media/Bitsrealm_thumbnail_dark.5b2d1017c000c34807f0.png",
     "static/media/resume-big.png": "/static/media/resume-big.1a27dbb8b68367504b96.png",
+    "static/media/RehaBuddy_thumbnail_light.png": "/static/media/RehaBuddy_thumbnail_light.a07c3998819fb2862e85.png",
+    "static/media/RehaBuddy_thumbnail_dark.png": "/static/media/RehaBuddy_thumbnail_dark.4cd60a50641220ee8b2a.png",
+    "static/media/Bitsrealm_thumbnail_light.png": "/static/media/Bitsrealm_thumbnail_light.c6a41ae6d6d03c591c60.png",
+    "static/media/ACM_thumbnail_dark.png": "/static/media/ACM_thumbnail_dark.5afe46725eeee169410d.png",
+    "static/media/ACM_thumbnail_light.png": "/static/media/ACM_thumbnail_light.431e60e80acfad7ede16.png",
     "static/media/me-1.jpg": "/static/media/me-1.d79e0fdab77cd13d8afc.jpg",
     "static/media/resume.png": "/static/media/resume.debabed894878cfaae9f.png",
     "static/media/me-2.jpg": "/static/media/me-2.b91363c7a4cee909f4a7.jpg",
@@ -73,15 +73,15 @@
     "static/media/bullet_large_light.svg": "/static/media/bullet_large_light.2b8b00e613202f96b22f.svg",
     "static/media/bullet_small_dark.svg": "/static/media/bullet_small_dark.39a5d944e30ddaa71639.svg",
     "static/media/bullet_small_light.svg": "/static/media/bullet_small_light.9c60ba578b85f1e3836a.svg",
-    "main.be6fe94c.css.map": "/static/css/main.be6fe94c.css.map",
-    "main.962b9f47.js.map": "/static/js/main.962b9f47.js.map",
+    "main.b1152ee0.css.map": "/static/css/main.b1152ee0.css.map",
+    "main.34f17914.js.map": "/static/js/main.34f17914.js.map",
     "227.dc911ef6.chunk.js.map": "/static/js/227.dc911ef6.chunk.js.map",
     "526.97f8e965.chunk.js.map": "/static/js/526.97f8e965.chunk.js.map",
     "232.72cedfc0.chunk.js.map": "/static/js/232.72cedfc0.chunk.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.be6fe94c.css",
-    "static/js/main.962b9f47.js"
+    "static/css/main.b1152ee0.css",
+    "static/js/main.34f17914.js"
   ]
 }
