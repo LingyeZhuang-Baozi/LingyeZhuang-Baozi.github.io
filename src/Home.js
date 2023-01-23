@@ -1,59 +1,26 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState , useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet, Link } from "react-router-dom";
 
 /* Foreign components */
+import { cases } from "./cases.js";
 import { Modebtn, Bio } from "./components.js";
-import Nav from "./Nav.js";
+// import Nav from "./Nav.js";
 
 /* Assets */
-import me1 from "./assets/me-1.jpg";
-import me2 from "./assets/me-2.jpg";
-
-import resume from "./assets/resume.png";
-import resume_big from "./assets/resume-big.png";
-
-import object_ACM_light from "./assets/object_ACM_light@2x.png";
-import object_ACM_dark from "./assets/object_ACM_dark@2x.png";
-import object_ACM_figure_light from "./assets/object_ACM_light_figure@2x.png";
-import object_ACM_figure_dark from "./assets/object_ACM_dark_figure@2x.png";
-import object_ACM_active_light from "./assets/object_ACM_light_active@2x.png";
-import object_ACM_active_dark from "./assets/object_ACM_dark_active@2x.png";
-import object_ACM_blink_light from "./assets/object_ACM_light_blink@2x.png";
-import object_ACM_blink_dark from "./assets/object_ACM_dark_blink@2x.png";
-
-import object_Bitsrealm_light from "./assets/object_Bitsrealm_light@2x.png";
-import object_Bitsrealm_dark from "./assets/object_Bitsrealm_dark@2x.png";
-import object_Bitsrealm_figure_light from "./assets/object_Bitsrealm_light_figure@2x.png";
-import object_Bitsrealm_figure_dark from "./assets/object_Bitsrealm_dark_figure@2x.png";
-import object_Bitsrealm_active_light from "./assets/object_Bitsrealm_light_active@2x.png";
-import object_Bitsrealm_active_dark from "./assets/object_Bitsrealm_dark_active@2x.png";
-import object_Bitsrealm_blink_light from "./assets/object_Bitsrealm_light_blink@2x.png";
-import object_Bitsrealm_blink_dark from "./assets/object_Bitsrealm_dark_blink@2x.png";
-
-import object_RehaBuddy_light from "./assets/object_RehaBuddy_light@2x.png";
-import object_RehaBuddy_dark from "./assets/object_RehaBuddy_dark@2x.png";
-import object_RehaBuddy_figure_light from "./assets/object_RehaBuddy_light_figure@2x.png";
-import object_RehaBuddy_figure_dark from "./assets/object_RehaBuddy_dark_figure@2x.png";
-import object_RehaBuddy_active_light from "./assets/object_RehaBuddy_light_active@2x.png";
-import object_RehaBuddy_active_dark from "./assets/object_RehaBuddy_dark_active@2x.png";
-import object_RehaBuddy_blink_light from "./assets/object_RehaBuddy_light_blink@2x.png";
-import object_RehaBuddy_blink_dark from "./assets/object_RehaBuddy_dark_blink@2x.png";
-
-import object_CruzRoja_light from "./assets/object_CruzRoja_light@2x.png";
-import object_CruzRoja_dark from "./assets/object_CruzRoja_dark@2x.png";
-import object_CruzRoja_figure_light from "./assets/object_CruzRoja_light_figure@2x.png";
-import object_CruzRoja_figure_dark from "./assets/object_CruzRoja_dark_figure@2x.png";
-import object_CruzRoja_active_light from "./assets/object_CruzRoja_light_active@2x.png";
-import object_CruzRoja_active_dark from "./assets/object_CruzRoja_dark_active@2x.png";
-import object_CruzRoja_blink_light from "./assets/object_CruzRoja_light_blink@2x.png";
-import object_CruzRoja_blink_dark from "./assets/object_CruzRoja_dark_blink@2x.png";
+import me1 from "./assets/basic/me-1.jpg";
+import me2 from "./assets/basic/me-2.jpg";
+import resume from "./assets/basic/resume.png";
+import resume_big from "./assets/basic/resume-big.png";
+import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag@2x.png";
 
 /* Libraries */
 import { isSafari, isIE } from "react-device-detect";
+//import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
 import { GlassMagnifier } from "react-image-magnifiers";
 import Spline from '@splinetool/react-spline'; // under experiment
 
 /* Global variables */
+const four_devarajas = ["ACM", "Bitsrealm", "RehaBuddy", "CruzRoja"];
 const objects = "https://prod.spline.design/qOffy9zkxi4id6yS/scene.splinecode"; // under experiment
 
 
@@ -88,11 +55,6 @@ export default function Home (props) {
 		// e.preventDefault(); // no need to preventDefault here since the default is to switch path
 		setPage(tab);
 		if (page!==tab) {
-			// if (tab === "home") {
-			// 	window.location.href = "/";
-			// } else {
-			// 	window.location.href = "/"+tab;
-			// }
 			setPNisChanging(true);
 			setPNanimation("home_tabs_primary_selected_" + page + "_to_" + tab);
 			setTimeout(() => {
@@ -105,15 +67,14 @@ export default function Home (props) {
 	}
 
 	/* Case objects and relative functions */
-	const caseObjects = [ // animation helper: [name, light default, dark default, light figure, dark figure, light active, dark active, light blink, dark blink]
-		["ACM", object_ACM_light, object_ACM_dark, object_ACM_figure_light, object_ACM_figure_dark, object_ACM_active_light, object_ACM_active_dark, object_ACM_blink_light, object_ACM_blink_dark],
-		["Bitsrealm", object_Bitsrealm_light, object_Bitsrealm_dark, object_Bitsrealm_figure_light, object_Bitsrealm_figure_dark, object_Bitsrealm_active_light, object_Bitsrealm_active_dark, object_Bitsrealm_blink_light, object_Bitsrealm_blink_dark],
-		["RehaBuddy", object_RehaBuddy_light, object_RehaBuddy_dark, object_RehaBuddy_figure_light, object_RehaBuddy_figure_dark, object_RehaBuddy_active_light, object_RehaBuddy_active_dark, object_RehaBuddy_blink_light, object_RehaBuddy_blink_dark],
-		["CruzRoja", object_CruzRoja_light, object_CruzRoja_dark, object_CruzRoja_figure_light, object_CruzRoja_figure_dark, object_CruzRoja_active_light, object_CruzRoja_active_dark, object_CruzRoja_blink_light, object_CruzRoja_blink_dark]
-	];
+	let caseObjects = [];
+	for (let case_name of four_devarajas) {
+		caseObjects.push([case_name, ...cases[case_name][2]]);
+	}
 
 	const [hoveringObject, setHoveringObject] = useState(false);
-	const [hoveredCase, setHoveredCase] = useState(""); // ACM, Bitsrealm, RehaBuddy, CurzRoja
+	const [hoveredCase, setHoveredCase] = useState(""); // "" or 1 of four_devarajas
+	const [newToHome, setNewToHome] = useState(true);
 	const [timer, setTimer] = useState(true); // true(tic)*, false(tac)
 	const [blinkingObject, setBlinkingObject] = useState("");
 
@@ -153,14 +114,31 @@ export default function Home (props) {
 	/* Journey timeline years */
 	const JourneyYears = ["2019", "2020", "2021", "2022"];
 
+	/* Smooth transition animation helper */
+	const [loaded, setLoaded] = useState(false);
+	useEffect(() => {
+		window.onload = function() {
+			document.body.className += " loaded";
+		}
+	}, []);
+	// const AboutMe_ref = useRef(null);
+	// const CaseBrief_ref = useRef(null);
+
 	/* Render */
 	return (
-		<div className={"page home_page_"+props.mode}>
+		<div
+			onLoad={() => { setLoaded(true); }}
+			className={
+				"page page_home " +
+				"page_" + props.mode + " " +
+				(loaded==true ? "page_loaded" : "")
+			}
+		>
 
 			<Modebtn mode={props.mode} toggleMode={props.toggleMode} />
 
 			<div className={
-				"home_tabs_div_outer home_tabs_primary zlift " +
+				"home_tabs_div_outer home_tabs_primary " +
 				(page==="journey" ? "home_tabs_primary_journey" : "")
 			}><div className="home_tabs_div_inner">
 				<div className={
@@ -168,13 +146,14 @@ export default function Home (props) {
 					"home_tabs_primary_selected_" + page + " " +
 					"home_tabs_primary_selected_" + props.mode + " " +
 					PNanimation
-				}></div>
+				} />
 				<div className={
 					"home_tabs " +
 					(page==="journey" ? "home_tabs_journey" : "")
 				}>
 					{PNtabs.map(tab =>
 						<PNT
+							key={"PNtab-"+tab}
 							tab={tab}
 							active={page===tab}
 							onclick={(e) => { handle_PNT_click(e, tab); }}
@@ -182,9 +161,6 @@ export default function Home (props) {
 							PNisChanging={PNisChanging}
 						/>
 					)}
-					{page==="journey" ?
-						<JourneyTimeline mode={props.mode}/>
-					: null }
 				</div>
 			</div></div>
 
@@ -209,32 +185,56 @@ export default function Home (props) {
 								} else {
 									return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
 								}
+								// return (
+								// 	<TransitionGroup>
+								// 		<CSSTransition
+								// 			// key={hoveringObject==false ? "AboutMe" : "CaseBrief"}
+								// 			// nodeRef={hoveringObject==false ? AboutMe_ref : CaseBrief_ref}
+								// 			nodeRef={AboutMe_ref}
+								// 			timeout={500}
+								// 			classNames="animation_fade"
+								// 		><div ref={AboutMe_ref}>
+								// 			{hoveringObject==false ?
+								// 				// <div ref={AboutMe_ref}>
+								// 					<AboutMe mode={props.mode} />
+								// 				// </div>
+								// 			:
+								// 				// <div ref={CaseBrief_ref}>
+								// 					<CaseBrief hoveredCase={hoveredCase} mode={props.mode} />
+								// 				// </div>
+								// 			}
+								// 		</div></CSSTransition>
+								// 	</TransitionGroup>
+								// );
 							} else {
 								return ( <Outlet /> );
 							}
 						})()}
 				</div></div>
 
-				<div className={"case_objects_div zlift " + (page==="home" ? "case_objects_div_active" : "")}>
+				<div className={"case_objects_div " + (page==="home" ? "case_objects_div_active" : "")}>
 					<CaseObjects
 						caseObjects={caseObjects}
 						hoveringObject={hoveringObject}
 						setHoveringObject={setHoveringObject}
 						hoveredCase={hoveredCase}
 						setHoveredCase={setHoveredCase}
+						newToHome={newToHome}
+						setNewToHome={setNewToHome}
 						mode={props.mode}
 						blinkingObject={blinkingObject}
 					/>
 				</div>
 			</div>
 
-			<div className="home_tabs_div_outer home_tabs_contact zlift"><div className="home_tabs_div_inner"><div className="home_tabs">
+			<div className="home_tabs_div_outer home_tabs_contact"><div className="home_tabs_div_inner"><div className="home_tabs">
 				{Cbtns.map(Cbtn_pair =>
 					<CB
-					btn={Cbtn_pair[0]}
-					link={Cbtn_pair[1]}
-					mode={props.mode}
-				/>
+						key={"Cbtn-"+Cbtn_pair[0]}
+						btn={Cbtn_pair[0]}
+						link={Cbtn_pair[1]}
+						mode={props.mode}
+					/>
 				)}
 			</div></div></div>
 
@@ -266,6 +266,14 @@ function PNT (props) {
 					onClick={props.onclick}
 				/>
 			</Link>
+			{props.tab==="journey" ?
+				<div
+					className="journey_timeline_div_outer"
+					style={{opacity: props.active==true ? "1" : "0"}}
+				>
+					<JourneyTimeline mode={props.mode}/>
+				</div>
+			: null}
 		</div>
 	);
 }
@@ -319,20 +327,22 @@ function AboutMe (props) {
 					src={me1}
 					alt="A photo of me"
 					className="profile_pic profile_pic_static zlift"
+					onDragStart={e => e.preventDefault()}
 				/>
 				<img
 					src={me2}
 					alt="A photo of me"
 					className="profile_pic profile_pic_active"
+					onDragStart={e => e.preventDefault()}
 				/>
 			</div>
 
-			<div class={"selfintro zlift text_"+props.mode}>
-				<p class={"text_"+props.mode}>
+			<div className={"selfintro zlift text_"+props.mode}>
+				<p className={"text_"+props.mode}>
 					Hey! You found my little cabin on the internet!
 				</p>
-				<span class="selfintro_name">
-					{/*<span class="selfintro_name_word">
+				<span className="selfintro_name">
+					{/*<span className="selfintro_name_word">
 						<span>L</span>
 						<span>i</span>
 						<span>n</span>
@@ -340,7 +350,7 @@ function AboutMe (props) {
 						<span>y</span>
 						<span>e</span>
 					</span>*/}
-					<span class="selfintro_name_word">
+					<span className="selfintro_name_word">
 						<span>J</span>
 						<span>u</span>
 						<span>l</span>
@@ -348,7 +358,7 @@ function AboutMe (props) {
 						<span>e</span>
 						<span>t</span>
 					</span>
-					<span class="selfintro_name_word">
+					<span className="selfintro_name_word">
 						<span>Z</span>
 						<span>h</span>
 						<span>u</span>
@@ -357,29 +367,21 @@ function AboutMe (props) {
 						<span>g</span>
 					</span>
 				</span>
-				<p class={"text_"+props.mode}>
+				<p className={"text_"+props.mode}>
 					UX/UI designer / Graphic designer / Amateur illustrator
 				</p>
-				<p class={"text_"+props.mode}>
+				<p className={"text_"+props.mode}>
 					Recently soaking up development skills, walking on the path towards being a full-stack designer. This website is hand-coded with React.js and ♡.
 				</p>
-				<p class={"text_"+props.mode}>
+				<p className={"text_"+props.mode}>
 					I design like a craftsman, since I believe practise makes perfect.
 				</p>
-				<p class={"text_"+props.mode}>
+				<p className={"text_"+props.mode}>
 					I design for social good, and I enjoy real world challenges.
 				</p>
 				<span>&nbsp;</span> {/* insert vertical space */}
-				<p class={"text_hint text_hint_"+props.mode}>
-					Ask my case studies about me ↓
-				</p>
-				{/*<Bio
-					list={biolist}
-					bullet_type="text"
-					mode={props.mode}
-				/>*/}
-				{/*<div class="only_mobile">
-					<p>Hi, I am <span class="name">Lingye Zhuang</span>.<br>I study cognitive science with HCI at UCSD.<br>I design like a craftsman. I enjoy real world challenges and cross-discipline inspirations.</p>
+				{/*<div className="only_mobile">
+					<p>Hi, I am <span className="name">Lingye Zhuang</span>.<br>I study cognitive science with HCI at UCSD.<br>I design like a craftsman. I enjoy real world challenges and cross-discipline inspirations.</p>
 				</div>*/}
 			</div>
 
@@ -393,61 +395,79 @@ function AboutMe (props) {
  * CaseObjects
  * 
  * props:
- *	- caseObjects
+ *	- caseObjects (array)
  *	- [hoveringObject, setHoveringObject]
  *	- [hoveredCase, setHoveredCase]
+ *	- [newToHome, setNewToHome]
  *	- mode (str)
  *	- blinkingObject (str)
  */
 function CaseObjects (props) {
 
-	const handle_object_mouseenter = (object_case) => {
-		props.setHoveringObject(true);
-		props.setHoveredCase(object_case);
+	/* Hover handlers */
+	const handle_object_mouseenter = (object_case, e) => {
+		if (! (e.buttons == 1 || e.buttons == 3)) {
+			props.setHoveringObject(true);
+			props.setHoveredCase(object_case);
+			props.setNewToHome(false);
+		}
 	}
-
+	// const handle_object_mouseover = (object_case, e) => {
+	// 	console.log("TESTTEST");
+	// 	if (props.hoveringObject==false && ! (e.buttons == 1 || e.buttons == 3)) {
+	// 		props.setHoveringObject(true);
+	// 		props.setHoveredCase(object_case);
+	// 	}
+	// }
 	const handle_object_mouseleave = () => {
 		props.setHoveringObject(false);
 		props.setHoveredCase("");
 	}
 
-	const handle_object_click = (object_case) => {
-		console.log("Clicked!", object_case);
-	}
-
+	/* Render */
 	return (
-		<div className="case_objects">
-			{props.caseObjects.map ((item) =>
-				<div className="case_object_div">
-					<div
-						className="case_object cursor_readmore"
-						onMouseEnter={() => { handle_object_mouseenter(item[0]); }}
-						onMouseLeave={handle_object_mouseleave}
-						onClick={() => { handle_object_click(item[0]); }}
-					>
-						<img
-							className={
-								"case_object_img " +
-								((props.hoveringObject==true && props.hoveredCase===item[0]) ? "case_object_img_active smooth_animation_xl" : "")
-							}
-							srcSet={
-								(props.hoveringObject==false ?
-									(props.blinkingObject===item[0] ?
-										(props.mode==="light" ? item[7] : item[8])	// blinking
+		<div className="case_objects dis_select">
+			{props.caseObjects.map ((item, i) =>
+				<div key={"caseobject-"+item[0]} className="case_object_div">
+					{(i===2 && props.hoveringObject==false) ?
+						<div className="case_object_hint_div">
+							<img className="case_object_hint" srcSet={case_studies_hint_tag+" 2x"} />
+						</div>
+					: null }
+					<Link to={"/case-"+item[0]}>
+						<div
+							className="case_object"
+							onMouseEnter={(e) => { handle_object_mouseenter(item[0], e); }}
+							//onMouseOver={(e) => { handle_object_mouseover(item[0], e); }}
+							onMouseLeave={handle_object_mouseleave}
+							onClick={() => { console.log("Clicked ", item[0], ", navigate to corresponding case page."); }} //DEBUG
+						>
+							<img
+								className={
+									"case_object_img " +
+									((props.hoveringObject==true && props.hoveredCase===item[0]) ? "case_object_img_active cursor_readmore smooth_animation_xl" : "") + " " +
+									((i===2 && props.newToHome==true) ? "animation_case_object_bounce" : "")
+								}
+								srcSet={
+									(props.hoveringObject==false ?
+										(props.blinkingObject===item[0] ?
+											(props.mode==="light" ? item[7] : item[8])	// blinking
+										:
+											(props.mode==="light" ? item[1] : item[2])	// default
+										)
 									:
-										(props.mode==="light" ? item[1] : item[2])	// default
+										(props.hoveredCase===item[0] ?
+											(props.mode==="light" ? item[5] : item[6])	// active (hovered)
+										:
+											(props.mode==="light" ? item[3] : item[4])	// some fellow is active
+										)
 									)
-								:
-									(props.hoveredCase===item[0] ?
-										(props.mode==="light" ? item[5] : item[6])	// active (hovered)
-									:
-										(props.mode==="light" ? item[3] : item[4])	// some fellow is active
-									)
-								)
-								+" 4x" // note that size is adjusted as 1/2 original size
-							}
-						/>
-					</div>
+									+" 4x" // note that size is adjusted as 1/2 original size
+								}
+								onDragStart={e => e.preventDefault()}
+							/>
+						</div>
+					</Link>
 				</div>
 			)}
 		</div>
@@ -485,37 +505,21 @@ function CaseObjects (props) {
  */
 function CaseBrief (props) {
 
-	const case_briefs = [
-		["Case", "Title", "Role", "Duration", "Workshop", "Description"],
-		["ACM", "Upgrade website ACM", "UX/UI designer", "February-June, 2021", "", "To help ACM@UCSD attract potential members, our team upgraded its website. We reorganized the layout, collected new contents, and made the interactions more intuitive."],
-		["Bitsrealm", "Bitsrealm UI design internship", "UX/UI designer, Front-end developer", "Summer 2021", "", "During my 6-week internship at Bitsrealm, a VR game company in Shanghai, I closely communicated with planners and developers to design a series of 4 websites along the UX flow of a virtual concert."],
-		["RehaBuddy", "	RehaBuddy, electronic pet for stroke rehabilitation", "", "March-June, 2021", "Idea Lab program", "	Conceptualized a haptics tamagotchi therapy putty, to keep stroke patients motivated in performing recovery exercise."], // TODO
-		["CruzRoja", "Cruz Roja project with NGO", "UX/UI designer", "March-December, 2021", "", "Redesigned the UI of an ambulance dispatching system that arranges emergency service in Tijuana, Mexico. Improved interaction efficiency and information display of a complex system."]
-	];
+	if (! props.hoveredCase in cases) { return( <></> ); }
 
-	for (let i = 1; i < case_briefs.length; i++) {
-		if (case_briefs[i][0]===props.hoveredCase) {
-			let case_brief = [];
-			for (let j = 2; j < case_briefs[0].length-1; j++) {
-				if (case_briefs[i][j]!=="") {
-					case_brief.push ([case_briefs[0][j], case_briefs[i][j]]);
-				}
-			}
-			return (
-				<div className="casebrief_div">
-					<div className={"casebrief_title text_"+props.mode}>{case_briefs[i][1]}</div>
-					<div className="casebrief">
-						<Bio
-							list={case_brief}
-							bullet_type="text"
-							mode={props.mode}
-						/>
-						<span className={"text_"+props.mode}>{case_briefs[i][case_briefs[0].length-1]}</span>
-					</div>
-				</div>
-			);
-		}
-	}
+	return (
+		<div className="casebrief_div">
+			<div className={"casebrief_title text_"+props.mode}>{cases[props.hoveredCase][1]["title"]}</div>
+			<div className="casebrief">
+				<Bio
+					list={[...cases[props.hoveredCase][1]["case_brief"]]}
+					bullet_type="text"
+					mode={props.mode}
+				/>
+				<span className={"text_"+props.mode}>{cases[props.hoveredCase][1]["description"]}</span>
+			</div>
+		</div>
+	);
 }
 
 
@@ -524,28 +528,32 @@ function CaseBrief (props) {
  * Resume page
  */
 function Resume (props) {
-	if (isSafari || isIE) {
+	// if (isSafari || isIE) {
 		return (
 			<div className="resume_div">
-				<img className="resume" src={resume} />
+				<img
+					className="resume"
+					src={resume}
+					onDragStart={e => e.preventDefault()}
+				/>
 			</div>
 		);
-	} else {
-		return (
-			<GlassMagnifier
-				className="resume_GM"
-				imageSrc={resume}
-				largeImageSrc={resume}
-				imageAlt="My resume! If not showing up, view at: https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing"
-				magnifierSize={"360px"}
-				square={true}
-				magnifierBorderSize={2} //2px
-				magnifierBorderColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-				allowOverflow={false}
-				// magnifierBackgroundColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-			/>
-		);
-	}
+	// } else {
+	// 	return (
+	// 		<GlassMagnifier
+	// 			className="resume_GM"
+	// 			imageSrc={resume}
+	// 			largeImageSrc={resume}
+	// 			imageAlt="My resume! If not showing up, view at: https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing"
+	// 			magnifierSize={"360px"}
+	// 			square={true}
+	// 			magnifierBorderSize={2} //2px
+	// 			magnifierBorderColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
+	// 			allowOverflow={false}
+	// 			// magnifierBackgroundColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
+	// 		/>
+	// 	);
+	// }
 }
 
 
@@ -559,7 +567,7 @@ function Resume (props) {
 function Journey (props) {
 	return (
 		<div>
-			<span class={"text_hint text_hint_"+props.mode}>Yearly journey under construction. See you soon!</span>
+			<span className={"text_hint text_hint_"+props.mode}>Yearly journey under construction. See you soon!</span>
 		</div>
 	);
 }
@@ -572,8 +580,8 @@ function Journey (props) {
  */
 function JourneyTimeline (props) {
 	return (
-		<div className="journey_timeline_div">
-			<div className={"journey_timeline_line journey_timeline_line_"+props.mode}></div>
+		<div className="journey_timeline_div_inner">
+			<div className={"journey_timeline_line journey_timeline_line_"+props.mode} />
 		</div>
 	);
 }

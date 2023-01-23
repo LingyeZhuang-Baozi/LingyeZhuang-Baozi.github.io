@@ -11,7 +11,9 @@ Made with React JS and ♡.
 - [CSS position](https://www.w3schools.com/css/css_positioning.asp)
 - [CSS absolute text over image](https://www.w3schools.com/howto/howto_css_image_text.asp)
 - [CSS image object-fit](https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit)
+- [CSS trick to preserve media ratio](https://stackoverflow.com/questions/25302836/responsive-video-iframes-keeping-aspect-ratio-with-only-css)
 - [CSS usage of inline-](https://css-tricks.com/when-do-you-use-inline-block/)
+- [CSS usage of min/max/clamp](https://stackoverflow.com/questions/38078957/can-we-define-min-margin-and-max-margin-max-padding-and-min-padding-in-css)
 - [HTML no space between spans](https://stackoverflow.com/questions/2519923/get-rid-of-spaces-between-spans)
 - [JS+CSS popup modal](https://www.w3schools.com/howto/howto_css_modal_images.asp)
 
@@ -46,14 +48,19 @@ Made with React JS and ♡.
 - [unicode](https://www.compart.com/en/unicode/)
 
 ### Logics:
+- [JS forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 - [JS addEventListener](https://stackoverflow.com/questions/19586137/addeventlistener-using-for-loop-and-passing-values)
+- [CSS disable selection](https://www.arungudelli.com/tutorial/css/disable-text-selection-in-html-using-user-select-css-property/)
+- [MouseEvent.buttons](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)
+- [JS detect mouse-down when hovering](https://stackoverflow.com/questions/15098584/check-if-mouse-button-is-down-while-hovering)
 - [JS detect sticky active](https://davidwalsh.name/detect-sticky)
 - [JS detect scroll direction](https://codepen.io/ikmaakt/pen/PowyxdK)
-- [JS detect scroll position](https://stackoverflow.com/questions/7182342/how-to-detect-when-the-user-has-scrolled-to-a-certain-area-on-the-page-using-jqu/7182403)
-- [JS forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+- [React ref list detect scroll direction](https://stackoverflow.com/questions/65350114/useref-for-element-in-loop-in-react)
+- [jQuery detect scroll position](https://stackoverflow.com/questions/7182342/how-to-detect-when-the-user-has-scrolled-to-a-certain-area-on-the-page-using-jqu/7182403)
+- [React HashLink](https://stackoverflow.com/questions/40280369/use-anchors-with-react-router)
 - [JS+CSS prevent scroll below modal](https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/)
-- [CSS disable selection](https://www.arungudelli.com/tutorial/css/disable-text-selection-in-html-using-user-select-css-property/)
 - [react-device-detect](https://www.npmjs.com/package/react-device-detect)
+- [localStorage for dark/light mode](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)
 
 ### Deploy:
 - [react-gh-pages](https://github.com/gitname/react-gh-pages)

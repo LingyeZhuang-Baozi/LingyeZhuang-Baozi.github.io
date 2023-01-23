@@ -5,33 +5,59 @@
  */
 
 import React, { useState , useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, /*HashRouter as Router,*/ Routes, Route } from "react-router-dom";
+
+/* Foreign components */
 import './style.css';
 import Home, { Resume, Journey } from './Home.js';
 import Case from './Case.js';
 
+/* Libraries */
+import { Transition, SwitchTransition, CSSTransition } from 'react-transition-group';
+
+
+
+/**
+ * App, the entry point
+ */
 function App() {
 
 	/* Light mode */
-	const [mode, setMode] = useState("light");  // light*, dark
+	const [mode, setMode] = useState(localStorage&&localStorage.getItem("zhuanglingye_mode") ? localStorage.getItem("zhuanglingye_mode") : "light");  // light*, dark
 	const toggleMode = () => {
-		setMode (prev => prev==="light" ? "dark" : "light");
+		const prev_mode = mode;
+		const new_mode = (prev_mode==="light" ? "dark" : "light");
+		localStorage.setItem("zhuanglingye_mode", new_mode);
+		setMode(new_mode);
 	}
+	useEffect (() => {
+		if (localStorage && !localStorage.getItem("zhuanglingye_mode")) {
+			localStorage.setItem("zhuanglingye_mode", "light");
+		}
+	}, []);
 
 	/* Render */
 	return (
 		<div className="mode">
-			<Router><Routes>
+			<Router /*basename={process.env.PUBLIC_URL}*/><Routes>
+
+				{/* Home */}
 				<Route path='/' element = {
 					<Home
 						mode={mode}
 						toggleMode={toggleMode}
 					/>
 				}>
-					<Route path="/resume" element={<Resume mode={mode} />} />
-					<Route path="/journey" element={<Journey mode={mode} />} />
+					<Route path="/resume" element={ <Resume mode={mode} /> } />
+					<Route path="/journey" element={ <Journey mode={mode} /> }></Route>
 				</Route>
-				<Route path='/case/ACM' element={<Case mode={mode} />} />
+
+				{/* Cases */}
+				<Route path="/case-ACM" element={ <Case case="ACM" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-Bitsrealm" element={ <Case case="Bitsrealm" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-RehaBuddy" element={ <Case case="RehaBuddy" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-CruzRoja" element={ <Case case="CruzRoja" mode={mode} toggleMode={toggleMode} /> } />
+
 			</Routes></Router>
 		</div>
 	);
