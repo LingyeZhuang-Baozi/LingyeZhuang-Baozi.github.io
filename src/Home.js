@@ -36,16 +36,16 @@ export default function Home (props) {
 
 	/* Page */
 	const [page, setPage] = useState("home");	// resume, home*, journey
-	useEffect (() => {
-		console.log ("window pathname: '", window.location.pathname, "'\npage hook: '", page, "'"); //DEBUG
-		if (window.location.pathname==="/resume" && page!=="resume") {
-			setPage("resume");
-		} else if (window.location.pathname==="/" && page!=="home") {
-			setPage("home");
-		} else if (window.location.pathname==="/journey" && page!=="journey") {
-			setPage("journey");
-		}
-	}, [window.location.href]);
+	// useEffect (() => {
+	// 	console.log ("window pathname: '", window.location.pathname, "'\npage hook: '", page, "'"); //DEBUG
+	// 	if (window.location.pathname==="/resume" && page!=="resume") {
+	// 		setPage("resume");
+	// 	} else if (window.location.pathname==="/" && page!=="home") {
+	// 		setPage("home");
+	// 	} else if (window.location.pathname==="/journey" && page!=="journey") {
+	// 		setPage("journey");
+	// 	}
+	// }, [window.location.href]);
 
 	/* Primary nav tabs and their animation state */
 	const PNtabs = ["resume", "home", "journey"];
