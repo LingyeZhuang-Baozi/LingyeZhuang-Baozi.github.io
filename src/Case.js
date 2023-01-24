@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 /* Foreign components */
 import { cases } from "./cases.js";
-import { Modebtn, Bio, Contents, Img } from "./components.js";
+import { Modebtn, Bio, Contents, Img, Vid } from "./components.js";
 
 /* Assets */
 import next_case_study_btn from "./assets/basic/next_case_study_btn@2x.png";
@@ -370,7 +370,13 @@ function CaseSectionContent (props) {
 							key={key}
 							type={element[0].substring(4)} // remove "img-"
 							src={element[1]}
-							alt={element[2]}
+							alt={
+								element.length >=3
+								&& element[2]!==null
+								&& element[2]!=="" ?
+									element[2]
+								: ""
+							}
 							caption={
 								element.length >=4
 								&& element[3]!==null
@@ -391,11 +397,36 @@ function CaseSectionContent (props) {
 					);
 					break;
 
-				// case "vid":
-				// 	return (
-				// 		...
-				// 	);
-				// 	break;
+				case "vid":
+					return (
+						<Vid
+							key={key}
+							src={element[1]}
+							alt={
+								element.length >=3
+								&& element[2]!==null
+								&& element[2]!=="" ?
+									element[2]
+								: ""
+							}
+							caption={
+								element.length >=4
+								&& element[3]!==null
+								&& element[3]!=="" ?
+									element[3]
+								: undefined
+							}
+							width={
+								element.length >= 5
+								&& element[4]!==null
+								&& element[4]!=="" ?
+									element[4]
+								: undefined
+							}
+							mode={props.mode}
+						/>
+					);
+					break;
 
 				case "prototype":
 					return (

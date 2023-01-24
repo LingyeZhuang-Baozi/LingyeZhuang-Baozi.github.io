@@ -21,11 +21,11 @@
  *				[0]section_type (str) : ("intro", "problem", "section", "subsection", "evidence") ,
  *				[1]section_identifier (str) : ("Overview", "User Research", "Design", "Takeaways" / "Reflection", "Outcomes", ...)
  * 				[2]section_content : [
- *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid", "prototype") ,
+ *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "prototype") ,
  *					[1]item_content (html str, OR img as required path, OR vid as required path, OR interactive prototype as src str),
  *					[(2)]item_alt (str) OR [2] prototype_ratio (str, height / width in percentage),
  *					[(3)]item_caption (str),
- *					[(4)]item_stylelist (str)
+ *					[(4)]img_stylelist (str) OR [(4)]vid_width (str)
  *				], [...] ],
  *			], [...] ]
  *		],
@@ -221,7 +221,30 @@ export const cases = {
 			"next": "CruzRoja",
 		},
 		[require("./assets/cases/RehaBuddy/object_RehaBuddy_light@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_blink@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_blink@2x.png")],
-		[],
+		[
+			["intro", "", [
+				["vid", require("./assets/cases/RehaBuddy/content/presentation.mp4"), "", "", "",],
+			]],
+			["section", "", [
+				["title", "Transcript",],
+				["text", "	Stroke happens when blood supply to part of the brain is interrupted, typically leading to weakness and numbness in limbs, especially among seniors.",],
+				["text", "For upper-limb recovery, patients will do exercises for months, even years. Yet pain, boredness, post-stroke depression, all affect adherence, even knowing that recovery exercise is necessary.",],
+				["text", "I am thinking, we cannot avoid having to do these exercises, but maybe we can add more motivation with a device that detects recovery progress and provides encouraging feedback? I ended up with RehaBuddy, a haptics and musical tamagotchi therapy putty, which I will expand on.",],
+				["text", "Going back a little bit, let's look at existing products and research on stroke recovery.",],
+				["text", "The thing with stroke recovery tools nowadays are:<ul><li>Passive tools or stimulators become boring quickly;</li><li>Responsive technologies are always expensive, and often dependent on a laptop, which is unportable and many elderlies have trouble getting used to it;</li><li>There are curriculums out there, which are fun and cheap. However they have to be performed with a therapist, and thus you cannot have it everyday.</li></ul>",],
+				["text", "That is why I try to find a solution to provide motivation that:<ul><li>Could be more affordable;</li><li>Simpler, avoiding computers;</li><li>Avoids having to be over-dependent on other people's assistance, so the practice can be done on a home and daily basis.</li></ul>",],
+				["text", "I was recommended the works by Professor Caitlyn Seim from Stanford university, which really inspired me a lot.",],
+				["text", "Let me introduce to you my concept RehaBuddy, a small device that you can grab in hand and do recovery exercises while holding it. With the help of some built-in sensors, the device should detect the user‘s movement. So when you are squeezing the surface, or moving around when practicing shoulders and elbows, the sensors within RehaBuddy, probably touch sensors and gyroscope etc, they know you are exercising. And to celebrate this, it will produce enjoyable sound, and vibration feedback.",],
+				["text", "Why do I focus on haptics and musical feedback instead of the visual side? When the user is doing physical exercise, it would be uncomfortable to require them to focus their eyes somewhere to receive visual encouragement, but sound in the air and haptics stimuli on the skin from the device surface is not limited by that. Also, musical and haptics stimulation are known to drive neural reconnection and skill acquisition. In fact they are seen applied to many of the existing products for stroke recovery today.",],
+				["text", "Among various types of haptics feedback, I pick strong vibration, which is a suitable type of feedback for stroke patients, according to Prof. Caitlyn's research. Since stroke patients have numbness in the affected hand, they are less sensitive to normal level of haptics feedback and more tolerant to strong vibration. So the strong vibration can get into their heart.",],
+				["text", "The size and shape of RehaBuddy mimics a therapy putty, which is like a squishy ball for finger recovery, that is commonly used, and thus an already-learnt convention among stroke patients. Compared with glove-shaped devices, which the patient will need help to even put them on and off, a therapy putty shape is simple to grab on and start exercising with. It is straightforward enough that, even if the patient has not used a regular therapy putty before, there is little difficulty in learning it, and such ease to learn is very important for senior users.",],
+				["text", "As a motivation strategy, my device works similarly to a tamagotchi pet. If you practice regularly and properly with it, it likes you and grows and enhances feedback. But if you don't practice for too long, the pet might get sick, in other words the feedback level will decline, and you will have to start over again if you stop for too long.",],
+				["text", "Moreover, the feedback is not simply repeating each time. This is according to another research which showed that unpredictability, in other words having unpredictable changes, could add to a motivation application.",],
+				["text", "Unlike a traditional tamagotchi, you cannot see the image of your digital pet. But as mentioned before, you can hear it and feel it when you do recovery exercise.",],
+				["text", "I interviewed therapists and stroke patients. An important thing that I was told by the therapists is that the word \"motivation\" could be a dangerous concept in the field of stroke recovery, since it is easy to slip into ambiguously judging a patient's motivation, or labeling a patient as motivated or not, which is bad. So I want to point out that when I say my product helps motivate stroke patients, my target users are those who have left hospital already, and started home-based recovery, but found it hard to keep up. My product just aims to provide an external source of push when giving up appears to be so easy, and persisting is hard.",],
+				["text", "This is merely a conceptual design according to interviews and literature reviews. There are still many problems to solve if we are to actually implement it. For instance:<ul><li>How can we simplify sensors and motors required to fit them into a therapy putty size?</li><li>If the patient stops exercising for a while and RehaBuddy sort of dies, the feedback declines, then what degree of declining would be the most proper, so the user is on one hand motivated to exercise consistently to prevent RehaBuddy from dying, while still willing to start over if they happen to pause exercising for some reason?</li><li>Additionally, for the built-in sensors, one thing that needs to be solved is how to differentiate exercising from simply carrying the device around? Or much harder, how to differentiate the exercising with the stroke-affected arm from exercising with the fine arm?</li></ul>",],
+			]],
+		],
 	],
 
 	"CruzRoja": [

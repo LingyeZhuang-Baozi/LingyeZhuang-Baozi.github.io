@@ -343,6 +343,30 @@ function ImgScrollable (props) {
 	</>);
 }
 
+/**
+ * Vid
+ *
+ * props:
+ *	- src (vid as required path)
+ *	- alt (str)
+ *	- caption (str)
+ *	- width (str)
+ *	- mode (str)
+ */
+function Vid (props) {
+	return (
+		<div className="img_box">
+			<video
+				width={props.width ? props.width : "800"}
+				controls
+			>
+				<source src={props.src} type="video/mp4"/>
+				{props.alt ? props.alt : <>Ops, video can't be loaded.</>}
+			</video>
+		</div>
+	);
+}
+
 
 
 /**
@@ -357,4 +381,4 @@ function Explanation (props) {}
 
 
 /* Export */
-export { Modebtn, Bio, Contents, Img };
+export { Modebtn, Bio, Contents, Img, Vid };
