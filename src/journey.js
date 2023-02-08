@@ -100,7 +100,7 @@ export const journey = [
 				[
 					["text", "A story about Liam, a teenager in the future, who has a terrible relationship with his Dad. Liam escapes into MoM, the virtual world, whenever he has an argument with Dad. In MoM, Liam sometimes uses a girl avatar to catfish other players for goods and rewards. Until one day he comes across a real scammer, the Fake Game Manager. Scammed by the evil Fake GM and losing all his currencies, Liam bumps into his Dad who has accidentally entered the virtual world. The two bring Fake GM to justice, and during the process they got to resolve misunderstandings and reconcile with each other.",],
 					["text", "All 4 of us on the team acted in the short film. I was in charge of video editing for the final production, using Adobe Premiere Pro.",],
-					["vid", require("./assets/journey/2020/2_MoM/MoM.mp4"), "", "", "", require("./assets/journey/2020/2_MoM/MoM_thumbnail.png"),],
+					//["vid", require("./assets/journey/2020/2_MoM/MoM.mp4"), "", "", "", require("./assets/journey/2020/2_MoM/MoM_thumbnail.png"),],
 					["img-static", require("./assets/journey/2020/2_MoM/MoM_storyboard.png"), "MoM storyboard", "storyboard by me", {minWidth:"400px", maxWidth:"640px"},],
 				],
 			],
