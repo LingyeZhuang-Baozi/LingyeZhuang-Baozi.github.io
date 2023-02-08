@@ -1,9 +1,10 @@
-import React, { useState , useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet, Link } from "react-router-dom";
+import React, { useState , useEffect, createRef, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, Outlet, useOutletContext, Link } from "react-router-dom";
 
 /* Foreign components */
 import { cases } from "./cases.js";
-import { Modebtn, Bio } from "./components.js";
+import { journey } from "./journey.js";
+import { Modebtn, SectionContent, Bio, ImgModal } from "./components.js";
 // import Nav from "./Nav.js";
 
 /* Assets */
@@ -16,6 +17,7 @@ import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag@2x.png";
 /* Libraries */
 import { isSafari, isIE } from "react-device-detect";
 //import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
+import useIsInViewport from "use-is-in-viewport";
 import { GlassMagnifier } from "react-image-magnifiers";
 import Spline from '@splinetool/react-spline'; // under experiment
 
@@ -101,18 +103,15 @@ export default function Home (props) {
 		}
 	}, [blinkingObject]);
 
+	/* Modal */
+	const [modalSrc, setModalSrc] = useState("");
+
 	/* Contact btns and their corresponding links */
 	const Cbtns = [
 		["email", "mailto:l1zhuang@ucsd.edu"/*link="mailto:zhuanglingye@163.com"*/],
 		["instagram", "https://www.instagram.com/juliet_baozi/"],
 		["linkedin", "http://linkedin.com/in/lingye-zhuang-a1b4731a1"]
 	];
-
-	/* Journey timeline */
-	const [journeyYear, setJourneyYear] = useState("2019"); // 2019*, 2020, 2021, 2022
-
-	/* Journey timeline years */
-	const JourneyYears = ["2019", "2020", "2021", "2022"];
 
 	/* Smooth transition animation helper */
 	const [loaded, setLoaded] = useState(false);
@@ -207,7 +206,7 @@ export default function Home (props) {
 								// 	</TransitionGroup>
 								// );
 							} else {
-								return ( <Outlet /> );
+								return ( <Outlet context={[modalSrc, setModalSrc]}/> );
 							}
 						})()}
 				</div></div>
@@ -238,6 +237,11 @@ export default function Home (props) {
 				)}
 			</div></div></div>
 
+			<ImgModal
+				modalSrc={modalSrc}
+				mode={props.mode}
+			/>
+
 		</div>
 	);
 }
@@ -253,7 +257,7 @@ export default function Home (props) {
  *	- PNisChanging (bool)
  */
 function PNT (props) {
-	return (
+	return (<>
 		<div className="home_tab_div">
 			<Link to={(props.tab==="home" ? "/" : ("/"+props.tab))}>
 				<div
@@ -266,16 +270,16 @@ function PNT (props) {
 					onClick={props.onclick}
 				/>
 			</Link>
-			{props.tab==="journey" ?
-				<div
-					className="journey_timeline_div_outer"
-					style={{opacity: props.active==true ? "1" : "0"}}
-				>
-					<JourneyTimeline mode={props.mode}/>
-				</div>
-			: null}
 		</div>
-	);
+		{props.tab==="journey" ?
+			<div
+				className="journey_timeline_div_outer"
+				style={{opacity: props.active==true ? "1" : "0"}}
+			>
+				<JourneyTimeline mode={props.mode}/>
+			</div>
+		: null}
+	</>);
 }
 
 /**
@@ -445,7 +449,7 @@ function CaseObjects (props) {
 							<img
 								className={
 									"case_object_img " +
-									((props.hoveringObject==true && props.hoveredCase===item[0]) ? "case_object_img_active cursor_readmore smooth_animation_xl" : "") + " " +
+									((props.hoveringObject==true && props.hoveredCase===item[0]) ? "case_object_img_active cursor_readmore_1 smooth_animation_xl" : "") + " " +
 									((i===2 && props.newToHome==true) ? "animation_case_object_bounce" : "")
 								}
 								srcSet={
@@ -562,12 +566,126 @@ function Resume (props) {
  * Journeys
  *
  * props:
+ *	- setModalSrc (func)
  *	- mode (str)
  */
 function Journey (props) {
+
+	/* Contents setup */
+
+	// fetch full_journey from journey doc.
+	const full_journey = [...journey];
+
+	// summarize year_list, set refs and viewport trackers to locate each year block.
+	let year_list = []; // [[ year (str), year_ref (ref) ], [...]]
+	const year_refs = useRef([]);
+	for (let i = 0; i < full_journey.length; i++) {
+		const curr_year_ref = createRef();
+		year_refs.current[i] = curr_year_ref;
+		year_list[i] = [full_journey[i][0], curr_year_ref];
+	}
+
+	// scroll detector and journey_timeline switch.
+	const [yearInViewportState, setYearInViewportState] = useState(Array(full_journey.length).fill(false));
+		// when a year enters the viewport, corresponding index turns true
+	const [currYear, setCurrYear] = useState(null);
+	useEffect(() => {
+		setCurrYear(yearInViewportState.findIndex((state) => state==true));
+	}, [yearInViewportState]);
+
+	// modal.
+	const [modalSrc, setModalSrc] = useOutletContext();
+
+	// hover - tooltip detection
+	//TODO
+
+
+	/* Render */
+	return (<>
+		{/*<span className={"text_hint text_hint_"+props.mode}>Yearly journey under construction. See you soon!</span>*/}
+		{full_journey.reverse().map ((year, i) =>
+			<JourneyYear
+				key={year[0][0]}
+				year={year}
+				i={i}
+				year_ref={year_refs.current[i]}
+				setYearInViewportState={setYearInViewportState}
+				setModalSrc={setModalSrc}
+				mode={props.mode}
+			/>
+		)}
+	</>);
+}
+
+/**
+ * Journey year
+ *
+ * props:
+ *	- year (array)
+ *	- i (int)
+ *	- year_ref (ref)
+ *	- setYearInViewportState (func)
+ *	- setModalSrc (func)
+ *	- mode (str)
+ */
+function JourneyYear (props) {
+
+	const [isInViewport, targetWrapperRef] = useIsInViewport({
+		target: props.year_ref,
+		threshold: 0,
+		modTop: "-40px",
+		modBottom: "-40px"
+	});
+	useEffect (() => {
+		props.setYearInViewportState(prev => {
+			let newYearInViewportState = [...prev];
+			newYearInViewportState[props.i] = isInViewport;
+			return newYearInViewportState;
+		});
+	}, [isInViewport]);
+
 	return (
-		<div>
-			<span className={"text_hint text_hint_"+props.mode}>Yearly journey under construction. See you soon!</span>
+		<div
+			ref={targetWrapperRef}
+			id={"journey_"+props.year[0][0]}
+			className="journey_year"
+		>
+			<div className="journey_year_header">
+				<img
+					className="journey_year_animal"
+					srcSet={(props.mode==="light" ? props.year[0][1][0] : props.year[0][1][1]) + " 4x"}
+					onDragStart={e => e.preventDefault()}
+				/>
+				<div className={"journey_year_num text_"+props.mode}>{props.year[0][0]}</div>
+			</div>
+			{props.year[1].map ((journey, j) =>
+				<div
+					key={props.year[0][0]+"_"+j}
+					className={"journey_journey journey_journey_"+props.mode}
+				>
+					<div className={"journey_journey_header journey_journey_header_"+props.mode}>
+						<div className={"journey_journey_title text_"+props.mode}>
+							{journey[0][0]}
+						</div>
+						{journey[0].length > 1 ?
+							<div className={"journey_journey_client text_hint text_hint_"+props.mode}>
+								{journey[0][1]}
+							</div>
+						: null }
+					</div>
+					{journey[1].length !== 0 ?
+						<div className="journey_journey_readmore">{/*TODO*/}</div>
+					: null }
+					<div className={"journey_journey_content content text_"+props.mode}>
+						<SectionContent
+							content={journey[2]}
+							suffix={"journey_" + props.year[0][0] + "_" + j}
+							setModalSrc={props.setModalSrc}
+							mode={props.mode}
+						/>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
@@ -582,6 +700,9 @@ function JourneyTimeline (props) {
 	return (
 		<div className="journey_timeline_div_inner">
 			<div className={"journey_timeline_line journey_timeline_line_"+props.mode} />
+			<div className="journey_timeline_nodes">
+				<div className={"journey_timeline_node journey_timeline_node_"+props.mode}></div>
+			</div>
 		</div>
 	);
 }

@@ -4,8 +4,8 @@ import React, { useState , useEffect } from 'react';
 // import bullet_large_light from "./assets/basic/bullet_large_light@2x.png";
 
 /* Libraries */
-import { GlassMagnifier } from "react-image-magnifiers";
 import parse from 'html-react-parser';
+import { GlassMagnifier } from "react-image-magnifiers";
 
 
 
@@ -53,13 +53,174 @@ function Modebtn (props) {
 					setIsActive(true);
 				}}
 			>
-				<div className="modebtn_icon smooth_animation_xs"></div>
+				<div className="modebtn_icon smooth_animation_xs" />
 			</div>
 			{isActive == true ?
-				<div className="modebtn_animation_circle"></div>
+				<div className="modebtn_animation_circle" />
 			: null }
 		</>
 	);
+}
+
+
+
+/**
+ * SectionContent
+ *
+ * props:
+ *	- content (array)
+ *	- suffix (str)
+ *	- title_class (str)
+ *	- setModalSrc (func)
+ *	- mode (str)
+ */
+function SectionContent (props) {
+	return (<>
+		{props.content.map ((element, i) => {
+			const key = props.suffix+i;
+			switch (element[0]) { // title, text, img-static, img-zoomable, img-scollable, vid, iframe
+
+				case "title":
+					return (
+						<div
+							key={key}
+							className={props.title_class}
+						>
+							{parse(element[1])}
+						</div>
+					);
+					break;
+
+				case "text":
+					return (
+						<p
+							key={key}
+							className={props.suffix.replace(/-/g,"_")+"_text"}
+						>
+							{parse(element[1])}
+						</p>
+					);
+					break;
+
+				case "img-static":
+				case "img-zoomable":
+				case "img-scrollable":
+					return (
+						<Img
+							key={key}
+							type={element[0].substring(4)} // remove "img-"
+							src={element[1]}
+							alt={
+								element.length >=3
+								&& element[2]!==null
+								&& element[2]!=="" ?
+									element[2]
+								: ""
+							}
+							caption={
+								element.length >=4
+								&& element[3]!==null
+								&& element[3]!=="" ?
+									element[3]
+								: undefined
+							}
+							img_stylelist={
+								element.length >= 5
+								&& element[4]!==null
+								&& element[4]!=="" ?
+									element[4]
+								: undefined
+							}
+							width={
+								element.length >= 6
+								&& element[5]!==null
+								&& element[5]!=="" ?
+									element[5]
+								: undefined
+							}
+							setModalSrc={props.setModalSrc}
+							mode={props.mode}
+						/>
+					);
+					break;
+
+				case "gallery":
+					return (
+						<div
+							key={key}
+							className="gallery"
+						>
+							<SectionContent
+								content={element[1]}
+								suffix={key}
+								setModalSrc={props.setModalSrc}
+								mode={props.mode}
+							/>
+						</div>
+					);
+					break;
+
+				case "vid":
+					return (
+						<Vid
+							key={key}
+							src={element[1]}
+							alt={
+								element.length >=3
+								&& element[2]!==null
+								&& element[2]!=="" ?
+									element[2]
+								: ""
+							}
+							caption={
+								element.length >=4
+								&& element[3]!==null
+								&& element[3]!=="" ?
+									element[3]
+								: undefined
+							}
+							width={
+								element.length >= 5
+								&& element[4]!==null
+								&& element[4]!=="" ?
+									element[4]
+								: undefined
+							}
+							poster={
+								element.length >= 6
+								&& element[5]!==null
+								&& element[5]!=="" ?
+									element[5]
+								: undefined
+							}
+							mode={props.mode}
+						/>
+					);
+					break;
+
+				case "iframe":
+					return (
+						<div
+							key={key}
+							className="ratio_outer"
+							style={{"--iframe-ratio": element[3] ? element[3] : "var(--ratio-default)"}}
+						>
+							{element[1]==="figma" ?	// prototype
+								<iframe
+									className="ratio_inner"
+									//style="border: 1px solid rgba(0, 0, 0, 0.1);" width='390' height='844'
+									src={element[2]}
+									allowFullScreen
+								></iframe>
+							:
+								<>{parse(element[2])}</>
+							}
+						</div>
+					);
+					break;
+			}
+		})}
+	</>);
 }
 
 
@@ -114,7 +275,7 @@ function Bio (props) {
 
 
 /**
- * Contents
+ * List of contents
  *
  * props:
  *	- list (2D array): [[ section_identifier (str), section_ref (ref) ], [...]]
@@ -213,6 +374,7 @@ function Img (props) {
 					alt={props.alt}
 					caption={props.caption}
 					img_stylelist={props.img_stylelist}
+					width={props.width}
 					mode={props.mode}
 				/>
 			</>);
@@ -266,7 +428,7 @@ function ImgZoomable (props) {
 		props.setModalSrc({
 			"src": props.src,
 			"alt": props.alt,
-			"minWidth": props.img_stylelist["minWidth"] ? props.img_stylelist["minWidth"] : "0px",
+			"minWidth": (props.img_stylelist && props.img_stylelist["minWidth"]) ? props.img_stylelist["minWidth"] : "0px",
 			"close": close_modal,
 		});
 		document.body.style.overflow = "hidden";
@@ -315,6 +477,34 @@ function ImgZoomable (props) {
 }
 
 /**
+ * ImgModal
+ *
+ * props:
+ *	- modalSrc (str)
+ *	- mode (str)
+ */
+function ImgModal (props) {
+	return (<>
+		{props.modalSrc !== "" ?
+			<div
+				className={"modal_div_outer modal_div_outer_"+props.mode+" cursor_zoomout"}
+				onClick={(e) => { e.preventDefault(); props.modalSrc["close"](); }}
+			><div className="modal_div_inner">
+				<img
+					className="modal_img"
+					style={{"--img-zoomable-min-width": props.modalSrc["minWidth"]}}
+					src={props.modalSrc["src"]}
+					alt={props.modalSrc["alt"]}
+					onDragStart={e => e.preventDefault()}
+				/>
+				{/*TODO: add close/back button*/}
+				<div className={"modal_close modal_close_"+props.mode} />
+			</div></div>
+		: null }
+	</>);
+}
+
+/**
  * ImgScrollable
  *
  * props:
@@ -322,11 +512,15 @@ function ImgZoomable (props) {
  *	- alt (str)
  *	- caption (str)
  *	- img_stylelist (str)
+ *	- width (str)
  *	- mode (str)
  */
 function ImgScrollable (props) {
 	return (<>
-		<div className={"img_box img_box_scrollable img_box_scrollable_"+props.mode}>
+		<div
+			className={"img_box img_box_scrollable img_box_scrollable_"+props.mode}
+			style={{width: props.width ? props.width : "100%"}}
+		>
 			<div
 				className={"img_box_img_scrollable_container img_box_img_"+props.mode}
 				style={props.img_stylelist}
@@ -351,6 +545,7 @@ function ImgScrollable (props) {
  *	- alt (str)
  *	- caption (str)
  *	- width (str)
+ *	- poster (img as required path)
  *	- mode (str)
  */
 function Vid (props) {
@@ -358,6 +553,7 @@ function Vid (props) {
 		<div className="img_box">
 			<video
 				width={props.width ? props.width : "800"}
+				poster={props.poster ? props.poster : ""}
 				controls
 			>
 				<source src={props.src} type="video/mp4"/>
@@ -381,4 +577,4 @@ function Explanation (props) {}
 
 
 /* Export */
-export { Modebtn, Bio, Contents, Img, Vid };
+export { Modebtn, SectionContent, Bio, Contents, Img, ImgModal, Vid };

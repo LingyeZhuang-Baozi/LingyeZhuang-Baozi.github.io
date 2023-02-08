@@ -2,7 +2,7 @@
  * Structure:
  *	cases {
  *		<case_name> : [
- *			[0]name (str) : <case_name>,
+ *			[0]case_name (str) : <case_name>,
  *			[1]brief (array) : {
  *				"title" (str),
  *				"description" (str),
@@ -17,15 +17,16 @@
  *				"next" (str)
  *			},
  *			[2]object (array of imgs as required paths) : [ [0]light_default, [1]dark_default, [2]light_figure, [3]dark_figure, [4]light_active, [5]dark_active, [6]light_blink, [7]dark_blink ],
- *			[3]content (2D array) : [ [
+ *			[3]case_content : [ [
  *				[0]section_type (str) : ("intro", "problem", "section", "subsection", "evidence") ,
- *				[1]section_identifier (str) : ("Overview", "User Research", "Design", "Takeaways" / "Reflection", "Outcomes", ...)
- * 				[2]section_content : [
- *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "prototype") ,
- *					[1]item_content (html str, OR img as required path, OR vid as required path, OR interactive prototype as src str),
- *					[(2)]item_alt (str) OR [2] prototype_ratio (str, height / width in percentage),
- *					[(3)]item_caption (str),
- *					[(4)]img_stylelist (str) OR [(4)]vid_width (str)
+ *				[1]section_identifier (str) : ("Overview", "User Research", "Design", "Implementation", "Takeaways", "Reflection", "Outcomes", ...)
+ *				[2]section_content : [ [
+ *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe") ,
+ *					[1]item_content (html str, OR img as required path, OR vid as required path) OR [1]iframe_type (str),
+ *					[(2)]item_alt (str) OR [2]iframe_src (str or code),
+ *					[(3)]item_caption (str) OR [(3)]iframe_ratio (str, height / width in percentage),
+ *					[(4)]img_stylelist (str) OR [(4)]vid_width (str),
+ *					[(5)]img_scrollable_width (str) OR [(5)]vid_poster (img as required path)
  *				], [...] ],
  *			], [...] ]
  *		],
@@ -117,6 +118,10 @@ export const cases = {
 				["text", "See the ACM website that we upgraded here: <a href='https://acmucsd.com/' target='_blank'>ACM@UCSD</a>.",],
 				["text", "Thank you to my designmates <a href='https://michelemurakami.com/index.html' target='_blank'>Michele</a> and <a href='https://linkedin.com/in/tlee016' target='_blank'>Tiffany</a>.",],
 			]],
+			["section", "Reflection", [
+				["title", "What will I do differently today?",],
+				["text", "...",],
+			]],
 		],
 	],
 
@@ -181,7 +186,7 @@ export const cases = {
 				["title", "Performer's control center: modularized settings",],
 				["text", "This was the first virtual concert that Bitsrealm holds, so the performer's control center only contained the immediately necessary features. But in the near future, the interface would grow to include more functions as Bitsrealm cooperates with artists from all walks of life. Therefore, to leave space for expansion in the future, I designed the settings in a modularized way, following a consistent style while allowing for flexibility. When more features need to be added, new modules can easily be pieced in, like LEGO bricks.",],
 				["img-static", require("./assets/cases/Bitsrealm/content/4_performer_control_center.png"), "", "", {minWidth:"560px"},],
-				//["prototype", "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FXkKYGcl4JrNqpRxqmnKJrL%2FALUM%3Fpage-id%3D14%253A129%26node-id%3D190%253A799%26viewport%3D197%252C136%252C0.14%26scaling%3Dscale-down%26starting-point-node-id%3D190%253A799"/* TODO: replace with the correct prototype link" */, "216.41%",],
+				//["iframe", "figma", "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FXkKYGcl4JrNqpRxqmnKJrL%2FALUM%3Fpage-id%3D14%253A129%26node-id%3D190%253A799%26viewport%3D197%252C136%252C0.14%26scaling%3Dscale-down%26starting-point-node-id%3D190%253A799"/* TODO: replace with the correct prototype link" */, "216.41%",],
 			]],
 			["subsection", "", [
 				["title", "Mobile audience site: landscape UI",],
@@ -203,6 +208,10 @@ export const cases = {
 			["evidence", "", [
 				["text", "See the event hub of the virtual concert on Bitsrealm's website here: <a href='https://bitsrealm.com/explore/activity-details?id=13' target='_blank'>Bitsrealm: Neo-wulin</a>.",],
 			]],
+			["section", "Reflection", [
+				["title", "What will I do differently today?",],
+				["text", "...",],
+			]],
 		],
 	],
 
@@ -223,11 +232,12 @@ export const cases = {
 		[require("./assets/cases/RehaBuddy/object_RehaBuddy_light@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_blink@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_blink@2x.png")],
 		[
 			["intro", "", [
-				["vid", require("./assets/cases/RehaBuddy/content/presentation.mp4"), "", "", "",],
+				["vid", require("./assets/cases/RehaBuddy/content/presentation.mp4"), "", "", "", require("./assets/cases/RehaBuddy/content/RehaBuddy_thumbnail.png"),],
 			]],
 			["section", "", [
 				["title", "Transcript",],
-				["text", "	Stroke happens when blood supply to part of the brain is interrupted, typically leading to weakness and numbness in limbs, especially among seniors.",],
+				["text", "Today I will introduce my conceptual design of RehaBuddy.",],
+				["text", "Stroke happens when blood supply to part of the brain is interrupted, typically leading to weakness and numbness in limbs, especially among seniors.",],
 				["text", "For upper-limb recovery, patients will do exercises for months, even years. Yet pain, boredness, post-stroke depression, all affect adherence, even knowing that recovery exercise is necessary.",],
 				["text", "I am thinking, we cannot avoid having to do these exercises, but maybe we can add more motivation with a device that detects recovery progress and provides encouraging feedback? I ended up with RehaBuddy, a haptics and musical tamagotchi therapy putty, which I will expand on.",],
 				["text", "Going back a little bit, let's look at existing products and research on stroke recovery.",],

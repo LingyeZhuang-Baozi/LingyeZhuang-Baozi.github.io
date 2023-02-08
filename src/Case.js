@@ -17,14 +17,14 @@ import { Link } from "react-router-dom";
 
 /* Foreign components */
 import { cases } from "./cases.js";
-import { Modebtn, Bio, Contents, Img, Vid } from "./components.js";
+import { Modebtn, SectionContent, Bio, Contents, Img, ImgModal, Vid } from "./components.js";
 
 /* Assets */
 import next_case_study_btn from "./assets/basic/next_case_study_btn@2x.png";
 
 /* Libraries */
-import useIsInViewport from "use-is-in-viewport";
 import parse from 'html-react-parser';
+import useIsInViewport from "use-is-in-viewport";
 //import { GlassMagnifier } from "react-image-magnifiers";
 
 
@@ -41,14 +41,14 @@ export default function Case (props) {
 
 	/* Contents setup */
 
-	// fetch full_write up from cases doc.
+	// fetch full write up from cases doc.
 	const full_writeup = [...cases[props.case][3]];
 
 	// summarize content_list, set refs and viewport trackers to locate each section.
 	let content_list = []; // [[ section_identifier (str), section_ref (ref) ], [...]]
 	const content_refs = useRef([]);
-	let map_to_contentlist = []; // some sections are hidden in the case_left content list
-	let curr_bigbro = 0; // index of the latest big-bro section that shows in the case_left content list
+	let map_to_contentlist = []; // Some sections are hidden in the case_left content list. These hidden sections will follow their big-bro
+	let curr_bigbro = 0; // map_to_contentlist set-up helper. Index of the latest big-bro section that shows in the case_left content list.
 	for (let i = 0; i < full_writeup.length; i++) {
 		const curr_section_ref = createRef();
 		content_refs.current[i] = curr_section_ref;
@@ -58,7 +58,6 @@ export default function Case (props) {
 	}
 
 	// scroll detector and case_left switch.
-	const [scrolling, setScrolling] = useState(false);
 	const [sectionInViewportState, setSectionInViewportState] = useState(Array(full_writeup.length).fill(false));
 		// when a section enters the viewport, corresponding index turns true
 	const [currSection, setCurrSection] = useState(null);
@@ -120,7 +119,7 @@ export default function Case (props) {
 					/>
 				</div></div>
 
-				<div className={"case_content text_"+props.mode}>
+				<div className={"case_content content text_"+props.mode}>
 					{full_writeup.map ((section, i) =>
 						<CaseSection
 							key={"writeup-"+props.case+"-"+i}
@@ -166,32 +165,10 @@ export default function Case (props) {
 
 		<Modebtn mode={props.mode} toggleMode={props.toggleMode} />
 
-		{modalSrc !== "" ?
-			<div
-				className={"modal_div_outer modal_div_outer_"+props.mode+" cursor_zoomout"}
-				onClick={(e) => { e.preventDefault(); modalSrc["close"](); }}
-			><div className="modal_div_inner">
-				<img
-					className="modal_img"
-					style={{"--img-zoomable-min-width": modalSrc["minWidth"]}}
-					src={modalSrc["src"]}
-					alt={modalSrc["alt"]}
-					onDragStart={e => e.preventDefault()}
-				/>
-				{/*<GlassMagnifier
-					className="modal_img"
-					imageSrc={props.src}
-					largeImageSrc={props.src}
-					magnifierSize={"360px"}
-					square={true}
-					magnifierBorderSize={2} //2px
-					magnifierBorderColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-					allowOverflow={true}
-					magnifierBackgroundColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-				/>*/}
-				{/*TODO: add close/back button*/}
-			</div></div>
-		: null }
+		<ImgModal
+			modalSrc={modalSrc}
+			mode={props.mode}
+		/>
 
 	</>);
 }
@@ -237,7 +214,7 @@ function CaseSection (props) {
 				case "intro":
 					return (
 						<div className="case_section_intro">
-							<CaseSectionContent
+							<SectionContent
 								content={props.section[2]}
 								suffix="case_section_intro"
 								setModalSrc={props.setModalSrc}
@@ -258,7 +235,7 @@ function CaseSection (props) {
 							>
 								Problem statement
 							</div>
-							<CaseSectionContent
+							<SectionContent
 								content={props.section[2]}
 								suffix="case_section_problem"
 								setModalSrc={props.setModalSrc}
@@ -272,7 +249,7 @@ function CaseSection (props) {
 					return (
 						<div className={"case_section_section case_section_section_"+props.mode}>
 							<div className={"case_section_section_identifier text_hint text_hint_"+props.mode}>{props.section[1]}</div>
-							<CaseSectionContent
+							<SectionContent
 								content={props.section[2]}
 								suffix="case_section_section"
 								title_class={
@@ -289,7 +266,7 @@ function CaseSection (props) {
 				case "subsection":
 					return (
 						<div className={"case_section_boxed case_section_subsection case_section_boxed_"+props.mode}>
-							<CaseSectionContent
+							<SectionContent
 								content={props.section[2]}
 								suffix="case_section_subsection"
 								title_class={
@@ -307,7 +284,7 @@ function CaseSection (props) {
 					return (
 						<div className={"case_section_boxed case_section_evidence case_section_boxed_"+props.mode}>
 							{/*<p>...</p>*/}
-							<CaseSectionContent
+							<SectionContent
 								content={props.section[2]}
 								suffix="case_section_evidence"
 								setModalSrc={props.setModalSrc}
@@ -320,133 +297,6 @@ function CaseSection (props) {
 
 		})()}</div>
 	);
-}
-
-
-
-/**
- * CaseSectionContent
- *
- * props:
- *	- content (array)
- *	- suffix (str)
- *	- title_class (str)
- *	- setModalSrc (func)
- *	- mode (str)
- */
-function CaseSectionContent (props) {
-	return (<>
-		{props.content.map ((element, i) => {
-			const key = props.suffix+i;
-			switch (element[0]) { // title, text, img-static, img-zoomable, img-scollable, vid, prototype
-
-				case "title":
-					return (
-						<div
-							key={key}
-							className={props.title_class}
-						>
-							{parse(element[1])}
-						</div>
-					);
-					break;
-
-				case "text":
-					return (
-						<p
-							key={key}
-							className={props.suffix.replace(/-/g,"_")+"_text"}
-						>
-							{parse(element[1])}
-						</p>
-					);
-					break;
-
-				case "img-static":
-				case "img-zoomable":
-				case "img-scrollable":
-					return (
-						<Img
-							key={key}
-							type={element[0].substring(4)} // remove "img-"
-							src={element[1]}
-							alt={
-								element.length >=3
-								&& element[2]!==null
-								&& element[2]!=="" ?
-									element[2]
-								: ""
-							}
-							caption={
-								element.length >=4
-								&& element[3]!==null
-								&& element[3]!=="" ?
-									element[3]
-								: undefined
-							}
-							img_stylelist={
-								element.length >= 5
-								&& element[4]!==null
-								&& element[4]!=="" ?
-									element[4]
-								: undefined
-							}
-							setModalSrc={props.setModalSrc}
-							mode={props.mode}
-						/>
-					);
-					break;
-
-				case "vid":
-					return (
-						<Vid
-							key={key}
-							src={element[1]}
-							alt={
-								element.length >=3
-								&& element[2]!==null
-								&& element[2]!=="" ?
-									element[2]
-								: ""
-							}
-							caption={
-								element.length >=4
-								&& element[3]!==null
-								&& element[3]!=="" ?
-									element[3]
-								: undefined
-							}
-							width={
-								element.length >= 5
-								&& element[4]!==null
-								&& element[4]!=="" ?
-									element[4]
-								: undefined
-							}
-							mode={props.mode}
-						/>
-					);
-					break;
-
-				case "prototype":
-					return (
-						<div
-							key={key}
-							className="ratio_outer"
-							style={{"--prototype-ratio": element[2]}}
-						>
-							<iframe
-								className="ratio_inner"
-								//style="border: 1px solid rgba(0, 0, 0, 0.1);" width='390' height='844'
-								src={element[1]}
-								allowFullScreen
-							></iframe>
-						</div>
-					);
-					break;
-			}
-		})}
-	</>);
 }
 
 
