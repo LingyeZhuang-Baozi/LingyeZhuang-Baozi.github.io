@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 /* Foreign components */
 import { cases } from "./cases.js";
 import { journey } from "./journeys.js";
-import { Contents, SectionContent } from "./components.js";
+import { Contents, SectionContent, Explanation } from "./components.js";
 
 /* Libraries */
 import useIsInViewport from "use-is-in-viewport";
@@ -44,7 +44,7 @@ export default function Journey (props) {
 	const full_journey = [...journey].reverse();
 
 	// take snapshot of journeyBookmark.
-	const [last_time, set_last_time] = useState(props.journeyBookmark);
+	const [bookmark, set_bookmark] = useState(props.journeyBookmark);
 
 	// form year_list, set refs and viewport trackers to locate each year block and each journey item.
 	let year_list = []; // [[ year (str), year_ref (ref) ], [...]]
@@ -64,23 +64,20 @@ export default function Journey (props) {
 			journey_dic[i][j] = journey_counter;
 			const curr_journey_ref = createRef();
 			journey_refs.current[journey_counter] = curr_journey_ref;
-			if (last_time > 0 && journey_counter === last_time) {
+			if (bookmark > 0 && journey_counter === bookmark) {
 				year_list_counter++;
-				year_list[year_list_counter] = ["last time", curr_journey_ref];
+				year_list[year_list_counter] = ["bookmark", curr_journey_ref];
 			}
 			journey_counter++;
 		}
 		year_list_counter++;
 	}
-	//console.log("journey_refs.current: ", journey_refs.current); //DEBUG
-	//console.log("journey_dic: ", journey_dic); //DEBUG
 	//}, []);
 
 	// scroll detector and journey_timeline switch.
 	const [yearInViewportState, setYearInViewportState] = useState(Array(full_journey.length).fill(false));
 		// when a year enters the viewport, corresponding index turns true
 	const [currYear, setCurrYear] = useState(null);
-	//const [journeyInViewportState, setJourneyInViewportState] = useState(Array(journey_refs.current.length).fill(false));
 	const [journeyInViewportState, setJourneyInViewportState] = useState(() => {
 		let newJourneyInViewportState = Array(journey_refs.current.length).fill(false);
 		if (props.journeyBookmark >= 0 && props.journeyBookmark < newJourneyInViewportState.length-1) {
@@ -105,26 +102,34 @@ export default function Journey (props) {
 		<JourneyNodes
 			year_list={year_list}
 			currYear={currYear}
-			set_last_time={set_last_time}
+			bookmark={bookmark}
+			set_bookmark={set_bookmark}
 			mode={props.mode}
 		/>
 		{full_journey.map ((year, i) =>
 			//<>{ (journey_refs && journey_refs.current.length > 0 && journey_dic.length > 0) ?
-				<JourneyYear
-					key={year[0][0]}
-					year={year}
-					i={i}
-					year_ref={year_refs.current[i]}
-					journey_refs={journey_refs.current}
-					journey_dic={journey_dic}
-					setYearInViewportState={setYearInViewportState}
-					setJourneyInViewportState={setJourneyInViewportState}
-					setModalSrc={setModalSrc}
-					mode={props.mode}
-				/>
+			<JourneyYear
+				key={year[0][0]}
+				year={year}
+				i={i}
+				year_ref={year_refs.current[i]}
+				journey_refs={journey_refs.current}
+				journey_dic={journey_dic}
+				setYearInViewportState={setYearInViewportState}
+				setJourneyInViewportState={setJourneyInViewportState}
+				setModalSrc={setModalSrc}
+				mode={props.mode}
+			/>
 			//: null }</>
 		)}
-		{/*意犹未尽？*/}
+		<div className={
+			"journey_behind_the_scene " +
+			"journey_behind_the_scene_"+props.mode + " " +
+			"content text_"+props.mode
+		}><p>
+			This website is <a href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master" target='_blank'>hand-coded</a> with React.js and ♡.<br/>
+			I am so flattered seeing you reading till the end. Thank you!
+		</p></div>
 	</>);
 }
 
@@ -159,6 +164,8 @@ function JourneyYear (props) {
 		//console.log("JourneyYear props.journey_refs: ", props.journey_refs); //DEBUG
 	}, [isInViewport]);
 
+	const [explainAnimal, setExplainAnimal] = useState(false);
+
 	return (
 		<div
 			ref={targetWrapperRef}
@@ -167,11 +174,19 @@ function JourneyYear (props) {
 		>
 			<div className="journey_year_header">
 				<img
-					className="journey_year_animal"
+					className="journey_year_animal explanation_trigger"
 					srcSet={(props.mode==="light" ? props.year[0][1][0] : props.year[0][1][1]) + " 4x"}
 					onDragStart={e => e.preventDefault()}
+					onMouseEnter={() => { setExplainAnimal(true); }}
+					onMouseOver={() => { setExplainAnimal(true); }}
+					onMouseLeave={() => { setExplainAnimal(false); }}
 				/>
 				<div className={"journey_year_num text_"+props.mode}>{props.year[0][0]}</div>
+				<Explanation
+					text={props.year[0][2]}
+					explanationVisible={explainAnimal}
+					mode={props.mode}
+				/>
 			</div>
 			<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
 				{props.year[1].map ((journey, j) =>
@@ -201,7 +216,7 @@ function JourneyYear (props) {
  * props:
  *	- year_list (2D array): [[ section_identifier (str), section_ref (ref) ], [...]]
  *	- currYear (int)
- *	- set_last_time (func)
+ *	- [bookmark, set_bookmark]
  *	- mode (str)
  */
 function JourneyNodes (props) {
@@ -218,6 +233,9 @@ function JourneyNodes (props) {
 		}
 	}
 
+	const [explainBookmark, setExplainBookmark] = useState(false);
+	useEffect(() => { setExplainBookmark(false); }, [props.bookmark]);
+
 	return (
 		<div className="journey_timeline_nodes dis_select">
 			{props.year_list.map ((year, i) =>
@@ -226,18 +244,24 @@ function JourneyNodes (props) {
 					className={
 						"journey_timeline_node " +
 						"journey_timeline_node_"+props.mode + " " +
-						(i===props.currYear ? "journey_timeline_node_active" : "") + " " +
-						"cursor_pointer"
+						(i===props.currYear ? "journey_timeline_node_active" : "")
 					}
 				>
 					<div className="journey_timeline_node_knot" />
 					<span
-						className="journey_timeline_node_text"
+						className={
+							"journey_timeline_node_text " +
+							(year[0]==="bookmark" ? "explanation_trigger" : "cursor_pointer")
+						}
+						onMouseEnter={() => { if (year[0] === "bookmark") { setExplainBookmark(true); } }}
+						onMouseOver={() => { if (year[0] === "bookmark") { setExplainBookmark(true); } }}
+						onMouseLeave={() => { if (year[0] === "bookmark") { setExplainBookmark(false); } }}
 						onClick={(e) => {
 							e.preventDefault();
-							if (year[0] === "last time") {
+							if (year[0] === "bookmark") {
 								handle_click_to_relocate(year[1], "smooth");
-								props.set_last_time(0); // eliminate the "last time" node once clicked
+								setExplainBookmark(false);
+								props.set_bookmark(0); // eliminate the "bookmark" node once clicked
 							} else {
 								handle_click_to_relocate(year[1], "auto");
 							}
@@ -247,6 +271,12 @@ function JourneyNodes (props) {
 					</span>
 				</div>
 			)}
+			<Explanation
+				text="continue reading from where you left last time"
+				size="s"
+				explanationVisible={explainBookmark}
+				mode={props.mode}
+			/>
 		</div>
 	);
 }

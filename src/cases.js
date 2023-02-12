@@ -23,7 +23,7 @@
  *				[2]section_content : [ [
  *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe") ,
  *					[1]item_content (html str, OR img as required path, OR vid as required path) OR [1]iframe_type (str),
- *					[(2)]item_alt (str) OR [2]iframe_src (str or code),
+ *					[(2)]title_explanation (str) OR item_alt (str) OR [2]iframe_src (str or code),
  *					[(3)]item_caption (str) OR [(3)]iframe_ratio (str, height / width in percentage),
  *					[(4)]img_stylelist (str) OR [(4)]vid_width (str),
  *					[(5)]img_scrollable_width (str) OR [(5)]vid_poster (img as required path)
@@ -75,7 +75,7 @@ export const cases = {
 				["img-static", require("./assets/cases/ACM/content/1_3_new_workflow.png"), "new workflow", "", {width:"90vw", minWidth:"800px"},],
 			]],
 			["section", "Design", [
-				["title", "Only after a thousand entreaties does she appear"/*"<a href='' style='cursor:help;'>Only after a thousand entreaties does she appear</a>"*/,],
+				["title", "Only after a thousand entreaties does she appear", "A quote from the Chinese poem Song of the Lute Player. It can mean that \"great things take time\"."],
 				["text", "I want to tell you about 2 features that I am most proud of. Through many iterations did we come to these solutions that work the best.",],
 			]],
 			["subsection", "", [

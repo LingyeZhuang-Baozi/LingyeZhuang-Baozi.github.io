@@ -149,22 +149,21 @@ export default function Case (props) {
 					next={cases[props.case][1]["next"]}
 					mode={props.mode}
 				/>
-				{/* thank you */}
-				{/* next */}
-				{/* all primary and contact tabs listed (align with home button but snap to bottom) */}
+				{/* TODO: all primary and contact tabs listed (align with home button but snap to bottom) */}
 			</div>
 
 		</div>
 
 		<div className={"case_home_div_outer case_home_div_outer_"+props.mode}>
 			<div className="case_home_div_inner">
-				<Link to="/">
+				<Link to="/" onDragStart={e => e.preventDefault()}>
 					<div
 						className = {
 							"case_home cursor_pointer " +
 							"case_home_"+props.mode
 						}
 						onClick={props.onclick}
+						onDragStart={e => e.preventDefault()}
 					/>
 				</Link>
 			</div>

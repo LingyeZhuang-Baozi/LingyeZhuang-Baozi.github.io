@@ -3,7 +3,8 @@
  *	journey [ [
  *		[0]year : [
  *			[0]year (str) : <year>,
- *			[1]animal (array of imgs as required paths) : [ [0]light, [1]dark ]
+ *			[1]animal (array of imgs as required paths) : [ [0]light, [1]dark ],
+ *			[2]animal_explanation (str): <animal_explanation>
  *		],
  *		[1]journeys : [ [
  *			[0]journey_name : [
@@ -30,7 +31,7 @@
 export const journey = [
 
 	// 2019
-	[ ["2019", [require("./assets/journey/zodiacs/animal_pig_light@2x.png"), require("./assets/journey/zodiacs/animal_pig_dark@2x.png")],],
+	[ ["2019", [require("./assets/journey/zodiacs/animal_pig_light@2x.png"), require("./assets/journey/zodiacs/animal_pig_dark@2x.png")], "year of the Pig, the 12th animal in the Chinese zodiac"],
 
 		[
 			[ ["Little soldiers doodler", "CSE 8A"], [],
@@ -80,7 +81,7 @@ export const journey = [
 
 
 	// 2020
-	[ ["2020", [require("./assets/journey/zodiacs/animal_rat_light@2x.png"), require("./assets/journey/zodiacs/animal_rat_dark@2x.png")],],
+	[ ["2020", [require("./assets/journey/zodiacs/animal_rat_light@2x.png"), require("./assets/journey/zodiacs/animal_rat_dark@2x.png")], "year of the Rat, the 1st animal in the Chinese zodiac"],
 
 		[
 			[ ["Posters - Exploring inward", "VIS 41"], [],
@@ -201,7 +202,7 @@ export const journey = [
 
 
 	// // 2021
-	// [ ["2021", [require("./assets/journey/zodiacs/animal_ox_light@2x.png"), require("./assets/journey/zodiacs/animal_ox_dark@2x.png")],],
+	// [ ["2021", [require("./assets/journey/zodiacs/animal_ox_light@2x.png"), require("./assets/journey/zodiacs/animal_ox_dark@2x.png")], "year of the Ox, the 2nd animal in the Chinese zodiac"],
 
 	// 	[
 	// 		[ ["name", "client"], [],
@@ -213,7 +214,7 @@ export const journey = [
 
 
 	// // 2022
-	// [ ["2022", [require("./assets/journey/zodiacs/animal_tiger_light@2x.png"), require("./assets/journey/zodiacs/animal_tiger_dark@2x.png")],],
+	// [ ["2022", [require("./assets/journey/zodiacs/animal_tiger_light@2x.png"), require("./assets/journey/zodiacs/animal_tiger_dark@2x.png")], "year of the Tiger, the 3rd animal in the Chinese zodiac"],
 
 	// 	[
 	// 		[ ["name", "client"], [],
@@ -225,7 +226,7 @@ export const journey = [
 
 
 	// // 2023
-	// [ ["2023", [require("./assets/journey/zodiacs/animal_rabbit_light@2x.png"), require("./assets/journey/zodiacs/animal_rabbit_dark@2x.png")],],
+	// [ ["2023", [require("./assets/journey/zodiacs/animal_rabbit_light@2x.png"), require("./assets/journey/zodiacs/animal_rabbit_dark@2x.png")], "year of the Rabbit, the 4th animal in the Chinese zodiac"],
 
 	// 	[
 	// 		[ ["name", "client"], [],

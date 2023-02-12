@@ -8,6 +8,7 @@ import parse from 'html-react-parser';
 import { isSafari, isIE } from "react-device-detect";
 //import { LazyLoadImage } from 'react-lazy-load-image-component'; import 'react-lazy-load-image-component/src/effects/blur.css';
 //import { GlassMagnifier } from "react-image-magnifiers";
+import MouseTooltip from 'react-sticky-mouse-tooltip';
 
 
 
@@ -83,14 +84,27 @@ export default function SectionContent (props) {
 			switch (element[0]) { // title, text, img-static, img-zoomable, img-scollable, vid, iframe
 
 				case "title":
-					return (
-						<div
-							key={key}
-							className={props.title_class}
-						>
-							{parse(element[1])}
-						</div>
-					);
+					if (element.length < 3) {
+						return (
+							<div
+								key={key}
+								className={props.title_class}
+							>
+								{parse(element[1])}
+							</div>
+						);
+					} else {
+						return (
+							<Explainer
+								text={element[2]}
+								size="l"
+								classlist={props.title_class}
+								mode={props.mode}
+							>
+								{parse(element[1])}
+							</Explainer>
+						);
+					}
 					break;
 
 				case "text":
@@ -581,11 +595,65 @@ function Vid (props) {
  * 
  * props:
  *	- text (str)
+ *	- size (str): s(160), m(240), l(320)
+ *	- explanationVisible (bool)
  *	- mode (str)
  */
-function Explanation (props) {}
+function Explanation (props) {
+	return (
+		<MouseTooltip
+			className={
+				"explanation_outer " +
+				(props.explanationVisible&&props.explanationVisible==true ? "explanation_outer_visible" : "explanation_outer_invisible")
+			}
+			//visible={props.explanationVisible}
+			offsetX={16}
+			offsetY={16}
+		>
+			<div className={
+				"explanation_inner " +
+				"explanation_inner_"+props.mode + " " +
+				(props.size ? "explanation_inner_"+props.size : "explanation_inner_m")
+			}>
+				<span className={"explanation_text explanation_text_"+props.mode}>{props.text}</span>
+			</div>
+		</MouseTooltip>
+	);
+}
+
+/**
+ * Explainer, a wrapper that includes both the trigger and the explanation tooltip
+ * 
+ * props:
+ *	- children: trigger
+ *	- text (str)
+ *	- size (str): s(160), m(240), l(320)
+ *	- classlist (str)
+ *	- mode (str)
+ */
+function Explainer (props) {
+
+	const [explanationVisible, setExplanationVisible] = useState(false);
+
+	return (<>
+		<div
+			className={props.classlist + " explanation_trigger"}
+			onMouseEnter={() => { setExplanationVisible(true); }}
+			onMouseOver={() => { setExplanationVisible(true); }}
+			onMouseLeave={() => { setExplanationVisible(false); }}
+		>
+			{props.children}
+		</div>
+		<Explanation
+			text={props.text}
+			size={props.size}
+			explanationVisible={explanationVisible}
+			mode={props.mode}
+		/>
+	</>);
+}
 
 
 
 /* Export */
-export { Modebtn, Bio, Contents, Img, ImgModal, Vid };
+export { Modebtn, Bio, Contents, Img, ImgModal, Vid, Explanation, Explainer };

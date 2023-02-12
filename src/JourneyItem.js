@@ -77,7 +77,8 @@ export default function JourneyItem (props) {
 				<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
 					<SectionContent
 						content={props.journey[2]}
-						suffix={"journey_" + props.year + "_" + props.j}
+						//suffix={"journey_" + props.year + "_" + props.j}
+						suffix="journey"
 						setModalSrc={props.setModalSrc}
 						mode={props.mode}
 					/>

@@ -260,7 +260,7 @@ export default function Home (props) {
 function PNT (props) {
 	return (<>
 		<div className="home_tab_div">
-			<Link to={(props.tab==="home" ? "/" : ("/"+props.tab))}>
+			<Link to={(props.tab==="home" ? "/" : ("/"+props.tab))} onDragStart={e => e.preventDefault()}>
 				<div
 					className = {
 						"home_tab cursor_pointer " +
@@ -269,6 +269,7 @@ function PNT (props) {
 						(props.PNisChanging ? "home_tab_switching" : "")
 					}
 					onClick={props.onclick}
+					onDragStart={e => e.preventDefault()}
 				/>
 			</Link>
 		</div>
@@ -304,6 +305,7 @@ function CB (props) {
 				}
 				href={props.link}
 				target="_blank"
+				onDragStart={e => e.preventDefault()}
 			/>
 		</div>
 	);
@@ -388,7 +390,7 @@ function AboutMe (props) {
 				</p>
 				<span>&nbsp;</span> {/* insert vertical space */}
 				{/*<div className="only_mobile">
-					<p>Hi, I am <span className="name">Lingye Zhuang</span>.<br>I study cognitive science with HCI at UCSD.<br>I design like a craftsman. I enjoy real world challenges and cross-discipline inspirations.</p>
+					<p>Hi, I am <span className="name">Lingye Zhuang</span>.<br/>I study cognitive science with HCI at UCSD.<br/>I design like a craftsman. I enjoy real world challenges and cross-discipline inspirations.</p>
 				</div>*/}
 			</div>
 
