@@ -5,7 +5,9 @@ import React, { useState , useEffect } from 'react';
 
 /* Libraries */
 import parse from 'html-react-parser';
-import { GlassMagnifier } from "react-image-magnifiers";
+import { isSafari, isIE } from "react-device-detect";
+//import { LazyLoadImage } from 'react-lazy-load-image-component'; import 'react-lazy-load-image-component/src/effects/blur.css';
+//import { GlassMagnifier } from "react-image-magnifiers";
 
 
 
@@ -74,7 +76,7 @@ function Modebtn (props) {
  *	- setModalSrc (func)
  *	- mode (str)
  */
-function SectionContent (props) {
+export default function SectionContent (props) {
 	return (<>
 		{props.content.map ((element, i) => {
 			const key = props.suffix+i;
@@ -287,11 +289,15 @@ function Bio (props) {
 function Contents (props) {
 
 	const handle_click_to_relocate = (ref) => {
-		ref.current.scrollIntoView({
-			block: "start",
-			inline: "nearest",
-			behavior: "smooth",
-		});
+		if (isSafari || isIE) {
+			ref.current.scrollIntoView(true);
+		} else {
+			ref.current.scrollIntoView({
+				block: "start",
+				inline: "nearest",
+				behavior: "smooth",
+			});
+		}
 	}
 
 	return (
@@ -315,7 +321,7 @@ function Contents (props) {
 								}
 								onClick={(e) => { e.preventDefault(); handle_click_to_relocate(item[1]); }}
 							>
-									{item[0]}
+								{item[0]}
 							</span>
 						</li>
 					);
@@ -399,6 +405,7 @@ function ImgStatic (props) {
 				className={"img_box_img img_box_img_"+props.mode}
 				style={props.img_stylelist}
 				src={props.src}
+				loading="lazy"
 				onDragStart={e => e.preventDefault()}
 			/>
 			{props.caption ?
@@ -455,6 +462,7 @@ function ImgZoomable (props) {
 				className={"img_box_img img_box_img_"+props.mode + " zoomable_img cursor_zoomin"}
 				style={props.img_stylelist}
 				src={props.src}
+				loading="lazy"
 				onClick={(e) => { e.preventDefault(); open_modal(); }}
 				onDragStart={e => e.preventDefault()}
 			/>
@@ -495,6 +503,7 @@ function ImgModal (props) {
 					style={{"--img-zoomable-min-width": props.modalSrc["minWidth"]}}
 					src={props.modalSrc["src"]}
 					alt={props.modalSrc["alt"]}
+					loading="lazy"
 					onDragStart={e => e.preventDefault()}
 				/>
 				{/*TODO: add close/back button*/}
@@ -528,6 +537,8 @@ function ImgScrollable (props) {
 				<img
 					className="img_box_img_scrollable"
 					src={props.src}
+					loading="lazy"
+					onDragStart={e => e.preventDefault()}
 				/>
 			</div>
 			{props.caption ?
@@ -577,4 +588,4 @@ function Explanation (props) {}
 
 
 /* Export */
-export { Modebtn, SectionContent, Bio, Contents, Img, ImgModal, Vid };
+export { Modebtn, Bio, Contents, Img, ImgModal, Vid };

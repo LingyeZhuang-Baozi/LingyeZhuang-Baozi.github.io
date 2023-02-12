@@ -29,6 +29,7 @@ Made with React JS and ♡.
 - [smooth scroll](https://www.w3schools.com/howto/howto_css_smooth_scroll.asp)
 - [Siema slides effect](https://pawelgrzybek.github.io/siema/)
 - [CSS customize cursor](https://css-tricks.com/using-css-cursors/)
+- [React lazy loading](https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52/)
 
 ### Color:
 - [Adobe color wheel](https://color.adobe.com/create/color-wheel)
@@ -69,3 +70,7 @@ Made with React JS and ♡.
 
 ### Library:
 - [react-image-magnifiers](https://www.npmjs.com/package/@rafw87/react-image-magnifiers)
+- [p5*js](https://p5js.org/examples/)
+
+### Content:
+- [embed bilibili](https://www.cnblogs.com/wkfvawl/p/12268980.html)

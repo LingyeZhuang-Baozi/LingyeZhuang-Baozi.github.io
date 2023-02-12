@@ -9,7 +9,8 @@ import { /*BrowserRouter as Router,*/ HashRouter as Router, Routes, Route } from
 
 /* Foreign components */
 import './style.css';
-import Home, { Resume, Journey } from './Home.js';
+import Home, { Resume } from './Home.js';
+import Journey from './Journey.js';
 import Case from './Case.js';
 
 /* Libraries */
@@ -24,17 +25,30 @@ function App() {
 
 	/* Light mode */
 	const [mode, setMode] = useState(localStorage&&localStorage.getItem("zhuanglingye_mode") ? localStorage.getItem("zhuanglingye_mode") : "light");  // light*, dark
+	useEffect (() => {
+		if (localStorage && !localStorage.getItem("zhuanglingye_mode")) {
+			localStorage.setItem("zhuanglingye_mode", "light");
+		}
+	}, []);
 	const toggleMode = () => {
 		const prev_mode = mode;
 		const new_mode = (prev_mode==="light" ? "dark" : "light");
 		localStorage.setItem("zhuanglingye_mode", new_mode);
 		setMode(new_mode);
 	}
+
+	/* Journey bookmark */
+	const [journeyBookmark, setJourneyBookmark] = useState(localStorage&&localStorage.getItem("zhuanglingye_journey_bookmark") ? localStorage.getItem("zhuanglingye_journey_bookmark") : null);
 	useEffect (() => {
-		if (localStorage && !localStorage.getItem("zhuanglingye_mode")) {
-			localStorage.setItem("zhuanglingye_mode", "light");
+		if (localStorage && !localStorage.getItem("zhuanglingye_journey_bookmark")) {
+			localStorage.setItem("zhuanglingye_journey_bookmark", null);
 		}
 	}, []);
+	useEffect (() => {
+		if (localStorage) {
+			localStorage.setItem("zhuanglingye_journey_bookmark", journeyBookmark);
+		}
+	}, [journeyBookmark]);
 
 	/* Render */
 	return (
@@ -49,7 +63,7 @@ function App() {
 					/>
 				}>
 					<Route path="/resume" element={ <Resume mode={mode} /> } />
-					<Route path="/journey" element={ <Journey mode={mode} /> }></Route>
+					<Route path="/journey" element={ <Journey mode={mode} journeyBookmark={journeyBookmark} setJourneyBookmark={setJourneyBookmark} /> }></Route>
 				</Route>
 
 				{/* Cases */}

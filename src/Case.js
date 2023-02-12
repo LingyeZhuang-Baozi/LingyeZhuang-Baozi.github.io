@@ -12,12 +12,12 @@
  *	return <div>{parts}</div>;
  */
 
-import React, { useState , useEffect, createRef, useRef } from 'react';
+import React, { useState , useEffect, createRef, useRef, lazy, Suspense } from 'react';
 import { Link } from "react-router-dom";
 
 /* Foreign components */
 import { cases } from "./cases.js";
-import { Modebtn, SectionContent, Bio, Contents, Img, ImgModal, Vid } from "./components.js";
+import { Modebtn, Bio, Contents, Img, ImgModal, Vid } from "./components.js";
 
 /* Assets */
 import next_case_study_btn from "./assets/basic/next_case_study_btn@2x.png";
@@ -25,7 +25,9 @@ import next_case_study_btn from "./assets/basic/next_case_study_btn@2x.png";
 /* Libraries */
 import parse from 'html-react-parser';
 import useIsInViewport from "use-is-in-viewport";
-//import { GlassMagnifier } from "react-image-magnifiers";
+
+/* Lazy loads */
+const CaseSection = lazy(() => import('./CaseSection.js'));
 
 
 
@@ -49,6 +51,7 @@ export default function Case (props) {
 	const content_refs = useRef([]);
 	let map_to_contentlist = []; // Some sections are hidden in the case_left content list. These hidden sections will follow their big-bro
 	let curr_bigbro = 0; // map_to_contentlist set-up helper. Index of the latest big-bro section that shows in the case_left content list.
+	//useEffect(() => {
 	for (let i = 0; i < full_writeup.length; i++) {
 		const curr_section_ref = createRef();
 		content_refs.current[i] = curr_section_ref;
@@ -56,6 +59,7 @@ export default function Case (props) {
 		if (full_writeup[i][1]!=="") { curr_bigbro = i; }
 		map_to_contentlist[i] = curr_bigbro;
 	}
+	//}, []);
 
 	// scroll detector and case_left switch.
 	const [sectionInViewportState, setSectionInViewportState] = useState(Array(full_writeup.length).fill(false));
@@ -67,7 +71,8 @@ export default function Case (props) {
 		setCurrSection(map_to_contentlist[curr_bellwether]);
 	}, [sectionInViewportState]);
 
-	// modal.
+
+	/* Modal */
 	const [modalSrc, setModalSrc] = useState("");
 
 
@@ -120,18 +125,20 @@ export default function Case (props) {
 				</div></div>
 
 				<div className={"case_content content text_"+props.mode}>
-					{full_writeup.map ((section, i) =>
-						<CaseSection
-							key={"writeup-"+props.case+"-"+i}
-							section={section}
-							i={i}
-							section_ref={content_refs.current[i]}
-							// sectionInViewportState={sectionInViewportState}
-							setSectionInViewportState={setSectionInViewportState}
-							setModalSrc={setModalSrc}
-							mode={props.mode}
-						/>
-					)}
+					<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
+						{full_writeup.map ((section, i) =>
+							<CaseSection
+								key={"writeup-"+props.case+"-"+i}
+								section={section}
+								i={i}
+								section_ref={content_refs.current[i]}
+								// sectionInViewportState={sectionInViewportState}
+								setSectionInViewportState={setSectionInViewportState}
+								setModalSrc={setModalSrc}
+								mode={props.mode}
+							/>
+						)}
+					</Suspense>
 				</div>
 
 			</div>
@@ -171,132 +178,6 @@ export default function Case (props) {
 		/>
 
 	</>);
-}
-
-
-
-/**
- * CaseSection
- *
- * props:
- *	- section (array)
- *	- i (int)
- *	- section_ref (ref)
- *	- setSectionInViewportState (func)
- *	- setModalSrc (func)
- *	- mode (str)
- */
-function CaseSection (props) {
-
-	const [isInViewport, targetWrapperRef] = useIsInViewport({
-		target: props.section_ref,
-		threshold: 0,
-		modTop: "-40px",
-		modBottom: "-40px"
-	});
-	useEffect (() => {
-		props.setSectionInViewportState(prev => {
-			let newSectionInViewportState = [...prev];
-			newSectionInViewportState[props.i] = isInViewport;
-			return newSectionInViewportState;
-		});
-	}, [isInViewport]);
-
-	return (
-		<div
-			ref={targetWrapperRef}
-			id={"section_"+props.i}
-			className="case_section"
-		>{(() => {
-
-			switch (props.section[0]) {
-
-				case "intro":
-					return (
-						<div className="case_section_intro">
-							<SectionContent
-								content={props.section[2]}
-								suffix="case_section_intro"
-								setModalSrc={props.setModalSrc}
-								mode={props.mode}
-							/>
-						</div>
-					);
-					break;
-
-				case "problem":
-					return (
-						<div className={"case_section_boxed case_section_problem case_section_boxed_"+props.mode}>
-							<div
-								className={
-									"case_section_boxed_title case_section_boxed_title_"+props.mode + " " +
-									"case_section_problem_title"
-								}
-							>
-								Problem statement
-							</div>
-							<SectionContent
-								content={props.section[2]}
-								suffix="case_section_problem"
-								setModalSrc={props.setModalSrc}
-								mode={props.mode}
-							/>
-						</div>
-					);
-					break;
-
-				case "section":
-					return (
-						<div className={"case_section_section case_section_section_"+props.mode}>
-							<div className={"case_section_section_identifier text_hint text_hint_"+props.mode}>{props.section[1]}</div>
-							<SectionContent
-								content={props.section[2]}
-								suffix="case_section_section"
-								title_class={
-									"case_section_title case_section_section_title " +
-									"case_section_section_title_"+props.mode
-								}
-								setModalSrc={props.setModalSrc}
-								mode={props.mode}
-							/>
-						</div>
-					);
-					break;
-
-				case "subsection":
-					return (
-						<div className={"case_section_boxed case_section_subsection case_section_boxed_"+props.mode}>
-							<SectionContent
-								content={props.section[2]}
-								suffix="case_section_subsection"
-								title_class={
-									"case_section_boxed_title case_section_boxed_title_"+props.mode + " " +
-									"case_section_subsection_title"
-								}
-								setModalSrc={props.setModalSrc}
-								mode={props.mode}
-							/>
-						</div>
-					);
-					break;
-
-				case "evidence":
-					return (
-						<div className={"case_section_boxed case_section_evidence case_section_boxed_"+props.mode}>
-							{/*<p>...</p>*/}
-							<SectionContent
-								content={props.section[2]}
-								suffix="case_section_evidence"
-								setModalSrc={props.setModalSrc}
-								mode={props.mode}
-							/>
-						</div>
-					);
-					break;
-			}
-
-		})()}</div>
-	);
 }
 
 

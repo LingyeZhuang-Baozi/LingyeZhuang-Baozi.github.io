@@ -71,6 +71,7 @@
 	/* standard margin */
 	--block-reel: 16px 0px;
 	--case-margin-left: 16px;
+	--scroll-margin: 40px;
 
 	/* drop shadow */
 	--image-shadow-filter:
@@ -319,6 +320,7 @@ iframe { border: none; }
 	height: 100vh;
 	left: 50vw;
 	top: 50vh;
+	pointer-events: none;
 }
 
 .flex_container { display: flex; }
@@ -338,6 +340,8 @@ iframe { border: none; }
 	left: 0;
 	top: 0;
 }
+
+.scroll_margin { scroll-margin: var(--scroll-margin); }
 
 /* drop shadow */
 .image_shadow_filter {
@@ -779,8 +783,8 @@ iframe { border: none; }
 
 .home_tabs_div_outer {
 	position: absolute;
-	z-index: 1;
 	top: 50vh;
+	/*z-index: 1;*/
 }
 
 .home_tabs_div_inner {
@@ -832,7 +836,7 @@ iframe { border: none; }
 
 .home_tabs_primary_journey {
 	top: 160px;
-		/* 40px top margin + (3 * 48px icon + 2 * 32px gap + 1 * 32px gap after timeline shows up) / 2,
+		/* 56px top margin + (3 * 48px icon + 2 * 32px gap) / 2,
 		use this instead of transform to avoid weird jump in animation */
 }
 
@@ -982,6 +986,7 @@ iframe { border: none; }
 }
 
 .home_display_div_inner {
+	pointer-events: auto;
 	align-self: stretch;
 	flex-grow: 1;
 	-webkit-border-radius: var(--radius-l);
@@ -1325,6 +1330,7 @@ iframe { border: none; }
 .journey_timeline_line {
 	content: "";
 	height: 100vh;
+	transform: translateX(-1px); /* 1/2 border width to the left */
 	border-left: var(--border-width-l) solid;
 	-webkit-transition: border var(--delay-m), border-color var(--delay-l) ease-in-out;
 	-moz-transition: border var(--delay-m), border-color var(--delay-l) ease-in-out;
@@ -1335,9 +1341,108 @@ iframe { border: none; }
 .journey_timeline_line_light { border-color: var(--color-gray4-CC); }
 .journey_timeline_line_dark { border-color: var(--color-gray2-66); }
 
+/* Journey timeline nodes */
+
 .journey_timeline_nodes {
-	height: 100%;
+	position: absolute;
+	top: 296px; /* 56px top margin + 3 * 48px PNT + 3 * 32px gap */
+	z-index: 3;
+	left: 56px;
+	height: calc(100vh - 296px);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 8px 0px;
+	gap: 8px;
+	-webkit-animation: journey_timeline_nodes_enter var(--delay-m) ease-in-out var(--delay-s) forwards;
+	animation: journey_timeline_nodes_enter var(--delay-m) ease-in-out var(--delay-s) forwards;
+	opacity: 0;
 }
+@keyframes journey_timeline_nodes_enter {
+	0% {
+		top: 400px;
+		opacity: 0;
+	}
+	100% {
+		top: 296px;
+		opacity: 1;
+	}
+}
+
+.journey_timeline_node {
+	height: 24px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 4px;
+}
+
+.journey_timeline_node_knot {
+	width: 4px; /* 8px diameter - 2 * 2px border width */
+	height: 4px;
+	border: var(--border-width-l) solid;
+	-webkit-border-radius: var(--radius-circle);
+	-khtml-border-radius: var(--radius-circle);
+	-moz-border-radius: var(--radius-circle);
+	border-radius: var(--radius-circle);
+	-webkit-transition: background-color var(--delay-l) ease-in-out/*, border-color var(--delay-l) ease-in-out*/;
+	-moz-transition: background-color var(--delay-l) ease-in-out/*, border-color var(--delay-l) ease-in-out*/;
+	-ms-transition: background-color var(--delay-l) ease-in-out/*, border-color var(--delay-l) ease-in-out*/;
+	-o-transition: background-color var(--delay-l) ease-in-out/*, border-color var(--delay-l) ease-in-out*/;
+	transition: background-color var(--delay-l) ease-in-out/*, border-color var(--delay-l) ease-in-out*/;
+}
+
+.journey_timeline_node_light>.journey_timeline_node_knot {
+	background-color: var(--color-white);
+	border-color: var(--color-gray4-CC);
+}
+.journey_timeline_node_dark>.journey_timeline_node_knot {
+	background-color: var(--color-gray1-33);
+	border-color: var(--color-gray2-66);
+}
+
+.journey_timeline_node_light:hover>.journey_timeline_node_knot { border-color: var(--color-lvsongshi); }
+.journey_timeline_node_dark:hover>.journey_timeline_node_knot { border-color: var(--color-xiangyabai); }
+
+.journey_timeline_node_active.journey_timeline_node_light>.journey_timeline_node_knot { border-color: var(--color-lvsongshi); }
+.journey_timeline_node_active.journey_timeline_node_dark>.journey_timeline_node_knot { border-color: var(--color-xiangyabai); }
+
+.journey_timeline_node_text {
+	text-transform: uppercase;
+	font-family: var(--font-sans-serif-roman);
+	font-size: var(--font-hint);
+	line-height: var(--lineheight-hint);
+	align-self: center;
+	vertical-align: middle;
+	-webkit-transition: background-color var(--delay-l) ease-in-out, box-shadow var(--delay-l) ease-in-out/*, color var(--delay-l) ease-in-out*/;
+	-moz-transition: background-color var(--delay-l) ease-in-out, box-shadow var(--delay-l) ease-in-out/*, color var(--delay-l) ease-in-out*/;
+	-ms-transition: background-color var(--delay-l) ease-in-out, box-shadow var(--delay-l) ease-in-out/*, color var(--delay-l) ease-in-out*/;
+	-o-transition: background-color var(--delay-l) ease-in-out, box-shadow var(--delay-l) ease-in-out/*, color var(--delay-l) ease-in-out*/;
+	transition: background-color var(--delay-l) ease-in-out, box-shadow var(--delay-l) ease-in-out/*, color var(--delay-l) ease-in-out*/;
+}
+
+.journey_timeline_node_light>.journey_timeline_node_text {
+	color: var(--color-gray4-CC);
+	background-color: var(--color-white);
+	border-radius: var(--radius-inf);
+	box-shadow: 4px 0 0 var(--color-white), -4px 0 0 var(--color-white);
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+.journey_timeline_node_dark>.journey_timeline_node_text {
+	color: var(--color-gray2-66);
+	background-color: var(--color-gray1-33);
+	border-radius: var(--radius-inf);
+	box-shadow: 4px 0 0 var(--color-gray1-33), -4px 0 0 var(--color-gray1-33);
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+.journey_timeline_node_light:hover>.journey_timeline_node_text { color: var(--color-lvsongshi); }
+.journey_timeline_node_dark:hover>.journey_timeline_node_text { color: var(--color-xiangyabai); }
+
+.journey_timeline_node_active.journey_timeline_node_light>.journey_timeline_node_text { color: var(--color-lvsongshi); }
+.journey_timeline_node_active.journey_timeline_node_dark>.journey_timeline_node_text { color: var(--color-xiangyabai); }
 
 /* Journey contents */
 
