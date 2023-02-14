@@ -1,8 +1,7 @@
-import React, { useState , useEffect, createRef, useRef, lazy, Suspense } from 'react';
+import React, { useState , useEffect, useMemo, createRef, useRef, lazy, Suspense } from 'react';
 import { useOutletContext } from "react-router-dom";
 
 /* Foreign components */
-import { cases } from "./cases.js";
 import { journey } from "./journeys.js";
 import { Contents, SectionContent, Explanation } from "./components.js";
 
@@ -12,19 +11,6 @@ import { isSafari, isIE } from "react-device-detect";
 
 /* Lazy loads */
 const JourneyItem = lazy(() => import('./JourneyItem.js'));
-
-/* Global functions */
-// const findBookmark = (journeyVisibility) => {
-// 	if (journeyVisibility && journeyVisibility[i]) {
-// 		const I = journeyVisibility.length;
-// 		for (var i = 0; i < I; i++) {
-// 			const J = journeyVisibility[i].length;
-// 			for (var j = 0; j < J; j++) {
-// 				if (journeyVisibility[i][j] == true) {
-// 					return [i, j];
-// 	}}}}
-// 	return null;
-// }
 
 
 
@@ -42,6 +28,7 @@ export default function Journey (props) {
 
 	// fetch full_journey from journey doc.
 	const full_journey = [...journey].reverse();
+	const full_journey_length = full_journey.length;
 
 	// take snapshot of journeyBookmark.
 	const [bookmark, set_bookmark] = useState(props.journeyBookmark);
@@ -51,10 +38,11 @@ export default function Journey (props) {
 	const year_refs = useRef([]);
 	const journey_refs = useRef([]); // flattened array for all journeys, 2D → 1D
 	let journey_dic = []; // [i][j] : index (int) of journey at year i item j
+
 	var year_list_counter = 0;
 	var journey_counter = 0;
 	//useEffect(() => {
-	for (let i = 0; i < full_journey.length; i++) {
+	for (let i = 0; i < full_journey_length; i++) {
 		const curr_year_ref = createRef();
 		year_refs.current[i] = curr_year_ref;
 		year_list[year_list_counter] = [full_journey[i][0][0], curr_year_ref];
@@ -64,7 +52,7 @@ export default function Journey (props) {
 			journey_dic[i][j] = journey_counter;
 			const curr_journey_ref = createRef();
 			journey_refs.current[journey_counter] = curr_journey_ref;
-			if (bookmark > 0 && journey_counter === bookmark) {
+			if (bookmark > 0 && journey_counter == bookmark) {
 				year_list_counter++;
 				year_list[year_list_counter] = ["bookmark", curr_journey_ref];
 			}
@@ -75,26 +63,38 @@ export default function Journey (props) {
 	//}, []);
 
 	// scroll detector and journey_timeline switch.
-	const [yearInViewportState, setYearInViewportState] = useState(Array(full_journey.length).fill(false));
+	const [yearInViewportState, setYearInViewportState] = useState(Array(full_journey_length).fill(false));
 		// when a year enters the viewport, corresponding index turns true
 	const [currYear, setCurrYear] = useState(null);
 	const [journeyInViewportState, setJourneyInViewportState] = useState(() => {
 		let newJourneyInViewportState = Array(journey_refs.current.length).fill(false);
 		if (props.journeyBookmark >= 0 && props.journeyBookmark < newJourneyInViewportState.length-1) {
 			newJourneyInViewportState[props.journeyBookmark] = true;
-		} /*else if (props.journeyBookmark > newJourneyInViewportState) {
+		} /*else if (props.journeyBookmark > newJourneyInViewportState.length) {
 			newJourneyInViewportState[newJourneyInViewportState.length-1] = true;
 		}*/
 		return newJourneyInViewportState;
 	});
-	useEffect(() => { setCurrYear(yearInViewportState.findIndex((state) => state==true)); }, [yearInViewportState]);
-	useEffect(() => { props.setJourneyBookmark(journeyInViewportState.findIndex((state) => state==true)); }, [journeyInViewportState]);
+
+	useEffect(() => {
+		setCurrYear(yearInViewportState.findIndex((state) => state==true));
+	}, [yearInViewportState]);
+
+	useEffect(() => {
+		props.setJourneyBookmark(journeyInViewportState.findIndex((state) => state==true));
+	}, [journeyInViewportState]);
+
+	const firstCaseStudy = useMemo(() => {
+		for (let i = 0; i < full_journey_length; i++) {
+			const j = full_journey[i][1].findIndex(journey => journey[1].length > 0);
+			if (j >= 0) { return ([i,j]); }
+		}
+		return [];
+	}, []);
+
 
 	/* Modal */
 	const [modalSrc, setModalSrc] = useOutletContext();
-
-	// hover - tooltip detection
-	//TODO
 
 
 	/* Render */
@@ -115,6 +115,7 @@ export default function Journey (props) {
 				year_ref={year_refs.current[i]}
 				journey_refs={journey_refs.current}
 				journey_dic={journey_dic}
+				firstCaseStudy={firstCaseStudy}
 				setYearInViewportState={setYearInViewportState}
 				setJourneyInViewportState={setJourneyInViewportState}
 				setModalSrc={setModalSrc}
@@ -142,6 +143,7 @@ export default function Journey (props) {
  *	- year_ref (ref)
  *	- journey_refs (refs)
  *	- journey_dic (2D array of ints)
+ *	- firstCaseStudy (array): [i, j] of the first case study
  *	- setYearInViewportState (func)
  *	- setJourneyInViewportState (func)
  *	- setModalSrc (func)
@@ -199,6 +201,7 @@ function JourneyYear (props) {
 						setJourneyInViewportState={props.setJourneyInViewportState}
 						journey_dic={props.journey_dic}
 						i={props.i}
+						firstCaseStudy={props.firstCaseStudy}
 						setModalSrc={props.setModalSrc}
 						mode={props.mode}
 					/>
@@ -247,11 +250,14 @@ function JourneyNodes (props) {
 						(i===props.currYear ? "journey_timeline_node_active" : "")
 					}
 				>
-					<div className="journey_timeline_node_knot" />
+					<div className={
+						"journey_timeline_node_knot " +
+						(year[0]==="bookmark" ? "journey_timeline_node_knot_bookmark" : "")
+					}/>
 					<span
 						className={
 							"journey_timeline_node_text " +
-							(year[0]==="bookmark" ? "explanation_trigger" : "cursor_pointer")
+							(year[0]==="bookmark" ? "journey_timeline_node_bookmark explanation_trigger" : "cursor_pointer")
 						}
 						onMouseEnter={() => { if (year[0] === "bookmark") { setExplainBookmark(true); } }}
 						onMouseOver={() => { if (year[0] === "bookmark") { setExplainBookmark(true); } }}

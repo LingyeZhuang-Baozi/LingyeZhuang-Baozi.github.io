@@ -14,7 +14,7 @@
  *			],
  *			[1]read_more : [
  *				[(0)]case_content (str) : <case_name>,
- *				[(1)]object (array of imgs as required paths) : [ [0]light_default, [1]dark_default, [2]light_figure, [3]dark_figure, [4]light_active, [5]dark_active, [6]light_blink, [7]dark_blink ]
+ *				[(1)]object (array of imgs as required paths) : [ [0]light_default, [1]dark_default, [2]light_active, [3]dark_active, [4]light_blink, [5]dark_blink ]
  *			],
  *			[2]journey_content : [ [
  *				[0]item_type (str) : ("text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe") ,
@@ -49,7 +49,7 @@ export const journey = [
 					["text", "When I first learnt about 2D-array, I tried to play with its applications beyond course requirements. I created an oversimplified Minesweeper game, and a pixel letter typer in the Python console. Looking back, they signify the two things that matter equally to me: logic and aesthetics.",],
 					["gallery", [
 						["img-static", require("./assets/journey/2019/2_minesweeper_typer/minesweeper.gif"), "MineSweeper demo", "playing MineSweeper in the Python console", {maxWidth:"400px"},],
-						["img-static", require("./assets/journey/2019/2_minesweeper_typer/typer.jpeg"), "pixel letters typer demo", "<a href='https://youtu.be/xo1VInw-SKc' target='_blank'>Fight Song</a> by Rachel Platten, printed with my pixel letters typer", {maxWidth:"400px"},],
+						["img-static", require("./assets/journey/2019/2_minesweeper_typer/typer.jpeg"), "pixel letters typer demo", "<a href='https://youtu.be/xo1VInw-SKc' target='_blank'>Fight Song</a> by Rachel Platten, printed with my pixel letters typer", {maxWidth:"320px"},],
 					]],
 				],
 			],
@@ -58,8 +58,8 @@ export const journey = [
 				[
 					["text", "A robot Kaonashi (aka No-Face from <a href='https://en.wikipedia.org/wiki/Spirited_Away' target='_blank'>Spirited Away</a>) that used ultrasonic sensor to detect distance, and waved his hand with a servo motor when he approached something or someone. This project involved Arduino programming, circuit design, 3D modeling, 3D printing, and sewing. <a href='https://www.linkedin.com/in/sarah-bodmer-464408190/' target='_blank'>Sarah</a> and I made a great team. Long live our friendship!",],
 					["gallery", [
-						["img-static", require("./assets/journey/2019/3_kaonashi/team_with_Sarah.jpeg"), "Sarah and I and our Kaonashi", "Great team work!", {maxWidth:"400px"},],
-						["img-static", require("./assets/journey/2019/3_kaonashi/kaonashi.gif"), "Kaonashi project process", "from circuit design to 3D modeling, we spent 10 weeks and brought Kaonashi to life", {maxWidth:"400px"},],
+						["img-static", require("./assets/journey/2019/3_kaonashi/team_with_Sarah.jpeg"), "Sarah and I and our Kaonashi", "Great team work!", {maxWidth:"320px"},],
+						["img-static", require("./assets/journey/2019/3_kaonashi/kaonashi.gif"), "Kaonashi project process", "from circuit design to 3D modeling, we spent 10 weeks and brought Kaonashi to life", {maxWidth:"320px"},],
 					]],
 				],
 			],
@@ -68,8 +68,8 @@ export const journey = [
 				[
 					["text", "Fall 2019, I led a team of 3 and designed the mascot for <a href='https://www.chineseunion.org/' target='_blank'>Chinese Union</a>, a student organization that helps hundreds of international freshmen get familiar with their life abroad each year. Communicating closely with the executive board for feedback and refining the design accordingly, we ended up with a baby dragon whose tail fur is braided into a Chinese knot.",],
 					["gallery", [
-						["img-static", require("./assets/journey/2019/4_cu/CU_mascot_turnarounds.jpeg"), "mascot turnarounds", "turnarounds of the baby dragon mascot", {maxWidth:"400px"},],
-						["img-static", require("./assets/journey/2019/4_cu/CU_mascot_color_trials.png"), "trails of 3 different color palettes", "3 examples of the color trails we made", {maxWidth:"480px"},],
+						["img-static", require("./assets/journey/2019/4_cu/CU_mascot_turnarounds.jpeg"), "mascot turnarounds", "turnarounds of the baby dragon mascot", {maxWidth:"320px"},],
+						["img-static", require("./assets/journey/2019/4_cu/CU_mascot_color_trials.png"), "trails of 3 different color palettes", "3 examples of the color trails we made", {maxWidth:"400px"},],
 					]],
 					["text", "I also created poster illustrations for events and festivals.",],
 					["img-zoomable", require("./assets/journey/2019/4_cu/2020_earth_day_poster.png"), "Earth Day poster", "Earth Day poster", {maxWidth:"400px"},],
@@ -87,12 +87,12 @@ export const journey = [
 			[ ["Posters - Exploring inward", "VIS 41"], [],
 				[
 					["gallery", [
-						["img-zoomable", require("./assets/journey/2020/1_posters_inward/section_of_gray_matter.jpeg"), "connotation poster side product", "", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/1_posters_inward/text_behind_water.jpeg"), "text behind water", "", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/1_posters_inward/denotation_poster.jpeg"), "denotation poster", "", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/1_posters_inward/connotation_poster.jpeg"), "connotation poster", "", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/1_posters_inward/spirits_in_me.jpeg"), "Xray photo and illustration overlay", "", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/1_posters_inward/exibition_poster.jpeg"), "exibition poster", "", {maxWidth:"400px"},],
+						["img-zoomable", require("./assets/journey/2020/1_posters_inward/section_of_gray_matter.jpeg"), "connotation poster side product", "", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/1_posters_inward/text_behind_water.jpeg"), "text behind water", "", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/1_posters_inward/denotation_poster.jpeg"), "denotation poster", "", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/1_posters_inward/connotation_poster.jpeg"), "connotation poster", "", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/1_posters_inward/spirits_in_me.jpeg"), "Xray photo and illustration overlay", "", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/1_posters_inward/exibition_poster.jpeg"), "exibition poster", "", {maxWidth:"320px"},],
 					]],
 				],
 			],
@@ -117,30 +117,30 @@ export const journey = [
 
 			[ ["Cell in the space, designed and modeled with SketchUp", "TDGE 87"], [],
 				[
-					["img-zoomable", require("./assets/journey/2020/4_cell_in_the_space/CitS_cover.png"), "cell in the space project cover", "", {maxWidth:"480px"},],
+					["img-static", require("./assets/journey/2020/4_cell_in_the_space/CitS_cover.png"), "cell in the space project cover", "", {maxWidth:"480px"},],
 					["text", "A capsule room in an imaginary space where no gravity exists. Any wall can be the floor. Functional areas share the same central space of the cell, but differentiate from each other by orientation. A chaotic yet peaceful shelter. A meaningless but delightful place.",],
 					["gallery", [
-						["img-zoomable", require("./assets/journey/2020/4_cell_in_the_space/CitS_enter.png"), "cell in the space - enter", "", {maxWidth:"480px"},],
-						["img-zoomable", require("./assets/journey/2020/4_cell_in_the_space/CitS_shower.png"), "cell in the space - shower", "", {maxWidth:"480px"},],
-						["img-zoomable", require("./assets/journey/2020/4_cell_in_the_space/CitS_work.png"), "cell in the space - work", "", {maxWidth:"480px"},],
-						["img-zoomable", require("./assets/journey/2020/4_cell_in_the_space/CitS_sleep.png"), "cell in the space - sleep", "", {maxWidth:"480px"},],
-						["img-zoomable", require("./assets/journey/2020/4_cell_in_the_space/CitS_kitchen.png"), "cell in the space - wash and eat", "", {maxWidth:"480px"},],
+						["img-static", require("./assets/journey/2020/4_cell_in_the_space/CitS_enter.png"), "cell in the space - enter", "", {maxWidth:"320px"},],
+						["img-static", require("./assets/journey/2020/4_cell_in_the_space/CitS_shower.png"), "cell in the space - shower", "", {maxWidth:"320px"},],
+						["img-static", require("./assets/journey/2020/4_cell_in_the_space/CitS_work.png"), "cell in the space - work", "", {maxWidth:"320px"},],
+						["img-static", require("./assets/journey/2020/4_cell_in_the_space/CitS_sleep.png"), "cell in the space - sleep", "", {maxWidth:"320px"},],
+						["img-static", require("./assets/journey/2020/4_cell_in_the_space/CitS_kitchen.png"), "cell in the space - wash and eat", "", {maxWidth:"320px"},],
 					]],
 				],
 			],
 
-			[ ["Egyptian dancers GIF based on stepping feet illusion", "COGS 17"], [],
+			[ ["Egyptian dancers illusion", "COGS 17"], [],
+				[
+					["img-static", require("./assets/journey/2020/5_egyptian_dancer/dancing_egyptians_illusion.gif"), "two bright-colored egyptian figures move across dense vertical lines, causing a stepping feet illusion", "the egyptian figures seem to dance accross the canvas due to <a href='https://en.wikipedia.org/wiki/Stepping_feet_illusion' target='_blank'>stepping feet illusion</a>", {maxWidth:"400px"},],
+				],
+			],
+
+			[ ["Doodle notes", "COGS 17, COGS 101C"], [],
 				[
 					["gallery", [
-						["img-static", require("./assets/journey/2020/5_neurobiology_of_cognition/dancing_egyptians_illusion.gif"), "two bright-colored egyptian figures move across dense vertical lines, causing a stepping feet illusion", "the egyptian figures seem to dance accross the canvas due to <a href='https://en.wikipedia.org/wiki/Stepping_feet_illusion' target='_blank'>stepping feet illusion</a>", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/5_neurobiology_of_cognition/cell_staining_notes.jpeg"), "my doodle notes on cell staining", "my doodle notes on cell staining", {maxWidth:"400px"},],
+						["img-zoomable", require("./assets/journey/2020/6_doodle_notes/rabbit_hole_paper_summary_poster.jpeg"), "paper summary poster on cross-cultural sociolinguistics", "paper summary poster on cross-cultural sociolinguistics", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/6_doodle_notes/cell_staining_notes.jpeg"), "doodle notes on cell staining", "notes on cell staining", {maxWidth:"320px"},],
 					]],
-				],
-			],
-
-			[ ["Paper summary poster", "COGS 101C"], [],
-				[
-					["img-zoomable", require("./assets/journey/2020/6_paper_summary_poster/rabbit_hole_paper_summary_poster.jpeg"), "paper summary poster", "", {maxWidth:"400px"},],
 				],
 			],
 
@@ -155,31 +155,31 @@ export const journey = [
 				[
 					["text", "Since Winter 2020, I have been creating stylized illustrations for articles at Neoreality. Neoreality is a Wechat official account that popularizes knowledge and findings in the fields of cognitive science and neuroscience.",],
 					["gallery", [
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/rat_1_crystal_skull.jpeg"), "crystal skull rat", "lab rat 1: crystal skull (aka <a href='https://www.sciencedirect.com/science/article/pii/S0165027021000352' target='_blank'>cranial window</a>)", {maxWidth:"320px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/rat_2_tetrode_recording.jpeg"), "tetrode recording rat", "lab rat 2: <a href='https://en.wikipedia.org/wiki/Single-unit_recording' target='_blank'>tetrode recording</a>", {maxWidth:"320px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/the_blind_man_and_the_elephants.jpeg"), "the blind man and the elephants", "the blind man and the elephants, illustrated for an article on perception and the classic thought experiment <a href='https://en.wikipedia.org/wiki/Molyneux%27s_problem' target='_blank'>Molyneux's problem</a>", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/eeg_1.png"), "EEG illustration 1", "<a href='https://en.wikipedia.org/wiki/Electroencephalography' target='_blank'>EEG</a> 1: speech of mind", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/eeg_2.png"), "EEG illustration 2", "EEG 2: strings of thoughts", {maxWidth:"320px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/sacculina_carcini.png"), "sacculina carcini in crab", "<a href='https://en.wikipedia.org/wiki/Sacculina' target='_blank'>sacculina</a>, a parasitic castrator that feminizes male crabs", {maxWidth:"480px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/rat_1_crystal_skull.jpeg"), "crystal skull rat", "lab rat 1: crystal skull (aka <a href='https://www.sciencedirect.com/science/article/pii/S0165027021000352' target='_blank'>cranial window</a>)", {maxWidth:"240px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/rat_2_tetrode_recording.jpeg"), "tetrode recording rat", "lab rat 2: <a href='https://en.wikipedia.org/wiki/Single-unit_recording' target='_blank'>tetrode recording</a>", {maxWidth:"240px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/the_blind_man_and_the_elephants.jpeg"), "the blind man and the elephants", "the blind man and the elephants, illustrated for an article on perception and the classic thought experiment <a href='https://en.wikipedia.org/wiki/Molyneux%27s_problem' target='_blank'>Molyneux's problem</a>", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/eeg_1.png"), "EEG illustration 1", "<a href='https://en.wikipedia.org/wiki/Electroencephalography' target='_blank'>EEG</a> 1: speech of mind", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/eeg_2.png"), "EEG illustration 2", "EEG 2: strings of thoughts", {maxWidth:"240px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/sacculina_carcini.png"), "sacculina carcini in crab", "<a href='https://en.wikipedia.org/wiki/Sacculina' target='_blank'>sacculina</a>, a parasitic castrator that feminizes male crabs", {maxWidth:"400px"},],
 					]],
 					["text", "During the summer, I co-led the creation of a long-scroll comic post on loneliness, which is Neoreality's first post of this format. I designed the characters and style of the post. Then I spent a month weaving the line art in finest details, pixel by pixel, stroke by stroke, all with my finger on a phone screen. Check out the final post here: <a href='https://mp.weixin.qq.com/s/L-uOl1hxBeGsVr0k_ifKxw' target='_blank'>Loneliness is like an iceberg</a>.",],
 					["img-scrollable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_final_line_drawing.jpeg"), "long-scroll post final line drawing", "", {minWidth:"400px", "--img-scrollable-ratio":"120%"}, "400px",],
 					["gallery", [
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_1.png"), "long-scroll post character design sketches", "", {maxWidth:"240px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_3.png"), "long-scroll post illustration style variants", "", {maxWidth:"320px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_2.png"), "long-scroll post character design variants", "", {minWidth:"480px", maxWidth:"800px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_4.png"), "Tachie of the finalized character design", "", {maxWidth:"320px"},],
-						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_5.jpeg"), "illustration to communicate the intended vibe of the character", "", {maxWidth:"400px"},],
+						["img-static", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_1.png"), "long-scroll post character design sketches", "", {maxWidth:"160px"},],
+						["img-static", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_3.png"), "long-scroll post illustration style variants", "", {maxWidth:"200px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_4.png"), "Tachie of the finalized character design", "", {maxWidth:"240px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_5.jpeg"), "illustration to communicate the intended vibe of the character", "", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/8_neoreality/loneliness_longscroll_character_design_2.png"), "long-scroll post character design variants", "", {minWidth:"400px", maxWidth:"720px"},],
 					]],
 				],
 			],
 
-			[ ["Gaokao, Fighting! hand-drawn animation"], [],
+			[ ["Gaokao, Fighting! hand-drawn animation", "Shanghai Yan'an High School"], [],
 				[
 					["gallery", [
-						["img-static", require("./assets/journey/2020/9_gaokao_fighting/gaokao_fighting_animation_1.gif"), "throw graduation caps, flip calendar", "", {maxWidth:"480px"},],
-						["img-static", require("./assets/journey/2020/9_gaokao_fighting/gaokao_fighting_animation_2.gif"), "days pass by as we work hard", "", {maxWidth:"480px"},],
-						["img-static", require("./assets/journey/2020/9_gaokao_fighting/gaokao_fighting_animation_3.gif"), "finally, arrives the day of Gaokao", "", {maxWidth:"480px"},],
+						["img-static", require("./assets/journey/2020/9_gaokao_fighting/gaokao_fighting_animation_1.gif"), "throw graduation caps, flip calendar", "", {maxWidth:"400px"},],
+						["img-static", require("./assets/journey/2020/9_gaokao_fighting/gaokao_fighting_animation_2.gif"), "days pass by as we work hard", "", {maxWidth:"400px"},],
+						["img-static", require("./assets/journey/2020/9_gaokao_fighting/gaokao_fighting_animation_3.gif"), "finally, arrives the day of Gaokao", "", {maxWidth:"400px"},],
 					]],
 					["text", "To every Chinese student in the public education system, Gaokao, the national college entrance exam, is not only an opportunity to test ourselves and fight for our dreams, but also a beam of firework that commemorates all the laughter and tears in our youth. Too many memories. Too many emotions. The fledglings are ready to go their separate ways, and I am here to wish them good luck with all my heart.",],
 					["text", "Check out the full video here: <a href='https://www.bilibili.com/video/BV1AD4y1Q7gv/?share_source=copy_web' target='_blank'>2020高考加油</a>.",],
@@ -190,9 +190,9 @@ export const journey = [
 			[ ["Play with eggs"], [],
 				[
 					["gallery", [
-						["img-static", require("./assets/journey/2020/10_play_eggs/egg_rolls.jpeg"), "egg rolls with cheese, meat, and pepper", "egg rolls", {maxWidth:"400px"},],
-						["img-static", require("./assets/journey/2020/10_play_eggs/egg_crepes_cake.jpeg"), "egg crepes cake with banana and chocolate topping", "egg crepes cake", {maxWidth:"400px"},],
-						["img-zoomable", require("./assets/journey/2020/10_play_eggs/egg_crepes_doodle_recipe.png"), "egg crepes doodle recipe", "how to make egg crepes with a rice cooker", {maxWidth:"400px"},],
+						["img-static", require("./assets/journey/2020/10_play_eggs/egg_rolls.jpeg"), "egg rolls with cheese, meat, and pepper", "egg rolls", {maxWidth:"320px"},],
+						["img-static", require("./assets/journey/2020/10_play_eggs/egg_crepes_cake.jpeg"), "egg crepes cake with banana and chocolate topping", "egg crepes cake", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/journey/2020/10_play_eggs/egg_crepes_doodle_recipe.png"), "egg crepes doodle recipe", "how to make egg crepes with a rice cooker", {maxWidth:"320px"},],
 					]],
 				],
 			],
@@ -201,15 +201,24 @@ export const journey = [
 
 
 
-	// // 2021
-	// [ ["2021", [require("./assets/journey/zodiacs/animal_ox_light@2x.png"), require("./assets/journey/zodiacs/animal_ox_dark@2x.png")], "year of the Ox, the 2nd animal in the Chinese zodiac"],
+	// 2021
+	[ ["2021", [require("./assets/journey/zodiacs/animal_ox_light@2x.png"), require("./assets/journey/zodiacs/animal_ox_dark@2x.png")], "year of the Ox, the 2nd animal in the Chinese zodiac"],
 
-	// 	[
-	// 		[ ["name", "client"], [],
-	// 			[],
-	// 		],
-	// 	],
-	// ],
+		[
+			[ ["GroupReads, complete assigned readings together", "COGS 120"],
+				["GroupReads", [require("./assets/cases/GroupReads/object_GroupReads_light@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_active@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_active@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_blink@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_blink@2x.png")],],
+				[
+					["text", "My first design + development project.",],
+					["img-static", require("./assets/journey/2021/1_groupreads/groupreads_cover_slide.png"), "GroupReads teaser slide", "", {minWidth:"320px", maxWidth:"480px"},],
+					["text", "Looking back, there are a lot of things to improve on. But as a first step, GroupReads was definitely a memorable and rewarding learning and teamwork experience! Read my case study for details.",],
+					["gallery", [
+						["img-static", require("./assets/journey/2021/1_groupreads/groupreads_paper_prototype_1.png"), "paper prototype: solve question", "paper prototype: solve question", {maxWidth:"480px"},],
+						["img-static", require("./assets/journey/2021/1_groupreads/groupreads_paper_prototype_2.png"), "paper prototype: browse forum with embedded paragraph", "paper prototype: browse forum with embedded paragraph", {maxWidth:"320px"},],
+					]],
+				],
+			],
+		],
+	],
 
 
 

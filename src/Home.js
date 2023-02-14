@@ -12,11 +12,11 @@ import me1 from "./assets/basic/me-1.jpg";
 import me2 from "./assets/basic/me-2.jpg";
 import resume from "./assets/basic/resume.png";
 import resume_big from "./assets/basic/resume-big.png";
-import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag@2x.png";
+import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag_1@2x.png";
 
 /* Libraries */
 import { isSafari, isIE } from "react-device-detect";
-//import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
+import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
 import useIsInViewport from "use-is-in-viewport";
 import { GlassMagnifier } from "react-image-magnifiers";
 //import Spline from '@splinetool/react-spline'; // under experiment
@@ -50,6 +50,7 @@ export default function Home (props) {
 	// 	}
 	// }, [window.location.href]);
 
+
 	/* Primary nav tabs and their animation state */
 	const PNtabs = ["resume", "home", "journey"];
 	const [PNisChanging, setPNisChanging] = useState(false);
@@ -63,11 +64,12 @@ export default function Home (props) {
 			setTimeout(() => {
 				setPNanimation("");
 				setPNisChanging(false);
-			}, 270);
+			}, 270); // var(--delay-m)
 		} else if (page==="resume") {
 			window.open("https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing", '_blank', 'noopener,noreferrer');
 		}
 	}
+
 
 	/* Case objects and relative functions */
 	let caseObjects = [];
@@ -104,8 +106,10 @@ export default function Home (props) {
 		}
 	}, [blinkingObject]);
 
+
 	/* Modal */
 	const [modalSrc, setModalSrc] = useState("");
+
 
 	/* Contact btns and their corresponding links */
 	const Cbtns = [
@@ -113,6 +117,7 @@ export default function Home (props) {
 		["instagram", "https://www.instagram.com/juliet_baozi/"],
 		["linkedin", "https://www.linkedin.com/in/lingye-juliet-zhuang-a1b4731a1"]
 	];
+
 
 	/* Smooth transition animation helper */
 	const [loaded, setLoaded] = useState(false);
@@ -123,6 +128,22 @@ export default function Home (props) {
 	}, []);
 	// const AboutMe_ref = useRef(null);
 	// const CaseBrief_ref = useRef(null);
+
+	const [homeDisplayInnerChanging, setHomeDisplayInnerChanging] = useState(false);
+	useEffect(() => {
+		setHomeDisplayInnerChanging(true);
+		setTimeout (() => {
+			setHomeDisplayInnerChanging(false);
+		}, 270); // var(--delay-m)
+	}, [hoveringObject, hoveredCase/*, page*/]);
+	useEffect(() => { // insurance
+		if (homeDisplayInnerChanging==true) {
+			setTimeout (() => {
+				setHomeDisplayInnerChanging(false);
+			}, 270); // var(--delay-m)
+		}
+	}, [homeDisplayInnerChanging]);
+
 
 	/* Render */
 	return (
@@ -175,7 +196,8 @@ export default function Home (props) {
 						(hoveringObject==true ?
 							("home_display_div_inner_case home_display_div_inner_")+hoveredCase
 						: "") + " " +
-						"home_display_div_"+props.mode
+						"home_display_div_"+props.mode + " " +
+						(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
 					}>
 						
 						{(() => {
@@ -443,7 +465,7 @@ function CaseObjects (props) {
 							<img className="case_object_hint" srcSet={case_studies_hint_tag+" 2x"} />
 						</div>
 					: null }
-					<Link to={"/case-"+item[0]}>
+					<Link to={"/case-"+item[0]} state={{ goBack: false }} >
 						<div
 							className="case_object"
 							onMouseEnter={(e) => { handle_object_mouseenter(item[0], e); }}

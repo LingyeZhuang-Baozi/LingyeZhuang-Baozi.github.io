@@ -28,6 +28,7 @@
  *					[(4)]img_stylelist (str) OR [(4)]vid_width (str),
  *					[(5)]img_scrollable_width (str) OR [(5)]vid_poster (img as required path)
  *				], [...] ],
+ *				[(3)]side_notes: alternative_title for "problem" section_type
  *			], [...] ]
  *		],
  * 		... : [...]
@@ -36,7 +37,8 @@
 
 export const cases = {
 
-	// ACM
+/**--- Four Devarajas ---**/
+
 	"ACM": [
 		"ACM",
 		{
@@ -52,7 +54,7 @@ export const cases = {
 			],
 			"next": "Bitsrealm",
 		},
-		[require("./assets/cases/ACM/object_ACM_light@2x.png"), require("./assets/cases/ACM/object_ACM_dark@2x.png"), require("./assets/cases/ACM/object_ACM_light_figure@2x.png"), require("./assets/cases/ACM/object_ACM_dark_figure@2x.png"), require("./assets/cases/ACM/object_ACM_light_active@2x.png"), require("./assets/cases/ACM/object_ACM_dark_active@2x.png"), require("./assets/cases/ACM/object_ACM_light_blink@2x.png"), require("./assets/cases/ACM/object_ACM_dark_blink@2x.png")],
+		[require("./assets/cases/ACM/object_ACM_light@2x.png"), require("./assets/cases/ACM/object_ACM_dark@2x.png"), require("./assets/cases/ACM/object_ACM_light_figure@2x.png"), require("./assets/cases/ACM/object_ACM_dark_figure@2x.png"), require("./assets/cases/ACM/object_ACM_light_active@2x.png"), require("./assets/cases/ACM/object_ACM_dark_active@2x.png"), require("./assets/cases/ACM/object_ACM_light_blink@2x.png"), require("./assets/cases/ACM/object_ACM_dark_blink@2x.png"),],
 		[
 			["intro", "Overview", [
 				["text", "ACM@UCSD is a student community for developers and designers. In order to embrace a wider audience, more efficiently and comprehensively introduce ACM@UCSD, we decided to upgrade our website by enriching the content and improving the interactions.",],
@@ -140,7 +142,7 @@ export const cases = {
 			],
 			"next": "RehaBuddy",
 		},
-		[require("./assets/cases/Bitsrealm/object_Bitsrealm_light@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_figure@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_figure@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_active@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_active@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_blink@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_blink@2x.png")],
+		[require("./assets/cases/Bitsrealm/object_Bitsrealm_light@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_figure@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_figure@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_active@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_active@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_blink@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_blink@2x.png"),],
 		[
 			["intro", "Overview", [
 				["text", "When I had my summer internship at Bitsrealm, it was a VR startup with only 6 members. Thanks to the compact size, every member took on a big share of responsibility, and we formed a tight bond among our team. I was the only designer on the team, and I produced branding and prototypes for a series of 4 websites during my 6 weeks internship. I had a glance of the fast pace of the industry, upgraded my design skill, and received precious friendship.",],
@@ -229,7 +231,7 @@ export const cases = {
 			],
 			"next": "CruzRoja",
 		},
-		[require("./assets/cases/RehaBuddy/object_RehaBuddy_light@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_blink@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_blink@2x.png")],
+		[require("./assets/cases/RehaBuddy/object_RehaBuddy_light@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_blink@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_blink@2x.png"),],
 		[
 			["intro", "", [
 				["vid", require("./assets/cases/RehaBuddy/content/presentation.mp4"), "", "", "", require("./assets/cases/RehaBuddy/content/RehaBuddy_thumbnail.png"),],
@@ -271,8 +273,58 @@ export const cases = {
 			],
 			"next": "ACM",
 		},
-		[require("./assets/cases/CruzRoja/object_CruzRoja_light@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_blink@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_blink@2x.png")],
+		[require("./assets/cases/CruzRoja/object_CruzRoja_light@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_blink@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_blink@2x.png"),],
 		[],
+	],
+
+
+/**--- Others ---**/
+
+	"GroupReads": [
+		"GroupReads",
+		{
+			"title": "GroupReads, complete assigned readings together",
+			"description": "",
+			"thumbnail": require("./assets/cases/GroupReads/GroupReads_thumbnail.png"),
+			"thumbnail_light": require("./assets/cases/GroupReads/GroupReads_thumbnail_light.png"),
+			"thumbnail_dark": require("./assets/cases/GroupReads/GroupReads_thumbnail_dark.png"),
+			"case_brief": [
+				["role", "UX/UI designer, Front-end developer"],
+				["duration", "January-March, 2021"],
+			],
+			"next": ""/*TODO*/,
+		},
+		[require("./assets/cases/GroupReads/object_GroupReads_light@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_figure@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_figure@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_active@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_active@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_blink@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_blink@2x.png"),],
+		[
+			["intro", "Overview", [
+				["text", "This was a class project to practice the Double Diamond design process, as well as my first time programming an app by myself. Toddling, wobbling, this was where everything began.",],
+			]],
+			["problem", "", [
+				["text", "Students are constantly overwhelmed by class readings. We hope that, by presenting students with a way to engage with their reading, we can help bring back their motivation.",],
+			], "Point of View"],
+			["section", "Design", [
+				["title", "Practice the design process",],
+				["text", "The point of view statement above is quite vague. To concretely <span style='--color:#4A919E59;'>define</span> the problem space, we interviewed other college students, and noticed one of the reasons why they couldn't finish class readings was that they gave up halfway when came across difficult or complicated paragraphs."],
+				["text", "The solution I proposed to such struggle with difficult class readings is a forum where students can casually raise questions and leave comments on the readings. I created a <span style='--color:#4A919E59;'>storyboard</span> to present this nicher problem to the class:",],
+				["img-static", require("./assets/cases/GroupReads/content/1_storyboard.png"), "storyboard for reading forum", "", {minWidth:"320px", maxWidth:"400px"},],
+				["text", "In the end, we came down to a <span style='--color:#4A919E59;'>workflow</span> for the GroupReads app, as shown below. After the user logs in to the main interface of GroupReads, they can import, organize, and annotate class readings, as well as post question and comments on the forum. Since the app will verify students and their class enrollment information with the school, it has some degree of control over the quality and integrity of the discussion.",],
+				["img-static", require("./assets/cases/GroupReads/content/2_workflow.png"), "storyboard for reading forum", "", {minWidth:"640px"},],
+				["text", "To test our design, we created <span style='--color:#4A919E59;'>paper prototypes</span> in which the essential features are pseudo-interactive. Following are a few examples of the paper prototypes I made.",],
+				["img-static", require("./assets/cases/GroupReads/content/3_1_paper_prototype_search_class.png"), "paper prototype: search class", "", {minWidth:"320px", maxWidth:"520px"},],
+				["img-static", require("./assets/cases/GroupReads/content/3_2_paper_prototype_solve_question.png"), "paper prototype: solve question", "", {minWidth:"320px", maxWidth:"560px"},],
+				["img-static", require("./assets/cases/GroupReads/content/3_3_paper_prototype_browse_forum.png"), "paper prototype: browse forum with embedded paragraph", "", {minWidth:"320px", maxWidth:"400px"},],
+			]],
+			["section", "Reflection", [
+				["title", "What will I do differently today?",],
+			]],
+			["subsection", "", [
+				["title", "February 2023",],
+				["text", "The issue of class reading completion rate is real. According to a <a href='https://www.americanreadingforum.org/_files/ugd/c10ff9_a728b4fc180c413b9cdfd8cb2033342c.pdf#page=7'>study</a> by Baier et al. in 2011, only 24.8% of students read the assigned materials before they went to class. Now 10 years have passed, yet based on personal experience, the situation still has not improved, if not worsened. Therefore, I believe we found a problem that is worth solving for, and still valid even today.",],
+				["text", "However, under the overarching problem, there are a wide variety of specific pain points. Some of the pain points are more key and common among the users of interest, while the others are less so. Back in 2021, we rushed into solution-seeking before narrowing down to an important pain point. This is because we relied on the few data points collected by ourselves, which failed to generalize to a wider student group. What we didn't know was that, low completion rate of assigned reading is in fact a well-studied topic in the research field. So if I am to lead the project now, I would give more weight to <span style='--color:#4A919E59;'>literature review</span>, rather than trying to reinvent the wheel. Secondary evidence would be a great source to efficiently reveal the important pain points, and thus guide us onto a more promising track in the first place.",],
+				["text", "Suppose we still end up with a similar app structure as the current design, then in terms of user flow, I would prioritize <span style='--color:#4A919E59;'>refining the connection between the uploaded readings and the forum</span>. When the user asks a question on the forum, they might refer to a section of the reading; When the user studies the reading, they might grasp the message more easily by reviewing the existing annotations and questions from their classmates. This should be the core of the app, because it makes GroupReads a better option for discussing class readings compared with some other general-purpose forums, such as Piazza.",],
+				["text", "I would include more <span style='--color:#4A919E59;'>ethical considerations</span> in my design process, namely about academic integrity and user privacy. One idea to improve privacy experience is to introduce an anonymous feature when users interact on the forum. Yet an severer concern is that we had slipped into a gray area trying to promote discussion of reading materials and notes sharing online. We proposed this with good will, hoping to motivate students to read by enhancing the sense of engagement. But since the readings are class assignments, an open discussion forum could be taken advantage of and potentially cause academic integrity issues, not to mention copyright concerns related to uploading course materials. These should all be kept in mind throughout the design process.",],
+			]],
+		],
 	],
 
 }

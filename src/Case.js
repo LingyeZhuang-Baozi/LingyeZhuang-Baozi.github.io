@@ -13,7 +13,7 @@
  */
 
 import React, { useState , useEffect, createRef, useRef, lazy, Suspense } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 /* Foreign components */
 import { cases } from "./cases.js";
@@ -32,10 +32,11 @@ const CaseSection = lazy(() => import('./CaseSection.js'));
 
 
 /**
- * Home
+ * Case
  *
  * props:
  *	- case (str)
+ *	- goBack (bool)
  *	- toggleMode (func)
  *	- mode (str)
  */
@@ -43,7 +44,7 @@ export default function Case (props) {
 
 	/* Contents setup */
 
-	// fetch full write up from cases doc.
+	// fetch full write up of the current case from cases doc.
 	const full_writeup = [...cases[props.case][3]];
 
 	// summarize content_list, set refs and viewport trackers to locate each section.
@@ -72,18 +73,22 @@ export default function Case (props) {
 	}, [sectionInViewportState]);
 
 
+	/* Heuristics #3/10: user control and freedom */
+	const location = useLocation();
+
+
 	/* Modal */
 	const [modalSrc, setModalSrc] = useState("");
 
 
 	/* Smooth transition animation helper */
-
 	// Onload effect.
 	const [loaded, setLoaded] = useState(false);
 	useEffect(() => {
 		window.onload = function() {
 			document.body.className += " loaded";
 		}
+		if (location.state) { console.log("goBack? ", location.state["goBack"]); } //DEBUG
 	}, []);
 
 
@@ -143,29 +148,48 @@ export default function Case (props) {
 
 			</div>
 
-			<div className={"case_footer case_footer_"+props.mode}>
-				<FooterObject
-					object={cases[props.case][2]}
-					next={cases[props.case][1]["next"]}
-					mode={props.mode}
-				/>
-				{/* TODO: all primary and contact tabs listed (align with home button but snap to bottom) */}
-			</div>
+			{ cases[props.case][1]["next"] !== "" ?
+				<div className={"case_footer case_footer_"+props.mode}>
+					<FooterObject
+						object={cases[props.case][2]}
+						next={cases[props.case][1]["next"]}
+						mode={props.mode}
+					/>
+					{/* TODO: all primary and contact tabs listed (align with home button but snap to bottom) */}
+				</div>
+			: null }
 
 		</div>
 
-		<div className={"case_home_div_outer case_home_div_outer_"+props.mode}>
-			<div className="case_home_div_inner">
-				<Link to="/" onDragStart={e => e.preventDefault()}>
-					<div
-						className = {
-							"case_home cursor_pointer " +
-							"case_home_"+props.mode
-						}
-						onClick={props.onclick}
-						onDragStart={e => e.preventDefault()}
-					/>
-				</Link>
+		<div className={"case_back_div_outer case_back_div_outer_"+props.mode}>
+			<div className="case_back_div_inner">
+				{location.state && location.state["goBack"] == true ?
+
+					// from journey → back
+					<Link to={-1} onDragStart={e => e.preventDefault()}>
+						<div
+							className = {
+								"case_back case_back_back cursor_pointer " +
+								"case_back_"+props.mode
+							}
+							onClick={props.onclick}
+							onDragStart={e => e.preventDefault()}
+						/>
+					</Link>
+				:
+
+					// otherwise → home
+					<Link to="/" onDragStart={e => e.preventDefault()}>
+						<div
+							className = {
+								"case_back case_back_home cursor_pointer " +
+								"case_back_"+props.mode
+							}
+							onClick={props.onclick}
+							onDragStart={e => e.preventDefault()}
+						/>
+					</Link>
+				}
 			</div>
 		</div>
 

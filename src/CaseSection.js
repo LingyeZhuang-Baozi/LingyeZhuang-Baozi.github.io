@@ -71,7 +71,7 @@ export default function CaseSection (props) {
 											"case_section_problem_title"
 										}
 									>
-										Problem statement
+										{props.section.length < 4 ? <>Problem statement</> : <>{props.section[3]}</>}
 									</div>
 									<SectionContent
 										content={props.section[2]}

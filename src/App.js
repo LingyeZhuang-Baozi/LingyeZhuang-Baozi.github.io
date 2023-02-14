@@ -71,6 +71,7 @@ function App() {
 				<Route path="/case-Bitsrealm" element={ <Case case="Bitsrealm" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-RehaBuddy" element={ <Case case="RehaBuddy" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-CruzRoja" element={ <Case case="CruzRoja" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-GroupReads" element={ <Case case="GroupReads" mode={mode} toggleMode={toggleMode} /> } />
 
 			</Routes></Router>
 		</div>
