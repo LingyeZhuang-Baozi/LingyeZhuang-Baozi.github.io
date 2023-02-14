@@ -34,8 +34,9 @@ export default function Journey (props) {
 	const [bookmark, set_bookmark] = useState(props.journeyBookmark);
 
 	// form year_list, set refs and viewport trackers to locate each year block and each journey item.
-	let year_list = []; // [[ year (str), year_ref (ref) ], [...]]
+	let year_list = []; // [[ year (str), year_header_ref(ref), (year_ref (ref)) ], [...]]
 	const year_refs = useRef([]);
+	const year_header_refs = useRef([]);
 	const journey_refs = useRef([]); // flattened array for all journeys, 2D → 1D
 	let journey_dic = []; // [i][j] : index (int) of journey at year i item j
 
@@ -45,7 +46,9 @@ export default function Journey (props) {
 	for (let i = 0; i < full_journey_length; i++) {
 		const curr_year_ref = createRef();
 		year_refs.current[i] = curr_year_ref;
-		year_list[year_list_counter] = [full_journey[i][0][0], curr_year_ref];
+		const curr_year_header_ref = createRef();
+		year_header_refs.current[i] = curr_year_header_ref;
+		year_list[year_list_counter] = [full_journey[i][0][0], curr_year_header_ref, curr_year_ref];
 		const curr_year_journeys_length = full_journey[i][1].length;
 		journey_dic[i]=[];
 		for (let j = 0; j < curr_year_journeys_length; j++) {
@@ -113,6 +116,7 @@ export default function Journey (props) {
 				year={year}
 				i={i}
 				year_ref={year_refs.current[i]}
+				year_header_ref = {year_header_refs.current[i]}
 				journey_refs={journey_refs.current}
 				journey_dic={journey_dic}
 				firstCaseStudy={firstCaseStudy}
@@ -141,6 +145,7 @@ export default function Journey (props) {
  *	- year (array)
  *	- i (int)
  *	- year_ref (ref)
+ *	- year_header_ref (ref)
  *	- journey_refs (refs)
  *	- journey_dic (2D array of ints)
  *	- firstCaseStudy (array): [i, j] of the first case study
@@ -174,7 +179,10 @@ function JourneyYear (props) {
 			id={"journey_"+props.year[0][0]}
 			className="journey_year"
 		>
-			<div className="journey_year_header">
+			<div
+				ref={props.year_header_ref}
+				className="journey_year_header"
+			>
 				<img
 					className="journey_year_animal explanation_trigger"
 					srcSet={(props.mode==="light" ? props.year[0][1][0] : props.year[0][1][1]) + " 4x"}
@@ -190,6 +198,7 @@ function JourneyYear (props) {
 					mode={props.mode}
 				/>
 			</div>
+
 			<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
 				{props.year[1].map ((journey, j) =>
 					<JourneyItem
@@ -224,12 +233,12 @@ function JourneyYear (props) {
  */
 function JourneyNodes (props) {
 
-	const handle_click_to_relocate = (ref, behavior) => { // TODO: find an alternative to fix the buggy scroll
+	const handle_click_to_relocate = (ref, behavior) => { // scroll to year header
 		if (isSafari || isIE) {
 			ref.current.scrollIntoView(true);
 		} else {
 			ref.current.scrollIntoView({
-				block: "nearest", // start will shift the entire page, bug of scrollIntoView
+				block: "center", // start will shift the entire page, bug of scrollIntoView
 				inline: "nearest",
 				behavior: behavior,
 			});
