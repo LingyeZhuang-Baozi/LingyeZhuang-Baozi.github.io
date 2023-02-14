@@ -419,7 +419,7 @@ function ImgStatic (props) {
 				className={"img_box_img img_box_img_"+props.mode}
 				style={props.img_stylelist}
 				src={props.src}
-				loading="lazy"
+				//loading="lazy"
 				onDragStart={e => e.preventDefault()}
 			/>
 			{props.caption ?
@@ -476,7 +476,7 @@ function ImgZoomable (props) {
 				className={"img_box_img img_box_img_"+props.mode + " zoomable_img cursor_zoomin"}
 				style={props.img_stylelist}
 				src={props.src}
-				loading="lazy"
+				//loading="lazy"
 				onClick={(e) => { e.preventDefault(); open_modal(); }}
 				onDragStart={e => e.preventDefault()}
 			/>
@@ -517,7 +517,7 @@ function ImgModal (props) {
 					style={{"--img-zoomable-min-width": props.modalSrc["minWidth"]}}
 					src={props.modalSrc["src"]}
 					alt={props.modalSrc["alt"]}
-					loading="lazy"
+					//loading="lazy"
 					onDragStart={e => e.preventDefault()}
 				/>
 				{/*TODO: add close/back button*/}
@@ -551,7 +551,7 @@ function ImgScrollable (props) {
 				<img
 					className="img_box_img_scrollable"
 					src={props.src}
-					loading="lazy"
+					//loading="lazy"
 					onDragStart={e => e.preventDefault()}
 				/>
 			</div>

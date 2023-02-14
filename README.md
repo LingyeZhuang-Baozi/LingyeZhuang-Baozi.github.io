@@ -16,6 +16,7 @@ Made with React JS and ♡.
 - [CSS usage of min/max/clamp](https://stackoverflow.com/questions/38078957/can-we-define-min-margin-and-max-margin-max-padding-and-min-padding-in-css)
 - [HTML no space between spans](https://stackoverflow.com/questions/2519923/get-rid-of-spaces-between-spans)
 - [JS+CSS popup modal](https://www.w3schools.com/howto/howto_css_modal_images.asp)
+- [cursor position 1px-off trick](https://stackoverflow.com/questions/33965596/css-cursor-position-attribute-not-working-in-safari)
 
 ### Animation:
 - [CSS animations](https://www.w3schools.com/css/css3_animations.asp)

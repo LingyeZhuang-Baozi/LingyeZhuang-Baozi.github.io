@@ -237,8 +237,8 @@ iframe { border: none; }
 .cursor_zoomin { cursor: zoom-in; }
 .cursor_zoomout { cursor: zoom-out; }
 
-.cursor_readmore_1 { cursor: url("./assets/basic/read_more_1_cursor.svg") 50 116, pointer; }
-.cursor_readmore_2 { cursor: url("./assets/basic/read_more_2_cursor.svg") 80 32, pointer; }
+.cursor_readmore_1 { cursor: url("./assets/basic/read_more_1_cursor.svg") 50 116, pointer; } /* set as 1 pixel less for Safari */
+.cursor_readmore_2 { cursor: url("./assets/basic/read_more_2_cursor.svg") 79 32, pointer; }
 .cursor_random_case_study { cursor: url("./assets/basic/random_case_study_cursor.svg") 0 50, pointer; }
 
 /* z-index */
