@@ -9,6 +9,7 @@ import { cases } from "./cases.js";
 import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag_2@2x.png";
 
 /* Libraries */
+import parse from 'html-react-parser';
 import useIsInViewport from "use-is-in-viewport";
 
 /* Lazy loads */
@@ -129,7 +130,8 @@ export default function JourneyItem (props) {
 					</div>
 				: null }
 
-				{(props.i==props.firstCaseStudy[0] && props.j==props.firstCaseStudy[1] && hoveringObject==false) ?
+				{/*(props.i==props.firstCaseStudy[0] && props.j==props.firstCaseStudy[1] && hoveringObject==false) ?*/
+				(props.journey[1].length > 0 && hoveringObject==false) ?
 					<div className="journey_journey_object_hint_div">
 						<img className="journey_journey_object_hint" srcSet={case_studies_hint_tag+" 2x"} />
 					</div>
@@ -137,15 +139,39 @@ export default function JourneyItem (props) {
 			</div>
 
 			<div className={"journey_journey_content content text_"+props.mode}>
-				<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
-					<SectionContent
-						content={props.journey[2]}
-						//suffix={"journey_" + props.year + "_" + props.j}
-						suffix="journey"
-						setModalSrc={props.setModalSrc}
-						mode={props.mode}
-					/>
-				</Suspense>
+				{props.journey[2].map ((group, g) => 
+					<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
+						{(() => {
+							if (group[0] == 1) {
+								return (
+									<div className="journey_journey_content_group journey_journey_content_group_col1">
+										<SectionContent
+											content={group[1]}
+											suffix="journey"
+											setModalSrc={props.setModalSrc}
+											mode={props.mode}
+										/>
+									</div>
+								);
+							} else if (group[0] == 2) {
+								return (
+									<div className="journey_journey_content_group journey_journey_content_group_col2">
+										<div className="journey_journey_content_group_img">
+											<SectionContent
+												content={group[1]}
+												suffix="journey"
+												setModalSrc={props.setModalSrc}
+												mode={props.mode}
+											/>
+										</div>
+										<div className="journey_journey_content_group_text">
+											<p>{parse(group[2])}</p>
+										</div>
+									</div>
+								);
+							}
+						})()}
+					</Suspense>)}
 			</div>
 		</div>
 	);

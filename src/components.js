@@ -28,7 +28,7 @@ function Modebtn (props) {
 			props.toggleMode();
 			setTimeout(() => {
 				setIsActive(false);
-			}, 540);
+			}, 540); // var(--delay-l)
 		}
 	}, [isActive]);
 
@@ -81,7 +81,7 @@ export default function SectionContent (props) {
 	return (<>
 		{props.content.map ((element, i) => {
 			const key = props.suffix+i;
-			switch (element[0]) { // title, text, img-static, img-zoomable, img-scollable, vid, iframe
+			switch (element[0]) { // title, text, img-static, img-zoomable, img-scollable, gallery, vid, iframe
 
 				case "title":
 					if (element.length < 3) {
@@ -164,7 +164,14 @@ export default function SectionContent (props) {
 					return (
 						<div
 							key={key}
-							className="gallery"
+							className={
+								"gallery " +
+								(element.length >=3
+								&& element[2]!==null
+								&& element[2]!=="" ?
+									element[2]
+								: "")
+							}
 						>
 							<SectionContent
 								content={element[1]}
@@ -355,7 +362,7 @@ function Contents (props) {
  *	- src (img as required path)
  *	- alt (str)
  *	- caption (str)
- *	- img_stylelist (str)
+ *	- img_stylelist (style)
  *	- setModalSrc (func)
  *	- mode (str)
  */
@@ -409,7 +416,7 @@ function Img (props) {
  *	- src (img as required path)
  *	- alt (str)
  *	- caption (str)
- *	- img_stylelist (str)
+ *	- img_stylelist (style)
  *	- mode (str)
  */
 function ImgStatic (props) {
@@ -436,7 +443,7 @@ function ImgStatic (props) {
  *	- src (img as required path)
  *	- alt (str)
  *	- caption (str)
- *	- img_stylelist (str)
+ *	- img_stylelist (style)
  *	- setModalSrc (func)
  *	- mode (str)
  */
@@ -534,7 +541,7 @@ function ImgModal (props) {
  *	- src (img as required path)
  *	- alt (str)
  *	- caption (str)
- *	- img_stylelist (str)
+ *	- img_stylelist (style)
  *	- width (str)
  *	- mode (str)
  */

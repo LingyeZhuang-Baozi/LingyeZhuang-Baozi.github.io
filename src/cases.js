@@ -21,14 +21,14 @@
  *				[0]section_type (str) : ("intro", "problem", "section", "subsection", "evidence") ,
  *				[1]section_identifier (str) : ("Overview", "User Research", "Design", "Implementation", "Takeaways", "Reflection", "Outcomes", ...)
  *				[2]section_content : [ [
- *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe") ,
+ *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe", "gallery") ,
  *					[1]item_content (html str, OR img as required path, OR vid as required path) OR [1]iframe_type (str),
  *					[(2)]title_explanation (str) OR item_alt (str) OR [2]iframe_src (str or code),
  *					[(3)]item_caption (str) OR [(3)]iframe_ratio (str, height / width in percentage),
- *					[(4)]img_stylelist (str) OR [(4)]vid_width (str),
+ *					[(4)]img_stylelist (style) OR [(4)]vid_width (str),
  *					[(5)]img_scrollable_width (str) OR [(5)]vid_poster (img as required path)
  *				], [...] ],
- *				[(3)]side_notes: alternative_title for "problem" section_type
+ *				[(3)]side_notes: alternative_title for "problem" section_type (str) OR gallery_classlist (str)
  *			], [...] ]
  *		],
  * 		... : [...]
@@ -279,6 +279,51 @@ export const cases = {
 
 
 /**--- Others ---**/
+
+	"Neureality": [
+		"Neureality",
+		{
+			"title": "Illustrate for science popularization at Neureality",
+			"description": "",
+			"thumbnail": require("./assets/cases/Neureality/Neureality_thumbnail.png"),
+			"thumbnail_light": require("./assets/cases/Neureality/Neureality_thumbnail_light.png"),
+			"thumbnail_dark": require("./assets/cases/Neureality/Neureality_thumbnail_dark.png"),
+			"case_brief": [
+				["role", "Illustrator, Character designer"],
+				["duration", "Feb 2020 - present"],
+			],
+			"next": ""/*TODO*/,
+		},
+		[require("./assets/cases/Neureality/object_Neureality_light@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark@2x.png"), require("./assets/cases/Neureality/object_Neureality_light_figure@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark_figure@2x.png"), require("./assets/cases/Neureality/object_Neureality_light_active@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark_active@2x.png"), require("./assets/cases/Neureality/object_Neureality_light_blink@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark_blink@2x.png"),],
+		[
+			["intro", "", [
+				["text", "Since Winter 2020, I have been creating stylized illustrations for articles at Neureality. Neureality is a Wechat official account that popularizes knowledge and findings in the fields of cognitive science and neuroscience.",],
+			// ]],
+			// ["section", "", [
+				["gallery", [
+					["gallery", [
+						["img-zoomable", require("./assets/cases/Neureality/content/1_1_rat_1_crystal_skull.jpeg"), "crystal skull rat", "lab rat 1: crystal skull (aka <a href='https://www.sciencedirect.com/science/article/pii/S0165027021000352' target='_blank'>cranial window</a>)", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/1_2_rat_2_tetrode_recording.jpeg"), "tetrode recording rat", "lab rat 2: <a href='https://en.wikipedia.org/wiki/Single-unit_recording' target='_blank'>tetrode recording</a>", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/2_the_blind_man_and_the_elephants.jpeg"), "the blind man and the elephants", "\"the blind man and the elephants\", illustrated for an article on perception and the classic thought experiment <a href='https://en.wikipedia.org/wiki/Molyneux%27s_problem' target='_blank'>Molyneux's problem</a>", {maxWidth:"400px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/3_1_eeg_1.png"), "EEG illustration 1", "<a href='https://en.wikipedia.org/wiki/Electroencephalography' target='_blank'>EEG</a> 1: speech of mind", {maxWidth:"400px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/3_2_eeg_2.png"), "EEG illustration 2", "EEG 2: strings of thoughts", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/4_sacculina_carcini.png"), "sacculina carcini in crab", "<a href='https://en.wikipedia.org/wiki/Sacculina' target='_blank'>sacculina</a>, a parasitic castrator that feminizes male crabs", {maxWidth:"480px"},],
+					], "helper_neureality_gallery",],
+				]],
+				["text", "During the summer, I co-led the creation of a long-scroll comic post on loneliness, which is Neureality's first post of this format. I designed the characters and style of the post. Then I spent a month weaving the line art in finest details, pixel by pixel, stroke by stroke, all with my finger on a phone screen. Check out the final post here: <a href='https://mp.weixin.qq.com/s/L-uOl1hxBeGsVr0k_ifKxw' target='_blank'>Loneliness is like an iceberg</a>.",],
+				["img-scrollable", require("./assets/cases/Neureality/content/5_0_loneliness_longscroll_final_line_drawing.jpeg"), "long-scroll post final line drawing", "", {minWidth:"400px", "--img-scrollable-ratio":"120%"}, "480px",],
+				["gallery", [
+					["gallery", [
+						["img-zoomable", require("./assets/cases/Neureality/content/5_1_loneliness_longscroll_character_design_1.png"), "long-scroll post character design sketches", "", {maxWidth:"200px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/5_2_loneliness_longscroll_character_design_2.png"), "long-scroll post illustration style variants", "", {maxWidth:"240px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/5_4_loneliness_longscroll_character_design_4.png"), "Tachie of the finalized character design", "", {maxWidth:"320px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/5_5_loneliness_longscroll_character_design_5.jpeg"), "illustration to communicate the intended vibe of the character", "", {maxWidth:"400px"},],
+						["img-zoomable", require("./assets/cases/Neureality/content/5_3_loneliness_longscroll_character_design_3.png"), "long-scroll post character design variants", "", {minWidth:"400px", maxWidth:"800px"},],
+					], "helper_neureality_gallery",],
+				]],
+			]],
+		],
+	],
 
 	"GroupReads": [
 		"GroupReads",

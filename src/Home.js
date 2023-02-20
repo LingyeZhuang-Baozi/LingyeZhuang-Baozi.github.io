@@ -350,14 +350,29 @@ function AboutMe (props) {
 		["Year", "Senior undergraduate (graduating June 2023)"],
 	];
 
+	const [profilePicGaze, setProfilePicGaze] = useState(false);
+
 	return (
 		<>
 
-			<div className="profile_pic_div dis_select">
+			<div
+				className="profile_pic_div dis_select"
+				onMouseEnter={() => { setProfilePicGaze(true); }}
+				onMouseOver={() => { setProfilePicGaze(true); }}
+				onMouseLeave={() => { // hold the gaze for a while
+					setProfilePicGaze(true);
+					setTimeout(() => {
+						setProfilePicGaze(false);
+					}, 540); // var(--delay-l)
+				}}
+			>
 				<img
 					src={me1}
 					alt="A photo of me"
-					className="profile_pic profile_pic_static zlift"
+					className={
+						"profile_pic profile_pic_static zlift " +
+						(profilePicGaze ? "profile_pic_gaze" : "")
+					}
 					onDragStart={e => e.preventDefault()}
 				/>
 				<img
@@ -465,9 +480,12 @@ function CaseObjects (props) {
 							<img className="case_object_hint" srcSet={case_studies_hint_tag+" 2x"} />
 						</div>
 					: null }
-					<Link to={"/case-"+item[0]} state={{ goBack: false }} >
+					<Link to={"/case-"+item[0]} state={{ goBack: false }} className="cursor_readmore_1">
 						<div
-							className="case_object"
+							className={
+								"case_object " +
+								((props.hoveringObject==true && props.hoveredCase===item[0]) ? "case_object_active smooth_animation_xl" : "")
+							}
 							onMouseEnter={(e) => { handle_object_mouseenter(item[0], e); }}
 							//onMouseOver={(e) => { handle_object_mouseover(item[0], e); }}
 							onMouseLeave={handle_object_mouseleave}
@@ -476,7 +494,6 @@ function CaseObjects (props) {
 							<img
 								className={
 									"case_object_img " +
-									((props.hoveringObject==true && props.hoveredCase===item[0]) ? "case_object_img_active cursor_readmore_1 smooth_animation_xl" : "") + " " +
 									((i===2 && props.newToHome==true) ? "animation_case_object_bounce" : "")
 								}
 								srcSet={

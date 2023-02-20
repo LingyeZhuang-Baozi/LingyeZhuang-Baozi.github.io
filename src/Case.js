@@ -240,7 +240,11 @@ function FooterObject (props) {
 
 	/* Render */
 	return (
-		<Link to={"/case-"+props.next} onClick={() => { setTimeout(()=>{ window.location.reload(); }, 1); }} /*onClick={() => window.location.href="/case-"+props.next}*/> {/*TODO: better way!!!*/}
+		<Link
+			to={"/case-"+props.next}
+			onClick={() => { /*setTimeout(()=>{*/ window.location.reload(); /*}, 0);*/ }}
+			/*onClick={() => window.location.href="/case-"+props.next}*/
+		> {/*TODO: better way!!!*/}
 			<div key={"caseobject-"+props.object[0]} className="case_footer_object_div dis_select">
 				<div className="case_footer_hint_div">
 					<img className="case_footer_hint" srcSet={next_case_study_btn+" 2x"} />

@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 
 /* Foreign components */
 import { journey } from "./journeys.js";
-import { Contents, SectionContent, Explanation } from "./components.js";
+import { Contents, Explanation } from "./components.js";
 
 /* Libraries */
 import useIsInViewport from "use-is-in-viewport";
@@ -68,7 +68,7 @@ export default function Journey (props) {
 	// scroll detector and journey_timeline switch.
 	const [yearInViewportState, setYearInViewportState] = useState(Array(full_journey_length).fill(false));
 		// when a year enters the viewport, corresponding index turns true
-	const [currYear, setCurrYear] = useState(null);
+	const [currYear, setCurrYear] = useState("");
 	const [journeyInViewportState, setJourneyInViewportState] = useState(() => {
 		let newJourneyInViewportState = Array(journey_refs.current.length).fill(false);
 		if (props.journeyBookmark >= 0 && props.journeyBookmark < newJourneyInViewportState.length-1) {
@@ -80,7 +80,14 @@ export default function Journey (props) {
 	});
 
 	useEffect(() => {
-		setCurrYear(yearInViewportState.findIndex((state) => state==true));
+		setCurrYear(() => {
+			const currYearIndex = yearInViewportState.findIndex((state) => state==true);
+			if (currYearIndex >= 0) {
+				return (full_journey[currYearIndex][0][0]);
+			} else {
+				return ("");
+			}
+		});
 	}, [yearInViewportState]);
 
 	useEffect(() => {
@@ -133,7 +140,7 @@ export default function Journey (props) {
 			"content text_"+props.mode
 		}><p>
 			This website is <a href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master" target='_blank'>hand-coded</a> with React.js and ♡.<br/>
-			I am so flattered seeing you reading till the end. Thank you!
+			Thank you for reading till the end!
 		</p></div>
 	</>);
 }
@@ -159,8 +166,8 @@ function JourneyYear (props) {
 	const [isInViewport, targetWrapperRef] = useIsInViewport({
 		target: props.year_ref,
 		threshold: 0,
-		modTop: "-40px",
-		modBottom: "-40px"
+		modTop: ("-" + (window.innerHeight/2 - 96) + "px"), // to account for JourneyNodes: scrollIntoView: block center
+		modBottom: ((window.innerHeight/2 - 96) + "px")
 	});
 	useEffect (() => {
 		props.setYearInViewportState(prev => {
@@ -199,23 +206,29 @@ function JourneyYear (props) {
 				/>
 			</div>
 
-			<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
-				{props.year[1].map ((journey, j) =>
-					<JourneyItem
-						key={props.year[0][0]+"_"+j}
-						journey={journey}
-						year={props.year[0][0]}
-						j={j}
-						journey_ref={props.journey_refs[props.journey_dic[props.i][j]]}
-						setJourneyInViewportState={props.setJourneyInViewportState}
-						journey_dic={props.journey_dic}
-						i={props.i}
-						firstCaseStudy={props.firstCaseStudy}
-						setModalSrc={props.setModalSrc}
-						mode={props.mode}
-					/>
-				)}
-			</Suspense>
+			<div className="journey_year_content">
+				{[...props.year[1]].reverse().map ( // (reverse)^2 to still get the same order but first on top
+					(journey, j) => {
+					const j_after_reverse = (props.year[1].length-1) - j;
+					return (
+						<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
+							<JourneyItem
+								key={props.year[0][0]+"_"+j_after_reverse}
+								journey={journey}
+								year={props.year[0][0]}
+								j={j_after_reverse}
+								journey_ref={props.journey_refs[props.journey_dic[props.i][j_after_reverse]]}
+								setJourneyInViewportState={props.setJourneyInViewportState}
+								journey_dic={props.journey_dic}
+								i={props.i}
+								firstCaseStudy={props.firstCaseStudy}
+								setModalSrc={props.setModalSrc}
+								mode={props.mode}
+							/>
+						</Suspense>
+					);
+				})}
+			</div>
 		</div>
 	);
 }
@@ -227,7 +240,7 @@ function JourneyYear (props) {
  *
  * props:
  *	- year_list (2D array): [[ section_identifier (str), section_ref (ref) ], [...]]
- *	- currYear (int)
+ *	- currYear (str)
  *	- [bookmark, set_bookmark]
  *	- mode (str)
  */
@@ -250,13 +263,13 @@ function JourneyNodes (props) {
 
 	return (
 		<div className="journey_timeline_nodes dis_select">
-			{props.year_list.map ((year, i) =>
+			{props.year_list.map ((year) =>
 				<div
 					key={"timeline-"+year[0]}
 					className={
 						"journey_timeline_node " +
 						"journey_timeline_node_"+props.mode + " " +
-						(i===props.currYear ? "journey_timeline_node_active" : "")
+						(year[0]===props.currYear ? "journey_timeline_node_active" : "")
 					}
 				>
 					<div className={
