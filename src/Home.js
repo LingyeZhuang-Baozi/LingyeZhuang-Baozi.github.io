@@ -22,7 +22,7 @@ import { GlassMagnifier } from "react-image-magnifiers";
 //import Spline from '@splinetool/react-spline'; // under experiment
 
 /* Global variables */
-const four_devarajas = ["ACM", "Bitsrealm", "RehaBuddy", "CruzRoja"];
+const four_devarajas = ["ACM", "RehaBuddy", "Bitsrealm", "CruzRoja"];
 const objects = "https://prod.spline.design/qOffy9zkxi4id6yS/scene.splinecode"; // under experiment
 
 
