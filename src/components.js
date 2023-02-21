@@ -423,7 +423,11 @@ function ImgStatic (props) {
 	return (<>
 		<div className="img_box">
 			<img
-				className={"img_box_img img_box_img_"+props.mode}
+				className={
+					"img_box_img " +
+					"img_box_img_"+props.mode + " " +
+					((isSafari || isIE) ? "img_box_img_safari" : "")
+				}
 				style={props.img_stylelist}
 				src={props.src}
 				//loading="lazy"
@@ -480,7 +484,11 @@ function ImgZoomable (props) {
 	return (<>
 		<div className="img_box">
 			<img
-				className={"img_box_img img_box_img_"+props.mode + " zoomable_img cursor_zoomin"}
+				className={
+					"img_box_img zoomable_img cursor_zoomin " +
+					"img_box_img_"+props.mode + " " +
+					((isSafari || isIE) ? "img_box_img_safari" : "")
+				}
 				style={props.img_stylelist}
 				src={props.src}
 				//loading="lazy"

@@ -207,27 +207,24 @@ function JourneyYear (props) {
 			</div>
 
 			<div className="journey_year_content">
-				{[...props.year[1]].reverse().map ( // (reverse)^2 to still get the same order but first on top
-					(journey, j) => {
-					const j_after_reverse = (props.year[1].length-1) - j;
-					return (
-						<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
-							<JourneyItem
-								key={props.year[0][0]+"_"+j_after_reverse}
-								journey={journey}
-								year={props.year[0][0]}
-								j={j_after_reverse}
-								journey_ref={props.journey_refs[props.journey_dic[props.i][j_after_reverse]]}
-								setJourneyInViewportState={props.setJourneyInViewportState}
-								journey_dic={props.journey_dic}
-								i={props.i}
-								firstCaseStudy={props.firstCaseStudy}
-								setModalSrc={props.setModalSrc}
-								mode={props.mode}
-							/>
-						</Suspense>
-					);
-				})}
+				{[...props.year[1]].map ( // (reverse)^2 to still get the same order but first on top
+					(journey, j) =>
+					<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
+						<JourneyItem
+							key={props.year[0][0]+"_"+j}
+							journey={journey}
+							year={props.year[0][0]}
+							j={j}
+							journey_ref={props.journey_refs[props.journey_dic[props.i][j]]}
+							setJourneyInViewportState={props.setJourneyInViewportState}
+							journey_dic={props.journey_dic}
+							i={props.i}
+							firstCaseStudy={props.firstCaseStudy}
+							setModalSrc={props.setModalSrc}
+							mode={props.mode}
+						/>
+					</Suspense>
+				)}
 			</div>
 		</div>
 	);

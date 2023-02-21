@@ -586,6 +586,7 @@ iframe { border: none; }
 
 .img_box_img {
 	width: 100%;
+	max-width: 100%;
 	-webkit-transition: filter var(--delay-l) ease-in-out;
 	-moz-transition: filter var(--delay-l) ease-in-out;
 	-ms-transition: filter var(--delay-l) ease-in-out;
@@ -596,6 +597,10 @@ iframe { border: none; }
 .img_box_img_dark {
 	filter: brightness(80%) grayscale(20%) !important; /* dark mode image dimmer filter, eliminate any drop-shadow */
 	/*filter: none !important;*/
+}
+
+.img_box_img_safari {
+	width: auto;
 }
 
 .img_box_img_scrollable {
@@ -1600,7 +1605,7 @@ iframe { border: none; }
 
 .journey_year_content {
 	display: flex;
-	flex-direction: column-reverse;
+	flex-direction: column;
 	gap: 32px;
 }
 
@@ -1696,12 +1701,13 @@ iframe { border: none; }
 }
 
 .journey_journey_readmore {
-	width: 108px; /* about the width of the object head space */
-	height: 140px; /* 108px approximate height of the object head space + 16px journey_journey padding-top + 16px room for popping */
-	overflow: hidden;
+	width: 120px; /* about the width of the object head space, with a bit more free space */
+	height: 124px; /* 108px approximate height of the object head space + 16px journey_journey padding-top */
+	overflow-y: hidden;
+	overflow-x: visible;
 	position: absolute;
 	top: -16px; /* journey_journey padding-top */
-	right: 26px; /* 40px home_display_div_inner_journey padding-right - (108px journey_journey_readmore width - 80px object body width) / 2 */
+	right: 20px; /* 40px home_display_div_inner_journey padding-right - (120px journey_journey_readmore width - 80px object body width) / 2 */
 }
 
 .journey_journey_object_div_outer {
@@ -1714,7 +1720,7 @@ iframe { border: none; }
 	position: absolute;
 	transform: translateX(-50%);
 	left: 50%;
-	bottom: 16px;
+	bottom: 40px; /* 1/2* 108px object head space height - 16px room for popping */
 }
 
 .journey_journey_object_img {
@@ -1731,17 +1737,17 @@ iframe { border: none; }
 	transition: bottom var(--delay-m) ease-in-out;
 }
 
-.journey_journey_object_img_active { bottom: -16px; }
+.journey_journey_object_img_active { bottom: -40px; }
 
 .journey_journey_object_hint_div {
 	position: absolute;
 	transform: translateY(-50%);
 	right: 120px; /* 40px home_display_div_inner_journey padding-right + 80px object body width */
-	top: 50%;
+	top: 50%; /* 8px journey_journey_header padding top + 1/2 * 30px journey_journey_title height */
 	display: flex; /* to tightly hug case_object_hint */
 }
 
-.journey_journey_object_hint {
+.journey_journey_object_hint_first {
 	animation: journey_object_hint_tickle 2000ms ease-in-out infinite;
 	-webkit-transition: transform 2000ms ease-in-out;
 	-moz-transition: transform 2000ms ease-in-out;
@@ -1760,8 +1766,7 @@ iframe { border: none; }
 	display: flex;
 	flex-direction: column;
 	gap: calc(1.5 * var(--lineheight-default));
-	/*padding-bottom: 40px;*/
-	padding-bottom: 24px;
+	padding-bottom: 24px; /* 40px intended padding - 16px journey_journey bottom padding */
 }
 
 .journey_journey_content.text_light .img_caption { color: var(--color-gray3-99); }
@@ -1807,6 +1812,18 @@ iframe { border: none; }
 	grid-column-end: text-end;
 	margin-left: 40px;
 	overflow-y: scroll;
+	position: relative;
+}
+
+.journey_journey_content_group_text_with_object {
+	display: inline-flex;
+	shape-outside: ellipse(54px 46px at calc(100% - 40px) top);
+		/* 54px = 1/2 * 108px object width.
+		   46px = 124px object height - 70px journey_journey_header max height - 16px journey_journey top padding 8px gap + 16px possible movement.
+		   40px = 1/2 * 120px journey_journey_readmore width + 20px journey_journey_readmore right distance - 40px journey_journey right padding */
+	float: right;
+	width: 100px; /* 120px journey_journey_readmore width - (40px journey_journey right padding - 20px journey_journey_readmore right distance) */
+	height: 62px;
 }
 
 .journey_journey_content_group p {

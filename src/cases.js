@@ -19,7 +19,7 @@
  *			[2]object (array of imgs as required paths) : [ [0]light_default, [1]dark_default, [2]light_figure, [3]dark_figure, [4]light_active, [5]dark_active, [6]light_blink, [7]dark_blink ],
  *			[3]case_content : [ [
  *				[0]section_type (str) : ("intro", "problem", "section", "subsection", "evidence") ,
- *				[1]section_identifier (str) : ("Overview", "User Research", "Design", "Implementation", "Takeaways", "Reflection", "Outcomes", ...)
+ *				[1]section_identifier (str) : ("Overview", "Need Finding", "User Research", "Design", "Implementation", "Takeaways", "Reflection", "Outcomes", ...)
  *				[2]section_content : [ [
  *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe", "gallery") ,
  *					[1]item_content (html str, OR img as required path, OR vid as required path) OR [1]iframe_type (str),
@@ -43,7 +43,7 @@ export const cases = {
 		"ACM",
 		{
 			"title": "Upgrade website for ACM@UCSD",
-			"description": "To help ACM@UCSD attract potential members, our team upgraded its website. We reorganized the layout, collected new contents, and made the interactions more intuitive.",
+			"description": "To help ACM@UCSD attract potential members, my team upgraded its website. We reorganized the layout, collected new contents, and made the interactions more intuitive.",
 			"thumbnail": require("./assets/cases/ACM/ACM_thumbnail.png"),
 			"thumbnail_light": require("./assets/cases/ACM/ACM_thumbnail_light.png"),
 			"thumbnail_dark": require("./assets/cases/ACM/ACM_thumbnail_dark.png"),
@@ -120,10 +120,10 @@ export const cases = {
 				["text", "See the ACM website that we upgraded here: <a href='https://acmucsd.com/' target='_blank'>ACM@UCSD</a>.",],
 				["text", "Thank you to my designmates <a href='https://michelemurakami.com/index.html' target='_blank'>Michele</a> and <a href='https://linkedin.com/in/tlee016' target='_blank'>Tiffany</a>.",],
 			]],
-			["section", "Reflection", [
-				["title", "What will I do differently today?",],
-				["text", "...",],
-			]],
+			// ["section", "Reflection", [
+			// 	["title", "What will I do differently today?",],
+			// 	["text", "...",],
+			// ]],
 		],
 	],
 
@@ -210,10 +210,10 @@ export const cases = {
 			["evidence", "", [
 				["text", "See the event hub of the virtual concert on Bitsrealm's website here: <a href='https://bitsrealm.com/explore/activity-details?id=13' target='_blank'>Bitsrealm: Neo-wulin</a>.",],
 			]],
-			["section", "Reflection", [
-				["title", "What will I do differently today?",],
-				["text", "...",],
-			]],
+			// ["section", "Reflection", [
+			// 	["title", "What will I do differently today?",],
+			// 	["text", "...",],
+			// ]],
 		],
 	],
 
@@ -262,8 +262,8 @@ export const cases = {
 	"CruzRoja": [
 		"CruzRoja",
 		{
-			"title": "Cruz Roja project with NGO",
-			"description": "Redesigned the UI of an ambulance dispatching system that arranges emergency service in Tijuana, Mexico. Improved interaction efficiency and information display of a complex system.",
+			"title": "Ambulance dispatching system redesign for Cruz Roja",
+			"description": "With a cross-disciplinary team, we redesigned the UI of an ambulance dispatching system that arranges emergency service in Tijuana, Mexico. We improved interaction efficiency and information display of the complex system.",
 			"thumbnail": require("./assets/cases/CruzRoja/CruzRoja_thumbnail.png"),
 			"thumbnail_light": require("./assets/cases/CruzRoja/CruzRoja_thumbnail_light.png"),
 			"thumbnail_dark": require("./assets/cases/CruzRoja/CruzRoja_thumbnail_dark.png"),
@@ -369,6 +369,79 @@ export const cases = {
 				["text", "Suppose we still end up with a similar app structure as the current design, then in terms of user flow, I would prioritize <span style='--color:#4A919E59;'>refining the connection between the uploaded readings and the forum</span>. When the user asks a question on the forum, they might refer to a section of the reading; When the user studies the reading, they might grasp the message more easily by reviewing the existing annotations and questions from their classmates. This should be the core of the app, because it makes GroupReads a better option for discussing class readings compared with some other general-purpose forums, such as Piazza.",],
 				["text", "I would include more <span style='--color:#4A919E59;'>ethical considerations</span> in my design process, namely about academic integrity and user privacy. One idea to improve privacy experience is to introduce an anonymous feature when users interact on the forum. Yet an severer concern is that we had slipped into a gray area trying to promote discussion of reading materials and notes sharing online. We proposed this with good will, hoping to motivate students to read by enhancing the sense of engagement. But since the readings are class assignments, an open discussion forum could be taken advantage of and potentially cause academic integrity issues, not to mention copyright concerns related to uploading course materials. These should all be kept in mind throughout the design process.",],
 			]],
+		],
+	],
+
+	"PadPal": [
+		"PadPal",
+		{
+			"title": "PadPal, menstrual dignity for girls in Pune, India",
+			"description": "",
+			"thumbnail": require("./assets/cases/PadPal/PadPal_thumbnail.png"),
+			"thumbnail_light": require("./assets/cases/PadPal/PadPal_thumbnail_light.png"),
+			"thumbnail_dark": require("./assets/cases/PadPal/PadPal_thumbnail_dark.png"),
+			"case_brief": [
+				["role", "Graphic designer, Illustrator"],
+				["duration", "January-March, 2021"],
+			],
+			"next": ""/*TODO*/,
+		},
+		[require("./assets/cases/PadPal/object_PadPal_light@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark@2x.png"), require("./assets/cases/PadPal/object_PadPal_light_figure@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark_figure@2x.png"), require("./assets/cases/PadPal/object_PadPal_light_active@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark_active@2x.png"), require("./assets/cases/PadPal/object_PadPal_light_blink@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark_blink@2x.png"),],
+		[
+			["intro", "Overview", [
+				["text", "Project Kilimanjaro, a non-profit organization, is helping girls and women in Pune, India with menstrual health management. Together with PK, our team designed a menstrual care bag with an instruction manual. The bag can be easily hand-sewed and used to carry menstrual products safely and sanitarily.",],
+				["vid", require("./assets/cases/PadPal/content/1_final_presentation.mp4"), "", "", "", require("./assets/cases/PadPal/content/1_final_presentation_thumbnail.png"),],
+			]],
+			["problem", "", [
+				["text", "Period being a taboo topic prevents girls and women in rural Pune, India from properly managing their menstrual health. But period is a normal and beautiful part of life, and nothing to be ashamed of.",],
+			]],
+			["section", "Need Finding", [
+				["title", "Set direction, weigh anchor",],
+				["text", "Menstrual health management is challenging for girls in Pune, India. Causes to this difficulty is complex: expensive menstrual products, lack of awareness, cultural and relogious factors. Secondary disasters include menstrual illness, school dropout, internalized oppression."],
+				["text", "Project Kilimanjaro has a few parallel projects, each tackling one aspect of the problem. Typically, one biodegradable pad team is developing sustainable pad product, while an educational team offers a series of curriculums on MHM."],
+				["img-static", require("./assets/cases/PadPal/content/2_our_blueocean.png"), "we discovered blueocean", "we found ourselves a spot in Project Kilimanjaro's roadmap", {minWidth:"480px"},],
+				["text", "We wanted to maximize our help, so we chose a path that was different from, but could also supplement these existing projects. We decided to design a menstrual bag. In the korean film <a href='https://en.wikipedia.org/wiki/Hope_(2013_film)' target='_blank'>Hope</a>, the father put a handful of candies into Sowon's pocket, covering the noise of her stoma bag, so Sowon is willing to go to school. Our menstrual bag will also give girls in Pune courage, backing them to go back to school or normal daily life during the lady days."],
+			]],
+			["section", "Design", [
+				["title", "Braid a thousand threads into one single slice",],
+				["img-static", require("./assets/cases/PadPal/content/brainstorm_notes.png"), "brainstorm sticky notes", "brainstorm session notes on what our bag should accomplish for", {minWidth:"792px"/*800px min page width - 4px margin on each side*/},],
+			]],
+			["subsection", "", [
+				["title", "PadPal bag",],
+				["text", "Due to covid-19, we weren't able to travel to India to meet our served community in person. So we relied on interviewing our NGO, secondary research, and downloading India social apps to get a sense of the environment.",],
+				["text", "We summarized 5 key criterias that should orient our design: sanitation, sustainability, easy instruction, comfort, dignity.",],
+				["text", "We spent a week brainstorming ideas based on these criterias. Then building on a sharing session, we splited into sub-teams to develop 3 bag concepts for comparison. The 3 concepts range on a spectrum from \"the easiest to make\" to \"the most functional\".",],
+				["img-static", require("./assets/cases/PadPal/content/3_1_concepts.png"), "3 concepts", "the 3 concepts that we discussed and decided from", {minWidth:"560px"},],
+				["img-static", require("./assets/cases/PadPal/content/3_2_my_other_concept.jpg"), "my other concepts", "another concept I sketched during ideation", {minWidth:"480px"},],
+				["text", "Decision was settled based on feedback from PK. \"Easy to make\" was an important quality, since a home-makable design would reduce cost for both the users and the non-profit organization. We prototyped out Concept 1 to solidify its making steps, test its function and comfort.",],
+				["img-static", require("./assets/cases/PadPal/content/4_materials_to_bag.png"), "from materials to PadPal bag physical prototype", "bag body sewed using 1 piece of fabric + twist baid belt → pretty pad pouch in less than 30 minutes", {minWidth:"400px"},],
+			]],
+			["subsection", "", [
+				["title", "Instruction guide",],
+				["text", "Our easy-to-make bag should have its easy-to-read guide.",],
+				["text", "We decided to put the manufacture steps into graphics and minimize text explanation, since picture is an international language. When illustrating the graphics, I tried to find a balance between realistic and iconic, so the steps were understandable while the illustrations remained tidy. For each manufacture step, I created a few variations of illustrations, and used a questionnaire to collect feedback on which would be the easiest to understand without caption.",],
+				["img-static", require("./assets/cases/PadPal/content/5_questionnaire.jpg"), "questionnaire example", "example for testing question", {minWidth:"400px", maxWidth:"560px"},],
+				["text", "Originally, we named our product a \"Pad Bag\", referring to its function of holding pads. Yet we were aware that menstrual topics could be a taboo among our target users, and thus an over straightforward name could be intimidating. Therefore, being culturally sensitive, we changed the naming from \"Pad Bag\" to the cuter \"PadPal\". We hoped our clients would feel more comfortable using our product this way.",],
+				["text", "The color scheme of bright orange and blue communicated a sense of beauty and confidence. We also followed the international unit standard used in India and marked the dimensions in our instruction with centimeter instead of inch.",],
+				["text", "Here is our final instruction guide:",],
+				["img-static", require("./assets/cases/PadPal/content/6_instruction_final.jpg"), "final instruction guide", "", {minWidth:"400px", maxWidth:"560px"},],
+			]],
+			["section", "Takeaways", [
+				["title", "There were waves, but we held tight",],
+				["text", "In fact, we didn't expected creating an instruction guide when we started off. This objective was picked up on the halfway.",],
+				["text", "Neel, our contact man, directly communicated with us on behalf of PK and conveyed important decisions. Despite being efficient most of the time, this channel with multiple layers led to miscommunication at a point. It was over half of the quarter, and we suddenly had to change our direction from designing an actual menstrual bag product, to providing a guide for users to hand-make it by themselves. As a result, the design of the bag also had to change from partially factory-producible, to the simplest for hand manufacturing.",],
+				["text", "Although this shift was sudden, we managed to cope with it and ended up with an instruction guide that satisfied the needs of our NGO.",],
+				["text", "Our design received appreciation from PK. Our instruction guide existed in line with PK's educational curriculum, and was simple enough to be ready for adopting into their materials. In the future, PK could use our PadPal to introduce their biodegradable pad into the curriculums. Neel wrote: \"We wanted to say thank you so much for all the work you put in last quarter, we really appreciate all that you have done. We can assure you that your efforts did not go to waste and we believe they will be extremely helpful for our project implementation down the road.\"",],
+			]],
+			["evidence", "", [
+				["text", "See our report here: <a href='https://docs.google.com/document/d/1ZJOeIAyzp8Q9EtlHno1MLMMDJDZc36y0uEWuP0YG8ug/edit?usp=sharing' target='_blank'>Final deliverable</a>.",],
+				["text", "I am also the documentor on team. See the tidy meeting notes I took: <a href='https://docs.google.com/document/d/1HON2xh3HEKJjkmuY6OoEk3X_08hc3xMVcFhM-oL092Q/edit?usp=sharing' target='_blank'>Minutes</a>.",],
+				["text", "Thanks to my teammates, and PK and Global Ties for the opportunity: <a href='https://www.projectkiliforkids.org/menstrual-health' target='_blank'>Project Kilimanjaro</a>, <a href='https://globalties.ucsd.edu/' target='_blank'>Global TIES</a>.",],
+			]],
+			// ["section", "Reflection", [
+			// 	["title", "What will I do differently today?",],
+			// 	["text", "...",],
+			// ]],
 		],
 	],
 

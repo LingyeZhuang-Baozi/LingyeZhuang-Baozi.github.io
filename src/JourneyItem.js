@@ -7,6 +7,7 @@ import { cases } from "./cases.js";
 
 /* Assets */
 import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag_2@2x.png";
+import case_studies_hint_tag_first from "./assets/basic/case_studies_hint_tag_2_first@2x.png";
 
 /* Libraries */
 import parse from 'html-react-parser';
@@ -53,6 +54,7 @@ export default function JourneyItem (props) {
 
 	/* Read more object */
 	const [hoveringObject, setHoveringObject] = useState(false);
+	const [isFirstObject, setIsFirstObject] = useState(props.i==props.firstCaseStudy[0] && props.j==props.firstCaseStudy[1]);
 	const [timer, setTimer] = useState(true); // true(tic)*, false(tac)
 	const [isBlinking, setIsBlinking] = useState(false);
 
@@ -130,10 +132,15 @@ export default function JourneyItem (props) {
 					</div>
 				: null }
 
-				{/*(props.i==props.firstCaseStudy[0] && props.j==props.firstCaseStudy[1] && hoveringObject==false) ?*/
-				(props.journey[1].length > 0 && hoveringObject==false) ?
+				{(props.journey[1].length > 0 && hoveringObject==false) ?
 					<div className="journey_journey_object_hint_div">
-						<img className="journey_journey_object_hint" srcSet={case_studies_hint_tag+" 2x"} />
+						<img
+							className={
+								"journey_journey_object_hint " +
+								((isFirstObject==true && hoveringObject==false) ? "journey_journey_object_hint_first" : "")
+							}
+							srcSet={((isFirstObject==true && hoveringObject==false) ? case_studies_hint_tag_first : case_studies_hint_tag) +" 2x"}
+						/>
 					</div>
 				: null }
 			</div>
@@ -165,6 +172,7 @@ export default function JourneyItem (props) {
 											/>
 										</div>
 										<div className="journey_journey_content_group_text">
+											{/*props.journey[1].length > 0 ? <div className="journey_journey_content_group_text_with_object"/> : null*/}
 											<p>{parse(group[2])}</p>
 										</div>
 									</div>

@@ -21,6 +21,7 @@ import { Modebtn, Bio, Contents, Img, ImgModal, Vid } from "./components.js";
 
 /* Assets */
 import next_case_study_btn from "./assets/basic/next_case_study_btn@2x.png";
+import back_case_study_btn from "./assets/basic/back_case_study_btn@2x.png";
 
 /* Libraries */
 import parse from 'html-react-parser';
@@ -148,16 +149,32 @@ export default function Case (props) {
 
 			</div>
 
-			{ cases[props.case][1]["next"] !== "" ?
-				<div className={"case_footer case_footer_"+props.mode}>
-					<FooterObject
-						object={cases[props.case][2]}
-						next={cases[props.case][1]["next"]}
-						mode={props.mode}
-					/>
-					{/* TODO: all primary and contact tabs listed (align with home button but snap to bottom) */}
-				</div>
-			: null }
+			{(()=>{
+				if (location.state && location.state["goBack"] == true) {
+					return (
+						<div className={"case_footer case_footer_"+props.mode}>
+							<FooterObject
+								object={cases[props.case][2]}
+								next=""
+								mode={props.mode}
+							/>
+						</div>
+					);
+				} else if (cases[props.case][1]["next"] !== "") {
+					return (
+						<div className={"case_footer case_footer_"+props.mode}>
+							<FooterObject
+								object={cases[props.case][2]}
+								next={cases[props.case][1]["next"]}
+								mode={props.mode}
+							/>
+						</div>
+					);
+				} else {
+					return (null);
+				}
+			})()}
+			{/* TODO: all primary and contact tabs listed in footer (align with home button but snap to bottom) */}
 
 		</div>
 
@@ -172,7 +189,6 @@ export default function Case (props) {
 								"case_back case_back_back cursor_pointer " +
 								"case_back_"+props.mode
 							}
-							onClick={props.onclick}
 							onDragStart={e => e.preventDefault()}
 						/>
 					</Link>
@@ -185,7 +201,6 @@ export default function Case (props) {
 								"case_back case_back_home cursor_pointer " +
 								"case_back_"+props.mode
 							}
-							onClick={props.onclick}
 							onDragStart={e => e.preventDefault()}
 						/>
 					</Link>
@@ -210,7 +225,7 @@ export default function Case (props) {
  * 
  * props:
  *	- object (array)
- *	- next (str)
+ *	- next (str), "" for back
  *	- mode (str)
  */
 function FooterObject (props) {
@@ -241,13 +256,18 @@ function FooterObject (props) {
 	/* Render */
 	return (
 		<Link
-			to={"/case-"+props.next}
-			onClick={() => { /*setTimeout(()=>{*/ window.location.reload(); /*}, 0);*/ }}
-			/*onClick={() => window.location.href="/case-"+props.next}*/
+			to={props.next=="" ? (-1) : "/case-"+props.next}
+			onClick={() => {
+				if (props.next!="") {
+					setTimeout(()=>{ window.location.reload(); }, 0);
+					/* window.location.href="/case-"+props.next; */
+				}
+			}}
+			onDragStart={e => e.preventDefault()}
 		> {/*TODO: better way!!!*/}
 			<div key={"caseobject-"+props.object[0]} className="case_footer_object_div dis_select">
 				<div className="case_footer_hint_div">
-					<img className="case_footer_hint" srcSet={next_case_study_btn+" 2x"} />
+					<img className="case_footer_hint" srcSet={(props.next=="" ? back_case_study_btn : next_case_study_btn) +" 2x"} />
 				</div>
 				<div
 					className="case_footer_object"

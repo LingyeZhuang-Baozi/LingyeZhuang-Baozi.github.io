@@ -73,6 +73,7 @@ function App() {
 				<Route path="/case-CruzRoja" element={ <Case case="CruzRoja" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-Neureality" element={ <Case case="Neureality" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-GroupReads" element={ <Case case="GroupReads" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-PadPal" element={ <Case case="PadPal" mode={mode} toggleMode={toggleMode} /> } />
 
 			</Routes></Router>
 		</div>
