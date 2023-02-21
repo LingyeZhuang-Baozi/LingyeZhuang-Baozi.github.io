@@ -166,6 +166,10 @@ export const cases = {
 				["text", "I interviewed therapists and stroke patients. An important thing that I was told by the therapists is that the word \"motivation\" could be a dangerous concept in the field of stroke recovery, since it is easy to slip into ambiguously judging a patient's motivation, or labeling a patient as motivated or not, which is bad. So I want to point out that when I say my product helps motivate stroke patients, my target users are those who have left hospital already, and started home-based recovery, but found it hard to keep up. My product just aims to provide an external source of push when giving up appears to be so easy, and persisting is hard.",],
 				["text", "This is merely a conceptual design according to interviews and literature reviews. There are still many problems to solve if we are to actually implement it. For instance:<ul><li>How can we simplify sensors and motors required to fit them into a therapy putty size?</li><li>If the patient stops exercising for a while and RehaBuddy sort of dies, the feedback declines, then what degree of declining would be the most proper, so the user is on one hand motivated to exercise consistently to prevent RehaBuddy from dying, while still willing to start over if they happen to pause exercising for some reason?</li><li>Additionally, for the built-in sensors, one thing that needs to be solved is how to differentiate exercising from simply carrying the device around? Or much harder, how to differentiate the exercising with the stroke-affected arm from exercising with the fine arm?</li></ul>",],
 			]],
+			// ["section", "Reflection", [
+			// 	["title", "What will I do differently today?",],
+			// 	["text", "...",],
+			// ]],
 		],
 	],
 

@@ -28,7 +28,7 @@
 export const journey = [
 
 	// 2019
-	[ ["2019", [require("./assets/journey/zodiacs/animal_pig_light@2x.png"), require("./assets/journey/zodiacs/animal_pig_dark@2x.png")], "year of the Pig, the 12th animal in the Chinese zodiac"],
+	[ ["2019", [require("./assets/journey/zodiacs/animal_pig_light@2x.png"), require("./assets/journey/zodiacs/animal_pig_dark@2x.png")], "year of the Pig, the last animal in the Chinese zodiac"],
 
 		[
 			[ ["Little soldiers doodler", "CSE 8A"], [],
@@ -168,7 +168,7 @@ export const journey = [
 					[ ["img-static", require("./assets/journey/2021/1_bitsrealm/mobile_1.png"), "Bitsrealm mobile website prototype 1", "",],
 						["img-static", require("./assets/journey/2021/1_bitsrealm/mobile_2.png"), "Bitsrealm mobile website prototype 2", "",],
 						["img-static", require("./assets/journey/2021/1_bitsrealm/performer.png"), "Bitsrealm performer-end prototype", "",],
-						["img-static", require("./assets/journey/2021/1_bitsrealm/audience.png"), "Bitsrealm virtual concert audience-end UI prototype", "",], ],
+						/*["img-static", require("./assets/journey/2021/1_bitsrealm/audience.png"), "Bitsrealm virtual concert audience-end UI prototype", "",],*/ ],
 					"During my 6-week internship at Bitsrealm, a VR game company in Shanghai, I designed a series of 4 websites along the UX flow of a virtual concert, while closely communicating with planners and developers.",
 				], ],
 			],
@@ -244,13 +244,32 @@ export const journey = [
 
 
 
-	// // 2022
+	// 2022
 	// [ ["2022", [require("./assets/journey/zodiacs/animal_tiger_light@2x.png"), require("./assets/journey/zodiacs/animal_tiger_dark@2x.png")], "year of the Tiger, the 3rd animal in the Chinese zodiac"],
 
 	// 	[
-	// 		[ ["name", "client"], [],
-	// 			[],
+	// 		[ ["Goods transport app for farmers in Bhutan", "FirstMile Bhutan"],
+	// 			["LAK", [require("./assets/cases/LAK/object_LAK_light@2x.png"), require("./assets/cases/LAK/object_LAK_dark@2x.png"), require("./assets/cases/LAK/object_LAK_light_active@2x.png"), require("./assets/cases/LAK/object_LAK_dark_active@2x.png"), require("./assets/cases/LAK/object_LAK_light_blink@2x.png"), require("./assets/cases/LAK/object_LAK_dark_blink@2x.png")],],
+	// 			[ [ 2,
+	// 				[ ["img-static", require("./assets/journey/2022/1_lak/add_job_1.png"), "LAK add job flow 1", "",],
+	// 					["img-static", require("./assets/journey/2022/1_lak/add_job_2.png"), "LAK add job flow 1", "",],
+	// 					["img-static", require("./assets/journey/2022/1_lak/current_jobs.png"), "LAK current job screen", "",],
+	// 					["img-static", require("./assets/journey/2022/1_lak/job_details.png"), "LAK job details screen", "",], ],
+	// 				"...",
+	// 			], ],
 	// 		],
+
+	// 		[ ["Goods transport app for farmers in Bhutan", "Make-A-Wish"],
+	// 			["MAW", [require("./assets/cases/MAW/object_MAW_light@2x.png"), require("./assets/cases/MAW/object_MAW_dark@2x.png"), require("./assets/cases/MAW/object_MAW_light_active@2x.png"), require("./assets/cases/MAW/object_MAW_dark_active@2x.png"), require("./assets/cases/MAW/object_MAW_light_blink@2x.png"), require("./assets/cases/MAW/object_MAW_dark_blink@2x.png")],],
+	// 			[ [ 2,
+	// 				[ ["img-static", require("./assets/journey/2022/1_lak/add_job_1.png"), "LAK add job flow 1", "",],
+	// 					["img-static", require("./assets/journey/2022/1_lak/add_job_2.png"), "LAK add job flow 1", "",],
+	// 					["img-static", require("./assets/journey/2022/1_lak/current_jobs.png"), "LAK current job screen", "",],
+	// 					["img-static", require("./assets/journey/2022/1_lak/job_details.png"), "LAK job details screen", "",], ],
+	// 				"...",
+	// 			], ],
+	// 		],
+
 	// 	],
 	// ],
 

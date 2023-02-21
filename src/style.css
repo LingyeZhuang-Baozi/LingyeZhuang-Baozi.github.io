@@ -176,6 +176,13 @@ iframe { border: none; }
 .text_hint_light { color: var(--color-lvsongshi); }
 .text_hint_dark { color: var(--color-gray3-99); }
 
+.text_emphasize {
+	font-size: var(--font-h1);
+	letter-spacing: var(--letterspacing-h1);
+	line-height: var(--lineheight-h1);
+	margin-block-end: calc(1.5 * var(--lineheight-default));
+}
+
 /* content layout */
 
 .content.text_light { color: var(--color-gray1-33); }

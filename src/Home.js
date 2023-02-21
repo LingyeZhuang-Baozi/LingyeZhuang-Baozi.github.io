@@ -413,8 +413,8 @@ function AboutMe (props) {
 						<span>g</span>
 					</span>
 				</span>
-				<p className={"text_"+props.mode}>
-					UX/UI designer / Graphic designer / Amateur illustrator
+				<p className={"text_emphasize text_"+props.mode}>
+					UX/UI designer / Graphic designer / Illustrator
 				</p>
 				<p className={"text_"+props.mode}>
 					Recently soaking up development skills, walking on the path towards being a full-stack designer. This website is hand-coded with React.js and ♡.
