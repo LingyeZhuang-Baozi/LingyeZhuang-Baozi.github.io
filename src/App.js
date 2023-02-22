@@ -68,9 +68,11 @@ function App() {
 
 				{/* Cases */}
 				<Route path="/case-ACM" element={ <Case case="ACM" mode={mode} toggleMode={toggleMode} /> } />
-				<Route path="/case-Bitsrealm" element={ <Case case="Bitsrealm" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-RehaBuddy" element={ <Case case="RehaBuddy" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-Bitsrealm" element={ <Case case="Bitsrealm" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-CruzRoja" element={ <Case case="CruzRoja" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-LAK" element={ <Case case="LAK" mode={mode} toggleMode={toggleMode} /> } />
+				<Route path="/case-MAW" element={ <Case case="MAW" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-Neureality" element={ <Case case="Neureality" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-GroupReads" element={ <Case case="GroupReads" mode={mode} toggleMode={toggleMode} /> } />
 				<Route path="/case-PadPal" element={ <Case case="PadPal" mode={mode} toggleMode={toggleMode} /> } />

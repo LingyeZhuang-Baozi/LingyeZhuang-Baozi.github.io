@@ -284,6 +284,64 @@ export const cases = {
 
 /**--- Others ---**/
 
+	// "ALUM": [
+	// 	"ALUM",
+	// 	{
+	// 		"title": "Goods transport app for farmers in Bhutan",
+	// 		"description": "...",
+	// 		"thumbnail": require("./assets/cases/ALUM/ALUM_thumbnail.png"),
+	// 		"thumbnail_light": require("./assets/cases/ALUM/ALUM_thumbnail_light.png"),
+	// 		"thumbnail_dark": require("./assets/cases/ALUM/ALUM_thumbnail_dark.png"),
+	// 		"case_brief": [
+	// 			["role", "UX/UI designer"],
+	// 			["duration", "November 2022 - present"],
+	// 		],
+	// 		"next": ""/*TODO*/,
+	// 	},
+	// 	[require("./assets/cases/ALUM/object_ALUM_light@2x.png"), require("./assets/cases/ALUM/object_ALUM_dark@2x.png"), require("./assets/cases/ALUM/object_ALUM_light_figure@2x.png"), require("./assets/cases/ALUM/object_ALUM_dark_figure@2x.png"), require("./assets/cases/ALUM/object_ALUM_light_active@2x.png"), require("./assets/cases/ALUM/object_ALUM_dark_active@2x.png"), require("./assets/cases/ALUM/object_ALUM_light_blink@2x.png"), require("./assets/cases/ALUM/object_ALUM_dark_blink@2x.png"),],
+	// 	[],
+	// ],
+
+	"LAK": [
+		"LAK",
+		{
+			"title": "Goods transport app for farmers in Bhutan",
+			"description": "...",
+			"thumbnail": require("./assets/cases/LAK/LAK_thumbnail.png"),
+			"thumbnail_light": require("./assets/cases/LAK/LAK_thumbnail_light.png"),
+			"thumbnail_dark": require("./assets/cases/LAK/LAK_thumbnail_dark.png"),
+			"case_brief": [
+				["role", "UX/UI designer"],
+				["duration", "November 2021 - present"],
+			],
+			"next": ""/*TODO*/,
+		},
+		[require("./assets/cases/LAK/object_LAK_light@2x.png"), require("./assets/cases/LAK/object_LAK_dark@2x.png"), require("./assets/cases/LAK/object_LAK_light_figure@2x.png"), require("./assets/cases/LAK/object_LAK_dark_figure@2x.png"), require("./assets/cases/LAK/object_LAK_light_active@2x.png"), require("./assets/cases/LAK/object_LAK_dark_active@2x.png"), require("./assets/cases/LAK/object_LAK_light_blink@2x.png"), require("./assets/cases/LAK/object_LAK_dark_blink@2x.png"),],
+		[],
+	],
+
+	"MAW": [
+		"MAW",
+		{
+			"title": "Goods transport app for farmers in Bhutan",
+			"description": "Make-A-Wish's mission is to grant wishes to children with critical illness. My team built a volunteer hub that fulfills their needs to coordinate the diverse volunteer base and smoothen the wish-granting process.",
+			"thumbnail": require("./assets/cases/MAW/MAW_thumbnail.png"),
+			"thumbnail_light": require("./assets/cases/MAW/MAW_thumbnail_light.png"),
+			"thumbnail_dark": require("./assets/cases/MAW/MAW_thumbnail_dark.png"),
+			"case_brief": [
+				["role", "UX/UI designer"],
+				["duration", "November 2021 - June 2022"],
+			],
+			"next": ""/*TODO*/,
+		},
+		[require("./assets/cases/MAW/object_MAW_light@2x.png"), require("./assets/cases/MAW/object_MAW_dark@2x.png"), require("./assets/cases/MAW/object_MAW_light_figure@2x.png"), require("./assets/cases/MAW/object_MAW_dark_figure@2x.png"), require("./assets/cases/MAW/object_MAW_light_active@2x.png"), require("./assets/cases/MAW/object_MAW_dark_active@2x.png"), require("./assets/cases/MAW/object_MAW_light_blink@2x.png"), require("./assets/cases/MAW/object_MAW_dark_blink@2x.png"),],
+		[
+			["intro", "", [
+				["text", "Make-A-Wish's mission is to grant wishes to children with critical illness. In TSE, my team built a volunteer hub webtool that fulfills their needs to coordinate the diverse volunteer base and smoothen the wish-granting process. Admin members in the organization will post events, manage volunteers, and organize documents on the app. Volunteers can use this website to easily sign up for events, and access documents and resources."],
+			]],
+		],
+	],
+
 	"Neureality": [
 		"Neureality",
 		{
@@ -294,7 +352,7 @@ export const cases = {
 			"thumbnail_dark": require("./assets/cases/Neureality/Neureality_thumbnail_dark.png"),
 			"case_brief": [
 				["role", "Illustrator, Character designer"],
-				["duration", "Feb 2020 - present"],
+				["duration", "February 2020 - present"],
 			],
 			"next": ""/*TODO*/,
 		},
