@@ -173,7 +173,7 @@ export const journey = [
 				], ],
 			],
 
-			[ ["Ambulance dispatching system redesign for Cruz Roja", "Cruz Roja, Global TIES"],
+			[ ["Ambulance dispatching system redesign for Cruz Roja", "The Red Cross, Global TIES"],
 				["CruzRoja", [require("./assets/cases/CruzRoja/object_CruzRoja_light@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_blink@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_blink@2x.png")],],
 				[ [ 2,
 					[ ["img-static", require("./assets/journey/2021/2_cruzroja/prototype_1.png"), "CruzRoja prototype 1", "",],
@@ -249,18 +249,18 @@ export const journey = [
 
 		[
 			[ ["Goods transport app for farmers in Bhutan", "FirstMile Bhutan, TSE"],
-				["LAK", [require("./assets/cases/LAK/object_LAK_light@2x.png"), require("./assets/cases/LAK/object_LAK_dark@2x.png"), require("./assets/cases/LAK/object_LAK_light_active@2x.png"), require("./assets/cases/LAK/object_LAK_dark_active@2x.png"), require("./assets/cases/LAK/object_LAK_light_blink@2x.png"), require("./assets/cases/LAK/object_LAK_dark_blink@2x.png")],],
+				[/*"LAK", [require("./assets/cases/LAK/object_LAK_light@2x.png"), require("./assets/cases/LAK/object_LAK_dark@2x.png"), require("./assets/cases/LAK/object_LAK_light_active@2x.png"), require("./assets/cases/LAK/object_LAK_dark_active@2x.png"), require("./assets/cases/LAK/object_LAK_light_blink@2x.png"), require("./assets/cases/LAK/object_LAK_dark_blink@2x.png")],*/],
 				[ [ 2,
 					[ ["img-static", require("./assets/journey/2022/1_lak/add_job_1.png"), "LAK add job flow 1", "",],
 						["img-static", require("./assets/journey/2022/1_lak/add_job_2.png"), "LAK add job flow 1", "",],
 						["img-static", require("./assets/journey/2022/1_lak/current_jobs.png"), "LAK current job screen", "",],
 						["img-static", require("./assets/journey/2022/1_lak/job_details.png"), "LAK job details screen", "",], ],
-					"...",
+					"To connect farmers and truckers in Bhutan and improve good transportation, we built an Android app similar to Uber Eats. In the app, farmers can post jobs and track delivery progress, and drivers can search for suitable jobs and maximize their profits.",
 				], ],
 			],
 
 			[ ["Volunteer hub to help granting wishes to children", "Make-A-Wish, TSE"],
-				["MAW", [require("./assets/cases/MAW/object_MAW_light@2x.png"), require("./assets/cases/MAW/object_MAW_dark@2x.png"), require("./assets/cases/MAW/object_MAW_light_active@2x.png"), require("./assets/cases/MAW/object_MAW_dark_active@2x.png"), require("./assets/cases/MAW/object_MAW_light_blink@2x.png"), require("./assets/cases/MAW/object_MAW_dark_blink@2x.png")],],
+				[/*"MAW", [require("./assets/cases/MAW/object_MAW_light@2x.png"), require("./assets/cases/MAW/object_MAW_dark@2x.png"), require("./assets/cases/MAW/object_MAW_light_active@2x.png"), require("./assets/cases/MAW/object_MAW_dark_active@2x.png"), require("./assets/cases/MAW/object_MAW_light_blink@2x.png"), require("./assets/cases/MAW/object_MAW_dark_blink@2x.png")],*/],
 				[ [ 2,
 					[ ["img-static", require("./assets/journey/2022/2_maw/volunteers_management.png"), "MAW volunteers management", "",],
 						["img-static", require("./assets/journey/2022/2_maw/wish_granting_document_holder.png"), "MAW wish-granting document page", "",],

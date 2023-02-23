@@ -35,6 +35,8 @@
  *	}
  */
 
+import { isSafari, isIE } from "react-device-detect";
+
 export const cases = {
 
 /**--- Four Devarajas ---**/
@@ -52,7 +54,7 @@ export const cases = {
 				["duration", "February-June, 2021"],
 				// ["link", "<a href='https://acmucsd.com/' target='_blank'>ACM@UCSD</a>"],
 			],
-			"next": "Bitsrealm",
+			"next": "RehaBuddy",
 		},
 		[require("./assets/cases/ACM/object_ACM_light@2x.png"), require("./assets/cases/ACM/object_ACM_dark@2x.png"), require("./assets/cases/ACM/object_ACM_light_figure@2x.png"), require("./assets/cases/ACM/object_ACM_dark_figure@2x.png"), require("./assets/cases/ACM/object_ACM_light_active@2x.png"), require("./assets/cases/ACM/object_ACM_dark_active@2x.png"), require("./assets/cases/ACM/object_ACM_light_blink@2x.png"), require("./assets/cases/ACM/object_ACM_dark_blink@2x.png"),],
 		[
@@ -86,14 +88,14 @@ export const cases = {
 				["img-static", require("./assets/cases/ACM/content/2_1_community_old.png"), "on the old website, the communities section is too insufficient", "sub-communities section in the old website, too brief to be understood", {width:"40%", minWidth:"400px", WebkitFilter:"var(--image-shadow-filter)", filter:"var(--image-shadow-filter)"},],
 				["text", "To collectively display introductions to sub-communities, we <span style='--color:#51C0C059;'>added a \"communities\" tab</span> to the website.",],
 				["text", "We first planned to put all sub-communities information as an accordion list. The users would be able to read and compare the basic descriptions of all sub-communities just by scrolling. While upon clicking, videos and images of each sub-community's events and projects would expand to show.",],
-				["img-scrollable", require("./assets/cases/ACM/content/2_2_community_lowfi.png"), "low-fi prototype of community page", "desktop iteration 1: accordion list", {minWidth:"400px", WebkitFilter:"var(--image-shadow-filter)", filter:"var(--image-shadow-filter)"},],
+				["img-scrollable", require("./assets/cases/ACM/content/2_2_community_lowfi.png"), "low-fi prototype of community page", "desktop iteration 1: accordion list", {minWidth:"400px", WebkitFilter:((isSafari||isIE) ? "" : "var(--image-shadow-filter)"), filter:((isSafari||isIE) ? "" : "var(--image-shadow-filter)"), boxShadow:((isSafari||isIE) ? "var(--image-shadow-boxshadow)" : "")},],
 				["text", "Then we heard that most sub-communities wanted to customize their own website beyond our main one, since their focuses varied widely. So we decided to only offer the most basic and important information in text on the communities page, with links to each sub-community's social media and own website.",],
 				["text", "I took charge of <span style='--color:#816DFF59;'>contacting each sub-community</span> to collect their principles, event types, and social medias for showcase.",],
-				["img-scrollable", require("./assets/cases/ACM/content/2_3_community_midfi.png"), "community page without side bar", "desktop iteration 2: brief intro + links", {minWidth:"400px", WebkitFilter:"var(--image-shadow-filter)", filter:"var(--image-shadow-filter)"},],
+				["img-scrollable", require("./assets/cases/ACM/content/2_3_community_midfi.png"), "community page without side bar", "desktop iteration 2: brief intro + links", {minWidth:"400px", WebkitFilter:((isSafari||isIE) ? "" : "var(--image-shadow-filter)"), filter:((isSafari||isIE) ? "" : "var(--image-shadow-filter)"), boxShadow:((isSafari||isIE) ? "var(--image-shadow-boxshadow)" : "")},],
 				["text", "Now that the paragraphs were up, we noticed the sub-community sections floating in the space of whiteness looked unsettled and indistinguishable. We tried giving each section a background color block, yet again they appeared thick and dirty.",],
 				["text", "I thought of shrinking the color block to only a bar on the side. The result turned out pleasing.",],
 				["text", "The <span style='--color:#FF6F6F59;'>lovely pastel bars</span> added a cozy feeling to the sub-community sections. They successfully distinguished the sections from each other, while maintaining the minimalist style.",],
-				["img-scrollable", require("./assets/cases/ACM/content/2_4_community_final.png"), "community page with color bars", "desktop iteration 3: color bars are added", {minWidth:"400px", WebkitFilter:"var(--image-shadow-filter)", filter:"var(--image-shadow-filter)"},],
+				["img-scrollable", require("./assets/cases/ACM/content/2_4_community_final.png"), "community page with color bars", "desktop iteration 3: color bars are added", {minWidth:"400px", WebkitFilter:((isSafari||isIE) ? "" : "var(--image-shadow-filter)"), filter:((isSafari||isIE) ? "" : "var(--image-shadow-filter)"), boxShadow:((isSafari||isIE) ? "var(--image-shadow-boxshadow)" : "")},],
 				["text", "When converting to the mobile version, we met a problem: If all contents were still laid out on the same page it became an inefficient long scroll.",],
 				["text", "To avoid this, we decided to separate the mobile communities page into <span style='--color:#F9A85759;'>multiple subpages</span>, each of which containing one sub-community. We hoped that the users could read in any order and wouldn't have to go back and forth, so sub-community navigation buttons were made available on every subpage.",],
 				["img-static", require("./assets/cases/ACM/content/2_5_community_mobile.png"), "4 iterations of the mobile communities page", "mobile iterations of the communities page", {minWidth:"560px", WebkitFilter:"var(--image-shadow-filter)", filter:"var(--image-shadow-filter)"},],
@@ -139,7 +141,7 @@ export const cases = {
 				["duration", "March-June, 2021"],
 				["workshop", "Idea Lab program"],
 			],
-			"next": "CruzRoja",
+			"next": "Bitsrealm",
 		},
 		[require("./assets/cases/RehaBuddy/object_RehaBuddy_light@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_figure@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_blink@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_blink@2x.png"),],
 		[
@@ -186,7 +188,7 @@ export const cases = {
 				["duration", "Summer 2021"],
 				["location", "Shanghai, China"],
 			],
-			"next": "RehaBuddy",
+			"next": "CruzRoja",
 		},
 		[require("./assets/cases/Bitsrealm/object_Bitsrealm_light@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_figure@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_figure@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_active@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_active@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_light_blink@2x.png"), require("./assets/cases/Bitsrealm/object_Bitsrealm_dark_blink@2x.png"),],
 		[
@@ -274,11 +276,31 @@ export const cases = {
 			"case_brief": [
 				["role", "UX/UI designer"],
 				["duration", "March-December, 2021"],
+				["client", "The Red Cross organization in Tijuana, Mexico"],
 			],
 			"next": "ACM",
 		},
 		[require("./assets/cases/CruzRoja/object_CruzRoja_light@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_blink@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_blink@2x.png"),],
-		[],
+		[
+			["intro", "Overview", [
+				["text", "The Red Cross (Cruz Roja) in Tijuana, Mexico offers relief to disaster victims and helps with emergencies. However, being a non-profit organization, budget was constrained for both their ambulances and dispatching system. Our team aimed to develop an efficient and low-cost dispatching system for Cruz Roja, in order to service the large population of Tijuana. Specifically for me, I led the UI sub-team. We wroked on improving the speed and accuracy of each dispatch by optimizing the organization and visualization of the complex information on the interface.",],
+			]],
+			["problem", "", [
+				["text", "The old design of the Cruz Roja ambulance dispatching system has many useful features, but the interface is confusing and inefficient. A more organized UI and a more intuitive visualization of information can help reduce dispatch errors and increase efficiency.",],
+				["img-static", require("./assets/cases/CruzRoja/content/1_old_site.png"), "Cruz Roja old website design", "the old website", {maxWidth:"560px"},],
+			]],
+			["section", "Need Finding", [
+				["title", "Examine current website, pinpoint problems and determine priorities",],
+				["text", "If I were to use two words to describe the first impression that the old website of Cruz Roja left me with, they are \"confusing\" and \"messy\". \"Confusing\" because the user could hardly guess the function of many UI elements and where to start dispatching by just looking at the interface. More specifically, this was due to ambiguous wording, poor visual cues, and failure to follow UI conventions. On the other hand, the interface looked \"messy\" because it lacked proper visual hierarchy that could help the user determine the structure of the menus and read the forms.",],
+				["text", "My first step was to understand the interface. Since the project had been passed on from hand to hand for a few years, and the project lead was relatively passive, I took the initiative to go through every view of the interface, collected a list of all things that I had confusion on, down to the smallest details, and interviewed the project lead with that list. In the end, I realized that, deeply hidden in the messy interface, the available functionalities were actually quite useful and comprehensive. For example, there were ambulance states filter, past dispatch monitoring, waypoint specification, etc. - Only if the interface was more usable.",],
+				["text", "Clearly, the interface needed a good prune. So I organized another list of all functionalities and information that the old interface contained, categorized into 3 types: \"definitely needed\", \"can be removed\", and \"to be improved\". This way, we could get a better sense of the big picture and determine the priority for our redesign.",],
+				["text", "According to the features list, we decided that our 3 most urgent tasks were to:<ol><li>Simplify the ambulances menu,</li><li>Tidy up the ongoing dispatches menu,</li><li>Strengthen the mapping between text and map.</li></ol>",],
+				["img-static", require("./assets/cases/CruzRoja/content/2_feature_table.png"), "features table to analyze painpoints of the interface", "",],
+			]],
+			// ["section", "Design", [
+			// 	["title", "...",],
+			// ]],
+		],
 	],
 
 
@@ -295,6 +317,7 @@ export const cases = {
 	// 		"case_brief": [
 	// 			["role", "UX/UI designer"],
 	// 			["duration", "November 2022 - present"],
+	// 			["client", "ALUM for Northwood"],
 	// 		],
 	// 		"next": ""/*TODO*/,
 	// 	},
@@ -306,13 +329,14 @@ export const cases = {
 		"LAK",
 		{
 			"title": "Goods transport app for farmers in Bhutan",
-			"description": "...",
+			"description": "To connect farmers and truckers in Bhutan and improve good transportation, we built an Android app similar to Uber Eats. In the app, farmers can post jobs and track delivery progress, and drivers can search for suitable jobs and maximize their profits.",
 			"thumbnail": require("./assets/cases/LAK/LAK_thumbnail.png"),
 			"thumbnail_light": require("./assets/cases/LAK/LAK_thumbnail_light.png"),
 			"thumbnail_dark": require("./assets/cases/LAK/LAK_thumbnail_dark.png"),
 			"case_brief": [
 				["role", "UX/UI designer"],
 				["duration", "November 2021 - present"],
+				["client", "FirstMile Bhutan"],
 			],
 			"next": ""/*TODO*/,
 		},
@@ -323,7 +347,7 @@ export const cases = {
 	"MAW": [
 		"MAW",
 		{
-			"title": "Goods transport app for farmers in Bhutan",
+			"title": "Volunteer hub to help granting wishes to children",
 			"description": "Make-A-Wish's mission is to grant wishes to children with critical illness. My team built a volunteer hub that fulfills their needs to coordinate the diverse volunteer base and smoothen the wish-granting process.",
 			"thumbnail": require("./assets/cases/MAW/MAW_thumbnail.png"),
 			"thumbnail_light": require("./assets/cases/MAW/MAW_thumbnail_light.png"),
@@ -331,6 +355,7 @@ export const cases = {
 			"case_brief": [
 				["role", "UX/UI designer"],
 				["duration", "November 2021 - June 2022"],
+				["client", "Make-A-Wish"],
 			],
 			"next": ""/*TODO*/,
 		},
