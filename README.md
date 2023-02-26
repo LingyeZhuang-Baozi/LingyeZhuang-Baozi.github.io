@@ -63,6 +63,7 @@ Made with React JS and ♡.
 - [JS+CSS prevent scroll below modal](https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/)
 - [react-device-detect](https://www.npmjs.com/package/react-device-detect)
 - [localStorage for dark/light mode](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)
+- [NN/g long hover display principle](https://www.nngroup.com/articles/timing-exposing-content/)
 
 ### Deploy:
 - [react-gh-pages](https://github.com/gitname/react-gh-pages)

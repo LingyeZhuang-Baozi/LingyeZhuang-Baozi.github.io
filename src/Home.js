@@ -276,19 +276,36 @@ export default function Home (props) {
  *	- tab (str)
  *	- active (bool)
  *	- onclick (func)
- *	- mode (str)
  *	- PNisChanging (bool)
+ *	- mode (str)
  */
 function PNT (props) {
+
+	const [longHover, setLongHover] = useState(false);
+	let hoverTimer = 0;
+
 	return (<>
-		<div className="home_tab_div">
+		<div
+			className="home_tab_div"
+			onMouseEnter={() => {
+				hoverTimer = setTimeout(() => {
+					setLongHover(true);
+				}, 800); // var(--delay-xl)
+			}}
+			onMouseLeave={() => {
+				clearTimeout(hoverTimer);
+				setLongHover(false);
+				console.log ("timer cleared");
+			}}
+		>
 			<Link to={(props.tab==="home" ? "/" : ("/"+props.tab))} onDragStart={e => e.preventDefault()}>
 				<div
 					className = {
 						"home_tab cursor_pointer " +
+						(longHover==true && props.active==false && props.PNisChanging==false ? ("cursor_PNT_"+props.tab) : "") + " " +
 						"home_tab_primary_" + props.tab + (props.active==true ? "_active" : "") + " " +
 						"home_tab_primary_" + (props.active==true ? "active" : "default") + "_" + props.mode + " " +
-						(props.PNisChanging ? "home_tab_switching" : "")
+						(props.PNisChanging==true ? "home_tab_switching" : "")
 					}
 					onClick={props.onclick}
 					onDragStart={e => e.preventDefault()}
@@ -412,6 +429,11 @@ function AboutMe (props) {
 						<span>n</span>
 						<span>g</span>
 					</span>
+					{/*<span className="selfintro_name_word">
+						<span>庄</span>
+						<span>令</span>
+						<span>晔</span>
+					</span>*/}
 				</span>
 				<p className={"text_emphasize text_"+props.mode}>
 					UX/UI designer / Graphic designer / Illustrator
