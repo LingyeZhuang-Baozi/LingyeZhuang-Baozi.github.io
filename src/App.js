@@ -14,6 +14,7 @@ import Journey from './Journey.js';
 import Case from './Case.js';
 
 /* Libraries */
+import { Breakpoint, BreakpointProvider } from 'react-socks';
 import { Transition, SwitchTransition, CSSTransition } from 'react-transition-group';
 
 

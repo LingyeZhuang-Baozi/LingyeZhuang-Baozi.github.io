@@ -98,117 +98,122 @@ export default function Case (props) {
 		<div
 			onLoad={() => { setLoaded(true); }}
 			className={
-				"page page_case " +
+				"page " +
 				"page_" + props.mode + " " +
 				(loaded==true ? "page_loaded" : "")
 			}
 		>
 
-			<div className={"case_main case_main_"+props.mode}>
+			<div className="page_case">
 
-				<div className="case_cover">
-					<img
-						className="case_cover_img"
-						src={cases[props.case][1]["thumbnail"]}
-						onDragStart={e => e.preventDefault()}
-					/>
-					<div className="case_bio_div">
-						<div className={"case_title text_"+props.mode}>{cases[props.case][1]["title"]}</div>
-						<Bio
-							list={[...cases[props.case][1]["case_brief"]]}
-							bullet_type="text"
+				<div className={"case_main case_main_"+props.mode}>
+
+					<div className="case_cover">
+						<img
+							className="case_cover_img"
+							src={cases[props.case][1]["thumbnail"]}
+							onDragStart={e => e.preventDefault()}
+						/>
+						<div className="case_bio_div">
+							<div className={"case_title text_"+props.mode}>{cases[props.case][1]["title"]}</div>
+							<Bio
+								list={[...cases[props.case][1]["case_brief"]]}
+								bullet_type="text"
+								mode={props.mode}
+							/>
+						</div>
+					</div>
+
+					<div className="case_left_div"><div className="case_left">
+						<Contents
+							list={content_list}
+							currSection={currSection}
 							mode={props.mode}
 						/>
+					</div></div>
+
+					<div className={"case_content content text_"+props.mode}>
+						<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
+							{full_writeup.map ((section, i) =>
+								<CaseSection
+									key={"writeup-"+props.case+"-"+i}
+									section={section}
+									i={i}
+									section_ref={content_refs.current[i]}
+									// sectionInViewportState={sectionInViewportState}
+									setSectionInViewportState={setSectionInViewportState}
+									setModalSrc={setModalSrc}
+									mode={props.mode}
+								/>
+							)}
+						</Suspense>
 					</div>
+
 				</div>
 
-				<div className="case_left_div"><div className="case_left">
-					<Contents
-						list={content_list}
-						currSection={currSection}
-						mode={props.mode}
-					/>
-				</div></div>
-
-				<div className={"case_content content text_"+props.mode}>
-					<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
-						{full_writeup.map ((section, i) =>
-							<CaseSection
-								key={"writeup-"+props.case+"-"+i}
-								section={section}
-								i={i}
-								section_ref={content_refs.current[i]}
-								// sectionInViewportState={sectionInViewportState}
-								setSectionInViewportState={setSectionInViewportState}
-								setModalSrc={setModalSrc}
-								mode={props.mode}
-							/>
-						)}
-					</Suspense>
-				</div>
+				{(()=>{
+					if (location.state && location.state["goBack"] == true) {
+						return (
+							<div className={"case_footer case_footer_"+props.mode}>
+								<FooterObject
+									object={cases[props.case][2]}
+									next=""
+									mode={props.mode}
+								/>
+							</div>
+						);
+					} else if (cases[props.case][1]["next"] !== "") {
+						return (
+							<div className={"case_footer case_footer_"+props.mode}>
+								<FooterObject
+									object={cases[props.case][2]}
+									next={cases[props.case][1]["next"]}
+									mode={props.mode}
+								/>
+							</div>
+						);
+					} else {
+						return (null);
+					}
+				})()}
+				{/* TODO: all primary and contact tabs listed in footer (align with home button but snap to bottom) */}
 
 			</div>
 
-			{(()=>{
-				if (location.state && location.state["goBack"] == true) {
-					return (
-						<div className={"case_footer case_footer_"+props.mode}>
-							<FooterObject
-								object={cases[props.case][2]}
-								next=""
-								mode={props.mode}
+
+			<div className={"case_back_div_outer case_back_div_outer_"+props.mode}>
+				<div className="case_back_div_inner">
+					{location.state && location.state["goBack"] == true ?
+
+						// from journey → back
+						<Link to={-1} onDragStart={e => e.preventDefault()}>
+							<div
+								className = {
+									"case_back case_back_back cursor_pointer " +
+									"case_back_"+props.mode
+								}
+								onDragStart={e => e.preventDefault()}
 							/>
-						</div>
-					);
-				} else if (cases[props.case][1]["next"] !== "") {
-					return (
-						<div className={"case_footer case_footer_"+props.mode}>
-							<FooterObject
-								object={cases[props.case][2]}
-								next={cases[props.case][1]["next"]}
-								mode={props.mode}
+						</Link>
+					:
+
+						// otherwise → home
+						<Link to="/" onDragStart={e => e.preventDefault()}>
+							<div
+								className = {
+									"case_back case_back_home cursor_pointer " +
+									"case_back_"+props.mode
+								}
+								onDragStart={e => e.preventDefault()}
 							/>
-						</div>
-					);
-				} else {
-					return (null);
-				}
-			})()}
-			{/* TODO: all primary and contact tabs listed in footer (align with home button but snap to bottom) */}
-
-		</div>
-
-		<div className={"case_back_div_outer case_back_div_outer_"+props.mode}>
-			<div className="case_back_div_inner">
-				{location.state && location.state["goBack"] == true ?
-
-					// from journey → back
-					<Link to={-1} onDragStart={e => e.preventDefault()}>
-						<div
-							className = {
-								"case_back case_back_back cursor_pointer " +
-								"case_back_"+props.mode
-							}
-							onDragStart={e => e.preventDefault()}
-						/>
-					</Link>
-				:
-
-					// otherwise → home
-					<Link to="/" onDragStart={e => e.preventDefault()}>
-						<div
-							className = {
-								"case_back case_back_home cursor_pointer " +
-								"case_back_"+props.mode
-							}
-							onDragStart={e => e.preventDefault()}
-						/>
-					</Link>
-				}
+						</Link>
+					}
+				</div>
 			</div>
-		</div>
 
-		<Modebtn mode={props.mode} toggleMode={props.toggleMode} />
+			<Modebtn mode={props.mode} toggleMode={props.toggleMode} />
+
+		</div>
 
 		<ImgModal
 			modalSrc={modalSrc}

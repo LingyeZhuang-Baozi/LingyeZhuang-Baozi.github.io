@@ -447,7 +447,7 @@ function AboutMe (props) {
 				<p className={"text_"+props.mode}>
 					I design for social good, and I enjoy real world challenges.
 				</p>
-				<span>&nbsp;</span> {/* insert vertical space */}
+				{/*<span>&nbsp;</span> {/* insert vertical space */}
 				{/*<div className="only_mobile">
 					<p>Hi, I am <span className="name">Lingye Zhuang</span>.<br/>I study cognitive science with HCI at UCSD.<br/>I design like a craftsman. I enjoy real world challenges and cross-discipline inspirations.</p>
 				</div>*/}

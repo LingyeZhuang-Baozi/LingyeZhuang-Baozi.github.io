@@ -80,7 +80,7 @@ export const cases = {
 			]],
 			["section", "Design", [
 				["title", "Only after a thousand entreaties does she appear", "A quote from the Chinese poem Song of the Lute Player. It can mean that \"great things take time\"."],
-				["text", "I want to tell you about 2 features that I am most proud of. Through many iterations did we come to these solutions that work the best.",],
+				["text", "I want to tell you about 2 features that I am most proud of. It was through many iterations that we came to these solutions that work the best.",],
 			]],
 			["subsection", "", [
 				["title", "Sub-community page",],
@@ -202,7 +202,7 @@ export const cases = {
 			["section", "Design", [
 				["title", "Branding and design choices",],
 				["text", "Branding is identity, branding is promise. To create a sense of futuristic, I decided the theme colors would be neon on dark background, as in the classical impression of cyberpunk. But to emphasize uniqueness and technologicalness, I avoided the banal pink and blue, and chose a fresh light green as the neon color. As a subtle touch, glassmorphism prevented the dark background from over rigidity. Upon the supervisor's request, I maintained a minimalist style in both the color palette and the typography.",],
-				["text", "In the following, I will expand on 4 feature that I am most proud of - one from each website that I designed.",],
+				["text", "In the following, I will expand on 4 features that I am most proud of - one from each website that I designed.",],
 			]],
 			["subsection", "", [
 				["title", "Main website: navigation bar",],
@@ -227,14 +227,14 @@ export const cases = {
 			]],
 			["subsection", "", [
 				["title", "Ticketing site: ticket cards",],
-				["text", "Saying goes, \"Stand on the shoulders of giants to see further\". In order to design some perfect ticket cards, I first referred to event websites such as <a href='https://www.huodongxing.com' target='_blank'>HuoDongXing</a> and flight ticket apps like Kayak. I noticed 2 kinds of event cards: One that upholds clarity of information, used mainly on the page for selecting ticket before purchase. This type of ticket cards help the user easily distinguish between ticket types. While the other kind is more visually appealing, usually seen on the comfirm page when the user decides whether to purchase a ticket, and after a successful purchase. This second type of ticket cards aims to be attractive or congratulative.",],
-				["text", "Saying also goes, \"The best way to have a good idea is to have lots of ideas.\" After reviewing existing designs, I brainstormed a dozen of variations. I considered if the shape of the cards should be creative or uniform, as well as how to arrange information in a readable and efficiently form.",],
+				["text", "Saying goes, \"Stand on the shoulders of giants to see further\". In order to design some perfect ticket cards, I first referred to event websites such as <a href='https://www.huodongxing.com' target='_blank'>HuoDongXing</a> and flight ticket apps like Kayak. I noticed 2 kinds of event cards: One that upholds clarity of information, used mainly on the page for selecting tickets before purchase. This type of ticket cards help the user easily distinguish between ticket types. While the other kind is more visually appealing, usually seen on the confirm page when the user decides whether to purchase a ticket, and after a successful purchase. This second type of ticket cards aims to be attractive or congratulative.",],
+				["text", "Saying also goes, \"The best way to have a good idea is to have lots of ideas.\" After reviewing existing designs, I brainstormed a dozen variations. I considered if the shape of the cards should be creative or uniform, as well as how to arrange information in a readable and efficient form.",],
 				["img-static", require("./assets/cases/Bitsrealm/content/3_1_tickets_variants.png"), "variations of ticket cards", "the many variations of ticket cards I made",],
 				["img-static", require("./assets/cases/Bitsrealm/content/3_2_tickets_final_flow.png"), "final ticket selection and confirm pages for desktop and mobile", "final version of ticket selection and confirm pages", {minWidth:"560px"},],
 			]],
 			["subsection", "", [
 				["title", "Performer's control center: modularized settings",],
-				["text", "This was the first virtual concert that Bitsrealm holds, so the performer's control center only contained the immediately necessary features. But in the near future, the interface would grow to include more functions as Bitsrealm cooperates with artists from all walks of life. Therefore, to leave space for expansion in the future, I designed the settings in a modularized way, following a consistent style while allowing for flexibility. When more features need to be added, new modules can easily be pieced in, like LEGO bricks.",],
+				["text", "This was the first virtual concert that Bitsrealm held, so the performer's control center only contained the immediately necessary features. But in the near future, the interface would grow to include more functions as Bitsrealm cooperates with artists from all walks of life. Therefore, to leave space for expansion in the future, I designed the settings in a modularized way, following a consistent style while allowing for flexibility. When more features need to be added, new modules can easily be pieced in, like LEGO bricks.",],
 				["img-static", require("./assets/cases/Bitsrealm/content/4_performer_control_center.png"), "", "", {minWidth:"560px"},],
 				//["iframe", "figma", "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FXkKYGcl4JrNqpRxqmnKJrL%2FALUM%3Fpage-id%3D14%253A129%26node-id%3D190%253A799%26viewport%3D197%252C136%252C0.14%26scaling%3Dscale-down%26starting-point-node-id%3D190%253A799"/* TODO: replace with the correct prototype link" */, "216.41%",],
 			]],
@@ -242,17 +242,17 @@ export const cases = {
 				["title", "Mobile audience site: landscape UI",],
 				["text", "I was really excited to have the chance to design a game-like interface at the phone's landscape orientation. It was very different from designing non-game mobile apps. Here I summarize the primary differences:<ol><li>Unusual holding positions lead to distinct thumb zones.</li></ol>",],
 				["img-static", require("./assets/cases/Bitsrealm/content/5_1_holding_phone.png"), "thumb zones", "different thumb zones when using phone in portrait and landscape orientations<br/>(image source: <a href='https://www.uxmatters.com/mt/archives/2013/02/how-do-users-really-hold-mobile-devices.php' target='_blank'>UX Matters</a>)", {maxWidth:"480px"},],
-				["text", "<ol start='2'><li>On a game interface, the user will interact with the same screen layout for a long time. Which differs from on common websites, where the user frequently jumps between links and pages.</li><li>Holding the phone with two hands makes bimanual interaction available and easy. Buttons on both sides of the screen can be pressed or held down simontaneously.</li></ol>",],
+				["text", "<ol start='2'><li>On a game interface, the user will interact with the same screen layout for a long time. Which differs from on common websites, where the user frequently jumps between links and pages.</li><li>Holding the phone with two hands makes bimanual interaction available and easy. Buttons on both sides of the screen can be pressed or held down simultaneously.</li></ol>",],
 				["text", "I looked into the physical ergonomics of touch screen buttons, in order to design the most appropriate sizes, positions, and margins of buttons, so as to ensure accurate and comfortable tapping and reduce potential slips. Besides, I always export a screenshot of my design to my phone and try it out with my own hands to confirm all buttons, and especially the most used ones, are comfortable to reach."/*<a href='' style='cursor:help;'>slips</a>*/,],
 				["img-static", require("./assets/cases/Bitsrealm/content/5_2_thumb_size.png"), "button versus average thumb size", "button sizes and margins, in comparism to an average thumb size<br/>(data source: <a href='http://touchlab.mit.edu/publications/2003_009.pdf' target='_blank'>The Touch Lab</a>. image sources: <a href='https://uxmovement.com/mobile/optimal-size-and-spacing-for-mobile-buttons/' target='_blank'>UX Movement</a>, <a href='https://www.justinmind.com/blog/button-design-websites-mobile-apps/' target='_blank'>Justinmind Design</a>)", {minWidth:"480px"},],
-				["text", "I carefully split the screen into multiple areas according to thumb zone, and fill functions into the areas according to expected frequency of usage, as well as consideration of which functions might be used simontaneously.",],
+				["text", "I carefully split the screen into multiple areas according to thumb zone, and fill functions into the areas according to expected frequency of usage, as well as consideration of which functions might be used simultaneously.",],
 				["img-static", require("./assets/cases/Bitsrealm/content/5_3_function_thumb_zone_overlapping.png"), "function areas overlapping with thumb zones", "function areas overlapping with thumb zones", {minWidth:"560px"},],
-				//["img-static"/*img-zoomable*/, /*require("")*/, "table of functions with frequency of usage, potential simontaneously usage, etc.",],
+				//["img-static"/*img-zoomable*/, /*require("")*/, "table of functions with frequency of usage, potential simultaneously usage, etc.",],
 			]],
 			["section", "Takeaways", [
-				["title", "Gratefully gain from my first industry adventure",],
+				["title", "Gratefully gained from my first industry adventure",],
 				["text", "I really enjoyed the learning by doing, which is the best term to describe my internship experience. I actively absorbed industry standards and used my own body to test the theories, aiming to create the smoothest user experience.",],
-				["text", "Despite the short term of the internship, I was still lucky enough to see part of the front-end being implemented and be involved in the communication with the developer. I also frequently asked my boss to look over my design and give suggestions. The fast pace of industry required me to jump into work mode with someone whose personality and working style were both unfamiliar to me. Therefore, I learnt to be extra detailed in my delivery documentation. However, sometimes back and forth is unavoidable, and I started to see that as a designer, I should be prepared to pay as much efforts into post-delivery quality control as into the actual design process.",],
+				["text", "Despite the short term of the internship, I was still lucky enough to see part of the front-end being implemented and be involved in the communication with the developer. I also frequently asked my boss to look over my design and give suggestions. The fast pace of industry required me to jump into work mode with someone whose personality and working style were both unfamiliar to me. Therefore, I learnt to be extra detailed in my delivery documentation. However, sometimes back and forth is unavoidable, and I started to see that as a designer, I should be prepared to put as much effort into post-delivery quality control as into the actual design process.",],
 				["text", "Half a year after I left, Bitsrealm's first virtual concert took place successfully! The main website that I prototyped for went through more iterations and became implemented. Some design details were changed, but the branding I created has been preserved.",],
 			]],
 			["evidence", "", [
@@ -278,12 +278,12 @@ export const cases = {
 				["duration", "March-December, 2021"],
 				["client", "The Red Cross organization in Tijuana, Mexico"],
 			],
-			"next": "ACM",
+			"next": "Neureality",
 		},
 		[require("./assets/cases/CruzRoja/object_CruzRoja_light@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_figure@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_active@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_light_blink@2x.png"), require("./assets/cases/CruzRoja/object_CruzRoja_dark_blink@2x.png"),],
 		[
 			["intro", "Overview", [
-				["text", "The Red Cross (Cruz Roja) in Tijuana, Mexico offers relief to disaster victims and helps with emergencies. However, being a non-profit organization, budget was constrained for both their ambulances and dispatching system. Our team aimed to develop an efficient and low-cost dispatching system for Cruz Roja, in order to service the large population of Tijuana. Specifically for me, I led the UI sub-team. We wroked on improving the speed and accuracy of each dispatch by optimizing the organization and visualization of the complex information on the interface.",],
+				["text", "The Red Cross (Cruz Roja) in Tijuana, Mexico offers relief to disaster victims and helps with emergencies. However, being a non-profit organization, budget was constrained for both their ambulances and dispatching system. Our team aimed to develop an efficient and low-cost dispatching system for Cruz Roja, in order to service the large population of Tijuana. Specifically for me, I led the UI sub-team. We worked on improving the speed and accuracy of each dispatch by optimizing the organization and visualization of the complex information on the interface.",],
 			]],
 			["problem", "", [
 				["text", "The old design of the Cruz Roja ambulance dispatching system has many useful features, but the interface is confusing and inefficient. A more organized UI and a more intuitive visualization of information can help reduce dispatch errors and increase efficiency.",],
@@ -309,8 +309,8 @@ export const cases = {
 				["img-static", require("./assets/cases/CruzRoja/content/4_1_ambulances_menu.png"), "Cruz Roja evolution of the ambulances menu", "evolution of the ambulances menu", {minWidth:"560px"},],
 				["text", "There are some tasks that the computer can do way faster and more accurate than a human, one of which is recommending the most appropriate ambulance to dispatch in a certain situation based on a set of predetermined scales. We ideated <span style='--color:#8897AD33;'>3 features to aid the dispatcher selecting ambulances</span>:",],
 				["text", "<span style='--color:#8897AD33;'>Search</span>: In some cases, the dispatcher might have the name of an ambulance in mind. We added a search bar to the ambulances list for the user to find a specific ambulance and check its state.",],
-				["text", "<span style='--color:#8897AD33;'>Capability filter</span>: Ambulance capability is the equipment set that an ambulance carries. Dispatchers often want to comapre the capability of the available ambulances to decide which one is the most appropriate for the incident at hand. However in the old version, there was no direct way to do so. We added a capability filter to the available ambulances accordion, using which the dispatcher can easily filter for the ambulances with the ideal capability.",],
-				["text", "<span style='--color:#8897AD33;'>Auto ordering</span>: We proposed for the available ambulances to be ordered according to 3 variables, priotity from high to low:<ol><li>relevance to searched keyword,</li><li>distance to the incident,</li><li>ambulance name alphabetical order.</li></ol>By default, the available ambulances would be arranged by alphabetical order of their names. Once the dispatcher enters an incident location in the dispatch panel, the available ambulances will automatically get sorted according to their distances from the incident. This way, the dispatcher no longer has to manually check which ambulance is the nearest, and thus can launch a dispatch sooner. The few minutes saved here could make a difference in saving the patients' lives. If the user has entered a search keyword, the available ambulances containing the keyword will be highlighted and moved to the very front, even exceeding the priority of distance order.",],
+				["text", "<span style='--color:#8897AD33;'>Capability filter</span>: Ambulance capability is the equipment set that an ambulance carries. Dispatchers often want to compare the capability of the available ambulances to decide which one is the most appropriate for the incident at hand. However in the old version, there was no direct way to do so. We added a capability filter to the available ambulances accordion, using which the dispatcher can easily filter for the ambulances with the ideal capability.",],
+				["text", "<span style='--color:#8897AD33;'>Auto ordering</span>: We proposed for the available ambulances to be ordered according to 3 variables, priority from high to low:<ol><li>relevance to searched keyword,</li><li>distance to the incident,</li><li>ambulance name alphabetical order.</li></ol>By default, the available ambulances would be arranged by alphabetical order of their names. Once the dispatcher enters an incident location in the dispatch panel, the available ambulances will automatically get sorted according to their distances from the incident. This way, the dispatcher no longer has to manually check which ambulance is the nearest, and thus can launch a dispatch sooner. The few minutes saved here could make a difference in saving the patients' lives. If the user has entered a search keyword, the available ambulances containing the keyword will be highlighted and moved to the very front, even exceeding the priority of distance order.",],
 				["img-static", require("./assets/cases/CruzRoja/content/4_2_ambulances_menu_semiautomation.png"), "Cruz Roja semiautomation in selecting proper ambulance to dispatch", "using automation to help fast dispatch", {maxWidth:"240px"},],
 				["text", "On the side, we noticed that the menu tabs in the old design were problematic, mainly in 2 ways:<ol><li>The buttons for opening both menus used the same hamburger icon, which were indistinguishable and violate the \"recognition rather than recall\" principle in Jakob Nielsen's <a href='https://www.nngroup.com/articles/ten-usability-heuristics/' target='_blank'>10 usability heuristics</a>,</li><li>The white bar for holding the menu buttons was a waste of space. To improve the visual and save space.</li></ol>As a solution, we removed the redundant white bar and made the menu buttons into tabs on the two sides of the page. To <span style='--color:#8897AD33;'>distinguish the two menu buttons</span>, we tried giving each button an icon according to the functions inside: filter icon and phone icon.",],
 				["img-static", require("./assets/cases/CruzRoja/content/4_3_menu_tabs.png"), "Cruz Roja evolution of the menu tabs", "improvement in the menu tabs", {maxWidth:"480px"},],
@@ -400,7 +400,7 @@ export const cases = {
 				["role", "Illustrator, Character designer"],
 				["duration", "February 2020 - present"],
 			],
-			"next": ""/*TODO*/,
+			"next": "GroupReads"/*TODO*/,
 		},
 		[require("./assets/cases/Neureality/object_Neureality_light@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark@2x.png"), require("./assets/cases/Neureality/object_Neureality_light_figure@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark_figure@2x.png"), require("./assets/cases/Neureality/object_Neureality_light_active@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark_active@2x.png"), require("./assets/cases/Neureality/object_Neureality_light_blink@2x.png"), require("./assets/cases/Neureality/object_Neureality_dark_blink@2x.png"),],
 		[
@@ -445,7 +445,7 @@ export const cases = {
 				["role", "UX/UI designer, Front-end developer"],
 				["duration", "January-March, 2021"],
 			],
-			"next": ""/*TODO*/,
+			"next": "PadPal"/*TODO*/,
 		},
 		[require("./assets/cases/GroupReads/object_GroupReads_light@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_figure@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_figure@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_active@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_active@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_light_blink@2x.png"), require("./assets/cases/GroupReads/object_GroupReads_dark_blink@2x.png"),],
 		[
@@ -492,7 +492,7 @@ export const cases = {
 				["role", "Graphic designer, Illustrator"],
 				["duration", "January-March, 2021"],
 			],
-			"next": ""/*TODO*/,
+			"next": "ACM"/*TODO*/,
 		},
 		[require("./assets/cases/PadPal/object_PadPal_light@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark@2x.png"), require("./assets/cases/PadPal/object_PadPal_light_figure@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark_figure@2x.png"), require("./assets/cases/PadPal/object_PadPal_light_active@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark_active@2x.png"), require("./assets/cases/PadPal/object_PadPal_light_blink@2x.png"), require("./assets/cases/PadPal/object_PadPal_dark_blink@2x.png"),],
 		[

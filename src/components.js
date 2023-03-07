@@ -270,7 +270,11 @@ function Bio (props) {
 									{item[0]}
 								</div>
 							</div>
-							{parse(item[1])}
+							<div className="bio_text_container">
+								<div className={"bio_text bio_text_"+props.mode}>
+									{parse(item[1])}
+								</div>
+							</div>
 						</span>
 					</li>
 				)}
