@@ -1,4 +1,4 @@
-import React, { useState , useEffect, useMemo, createRef, useRef, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, createRef, useRef, lazy, Suspense } from 'react';
 import { useOutletContext } from "react-router-dom";
 
 /* Foreign components */
@@ -55,10 +55,10 @@ export default function Journey (props) {
 			journey_dic[i][j] = journey_counter;
 			const curr_journey_ref = createRef();
 			journey_refs.current[journey_counter] = curr_journey_ref;
-			if (bookmark > 0 && journey_counter == bookmark) {
-				year_list_counter++;
-				year_list[year_list_counter] = ["bookmark", curr_journey_ref];
-			}
+			// if (bookmark > 0 && journey_counter == bookmark) {
+			// 	year_list_counter++;
+			// 	year_list[year_list_counter] = ["bookmark", curr_journey_ref];
+			// }
 			journey_counter++;
 		}
 		year_list_counter++;
@@ -102,6 +102,21 @@ export default function Journey (props) {
 		return [];
 	}, []);
 
+	// Automatically scroll to bookmark once mounted.
+	useEffect(() => {
+		if (bookmark > 0 && journey_refs.current[bookmark].current) {
+			if (isSafari || isIE) {
+				journey_refs.current[bookmark].current.scrollIntoView(true);
+			} else {
+				journey_refs.current[bookmark].current.scrollIntoView({
+					block: "center",
+					inline: "nearest",
+					behavior: "auto",
+				});
+			}
+		}
+	}, []);
+
 
 	/* Modal */
 	const [modalSrc, setModalSrc] = useOutletContext();
@@ -112,8 +127,6 @@ export default function Journey (props) {
 		<JourneyNodes
 			year_list={year_list}
 			currYear={currYear}
-			bookmark={bookmark}
-			set_bookmark={set_bookmark}
 			mode={props.mode}
 		/>
 		{full_journey.map ((year, i) =>
@@ -238,25 +251,23 @@ function JourneyYear (props) {
  * props:
  *	- year_list (2D array): [[ section_identifier (str), section_ref (ref) ], [...]]
  *	- currYear (str)
- *	- [bookmark, set_bookmark]
  *	- mode (str)
  */
 function JourneyNodes (props) {
 
-	const handle_click_to_relocate = (ref, behavior) => { // scroll to year header
+	const handle_click_to_relocate = (ref) => { // scroll to year header
 		if (isSafari || isIE) {
 			ref.current.scrollIntoView(true);
 		} else {
 			ref.current.scrollIntoView({
 				block: "center", // start will shift the entire page, bug of scrollIntoView
 				inline: "nearest",
-				behavior: behavior,
+				behavior: "auto",
 			});
 		}
 	}
 
 	const [explainBookmark, setExplainBookmark] = useState(false);
-	useEffect(() => { setExplainBookmark(false); }, [props.bookmark]);
 
 	return (
 		<div className="journey_timeline_nodes dis_select">
@@ -269,39 +280,18 @@ function JourneyNodes (props) {
 						(year[0]===props.currYear ? "journey_timeline_node_active" : "")
 					}
 				>
-					<div className={
-						"journey_timeline_node_knot " +
-						(year[0]==="bookmark" ? "journey_timeline_node_knot_bookmark" : "")
-					}/>
+					<div className="journey_timeline_node_knot"/>
 					<span
-						className={
-							"journey_timeline_node_text " +
-							(year[0]==="bookmark" ? "journey_timeline_node_bookmark explanation_trigger" : "cursor_pointer")
-						}
-						onMouseEnter={() => { if (year[0] === "bookmark") { setExplainBookmark(true); } }}
-						onMouseOver={() => { if (year[0] === "bookmark") { setExplainBookmark(true); } }}
-						onMouseLeave={() => { if (year[0] === "bookmark") { setExplainBookmark(false); } }}
+						className="journey_timeline_node_text cursor_pointer"
 						onClick={(e) => {
 							e.preventDefault();
-							if (year[0] === "bookmark") {
-								handle_click_to_relocate(year[1], "smooth");
-								setExplainBookmark(false);
-								props.set_bookmark(0); // eliminate the "bookmark" node once clicked
-							} else {
-								handle_click_to_relocate(year[1], "auto");
-							}
+							handle_click_to_relocate(year[1]);
 						}}
 					>
 						{year[0]}
 					</span>
 				</div>
 			)}
-			<Explanation
-				text="continue reading from where you left last time"
-				size="s"
-				explanationVisible={explainBookmark}
-				mode={props.mode}
-			/>
 		</div>
 	);
 }

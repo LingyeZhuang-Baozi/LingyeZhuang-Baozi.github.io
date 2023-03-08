@@ -1,4 +1,4 @@
-import React, { useState , useEffect, createRef, useRef } from 'react';
+import React, { useState, useEffect, createRef, useRef } from 'react';
 import { Outlet, Link, useLocation } from "react-router-dom";
 
 /* Foreign components */
@@ -160,7 +160,8 @@ export default function Home (props) {
 
 			<div className={
 				"home_tabs_div_outer home_tabs_primary " +
-				(page==="journey" ? "home_tabs_primary_journey" : "")
+				(page==="journey" ? "home_tabs_primary_journey" : "") + " " +
+				(PNisChanging ? "home_tabs_primary_changing" : "")
 			}><div className="home_tabs_div_inner">
 				<div className={
 					"home_tabs_primary_selected " +
@@ -199,35 +200,9 @@ export default function Home (props) {
 						"home_display_div_"+props.mode + " " +
 						(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
 					}>
-						
 						{(() => {
-							if (page === "home") {
-								if (hoveringObject==false) {
-									return ( <AboutMe mode={props.mode}/> );									
-								} else {
-									return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
-								}
-								// return (
-								// 	<TransitionGroup>
-								// 		<CSSTransition
-								// 			// key={hoveringObject==false ? "AboutMe" : "CaseBrief"}
-								// 			// nodeRef={hoveringObject==false ? AboutMe_ref : CaseBrief_ref}
-								// 			nodeRef={AboutMe_ref}
-								// 			timeout={500}
-								// 			classNames="animation_fade"
-								// 		><div ref={AboutMe_ref}>
-								// 			{hoveringObject==false ?
-								// 				// <div ref={AboutMe_ref}>
-								// 					<AboutMe mode={props.mode} />
-								// 				// </div>
-								// 			:
-								// 				// <div ref={CaseBrief_ref}>
-								// 					<CaseBrief hoveredCase={hoveredCase} mode={props.mode} />
-								// 				// </div>
-								// 			}
-								// 		</div></CSSTransition>
-								// 	</TransitionGroup>
-								// );
+							if (page === "home" && hoveringObject==true) {
+								return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
 							} else {
 								return ( <Outlet context={[modalSrc, setModalSrc]}/> );
 							}
@@ -629,4 +604,4 @@ function Resume (props) {
 
 
 /* Export */
-export { Resume };
+export { AboutMe, Resume };

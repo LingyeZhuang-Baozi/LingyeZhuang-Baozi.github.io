@@ -13,7 +13,7 @@
  */
 
 import React, { useState , useEffect, createRef, useRef, lazy, Suspense } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation, ScrollRestoration } from "react-router-dom";
 
 /* Foreign components */
 import { cases } from "./cases.js";
@@ -26,9 +26,35 @@ import back_case_study_btn from "./assets/basic/back_case_study_btn@2x.png";
 /* Libraries */
 import parse from 'html-react-parser';
 import useIsInViewport from "use-is-in-viewport";
+import { isSafari, isIE } from "react-device-detect";
 
 /* Lazy loads */
 const CaseSection = lazy(() => import('./CaseSection.js'));
+
+
+
+/**
+ * Case
+ *
+ * props:
+ *	- toggleMode (func)
+ *	- mode (str)
+ */
+export default function CaseSelector (props) {
+
+	const params = useParams();
+	const [URLtype, caseName] = params.caseName.split("-");
+
+	const location = useLocation();
+	useEffect(() => { window.scrollTo(0, 0); }, [location.pathname]);
+
+	if (URLtype==="case" && caseName in cases) {
+		return (<>
+			<Case case={caseName} mode={props.mode} toggleMode={props.toggleMode} />
+			<ScrollRestoration />
+		</>);
+	}
+}
 
 
 
@@ -41,7 +67,7 @@ const CaseSection = lazy(() => import('./CaseSection.js'));
  *	- toggleMode (func)
  *	- mode (str)
  */
-export default function Case (props) {
+function Case (props) {
 
 	/* Contents setup */
 
@@ -78,13 +104,28 @@ export default function Case (props) {
 	const location = useLocation();
 
 
-	/* Modal */
-	const [modalSrc, setModalSrc] = useState("");
-
-
 	/* Smooth transition animation helper */
+
+	// Scroll to top of content on load.
+	const case_main_ref = useRef(null);
+	//useEffect(() => { window.scrollTo(0, 0); }, [location.pathname]);
+	useEffect(() => {		
+		if (case_main_ref.current) {
+			setTimeout (() => {
+				if (isSafari || isIE) {
+					case_main_ref.current.scrollIntoView(true);
+				} else {
+					case_main_ref.current.scrollIntoView({
+						block: "start",
+						inline: "nearest",
+						behavior: "auto",
+					});
+				}
+			}, 0); // almost immediately
+		}
+	}, [location.pathname]);
+
 	// Onload effect.
-	const [loaded, setLoaded] = useState(false);
 	useEffect(() => {
 		window.onload = function() {
 			document.body.className += " loaded";
@@ -92,11 +133,26 @@ export default function Case (props) {
 		if (location.state) { console.log("goBack? ", location.state["goBack"]); } //DEBUG
 	}, []);
 
+	const [loaded, setLoaded] = useState(false);
+	useEffect(() => { setLoaded(false); }, [location.pathname]);
+	useEffect(() => {
+		console.log(loaded);
+		if (loaded==false) {
+			setTimeout (() => {
+				setLoaded(true);
+			}, 0); // almost immediately // TODO: a bit glitchy rn, improve
+		}
+	}, [loaded]);
+
+
+	/* Modal */
+	const [modalSrc, setModalSrc] = useState("");
+
 
 	/* Render */
 	return (<>
 		<div
-			onLoad={() => { setLoaded(true); }}
+			//onLoad={() => { setLoaded(true); }}
 			className={
 				"page " +
 				"page_" + props.mode + " " +
@@ -106,7 +162,7 @@ export default function Case (props) {
 
 			<div className="page_case">
 
-				<div className={"case_main case_main_"+props.mode}>
+				<div className={"case_main case_main_"+props.mode} ref={case_main_ref}>
 
 					<div className="case_cover">
 						<img
@@ -261,15 +317,11 @@ function FooterObject (props) {
 	/* Render */
 	return (
 		<Link
+			//replace
+			preventScrollReset={false}
 			to={props.next=="" ? (-1) : "/case-"+props.next}
-			onClick={() => {
-				if (props.next!="") {
-					setTimeout(()=>{ window.location.reload(); }, 0);
-					/* window.location.href="/case-"+props.next; */
-				}
-			}}
 			onDragStart={e => e.preventDefault()}
-		> {/*TODO: better way!!!*/}
+		>
 			<div key={"caseobject-"+props.object[0]} className="case_footer_object_div dis_select">
 				<div className="case_footer_hint_div">
 					<img className="case_footer_hint" srcSet={(props.next=="" ? back_case_study_btn : next_case_study_btn) +" 2x"} />
@@ -279,7 +331,6 @@ function FooterObject (props) {
 					onMouseEnter={() => { setHoveringObject(true); }}
 					onMouseOver={() => { setHoveringObject(true); }}
 					onMouseLeave={() => { setHoveringObject(false); }}
-					onClick={() => { /*window.scrollTo(0,0);*/ console.log("Clicked ", props.object[0], ", navigate to corresponding case page."); }} //DEBUG
 				>
 					<img
 						className="case_footer_object_img smooth_animation_xl"
