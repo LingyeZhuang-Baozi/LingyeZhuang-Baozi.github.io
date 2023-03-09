@@ -72,9 +72,6 @@ function App() {
 		{ path: "/:caseName",
 			element: <CaseSelector mode={mode} toggleMode={toggleMode} />
 		},
-		// { path: "*",
-		// 	loader: async () => { return redirect("/"); },
-		// },
 	]);
 
 	/* Render */

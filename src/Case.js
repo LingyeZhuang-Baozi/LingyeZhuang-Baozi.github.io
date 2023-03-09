@@ -53,6 +53,8 @@ export default function CaseSelector (props) {
 			<Case case={caseName} mode={props.mode} toggleMode={props.toggleMode} />
 			<ScrollRestoration />
 		</>);
+	} else {
+		window.location.replace("/#/");
 	}
 }
 
@@ -130,7 +132,6 @@ function Case (props) {
 		window.onload = function() {
 			document.body.className += " loaded";
 		}
-		if (location.state) { console.log("goBack? ", location.state["goBack"]); } //DEBUG
 	}, []);
 
 	const [loaded, setLoaded] = useState(false);

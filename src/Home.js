@@ -486,7 +486,6 @@ function CaseObjects (props) {
 							onMouseEnter={(e) => { handle_object_mouseenter(item[0], e); }}
 							//onMouseOver={(e) => { handle_object_mouseover(item[0], e); }}
 							onMouseLeave={handle_object_mouseleave}
-							onClick={() => { console.log("Clicked ", item[0], ", navigate to corresponding case page."); }} //DEBUG
 						>
 							<img
 								className={
