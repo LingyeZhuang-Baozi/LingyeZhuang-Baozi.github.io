@@ -328,11 +328,11 @@ iframe { border: none; }
 
 .page_loaded {
 	opacity: 1;
-	-webkit-transition: opacity var(--delay-l) ease-in-out;
-	-moz-transition: opacity var(--delay-l) ease-in-out;
-	-ms-transition: opacity var(--delay-l) ease-in-out;
-	-o-transition: opacity var(--delay-l) ease-in-out;
-	transition: opacity var(--delay-l) ease-in-out;
+	-webkit-transition: background-color var(--delay-l) ease-in-out, opacity var(--delay-l) ease-in-out;
+	-moz-transition: background-color var(--delay-l) ease-in-out, opacity var(--delay-l) ease-in-out;
+	-ms-transition: background-color var(--delay-l) ease-in-out, opacity var(--delay-l) ease-in-out;
+	-o-transition: background-color var(--delay-l) ease-in-out, opacity var(--delay-l) ease-in-out;
+	transition: background-color var(--delay-l) ease-in-out, opacity var(--delay-l) ease-in-out;
 }
 
 /* containers to help with positioning. */
