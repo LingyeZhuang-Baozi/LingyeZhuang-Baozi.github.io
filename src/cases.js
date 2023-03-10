@@ -21,7 +21,7 @@
  *				[0]section_type (str) : ("intro", "problem", "section", "subsection", "evidence") ,
  *				[1]section_identifier (str) : ("Overview", "Need Finding", "User Research", "Design", "Implementation", "Takeaways", "Reflection", "Outcomes", ...)
  *				[2]section_content : [ [
- *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe", "gallery") ,
+ *					[0]item_type (str) : ("title", "text", "img-static", "img-zoomable", "img-scollable", "vid"(mp4), "iframe", "gallery", "freestyle") ,
  *					[1]item_content (html str, OR img as required path, OR vid as required path) OR [1]iframe_type (str),
  *					[(2)]title_explanation (str) OR item_alt (str) OR [2]iframe_src (str or code),
  *					[(3)]item_caption (str) OR [(3)]iframe_ratio (str, height / width in percentage),
@@ -315,12 +315,65 @@ export const cases = {
 				["text", "On the side, we noticed that the menu tabs in the old design were problematic, mainly in 2 ways:<ol><li>The buttons for opening both menus used the same hamburger icon, which were indistinguishable and violate the \"recognition rather than recall\" principle in Jakob Nielsen's <a href='https://www.nngroup.com/articles/ten-usability-heuristics/' target='_blank'>10 usability heuristics</a>,</li><li>The white bar for holding the menu buttons was a waste of space. To improve the visual and save space.</li></ol>As a solution, we removed the redundant white bar and made the menu buttons into tabs on the two sides of the page. To <span style='--color:#8897AD33;'>distinguish the two menu buttons</span>, we tried giving each button an icon according to the functions inside: filter icon and phone icon.",],
 				["img-static", require("./assets/cases/CruzRoja/content/4_3_menu_tabs.png"), "Cruz Roja evolution of the menu tabs", "improvement in the menu tabs", {maxWidth:"480px"},],
 			]],
-			// ["subsection", "", [
-			// 	["title", "Calls menu: rearrange and organize",],
-			// ]],
+			["subsection", "", [
+				["title", "Calls menu: rearrange and organize",],
+				["text", "Now we are looking at the biggest disaster in the old website: calls menu. This is a call log for all the ongoing dispatches, and it is meant to be the main channel of communication between dispatchers and ambulance crews. However, the UI was too messy and almost inpossible to use.",],
+				["img-static", require("./assets/cases/CruzRoja/content/5_1_old_calls_menu.png"), "Cruz Roja old calls menu is extremely messy and hard to use", "old calls menu", {maxWidth:"400px"},],
+				["text", "After a thorough examination of the intended userflow, it turned out that <span style='--color:#8897AD33;'>the old menu actually contained many valuable ideas</span>, such as specifying waypoints to guide the ambulance through a chain of locations, sending SNS messages from computer to phone in order to update the ambulance crews with the latest hospital availabilities, etc. These are solid ideas that could potentially lead to useful functionalities. However, like the <a href='https://ghibli.fandom.com/wiki/River_Spirit' target='_blank'>river spirit</a> in Spirited Away, <span style='--color:#8897AD33;'>a descent bath is needed</span>."],
+				["img-static", require("./assets/cases/CruzRoja/content/5_2_river_spirit_bath.gif"), "The scene in Spirited Away when the entire bathhouse help cleaning out the trash in the body of the river spirit", "just like the river spirit, our calls menu needs a deep clean", {maxWidth:"400px"},],
+				["text", "We summarized 3 main flows that should be handled under the calls menu:<ol><li>Display details of dispatched calls with clear information hierarchy;</li><li>Facilitate updates of calls states with intuitive editing;</li><li>Send timely instructions to ambulance crews by SNS messages.</li></ol>"],
+				["text", "Regarding <span style='--color:#8897AD33;'>display of calls details</span>, the challenge was the large amount of information that had to be included, since all of those data would be useful and couldn't simply be removed. Instead of the old design with multiple layers of dropdown and popups, we used an accordion list to organize the calls log, specifically working as follows:<ul><li>The most basic information to identify a call was condensed into a small card, so the dispatcher can efficiently skim the calls list.</li><li>Upon clicking, a call card would expand and reveal full details of the dispatch.</li><li>We flattened the secondary dropdown and popups in the old design all into the same expanded card view, so it took fewer clickings to view (or edit) any field of interest, and no more extra layer would stick out and block the map viewport.</li><li>No more than one call card could stay open at once, which was a choice to find balance between \"glancing the big picture of all calls\" and \"focusing on a particular call\". This won't introduce any complexity, since the dispatcher was very unlikely to pay attention to more than one call at any point in time, according to our interviews.</li></ul>Here is our end product after an inside-out reorganization. Please play with the prototypes and see it for yourself!"],
+				["freestyle", (
+					<div
+						className="ratio_outer"
+						style={{paddingBottom:"clamp(480px, 160%, calc(0.88 * 100vh))", marginBlockEnd:"calc(1.5 * var(--lineheight-default))"}}
+					>
+						<div
+							className="ratio_inner"
+							style={{width:"640px", transform:"translateX(-50%)", left:"50%", overflow:"hidden", borderRadius:"8px"}}
+						>
+							<div
+								style={{position:"relative", width:"100%", height:"100%"}}
+							>
+								<iframe
+									style={{position:"absolute", width:"1280px", height:"104%", right:"-12%", transform:"translateY(-50%)", top:"50%"}}
+									src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D0%253A1%26node-id%3D5-8294%26viewport%3D64%252C287%252C0.17%26scaling%3Dscale-down%26starting-point-node-id%3D5%253A8294%26hide-ui%3D1"
+								></iframe>
+					</div></div></div>
+				),],
+				["text", "We noticed that the 3 flows of \"viewing call details\", \"editing call details\", and \"composing SNS messages\" were independent of one another. Specifically, the first 2 were just the read and write states of the same content, which were exclusive from each other; While the task of typing message required full attention of the dispatcher, and the call details didn't have to be present since the messages were likely to be additional instructions apart from the standard details fields. Knowing this, <span style='--color:#8897AD33;'>the 3 flows can be represented as 3 modes</span> under the expanded view of a call, as shown in the prototype below: view mode as default, then edit mode and message mode. Mode switching was accessed via the three-dot menu at the top right of the call card, following an established convention."],
+				["freestyle", (
+					<div
+						className="ratio_outer"
+						style={{paddingBottom:"clamp(480px, 160%, calc(0.88 * 100vh))", marginBlockEnd:"calc(1.5 * var(--lineheight-default))"}}
+					>
+						<div
+							className="ratio_inner"
+							style={{width:"640px", transform:"translateX(-50%)", left:"50%", overflow:"hidden", borderRadius:"8px"}}
+						>
+							<div
+								style={{position:"relative", width:"100%", height:"100%"}}
+							>
+								<iframe
+									style={{position:"absolute", width:"1280px", height:"104%", right:"-12%", transform:"translateY(-50%)", top:"50%"}}
+									src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D0%253A1%26node-id%3D27-1962%26viewport%3D148%252C151%252C0.1%26scaling%3Dscale-down%26starting-point-node-id%3D27%253A1962%26hide-ui%3D1"
+								></iframe>
+					</div></div></div>
+				),],
+			]],
 			// ["subsection", "", [
 			// 	["title", "Map: in-context display of ambulance and location info",],
 			// ]],
+			["section", "Reflection", [
+				["title", "Growing abilities and growing perspectives",],
+			]],
+			["subsection", "", [
+				["title", "March 2023",],
+				["text", "This was a project that witnessed my growth. Revisiting the old design is like a conversation to my past self. Those senses of \"off\" and flows of thought that I didn't know how to describe or express, I am glad I now have language for them.",],
+				["text", "When I first joined Cruz Roja, I was new to the field of UX/UI design, trying to put into use my knowledge from a few design courses. Like a primitive with intuition, I noticed the problem with the old interface, that it was messy. Yet I didn't have enough professional insight to thoroughly analyze and spot the \"why\" behind the messiness. Still, I had intuition and tools such as usability heuristics, so I was able to identify changes I could make to improve the site. I approach the problem from a usability angle, and overall I did a good job. But my eyes were a bit too fixed on details and failed to manage the project from the level of a big picture.",],
+				["text", "After my first quarter on the project, I paused and took 2 internships during the summer. So when I came back and spent my second quarter on Cruz Roja, I brought with me a bit more experience. I was able to approach the problems in a more data-driven way, and rethink the interface based on its higher-level purpose. Therefore, I successfully sorted out the key userflow from the muddy calls menu and had it reorganized. I also noticed the flaws in the inter-connection between the map and the menus, which I didn't quite have the skills to fully solve back then. Today when I look back, I see this last issue that I noticed as the most valuable one, because an improvement in the inter-connection would cohere and revolutionize the entire interface, bringing the efficiency and functionality of the dispatch system to a new level.",],
+				["text", "Cruz Roja was the most challenging interface that I have redesigned so far, due to the significant amount of information that I had to manage and find an appropriate way to display for. If I were to redo this project, the biggest change I would make is to start looking at existing products and schedule more interviews at an earlier stage, to better understand the needs and the domain of ambulance dispatching.",],
+			]],
 		],
 	],
 

@@ -81,7 +81,7 @@ export default function SectionContent (props) {
 	return (<>
 		{props.content.map ((element, i) => {
 			const key = props.suffix+i;
-			switch (element[0]) { // title, text, img-static, img-zoomable, img-scollable, gallery, vid, iframe
+			switch (element[0]) { // title, text, img-static, img-zoomable, img-scollable, gallery, vid, iframe, freestyle
 
 				case "title":
 					if (element.length < 3) {
@@ -240,6 +240,10 @@ export default function SectionContent (props) {
 							}
 						</div>
 					);
+					break;
+
+				case "freestyle":
+					return (<React.Fragment key={key}>{element[1]}</React.Fragment>);
 					break;
 			}
 		})}
