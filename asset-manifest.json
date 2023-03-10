@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.4e556034.css",
-    "main.js": "/static/js/main.95f95bd6.js",
+    "main.js": "/static/js/main.c0776447.js",
     "static/js/582.9b9c8dc6.chunk.js": "/static/js/582.9b9c8dc6.chunk.js",
     "static/js/334.7001531c.chunk.js": "/static/js/334.7001531c.chunk.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
@@ -21,6 +21,7 @@
     "static/media/CU_mascot_color_trials.png": "/static/media/CU_mascot_color_trials.401d19a9340c5ce07efa.png",
     "static/media/PadPal_thumbnail.png": "/static/media/PadPal_thumbnail.10f71abef48d9873ea7d.png",
     "static/media/rabbit_hole_paper_summary_poster.jpeg": "/static/media/rabbit_hole_paper_summary_poster.e8dd02d0f04533496cea.jpeg",
+    "static/media/5_2_river_spirit_bath.gif": "/static/media/5_2_river_spirit_bath.47746462f6af7ad8817b.gif",
     "static/media/intern_panel_flyer.png": "/static/media/intern_panel_flyer.c05b0a778b4c48562e58.png",
     "static/media/PadPal_thumbnail_light.png": "/static/media/PadPal_thumbnail_light.5656638cfd0a550ca1a2.png",
     "static/media/PadPal_thumbnail_dark.png": "/static/media/PadPal_thumbnail_dark.f0b28f84dc1e34c81444.png",
@@ -51,7 +52,6 @@
     "static/media/Neureality_thumbnail_light.png": "/static/media/Neureality_thumbnail_light.176b5f28b15ff11073e2.png",
     "static/media/LAK_thumbnail.png": "/static/media/LAK_thumbnail.eebc3adf2d1f29f4554e.png",
     "static/media/ACM_thumbnail_dark.png": "/static/media/ACM_thumbnail_dark.5afe46725eeee169410d.png",
-    "static/media/4_3_menu_tabs.png": "/static/media/4_3_menu_tabs.c62279e95e230f851fe1.png",
     "static/media/internship_spotlight_sample.png": "/static/media/internship_spotlight_sample.f00ee2febf94e955a7de.png",
     "static/media/CitS_work.png": "/static/media/CitS_work.f33cfe02772916fac12d.png",
     "static/media/4_sacculina_carcini.png": "/static/media/4_sacculina_carcini.4d45a64ace8d4b3e533a.png",
@@ -74,6 +74,8 @@
     "static/media/3_1_paper_prototype_search_class.png": "/static/media/3_1_paper_prototype_search_class.bd8469ce41d280186467.png",
     "static/media/CitS_shower.png": "/static/media/CitS_shower.ab773aa2bfb3e31cf7c0.png",
     "static/media/Neureality_thumbnail.png": "/static/media/Neureality_thumbnail.73869195a7c5c191f2ca.png",
+    "static/media/5_1_old_calls_menu.png": "/static/media/5_1_old_calls_menu.aff14b7c2e62f50627c2.png",
+    "static/media/4_3_menu_tabs.png": "/static/media/4_3_menu_tabs.88456f754857aed1b53e.png",
     "static/media/ACM_thumbnail.png": "/static/media/ACM_thumbnail.bfe927d318561acde113.png",
     "static/media/minesweeper.gif": "/static/media/minesweeper.5ae3055aa2b7f3da7213.gif",
     "static/media/solution.png": "/static/media/solution.ef56c1e6a6e47e649836.png",
@@ -297,13 +299,13 @@
     "static/media/bullet_small_dark.svg": "/static/media/bullet_small_dark.39a5d944e30ddaa71639.svg",
     "static/media/bullet_small_light.svg": "/static/media/bullet_small_light.9c60ba578b85f1e3836a.svg",
     "main.4e556034.css.map": "/static/css/main.4e556034.css.map",
-    "main.95f95bd6.js.map": "/static/js/main.95f95bd6.js.map",
+    "main.c0776447.js.map": "/static/js/main.c0776447.js.map",
     "582.9b9c8dc6.chunk.js.map": "/static/js/582.9b9c8dc6.chunk.js.map",
     "334.7001531c.chunk.js.map": "/static/js/334.7001531c.chunk.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4e556034.css",
-    "static/js/main.95f95bd6.js"
+    "static/js/main.c0776447.js"
   ]
 }
