@@ -27,6 +27,7 @@ function App() {
 
 	/* Light mode */
 	const [mode, setMode] = useState(localStorage&&localStorage.getItem("zhuanglingye_mode") ? localStorage.getItem("zhuanglingye_mode") : "light");  // light*, dark
+	const [modeChanging, setModeChanging] = useState(false);
 	useEffect (() => {
 		if (localStorage && !localStorage.getItem("zhuanglingye_mode")) {
 			localStorage.setItem("zhuanglingye_mode", "light");
@@ -37,6 +38,10 @@ function App() {
 		const new_mode = (prev_mode==="light" ? "dark" : "light");
 		localStorage.setItem("zhuanglingye_mode", new_mode);
 		setMode(new_mode);
+		setModeChanging(true);
+		setTimeout (() => {
+			setModeChanging(false);
+		}, 550); // var(--delay-l) 540ms with a bit of extra
 	}
 
 	/* Journey bookmark */
@@ -76,44 +81,10 @@ function App() {
 
 	/* Render */
 	return (
-		<div className="mode">
+		<div className={"mode_"+mode + (modeChanging==true ? " mode_changing" : "")}>
 			<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
 		</div>
 	);
-
-	// return (
-	// 	<div className="mode">
-	// 		<Router /*basename={process.env.PUBLIC_URL}*/><Routes>
-
-	// 			{/* Home */}
-	// 			<Route path='/' element = {
-	// 				<Home
-	// 					mode={mode}
-	// 					toggleMode={toggleMode}
-	// 				/>
-	// 			}>
-	// 				<Route path="/resume" element={ <Resume mode={mode} /> } />
-	// 				<Route path="/journey" element={ <Journey mode={mode} journeyBookmark={journeyBookmark} setJourneyBookmark={setJourneyBookmark} /> }></Route>
-	// 			</Route>
-
-	// 			{/* Cases */}
-	// 			<Route path="/case-ACM" element={ <Case case="ACM" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-RehaBuddy" element={ <Case case="RehaBuddy" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-Bitsrealm" element={ <Case case="Bitsrealm" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-CruzRoja" element={ <Case case="CruzRoja" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-LAK" element={ <Case case="LAK" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-MAW" element={ <Case case="MAW" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-Neureality" element={ <Case case="Neureality" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-GroupReads" element={ <Case case="GroupReads" mode={mode} toggleMode={toggleMode} /> } />
-	// 			<Route path="/case-PadPal" element={ <Case case="PadPal" mode={mode} toggleMode={toggleMode} /> } />
-
-	// 			{/* Default when no match */}
-	// 			<Route path="*" element={<Navigate to="/" />} />
-
-	// 		</Routes></Router>
-	// 		<ScrollRestoration />
-	// 	</div>
-	// );
 }
 
 export default App;

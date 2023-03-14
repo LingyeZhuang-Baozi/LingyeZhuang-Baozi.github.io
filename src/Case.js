@@ -172,7 +172,7 @@ function Case (props) {
 							onDragStart={e => e.preventDefault()}
 						/>
 						<div className="case_bio_div">
-							<div className={"case_title text_"+props.mode}>{cases[props.case][1]["title"]}</div>
+							<div className={"case_title text"}>{cases[props.case][1]["title"]}</div>
 							<Bio
 								list={[...cases[props.case][1]["case_brief"]]}
 								bullet_type="text"
@@ -189,7 +189,7 @@ function Case (props) {
 						/>
 					</div></div>
 
-					<div className={"case_content content text_"+props.mode}>
+					<div className={"case_content content text"}>
 						<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
 							{full_writeup.map ((section, i) =>
 								<CaseSection

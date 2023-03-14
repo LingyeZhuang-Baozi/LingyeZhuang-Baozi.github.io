@@ -268,14 +268,14 @@ function Bio (props) {
 			<ul className="bio_list bio_list_text">
 				{props.list.map (item =>
 					<li key={"biolist-text-item-"+item[0]+"-"+item[1]}>
-						<span className={"bio_item bio_item_text text_"+props.mode}>
+						<span className={"bio_item bio_item_text text"}>
 							<div className="bio_fieldname_container">
 								<div className={"bio_fieldname bio_fieldname_"+props.mode}>
 									{item[0]}
 								</div>
 							</div>
 							<div className="bio_text_container">
-								<div className={"bio_text bio_text_"+props.mode}>
+								<div className={"bio_text bio_text"}>
 									{parse(item[1])}
 								</div>
 							</div>
@@ -290,10 +290,10 @@ function Bio (props) {
 	else {
 		let type = props.bullet_type ? props.bullet_type : "small";
 		return (
-			<ul className={"bio_list bio_list_" + type + "_" + props.mode}>
+			<ul className={"bio_list bio_list_" + type}>
 				{props.list.map (item =>
 					<li key={"biolist-bullet-item-"+item}>
-						<span className={"bio_item text_"+props.mode}>
+						<span className={"bio_item text"}>
 							{item}
 						</span>
 					</li>
@@ -344,8 +344,8 @@ function Contents (props) {
 							<span
 								className={
 									"content_list_text cursor_pointer " +
-									"text_"+props.mode + " " +
-									"content_list_text_"+props.mode + " " +
+									"text" + " " +
+									"content_list_text" + " " +
 									(i===props.currSection ? "content_list_text_active" : "")
 								}
 								onClick={(e) => { e.preventDefault(); handle_click_to_relocate(item[1]); }}
@@ -638,7 +638,7 @@ function Explanation (props) {
 				"explanation_inner_"+props.mode + " " +
 				(props.size ? "explanation_inner_"+props.size : "explanation_inner_m")
 			}>
-				<span className={"explanation_text explanation_text_"+props.mode}>{props.text}</span>
+				<span className={"explanation_text explanation_text"}>{props.text}</span>
 			</div>
 		</MouseTooltip>
 	);

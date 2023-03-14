@@ -13,6 +13,7 @@ import me2 from "./assets/basic/me-2.jpg";
 import resume from "./assets/basic/resume.png";
 import resume_big from "./assets/basic/resume-big.png";
 import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag_1@2x.png";
+import journey_hint_tag from "./assets/basic/journey_hint_tag@2x.png";
 
 /* Libraries */
 import { isSafari, isIE } from "react-device-detect";
@@ -39,16 +40,13 @@ export default function Home (props) {
 	/* Page */
 	const curr_route = useLocation().pathname.substring(1);
 	const [page, setPage] = useState(curr_route && ["resume", "home", "journey"].includes(curr_route) ? curr_route : "home");	// resume, home*, journey
-	// useEffect (() => {
-	// 	console.log ("window pathname: '", window.location.pathname, "'\npage hook: '", page, "'"); //DEBUG
-	// 	if (window.location.pathname==="/resume" && page!=="resume") {
-	// 		setPage("resume");
-	// 	} else if (window.location.pathname==="/" && page!=="home") {
-	// 		setPage("home");
-	// 	} else if (window.location.pathname==="/journey" && page!=="journey") {
-	// 		setPage("journey");
-	// 	}
-	// }, [window.location.href]);
+	const [newToHome, setNewToHome] = useState(true);
+	const [newToJourney, setNewToJourney] = useState(true);
+	useEffect(()=>{
+		if (page==="journey") {
+			setNewToJourney(false);
+		}
+	},[page]);
 
 
 	/* Primary nav tabs and their animation state */
@@ -79,7 +77,6 @@ export default function Home (props) {
 
 	const [hoveringObject, setHoveringObject] = useState(false);
 	const [hoveredCase, setHoveredCase] = useState(""); // "" or 1 of four_devarajas
-	const [newToHome, setNewToHome] = useState(true);
 	const [timer, setTimer] = useState(true); // true(tic)*, false(tac)
 	const [blinkingObject, setBlinkingObject] = useState("");
 
@@ -179,6 +176,8 @@ export default function Home (props) {
 							tab={tab}
 							active={page===tab}
 							onclick={(e) => { handle_PNT_click(e, tab); }}
+							newToJourney={newToJourney}
+							setNewToJourney={setNewToJourney}
 							mode={props.mode}
 							PNisChanging={PNisChanging}
 						/>
@@ -197,7 +196,6 @@ export default function Home (props) {
 						(hoveringObject==true ?
 							("home_display_div_inner_case home_display_div_inner_")+hoveredCase
 						: "") + " " +
-						"home_display_div_"+props.mode + " " +
 						(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
 					}>
 						{(() => {
@@ -251,6 +249,7 @@ export default function Home (props) {
  *	- tab (str)
  *	- active (bool)
  *	- onclick (func)
+ *	- [newToJourney, setNewToJourney]
  *	- PNisChanging (bool)
  *	- mode (str)
  */
@@ -270,7 +269,7 @@ function PNT (props) {
 			onMouseLeave={() => {
 				clearTimeout(hoverTimer);
 				setLongHover(false);
-				console.log ("timer cleared");
+				//console.log ("timer cleared");
 			}}
 		>
 			<Link to={(props.tab==="home" ? "/" : ("/"+props.tab))} onDragStart={e => e.preventDefault()}>
@@ -279,13 +278,21 @@ function PNT (props) {
 						"home_tab cursor_pointer " +
 						(longHover==true && props.active==false && props.PNisChanging==false ? ("cursor_PNT_"+props.tab) : "") + " " +
 						"home_tab_primary_" + props.tab + (props.active==true ? "_active" : "") + " " +
-						"home_tab_primary_" + (props.active==true ? "active" : "default") + "_" + props.mode + " " +
+						"home_tab_primary_" + (props.active==true ? "active" : "default") + " " +
 						(props.PNisChanging==true ? "home_tab_switching" : "")
 					}
-					onClick={props.onclick}
+					onClick={() => {
+						props.onclick();
+						if (props.tab==="journey") {
+							props.setNewToJourney(false);
+						}
+					}}
 					onDragStart={e => e.preventDefault()}
 				/>
 			</Link>
+			{props.newToJourney && props.tab==="journey" ?
+				<img className="home_tab_primary_journey_hint" srcSet={journey_hint_tag+" 2x"} />
+			: null}
 		</div>
 		{props.tab==="journey" ?
 			<div
@@ -313,9 +320,8 @@ function CB (props) {
 		<div className="home_tab_div home_tab_contact_div">
 			<a
 				className = {
-					"home_tab cursor_pointer " +
-					"home_tab_contact_" + props.btn + " " +
-					"home_tab_contact_" + props.mode
+					"home_tab home_tab_contact cursor_pointer " +
+					"home_tab_contact_" + props.btn
 				}
 				href={props.link}
 				target="_blank"
@@ -375,8 +381,8 @@ function AboutMe (props) {
 				/>
 			</div>
 
-			<div className={"selfintro zlift text_"+props.mode}>
-				<p className={"text_"+props.mode}>
+			<div className={"selfintro zlift text"}>
+				<p className={"text"}>
 					Hey! You found my little cabin on the internet!
 				</p>
 				<span className="selfintro_name">
@@ -410,16 +416,16 @@ function AboutMe (props) {
 						<span>晔</span>
 					</span>*/}
 				</span>
-				<p className={"text_emphasize text_"+props.mode}>
+				<p className="text_emphasize text">
 					UX/UI designer / Graphic designer / Illustrator
 				</p>
-				<p className={"text_"+props.mode}>
+				<p className="text">
 					Recently soaking up development skills, walking on the path towards being a full-stack designer. This website is hand-coded with React.js and ♡.
 				</p>
-				<p className={"text_"+props.mode}>
+				<p className="text">
 					I design like a craftsman, since I believe practise makes perfect.
 				</p>
-				<p className={"text_"+props.mode}>
+				<p className="text">
 					I design for social good, and I enjoy real world challenges.
 				</p>
 				{/*<span>&nbsp;</span> {/* insert vertical space */}
@@ -553,14 +559,14 @@ function CaseBrief (props) {
 
 	return (
 		<div className="casebrief_div">
-			<div className={"casebrief_title text_"+props.mode}>{cases[props.hoveredCase][1]["title"]}</div>
+			<div className={"casebrief_title text"}>{cases[props.hoveredCase][1]["title"]}</div>
 			<div className="casebrief">
 				<Bio
 					list={[...cases[props.hoveredCase][1]["case_brief"]]}
 					bullet_type="text"
 					mode={props.mode}
 				/>
-				<span className={"text_"+props.mode}>{cases[props.hoveredCase][1]["description"]}</span>
+				<span className={"text"}>{cases[props.hoveredCase][1]["description"]}</span>
 			</div>
 		</div>
 	);

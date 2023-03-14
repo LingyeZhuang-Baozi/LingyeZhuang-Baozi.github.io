@@ -88,7 +88,7 @@ export default function JourneyItem (props) {
 				"journey_journey_header_"+props.mode + " " +
 				(props.journey[1].length !== 0 ? "journey_journey_header_with_readmore" : "")
 			}>
-				<div className={"journey_journey_title text_"+props.mode}>
+				<div className={"journey_journey_title text"}>
 					{props.journey[0][0]}
 				</div>
 				{props.journey[0].length > 1 ?
@@ -145,7 +145,7 @@ export default function JourneyItem (props) {
 				: null }
 			</div>
 
-			<div className={"journey_journey_content content text_"+props.mode}>
+			<div className={"journey_journey_content content text"}>
 				{props.journey[2].map ((group, g) => 
 					<Suspense fallback={<div className={"text_hint_"+props.mode}>Loading...</div>}>
 						{(() => {

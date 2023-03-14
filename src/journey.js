@@ -150,7 +150,7 @@ export default function Journey (props) {
 		<div className={
 			"journey_behind_the_scene " +
 			"journey_behind_the_scene_"+props.mode + " " +
-			"content text_"+props.mode
+			"content text"
 		}><p>
 			This website is <a href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master" target='_blank'>hand-coded</a> with React.js and ♡.<br/>
 			Thank you for reading till the end!
@@ -211,7 +211,7 @@ function JourneyYear (props) {
 					onMouseOver={() => { setExplainAnimal(true); }}
 					onMouseLeave={() => { setExplainAnimal(false); }}
 				/>
-				<div className={"journey_year_num text_"+props.mode}>{props.year[0][0]}</div>
+				<div className={"journey_year_num text"}>{props.year[0][0]}</div>
 				<Explanation
 					text={props.year[0][2]}
 					explanationVisible={explainAnimal}
