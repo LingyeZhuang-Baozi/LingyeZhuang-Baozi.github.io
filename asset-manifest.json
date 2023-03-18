@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e6a4b63c.css",
-    "main.js": "/static/js/main.e257aedb.js",
+    "main.js": "/static/js/main.d36b87ed.js",
     "static/js/582.d750ff33.chunk.js": "/static/js/582.d750ff33.chunk.js",
     "static/js/334.7001531c.chunk.js": "/static/js/334.7001531c.chunk.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
@@ -54,7 +54,9 @@
     "static/media/ACM_thumbnail_dark.png": "/static/media/ACM_thumbnail_dark.5afe46725eeee169410d.png",
     "static/media/internship_spotlight_sample.png": "/static/media/internship_spotlight_sample.f00ee2febf94e955a7de.png",
     "static/media/CitS_work.png": "/static/media/CitS_work.f33cfe02772916fac12d.png",
+    "static/media/6_1_map_inplace_dispatch.png": "/static/media/6_1_map_inplace_dispatch.a9c163593bd4bc1d63fa.png",
     "static/media/4_sacculina_carcini.png": "/static/media/4_sacculina_carcini.4d45a64ace8d4b3e533a.png",
+    "static/media/6_2_map_inplace_route.png": "/static/media/6_2_map_inplace_route.87cfe48c60602ad0cacf.png",
     "static/media/3_2_eeg_2.png": "/static/media/3_2_eeg_2.73854d0d2131ac8b5a2b.png",
     "static/media/ACM_thumbnail_light.png": "/static/media/ACM_thumbnail_light.431e60e80acfad7ede16.png",
     "static/media/wearable_mask_of_explosion.jpg": "/static/media/wearable_mask_of_explosion.3b7b308e3a41e8862fb8.jpg",
@@ -137,13 +139,13 @@
     "static/media/wish_granting_document_holder.png": "/static/media/wish_granting_document_holder.8078af31e5a558581119.png",
     "static/media/groupreads_paper_prototype_2.png": "/static/media/groupreads_paper_prototype_2.6cbb609378665a6f620a.png",
     "static/media/2_2_community_lowfi.png": "/static/media/2_2_community_lowfi.3c4b54241f8c5393f2ad.png",
+    "static/media/4_1_ambulances_menu.png": "/static/media/4_1_ambulances_menu.2977f72817980d049c8c.png",
     "static/media/2_1_navbar_desktop_E.png": "/static/media/2_1_navbar_desktop_E.d7c4ba72fc051f38529b.png",
     "static/media/inbox.png": "/static/media/inbox.e10245b3594dc29a0fc3.png",
     "static/media/2_4_navbar_mobile_current_page_indicator.png": "/static/media/2_4_navbar_mobile_current_page_indicator.5e31b7b691f656aae592.png",
     "static/media/2_3_community_midfi.png": "/static/media/2_3_community_midfi.e55d74358acd2e737322.png",
     "static/media/1_4_websites_relationship.png": "/static/media/1_4_websites_relationship.b437cf5cf5626d2d5063.png",
     "static/media/post3.png": "/static/media/post3.64cb42f89434642cd94e.png",
-    "static/media/4_1_ambulances_menu.png": "/static/media/4_1_ambulances_menu.3472bc20a88c112966d3.png",
     "static/media/add_job_2.png": "/static/media/add_job_2.e013a64dba1f976b5506.png",
     "static/media/CitS_enter.png": "/static/media/CitS_enter.2dbb067804a09e6b07cd.png",
     "static/media/2_5_community_mobile.png": "/static/media/2_5_community_mobile.289685cc4291f4c7ab4d.png",
@@ -299,13 +301,13 @@
     "static/media/bullet_small_dark.svg": "/static/media/bullet_small_dark.39a5d944e30ddaa71639.svg",
     "static/media/bullet_small_light.svg": "/static/media/bullet_small_light.9c60ba578b85f1e3836a.svg",
     "main.e6a4b63c.css.map": "/static/css/main.e6a4b63c.css.map",
-    "main.e257aedb.js.map": "/static/js/main.e257aedb.js.map",
+    "main.d36b87ed.js.map": "/static/js/main.d36b87ed.js.map",
     "582.d750ff33.chunk.js.map": "/static/js/582.d750ff33.chunk.js.map",
     "334.7001531c.chunk.js.map": "/static/js/334.7001531c.chunk.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6a4b63c.css",
-    "static/js/main.e257aedb.js"
+    "static/js/main.d36b87ed.js"
   ]
 }
