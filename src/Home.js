@@ -264,7 +264,7 @@ function PNT (props) {
 			onMouseEnter={() => {
 				hoverTimer = setTimeout(() => {
 					setLongHover(true);
-				}, 800); // var(--delay-xl)
+				}, 540); // var(--delay-l)
 			}}
 			onMouseLeave={() => {
 				clearTimeout(hoverTimer);
@@ -420,13 +420,13 @@ function AboutMe (props) {
 					UX/UI designer / Graphic designer / Illustrator
 				</p>
 				<p className="text">
-					Recently soaking up development skills, walking on the path towards being a full-stack designer. This website is hand-coded with React.js and ♡.
+					I design for social good, and I believe practice makes perfect.
 				</p>
 				<p className="text">
-					I design like a craftsman, since I believe practise makes perfect.
+					Recently soaking up programming and 3D modeling skills, walking on the path towards being a full-stack designer.
 				</p>
 				<p className="text">
-					I design for social good, and I enjoy real world challenges.
+					This website is <a href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master" target='_blank'>hand-coded</a> with React.js and ♡.
 				</p>
 				{/*<span>&nbsp;</span> {/* insert vertical space */}
 				{/*<div className="only_mobile">

@@ -272,9 +272,12 @@ iframe { border: none; }
 .cursor_readmore_2 { cursor: url("./assets/basic/read_more_2_cursor.svg") 79 32, pointer; }
 .cursor_random_case_study { cursor: url("./assets/basic/random_case_study_cursor.svg") 0 50, pointer; }
 
-.cursor_PNT_resume { cursor: url("./assets/basic/primary_nav_tab_cursor_resume.svg") 0 24, pointer; }
-.cursor_PNT_home { cursor: url("./assets/basic/primary_nav_tab_cursor_home.svg") 0 24, pointer; }
-.cursor_PNT_journey { cursor: url("./assets/basic/primary_nav_tab_cursor_journey.svg") 0 24, pointer; }
+.mode_light .cursor_PNT_resume { cursor: url("./assets/basic/primary_nav_tab_cursor_resume_light.svg") 0 24, pointer; }
+.mode_light .cursor_PNT_home { cursor: url("./assets/basic/primary_nav_tab_cursor_home_light.svg") 0 20, pointer; }
+.mode_light .cursor_PNT_journey { cursor: url("./assets/basic/primary_nav_tab_cursor_journey_light.svg") 0 24, pointer; }
+.mode_dark .cursor_PNT_resume { cursor: url("./assets/basic/primary_nav_tab_cursor_resume_dark.svg") 0 24, pointer; }
+.mode_dark .cursor_PNT_home { cursor: url("./assets/basic/primary_nav_tab_cursor_home_dark.svg") 0 20, pointer; }
+.mode_dark .cursor_PNT_journey { cursor: url("./assets/basic/primary_nav_tab_cursor_journey_dark.svg") 0 24, pointer; }
 
 /* z-index */
 .zlift { z-index: 1; } /* z-index lifting tool. */
@@ -1238,6 +1241,37 @@ iframe { border: none; }
 .profile_pic_static.profile_pic_gaze { opacity: 0; }
 	/* profile picture hover effect. */
 
+.home_display_div_inner_home { position: relative; }
+
+.home_display_div_inner_home:not(.home_display_div_inner_case)::before {
+	content: "";
+	position: absolute;
+	inset: 0; /* same as { top: 0; right: 0; bottom: 0; left: 0; } */
+	opacity: 1;
+	background-position: center center;
+	-webkit-transition: opacity var(--delay-l) ease-in-out, height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	-moz-transition: opacity var(--delay-l) ease-in-out, height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	-ms-transition: opacity var(--delay-l) ease-in-out, height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	-o-transition: opacity var(--delay-l) ease-in-out, height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	transition: opacity var(--delay-l) ease-in-out, height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+}
+
+.mode_changing .home_display_div_inner_home:not(.home_display_div_inner_case)::before {
+	opacity: 0;
+	-webkit-transition: height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	-moz-transition: height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	-ms-transition: height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	-o-transition: height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+	transition: height var(--delay-l) ease-in-out, border-radius var(--delay-s) ease-in-out;
+}
+
+.mode_light .home_display_div_inner_home:not(.home_display_div_inner_case)::before {
+	background: radial-gradient(circle at right top, transparent, 64%, var(--color-gray6-F0)), url(./assets/basic/grainy_gradients_light.svg);
+}
+.mode_dark .home_display_div_inner_home:not(.home_display_div_inner_case)::before {
+	background: radial-gradient(circle at right top, transparent, 32%, var(--color-lanlv)), url(./assets/basic/grainy_gradients_dark.svg);
+}
+
 
 
 /**--- Resume ---**/
@@ -1425,10 +1459,10 @@ iframe { border: none; }
 	min-width: 352px; /* 480px home_display_div_outer min-width - 2 * 40px side padding width - 2 * 24px side padding of casebrief_div */
 	align-self: flex-start;
 	flex: 0 0 calc(65% - 64px); /* (100% - 35% right gap width) - 40px left padding of home_display_div_outer - 24px left margin in casebrief_div */
-	-webkit-border-radius: var(--radius-m);
-	-khtml-border-radius: var(--radius-m);
-	-moz-border-radius: var(--radius-m);
-	border-radius: var(--radius-m);
+	-webkit-border-radius: var(--radius-l);
+	-khtml-border-radius: var(--radius-l);
+	-moz-border-radius: var(--radius-l);
+	border-radius: var(--radius-l);
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;

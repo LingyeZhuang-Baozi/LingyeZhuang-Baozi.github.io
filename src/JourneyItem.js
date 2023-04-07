@@ -81,7 +81,11 @@ export default function JourneyItem (props) {
 		<div
 			ref={targetWrapperRef}
 			id={props.year+"_"+props.j}
-			className={"journey_journey journey_journey_"+props.mode}
+			className={
+				"journey_journey " +
+				"journey_journey_"+props.mode + " "+
+				(isInViewport ? "journey_journey_inview" : "")
+			}
 		>
 			<div className={
 				"journey_journey_header " +
