@@ -179,7 +179,7 @@ export const cases = {
 		"Bitsrealm",
 		{
 			"title": "UI design internship at Bitsrealm",
-			"description": "During my 6-week internship at Bitsrealm, a VR game company in Shanghai, I closely communicated with planners and developers to design a series of 4 websites along the UX flow of a virtual concert.",
+			"description": "During my 6-week internship at Bitsrealm, a VR game company in Shanghai, I closely communicated with game writers and developers to design a series of 4 websites along the UX flow of a virtual concert.",
 			"thumbnail": require("./assets/cases/Bitsrealm/Bitsrealm_thumbnail.png"),
 			"thumbnail_light": require("./assets/cases/Bitsrealm/Bitsrealm_thumbnail_light.png"),
 			"thumbnail_dark": require("./assets/cases/Bitsrealm/Bitsrealm_thumbnail_dark.png"),

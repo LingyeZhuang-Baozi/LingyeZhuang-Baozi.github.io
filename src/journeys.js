@@ -169,7 +169,7 @@ export const journey = [
 						["img-zoomable", require("./assets/journey/2021/1_bitsrealm/mobile_2.png"), "Bitsrealm mobile website prototype 2", "",],
 						["img-zoomable", require("./assets/journey/2021/1_bitsrealm/performer.png"), "Bitsrealm performer-end prototype", "",],
 						/*["img-zoomable", require("./assets/journey/2021/1_bitsrealm/audience.png"), "Bitsrealm virtual concert audience-end UI prototype", "",],*/ ],
-					"During my 6-week internship at Bitsrealm, a VR game company in Shanghai, I designed a series of 4 websites along the UX flow of a virtual concert, while closely communicating with planners and developers.",
+					"During my 6-week internship at Bitsrealm, a VR game company in Shanghai, I designed a series of 4 websites along the UX flow of a virtual concert, while closely communicating with game writers and developers.",
 				], ],
 			],
 

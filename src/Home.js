@@ -11,13 +11,13 @@ import { Modebtn, Bio, ImgModal } from "./components.js";
 import me1 from "./assets/basic/me-1.jpg";
 import me2 from "./assets/basic/me-2.jpg";
 import resume from "./assets/basic/resume.png";
-import resume_big from "./assets/basic/resume-big.png";
 import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag_1@2x.png";
 import journey_hint_tag from "./assets/basic/journey_hint_tag@2x.png";
 
 /* Libraries */
 import { isSafari, isIE } from "react-device-detect";
-import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
+import MediaQuery from "react-responsive";
+import { Transition, TransitionGroup, CSSTransition } from "react-transition-group";
 import useIsInViewport from "use-is-in-viewport";
 import { GlassMagnifier } from "react-image-magnifiers";
 //import Spline from '@splinetool/react-spline'; // under experiment
@@ -143,33 +143,166 @@ export default function Home (props) {
 
 
 	/* Render */
-	return (
-		<div
-			onLoad={() => { setLoaded(true); }}
-			className={
-				"page page_home " +
-				"page_" + props.mode + " " +
-				(loaded==true ? "page_loaded" : "")
-			}
-		>
+	return (<>
+		<MediaQuery minWidth={800}>{(match) => match?
 
-			<Modebtn mode={props.mode} toggleMode={props.toggleMode} />
+			// Large Screen
+			<div
+				onLoad={() => { setLoaded(true); }}
+				className={
+					"page page_home " +
+					"page_" + props.mode + " " +
+					(loaded==true ? "page_loaded" : "")
+				}
+			>
 
-			<div className={
-				"home_tabs_div_outer home_tabs_primary " +
-				(page==="journey" ? "home_tabs_primary_journey" : "") + " " +
-				(PNisChanging ? "home_tabs_primary_changing" : "")
-			}><div className="home_tabs_div_inner">
+				<Modebtn mode={props.mode} toggleMode={props.toggleMode} />
+
 				<div className={
-					"home_tabs_primary_selected " +
-					"home_tabs_primary_selected_" + page + " " +
-					"home_tabs_primary_selected_" + props.mode + " " +
-					PNanimation
-				} />
-				<div className={
-					"home_tabs " +
-					(page==="journey" ? "home_tabs_journey" : "")
-				}>
+					"home_tabs_div_outer home_tabs_primary " +
+					(page==="journey" ? "home_tabs_primary_journey" : "") + " " +
+					(PNisChanging ? "home_tabs_primary_changing" : "")
+				}><div className="home_tabs_div_inner">
+					<div className={
+						"home_tabs_primary_selected " +
+						"home_tabs_primary_selected_" + page + " " +
+						"home_tabs_primary_selected_" + props.mode + " " +
+						PNanimation
+					} />
+					<div className={
+						"home_tabs " +
+						(page==="journey" ? "home_tabs_journey" : "")
+					}>
+						{PNtabs.map(tab =>
+							<PNT
+								key={"PNtab-"+tab}
+								tab={tab}
+								active={page===tab}
+								onclick={(e) => { handle_PNT_click(e, tab); }}
+								newToJourney={newToJourney}
+								setNewToJourney={setNewToJourney}
+								mode={props.mode}
+								PNisChanging={PNisChanging}
+							/>
+						)}
+					</div>
+				</div></div>
+
+				<div className="full_page_container flex_container">
+					<div className={
+						"home_display_div_outer " +
+						"home_display_div_outer_" + page
+					}>
+						<div className={
+							"home_display_div_inner " +
+							"home_display_div_inner_" + page + " " +
+							(hoveringObject==true ?
+								("home_display_div_inner_case home_display_div_inner_")+hoveredCase
+							: "") + " " +
+							(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
+						}>
+							{(() => {
+								if (page === "home" && hoveringObject==true) {
+									return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
+								} else {
+									return ( <Outlet context={[modalSrc, setModalSrc]}/> );
+								}
+							})()}
+					</div></div>
+
+					<div className={"case_objects_div " + (page==="home" ? "case_objects_div_active" : "")}>
+						<CaseObjects
+							caseObjects={caseObjects}
+							hoveringObject={hoveringObject}
+							setHoveringObject={setHoveringObject}
+							hoveredCase={hoveredCase}
+							setHoveredCase={setHoveredCase}
+							newToHome={newToHome}
+							setNewToHome={setNewToHome}
+							mode={props.mode}
+							blinkingObject={blinkingObject}
+						/>
+					</div>
+				</div>
+
+				<div className="home_tabs_div_outer home_tabs_contact"><div className="home_tabs_div_inner"><div className="home_tabs">
+					{Cbtns.map(Cbtn_pair =>
+						<CB
+							key={"Cbtn-"+Cbtn_pair[0]}
+							btn={Cbtn_pair[0]}
+							link={Cbtn_pair[1]}
+							mode={props.mode}
+						/>
+					)}
+				</div></div></div>
+
+				<ImgModal
+					modalSrc={modalSrc}
+					mode={props.mode}
+				/>
+
+			</div>
+
+		:
+
+			// Small Screen
+			<>
+
+				<div
+					onLoad={() => { setLoaded(true); }}
+					className={
+						"page page_home " +
+						"page_" + props.mode + " " +
+						(loaded==true ? "page_loaded" : "")
+					}
+				>
+
+					<div className="mobile_hint">
+						Please use a wider screen for full experience!
+					</div>
+
+					<div className="flex_container flex_container_col">
+
+						<div className={
+							"home_display_div_inner " +
+							"home_display_div_inner_" + page + " " +
+							(hoveringObject==true ?
+								("home_display_div_inner_case home_display_div_inner_")+hoveredCase
+							: "") + " " +
+							(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
+						}>
+							{(() => {
+								if (page === "home" && hoveringObject==true) {
+									return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
+								} else {
+									return ( <Outlet context={[modalSrc, setModalSrc]}/> );
+								}
+							})()}
+						</div>
+
+						{/*TODO: <CaseCards?>*/}
+					</div>
+
+					<div className="home_tabs">
+						{Cbtns.map(Cbtn_pair =>
+							<CB
+								key={"Cbtn-"+Cbtn_pair[0]}
+								btn={Cbtn_pair[0]}
+								link={Cbtn_pair[1]}
+								mode={props.mode}
+							/>
+						)}
+					</div>
+
+					{/*<ImgModal
+						modalSrc={modalSrc}
+						mode={props.mode}
+					/>*/}
+
+				</div>
+
+				{/*<Modebtn mode={props.mode} toggleMode={props.toggleMode} />*/}
+				<div className="home_tabs home_tabs_primary">
 					{PNtabs.map(tab =>
 						<PNT
 							key={"PNtab-"+tab}
@@ -183,63 +316,10 @@ export default function Home (props) {
 						/>
 					)}
 				</div>
-			</div></div>
 
-			<div className="full_page_container flex_container">
-				<div className={
-					"home_display_div_outer " +
-					"home_display_div_outer_" + page
-				}>
-					<div className={
-						"home_display_div_inner " +
-						"home_display_div_inner_" + page + " " +
-						(hoveringObject==true ?
-							("home_display_div_inner_case home_display_div_inner_")+hoveredCase
-						: "") + " " +
-						(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
-					}>
-						{(() => {
-							if (page === "home" && hoveringObject==true) {
-								return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
-							} else {
-								return ( <Outlet context={[modalSrc, setModalSrc]}/> );
-							}
-						})()}
-				</div></div>
-
-				<div className={"case_objects_div " + (page==="home" ? "case_objects_div_active" : "")}>
-					<CaseObjects
-						caseObjects={caseObjects}
-						hoveringObject={hoveringObject}
-						setHoveringObject={setHoveringObject}
-						hoveredCase={hoveredCase}
-						setHoveredCase={setHoveredCase}
-						newToHome={newToHome}
-						setNewToHome={setNewToHome}
-						mode={props.mode}
-						blinkingObject={blinkingObject}
-					/>
-				</div>
-			</div>
-
-			<div className="home_tabs_div_outer home_tabs_contact"><div className="home_tabs_div_inner"><div className="home_tabs">
-				{Cbtns.map(Cbtn_pair =>
-					<CB
-						key={"Cbtn-"+Cbtn_pair[0]}
-						btn={Cbtn_pair[0]}
-						link={Cbtn_pair[1]}
-						mode={props.mode}
-					/>
-				)}
-			</div></div></div>
-
-			<ImgModal
-				modalSrc={modalSrc}
-				mode={props.mode}
-			/>
-
-		</div>
-	);
+			</>
+		}</MediaQuery>
+	</>);
 }
 
 /**
@@ -290,19 +370,18 @@ function PNT (props) {
 					onDragStart={e => e.preventDefault()}
 				/>
 			</Link>
-			{props.newToJourney && props.tab==="journey" ?
-				<img className="home_tab_primary_journey_hint" srcSet={journey_hint_tag+" 2x"} />
-			: null}
 		</div>
 		{props.tab==="journey" ?
-			<div
-				className="journey_timeline_div_outer"
-				style={{opacity: props.active==true ? "1" : "0"}}
-			>
-				<div className="journey_timeline_div_inner">
-					<div className={"journey_timeline_line journey_timeline_line_"+props.mode} />
+			<>{<MediaQuery minWidth={800}>{(match) => match?
+				<div
+					className="journey_timeline_div_outer"
+					style={{opacity: props.active==true ? "1" : "0"}}
+				>
+					<div className="journey_timeline_div_inner">
+						<div className={"journey_timeline_line journey_timeline_line_"+props.mode} />
+					</div>
 				</div>
-			</div>
+			: null }</MediaQuery>}</>
 		: null}
 	</>);
 }
@@ -353,38 +432,44 @@ function AboutMe (props) {
 	return (
 		<>
 
-			<div
-				className="profile_pic_div dis_select"
-				onMouseEnter={() => { setProfilePicGaze(true); }}
-				onMouseOver={() => { setProfilePicGaze(true); }}
-				onMouseLeave={() => { // hold the gaze for a while
-					setProfilePicGaze(true);
-					setTimeout(() => {
-						setProfilePicGaze(false);
-					}, 540); // var(--delay-l)
-				}}
-			>
-				<img
-					src={me1}
-					alt="A photo of me"
-					className={
-						"profile_pic profile_pic_static zlift " +
-						(profilePicGaze ? "profile_pic_gaze" : "")
-					}
-					onDragStart={e => e.preventDefault()}
-				/>
-				<img
-					src={me2}
-					alt="A photo of me"
-					className="profile_pic profile_pic_active"
-					onDragStart={e => e.preventDefault()}
-				/>
-			</div>
+			<MediaQuery minWidth={800}>{(match) => match?
+
+				<div
+					className="profile_pic_div dis_select"
+					onMouseEnter={() => { setProfilePicGaze(true); }}
+					onMouseOver={() => { setProfilePicGaze(true); }}
+					onMouseLeave={() => { // hold the gaze for a while
+						setProfilePicGaze(true);
+						setTimeout(() => {
+							setProfilePicGaze(false);
+						}, 540); // var(--delay-l)
+					}}
+				>
+					<img
+						src={me1}
+						alt="A photo of me"
+						className={
+							"profile_pic profile_pic_static zlift " +
+							(profilePicGaze ? "profile_pic_gaze" : "")
+						}
+						onDragStart={e => e.preventDefault()}
+					/>
+					<img
+						src={me2}
+						alt="A photo of me"
+						className="profile_pic profile_pic_active"
+						onDragStart={e => e.preventDefault()}
+					/>
+				</div>
+
+			: null }</MediaQuery>
 
 			<div className={"selfintro zlift text"}>
-				<p className={"text"}>
-					Hey! You found my little cabin on the internet!
-				</p>
+				<MediaQuery minWidth={800}>{(match) => match?
+					<p className={"text"}>
+						Hey! You found my little cabin on the internet!
+					</p>
+				: null }</MediaQuery>
 				<span className="selfintro_name">
 					{/*<span className="selfintro_name_word">
 						<span>L</span>
@@ -579,15 +664,23 @@ function CaseBrief (props) {
  */
 function Resume (props) {
 	// if (isSafari || isIE) {
-		return (
-			<div className="resume_div">
+		return (<>
+			<MediaQuery minWidth={800}>{(match) => match?
+				<div className="resume_div">
+					<img
+						className="resume"
+						src={resume}
+						onDragStart={e => e.preventDefault()}
+					/>
+				</div>
+			:
 				<img
 					className="resume"
 					src={resume}
 					onDragStart={e => e.preventDefault()}
 				/>
-			</div>
-		);
+			}</MediaQuery>
+		</>);
 	// } else {
 	// 	return (
 	// 		<GlassMagnifier

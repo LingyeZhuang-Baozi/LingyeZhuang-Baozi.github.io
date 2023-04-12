@@ -8,6 +8,7 @@ import { Contents, Explanation } from "./components.js";
 /* Libraries */
 import useIsInViewport from "use-is-in-viewport";
 import { isSafari, isIE } from "react-device-detect";
+import MediaQuery from "react-responsive";
 
 /* Lazy loads */
 const JourneyItem = lazy(() => import('./JourneyItem.js'));
@@ -124,11 +125,13 @@ export default function Journey (props) {
 
 	/* Render */
 	return (<>
-		<JourneyNodes
-			year_list={year_list}
-			currYear={currYear}
-			mode={props.mode}
-		/>
+		<MediaQuery minWidth={800}>{(match) => match?
+			<JourneyNodes
+				year_list={year_list}
+				currYear={currYear}
+				mode={props.mode}
+			/>
+		: null }</MediaQuery>
 		{full_journey.map ((year, i) =>
 			//<>{ (journey_refs && journey_refs.current.length > 0 && journey_dic.length > 0) ?
 			<JourneyYear

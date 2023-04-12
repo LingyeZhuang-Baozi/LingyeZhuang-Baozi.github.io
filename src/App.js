@@ -15,7 +15,7 @@ import Journey from './Journey.js';
 import CaseSelector from './Case.js';
 
 /* Libraries */
-import { Breakpoint, BreakpointProvider } from 'react-socks';
+import { useMediaQuery } from 'react-responsive';
 import { Transition, SwitchTransition, CSSTransition } from 'react-transition-group';
 
 
@@ -79,9 +79,17 @@ function App() {
 		},
 	]);
 
+	/* Breakpoints */
+	const isLargeViewport = useMediaQuery({ query: '(min-width: 800px)' });
+
 	/* Render */
 	return (
-		<div className={"mode_"+mode + (modeChanging==true ? " mode_changing" : "")}>
+		<div
+			className={
+				"mode_"+mode + (modeChanging==true ? " mode_changing" : "") + " "+
+				(isLargeViewport ? "viewport_large" : "viewport_small")
+			}
+		>
 			<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
 		</div>
 	);
