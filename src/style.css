@@ -240,7 +240,8 @@ iframe { border: none; }
 	transition: color var(--delay-xs) ease-in-out;
 	/* TODO: different color transition speed upon hover vs. when mode changes */
 }
-.content a::before {
+
+.viewport_large .content a::before {
 	content: "";
 	background-color: var(--color-lvsongshi);
 	height: var(--border-width-l);
