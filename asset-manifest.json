@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.fb9fbf79.css",
-    "main.js": "/static/js/main.e83ef493.js",
+    "main.css": "/static/css/main.bd3e5506.css",
+    "main.js": "/static/js/main.65f6f906.js",
     "static/js/582.3d93328c.chunk.js": "/static/js/582.3d93328c.chunk.js",
     "static/js/334.7001531c.chunk.js": "/static/js/334.7001531c.chunk.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
@@ -42,9 +42,9 @@
     "static/media/cell_staining_notes.jpeg": "/static/media/cell_staining_notes.1f496c6ffb0112aa4300.jpeg",
     "static/media/RehaBuddy_thumbnail_light.png": "/static/media/RehaBuddy_thumbnail_light.a07c3998819fb2862e85.png",
     "static/media/RehaBuddy_thumbnail_dark.png": "/static/media/RehaBuddy_thumbnail_dark.4cd60a50641220ee8b2a.png",
-    "static/media/resume-big.png": "/static/media/resume-big.c44f59dc7f3fdd04e46e.png",
     "static/media/Bitsrealm_thumbnail_light.png": "/static/media/Bitsrealm_thumbnail_light.c6a41ae6d6d03c591c60.png",
     "static/media/LAK_thumbnail_light.png": "/static/media/LAK_thumbnail_light.4a492624ff5d18917c7f.png",
+    "static/media/resume.png": "/static/media/resume.baf35eaa46438da6b49d.png",
     "static/media/home.png": "/static/media/home.88938d5f31131ae66540.png",
     "static/media/Neureality_thumbnail_dark.png": "/static/media/Neureality_thumbnail_dark.9dc890551e34480728ed.png",
     "static/media/RehaBuddy_thumbnail.png": "/static/media/RehaBuddy_thumbnail.b9fd2bd98e1404917043.png",
@@ -92,7 +92,6 @@
     "static/media/poster_1_process.png": "/static/media/poster_1_process.5c86fd4c99528a24b732.png",
     "static/media/trifold.png": "/static/media/trifold.2446b8aec9fbbb2247b7.png",
     "static/media/3_2_paper_prototype_solve_question.png": "/static/media/3_2_paper_prototype_solve_question.8f471129288f35815129.png",
-    "static/media/resume.png": "/static/media/resume.09206d8bedb1241daa54.png",
     "static/media/event_details.png": "/static/media/event_details.d32d7067912617812129.png",
     "static/media/about.png": "/static/media/about.eb44f9c811540c39a5bd.png",
     "static/media/2_feature_table.png": "/static/media/2_feature_table.2ccf5074821068878795.png",
@@ -305,14 +304,14 @@
     "static/media/bullet_large_light.svg": "/static/media/bullet_large_light.2b8b00e613202f96b22f.svg",
     "static/media/bullet_small_dark.svg": "/static/media/bullet_small_dark.39a5d944e30ddaa71639.svg",
     "static/media/bullet_small_light.svg": "/static/media/bullet_small_light.9c60ba578b85f1e3836a.svg",
-    "main.fb9fbf79.css.map": "/static/css/main.fb9fbf79.css.map",
-    "main.e83ef493.js.map": "/static/js/main.e83ef493.js.map",
+    "main.bd3e5506.css.map": "/static/css/main.bd3e5506.css.map",
+    "main.65f6f906.js.map": "/static/js/main.65f6f906.js.map",
     "582.3d93328c.chunk.js.map": "/static/js/582.3d93328c.chunk.js.map",
     "334.7001531c.chunk.js.map": "/static/js/334.7001531c.chunk.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fb9fbf79.css",
-    "static/js/main.e83ef493.js"
+    "static/css/main.bd3e5506.css",
+    "static/js/main.65f6f906.js"
   ]
 }
