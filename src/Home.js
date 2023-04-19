@@ -370,6 +370,11 @@ function PNT (props) {
 					onDragStart={e => e.preventDefault()}
 				/>
 			</Link>
+			{props.newToJourney && props.tab==="journey" ?
+				<>{<MediaQuery minWidth={800}>{(match) => match?
+					<img className="home_tab_primary_journey_hint" srcSet={journey_hint_tag+" 2x"} />
+				: null }</MediaQuery>}</>
+			: null}
 		</div>
 		{props.tab==="journey" ?
 			<>{<MediaQuery minWidth={800}>{(match) => match?
