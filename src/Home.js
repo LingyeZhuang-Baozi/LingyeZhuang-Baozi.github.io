@@ -112,7 +112,7 @@ export default function Home (props) {
 	const Cbtns = [
 		["email", "mailto:l1zhuang@ucsd.edu"/*link="mailto:zhuanglingye@163.com"*/],
 		["instagram", "https://www.instagram.com/juliet_baozi/"],
-		["linkedin", "https://www.linkedin.com/in/lingye-juliet-zhuang-a1b4731a1"]
+		["linkedin", "https://www.linkedin.com/in/julietzhuang"]
 	];
 
 
