@@ -347,12 +347,13 @@ export const journey = [
 				], ],
 			],
 
-			[ ["Website design for Cheese Club, where cheese and love are shared", "Cheese Club"], [],
-				[ [ 1,
+			[ ["Website for Cheese Club, where cheese and love are shared", "Cheese Club"], [],
+				[ [ 2,
 					[ ["img-zoomable", require("./assets/journey/2023/2_cheese_club/home.png"), "Cheese Club website home page", "",],
 						["img-zoomable", require("./assets/journey/2023/2_cheese_club/about.png"), "Cheese Club website about us page", "",],
 						["img-zoomable", require("./assets/journey/2023/2_cheese_club/event.png"), "Cheese Club website events page", "",],
 						["img-zoomable", require("./assets/journey/2023/2_cheese_club/event_details.png"), "Cheese Club website event details", "",], ],
+					"My roommates and I founded Cheese Club as a response to the return-to-school challenge following the COVID-19 pandemic. By hosting many cheese-related events, we aim to create a safe space for students to connect and socialize. Check out our website that I designed using Figma and implemented using Webflow: <a href='https://cheese-club-ucsd.webflow.io/' target='_blank'>Cheese Club</a>.",
 				], ],
 			],
 
