@@ -30,7 +30,6 @@ Made with React JS and ♡.
 - [smooth scroll](https://www.w3schools.com/howto/howto_css_smooth_scroll.asp)
 - [Siema slides effect](https://pawelgrzybek.github.io/siema/)
 - [CSS customize cursor](https://css-tricks.com/using-css-cursors/)
-- [React lazy loading](https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52/)
 
 ### Color:
 - [Adobe color wheel](https://color.adobe.com/create/color-wheel)
@@ -64,6 +63,11 @@ Made with React JS and ♡.
 - [react-device-detect](https://www.npmjs.com/package/react-device-detect)
 - [localStorage for dark/light mode](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)
 - [NN/g long hover display principle](https://www.nngroup.com/articles/timing-exposing-content/)
+
+### Experience:
+- [React lazy loading](https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52/)
+- [React preload large images](https://jackskylord.medium.com/how-to-preload-images-into-cache-in-react-js-ff1642708240)
+- [RegEx require all images](https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack)
 
 ### Deploy:
 - [react-gh-pages](https://github.com/gitname/react-gh-pages)

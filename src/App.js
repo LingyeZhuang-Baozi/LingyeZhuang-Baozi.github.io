@@ -82,6 +82,31 @@ function App() {
 	/* Breakpoints */
 	const isLargeViewport = useMediaQuery({ query: '(min-width: 800px)' });
 
+	/* Preload helper */
+	const [isLoading, setIsLoading] = useState(true);
+	const batchImport = (requiredImgs) => {
+		return requiredImgs.keys().map(requiredImgs);
+	}
+	var imgsToPreload = batchImport(require.context(
+		"./assets/basic/",		// relative path to folder with images to import and preload
+		false,								// don't look into subdirectories
+		/\.(png|jpe?g|svg)$/	// all possible file extensions
+	));
+	const cacheImages = async (imgs) => {
+		const promises = await imgs.map(imgSrc => {
+			return new Promise((resolve, reject) => {
+				const img = new Image();
+				img.src = imgSrc;
+				img.onLoad = resolve();
+				img.onerror = reject();
+			})
+		})
+		await Promise.all(promises);
+		setIsLoading(false);
+		console.log("Finished loading large images.");
+	}
+	useEffect(() => { cacheImages(imgsToPreload); }, [])
+
 	/* Render */
 	return (
 		<div
@@ -90,7 +115,11 @@ function App() {
 				(isLargeViewport ? "viewport_large" : "viewport_small")
 			}
 		>
-			<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
+			{isLoading==true ?
+				<div>Loading...</div>
+			:
+				<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
+			}
 		</div>
 	);
 }
