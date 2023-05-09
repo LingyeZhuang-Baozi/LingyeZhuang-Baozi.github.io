@@ -312,16 +312,9 @@ export const journey = [
 				], ],
 			],
 
-			// [ ["...", "COGS 100"], [],
-			// 	[ [ 2,
-			// 		[ ["img-static", require("./assets/journey/2022/7_cogs100/....png"), "...", "",], ],
-			// 		"..",
-			// 	], ],
-			// ],
-
 			[ ["Dear inheritor, interactive artpiece", "VIS 147A"], [],
 				[ [ 2,
-					[ ["img-static", require("./assets/journey/2022/8_electronic_art/the_inheritor_demo.png"), "the inheritor", "",], ],
+					[ ["img-static", require("./assets/journey/2022/7_electronic_art/the_inheritor_demo.png"), "the inheritor", "",], ],
 					"\"I was standing. You were there. Two worlds collided. And they could never, ever tear us apart.\" May the shared gaze connect souls across the river of time. Art concept implemented with simple Arduino program.",
 				], ],
 			],
