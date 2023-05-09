@@ -87,9 +87,14 @@ function App() {
 	const batchImport = (requiredImgs) => {
 		return requiredImgs.keys().map(requiredImgs);
 	}
+	// var imgsToPreload = batchImport(require.context(
+	// 	"./assets/",		// relative path to folder with images to import and preload
+	// 	true,								// don't look into subdirectories
+	// 	/\.(png|jpe?g|svg)$/	// all possible file extensions
+	// ));
 	var imgsToPreload = batchImport(require.context(
-		"./assets/",					// relative path to folder with images to import and preload
-		true,									// don't look into subdirectories
+		"./assets/basic/",		// relative path to folder with images to import and preload
+		false,								// don't look into subdirectories
 		/\.(png|jpe?g|svg)$/	// all possible file extensions
 	));
 	const cacheImages = async (imgs) => {
