@@ -82,7 +82,7 @@ function App() {
 	/* Breakpoints */
 	const isLargeViewport = useMediaQuery({ query: '(min-width: 800px)' });
 
-	/* Preload helper */
+	/* Preload helper */ /*
 	const [isLoading, setIsLoading] = useState(true);
 	const batchImport = (requiredImgs) => {
 		return requiredImgs.keys().map(requiredImgs);
@@ -120,11 +120,12 @@ function App() {
 				(isLargeViewport ? "viewport_large" : "viewport_small")
 			}
 		>
-			{isLoading==true ?
+			{/*{isLoading==true ?
 				<div>Loading...</div>
 			:
-				<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
-			}
+				<RouterProvider router={router} />
+			}*/}
+			<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
 		</div>
 	);
 }
