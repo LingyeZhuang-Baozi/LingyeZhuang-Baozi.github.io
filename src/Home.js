@@ -1063,7 +1063,13 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 				} : {})}
 			>
 				<>
-					<div className="home-case-img-container"></div>
+					<div className="home-case-img-container">
+						<img
+							className="home-case-img"
+							src={caseContent.thumbnail.img}
+							alt={"case thumbnail of " + caseContent.title}
+						/>	{/* TODO: enable pausing gif when inactive */}
+					</div>
 					<div className="home-case-text-container">
 						<div className="home-case-title">
 							{caseContent.title}
