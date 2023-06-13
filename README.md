@@ -73,6 +73,7 @@ Made with React JS and ♡.
 - [react-gh-pages](https://github.com/gitname/react-gh-pages)
 - [change favicon](https://reactgo.com/react-change-favicon/)
 - [Git large file storage](https://git-lfs.github.com)
+- [meta tag](https://www.w3schools.com/tags/tag_meta.asp)
 
 ### Library:
 - [react-image-magnifiers](https://www.npmjs.com/package/@rafw87/react-image-magnifiers)

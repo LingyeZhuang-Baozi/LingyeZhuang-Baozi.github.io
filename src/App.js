@@ -1,68 +1,119 @@
-/**
- * Notes:
- * 
- * React version: 18.2.0.
- */
+/*** Portfolio Version 3.0 ***/
 
-import React, { useState , useEffect } from 'react';
-//import { /*BrowserRouter as Router,*/ HashRouter as Router, Routes, Route, Navigate, ScrollRestoration } from "react-router-dom";
+import React, { useState, useEffect, useReducer, createContext } from 'react';
 import { createHashRouter, RouterProvider, redirect, ScrollRestoration } from "react-router-dom";
 
+import './_style.scss';
+
 /* Foreign components */
-import './style.css';
-import Home, { AboutMe, Resume } from './Home.js';
-import Journey from './Journey.js';
-import CaseSelector from './Case.js';
+import Home from './Home.js';
+//import Journey from './Journey.js';
+//import CaseSelector from './Case.js';
 
 /* Libraries */
-import { useMediaQuery } from 'react-responsive';
-import { Transition, SwitchTransition, CSSTransition } from 'react-transition-group';
+//import { useMediaQuery } from 'react-responsive';
+
+
+
+/* Mode Switch 1: Light-dark Mode */
+export const modeContext = createContext(null);
+export const dispatchModeContext = createContext(null);
+function modeReducer (currState, modeAction) {
+	switch (modeAction.type) {
+		case "toggle": {
+			if (currState.changing==false) {
+				return ({
+					mode: !currState.mode,
+					changing: true,
+				});
+			} else {
+				return ({...currState});
+			}
+		}
+		case "changed": {
+			return ({
+				mode: currState.mode,
+				changing: false,
+			});
+		}
+		default: {
+			console.error("Mode switching error. Received modeAction:", modeAction);
+		}
+	}
+}
+
+/* Mode Switch 2: Language */
+export const languageContext = createContext(null);
+export const dispatchLanguageContext = createContext(null);
+function languageReducer (currLanguage, languageAction) {
+	switch (languageAction.type) {
+		case "toggle": {
+			return (!currLanguage);
+		}
+		default: {
+			console.error("Language switching error. Received languageAction:", languageAction);
+		}
+	}
+}
+
+/* Cursor */
+export const dispatchCursorTypeContext = createContext(null);
+function cursorTypeReducer (currCursorType, cursorTypeAction) {
+	switch (cursorTypeAction.type) {
+		case "default": { return ("default"); }
+		case "pointer": { return ("pointer"); }
+		case "progress": { return ("progress"); }
+		default: { return ("default"); }
+	}
+}
 
 
 
 /**
  * App, the entry point
  */
-function App() {
+export default function App() {
 
-	/* Light mode */
-	const [mode, setMode] = useState(localStorage&&localStorage.getItem("zhuanglingye_mode") ? localStorage.getItem("zhuanglingye_mode") : "light");  // light*, dark
-	const [modeChanging, setModeChanging] = useState(false);
+	/* Mode Switch 1: Light-dark Mode */
+	/* TODO: Reference: https://blog.logrocket.com/dark-mode-react-in-depth-guide/ */
+	const [mode, dispatchMode] = useReducer(modeReducer, {
+		mode: true,	// true = light, false = dark
+		changing: false,
+	});
 	useEffect (() => {
-		if (localStorage && !localStorage.getItem("zhuanglingye_mode")) {
-			localStorage.setItem("zhuanglingye_mode", "light");
+		if (mode.changing == true) {
+			setTimeout (() => {
+				dispatchMode({type: "changed"});
+			}, 550); // $time-l 540ms with a bit of extra
 		}
-	}, []);
-	const toggleMode = () => {
-		const prev_mode = mode;
-		const new_mode = (prev_mode==="light" ? "dark" : "light");
-		localStorage.setItem("zhuanglingye_mode", new_mode);
-		setMode(new_mode);
-		setModeChanging(true);
-		setTimeout (() => {
-			setModeChanging(false);
-		}, 550); // var(--delay-l) 540ms with a bit of extra
-	}
+	}, [mode.changing]);
 
-	/* Journey bookmark */
-	const [journeyBookmark, setJourneyBookmark] = useState(localStorage&&localStorage.getItem("zhuanglingye_journey_bookmark") ? localStorage.getItem("zhuanglingye_journey_bookmark") : null);
-	useEffect (() => {
-		if (localStorage && !localStorage.getItem("zhuanglingye_journey_bookmark")) {
-			localStorage.setItem("zhuanglingye_journey_bookmark", null);
-		}
+	/* Mode Switch 2: Language */
+	const [language, dispatchLanguage] = useReducer(languageReducer, true);	// true = English, false = Chinese
+	useEffect(() => { document.documentElement.lang = (language==true ? "en" : "zh") }, [language]);
+
+	/* Cursor */
+	const [cursorType, dispatchCursorType] = useReducer(cursorTypeReducer, "default");
+	const [cursorPos, setCursorPos] = useState({});
+	useEffect(() => {
+		const cursorMoveHandler = (e) => {
+			setCursorPos({ x: e.clientX, y: e.clientY });
+		};
+		window.addEventListener("mousemove", cursorMoveHandler);
+		return () => {
+			window.removeEventListener(
+				"mousemove",
+				cursorMoveHandler
+			);
+		};
 	}, []);
-	useEffect (() => {
-		if (localStorage) {
-			localStorage.setItem("zhuanglingye_journey_bookmark", journeyBookmark);
-		}
-	}, [journeyBookmark]);
 
 	/* Routes */
 	const router = createHashRouter ([
 		{ path: "/",
-			element: <Home mode={mode} toggleMode={toggleMode} />,
+			element: <Home />,
 			//loader: ...,
-			children: [
+			/*children: [
 				{ index: true,
 					element: <AboutMe mode={mode} />,
 				},
@@ -72,62 +123,44 @@ function App() {
 				{ path: "journey",
 					element: <Journey mode={mode} journeyBookmark={journeyBookmark} setJourneyBookmark={setJourneyBookmark} />,
 				},
-			],
+			],*/
+			//errorElement: <>{() => { redirect("/"); }}</>,	//TODO
 		},
-		{ path: "/:caseName",
-			element: <CaseSelector mode={mode} toggleMode={toggleMode} />
-		},
+		// { path: "/:caseName",
+		// 	element: <CaseSelector mode={mode} toggleMode={toggleMode} />,
+		// 	//errorElement: <>{() => { redirect("/"); }}</>,
+		// },
 	]);
-
-	/* Breakpoints */
-	const isLargeViewport = useMediaQuery({ query: '(min-width: 800px)' });
-
-	/* Preload helper */ /*
-	const [isLoading, setIsLoading] = useState(true);
-	const batchImport = (requiredImgs) => {
-		return requiredImgs.keys().map(requiredImgs);
-	}
-	// var imgsToPreload = batchImport(require.context(
-	// 	"./assets/",		// relative path to folder with images to import and preload
-	// 	true,								// don't look into subdirectories
-	// 	/\.(png|jpe?g|svg)$/	// all possible file extensions
-	// ));
-	var imgsToPreload = batchImport(require.context(
-		"./assets/basic/",		// relative path to folder with images to import and preload
-		false,								// don't look into subdirectories
-		/\.(png|jpe?g|svg)$/	// all possible file extensions
-	));
-	const cacheImages = async (imgs) => {
-		const promises = await imgs.map(imgSrc => {
-			return new Promise((resolve, reject) => {
-				const img = new Image();
-				img.src = imgSrc;
-				img.onLoad = resolve();
-				img.onerror = reject();
-			})
-		})
-		await Promise.all(promises);
-		setIsLoading(false);
-		console.log("Finished loading large images.");
-	}
-	useEffect(() => { cacheImages(imgsToPreload); }, [])
 
 	/* Render */
 	return (
-		<div
-			className={
-				"mode_"+mode + (modeChanging==true ? " mode_changing" : "") + " "+
-				(isLargeViewport ? "viewport_large" : "viewport_small")
-			}
-		>
-			{/*{isLoading==true ?
-				<div>Loading...</div>
-			:
-				<RouterProvider router={router} />
-			}*/}
-			<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
+		<div className={"groundfloor " +
+			"mode-" + (mode.mode==true ? "light" : "dark") + " " +
+			(mode.changing==true ? "mode-changing" : "") + " " +
+			"language-" + (language==true ? "en" : "cn")
+		}>
+			<modeContext.Provider value={mode}>
+			<dispatchModeContext.Provider value={dispatchMode}>
+			<languageContext.Provider value={language}>
+			<dispatchLanguageContext.Provider value={dispatchLanguage}>
+			<dispatchCursorTypeContext.Provider value={dispatchCursorType}>
+				<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
+			</dispatchCursorTypeContext.Provider>
+			</dispatchLanguageContext.Provider>
+			</languageContext.Provider>
+			</dispatchModeContext.Provider>
+			</modeContext.Provider>
+
+			<div className="cursor-space-out"><div className="cursor-space-in">
+				<div
+					className="cursor-position"
+					style={{"--cursorX": cursorPos.x+"px", "--cursorY": cursorPos.y+"px"}}
+				>
+					<div className="cursor">
+						<div className={"cursor-shape cursor-" + cursorType}></div>
+					</div>
+				</div>
+			</div></div>
 		</div>
 	);
 }
-
-export default App;

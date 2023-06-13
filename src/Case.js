@@ -50,7 +50,7 @@ export default function CaseSelector (props) {
 
 	if (URLtype==="case" && caseName in cases) {
 		return (<>
-			<Case case={caseName} mode={props.mode} toggleMode={props.toggleMode} />
+			<Case case={caseName} mode={props.mode} toggleMode={props.toggleMode} /> {/*TODO: Don't forget to ad KEY!! So React treat each case as a new element to build from scratch*/}
 			<ScrollRestoration />
 		</>);
 	} else {

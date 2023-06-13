@@ -201,7 +201,7 @@ export const journey = [
 				], ],
 			],
 
-			[ ["RehaBuddy, menstrual dignity for girls in Pune, India", "Idea Lab"],
+			[ ["RehaBuddy, electronic pet for stroke rehabilitation", "Idea Lab"],
 				["RehaBuddy", [require("./assets/cases/RehaBuddy/object_RehaBuddy_light@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_active@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_light_blink@2x.png"), require("./assets/cases/RehaBuddy/object_RehaBuddy_dark_blink@2x.png")],],
 				[ [ 1,
 					[ ["img-static", require("./assets/journey/2021/5_rehabuddy/prototype_illustration.png"), "RehaBuddy prototype illustration", "",],

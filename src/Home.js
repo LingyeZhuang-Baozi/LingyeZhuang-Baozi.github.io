@@ -1,662 +1,525 @@
-import React, { useState, useEffect, createRef, useRef } from 'react';
-import { Outlet, Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useReducer, createContext, useContext, createRef, useRef } from 'react';
+import { Link } from "react-router-dom";
+//import { HashLink } from 'react-router-hash-link';
+
+import './Home.scss';
 
 /* Foreign components */
-import { cases } from "./cases.js";
-//import { journey } from "./journeys.js";
-import { Modebtn, Bio, ImgModal } from "./components.js";
-// import Nav from "./Nav.js";
-
-/* Assets */
-import me1 from "./assets/basic/me-1.jpg";
-import me2 from "./assets/basic/me-2.jpg";
-import resume from "./assets/basic/resume.png";
-import case_studies_hint_tag from "./assets/basic/case_studies_hint_tag_1@2x.png";
-import journey_hint_tag from "./assets/basic/journey_hint_tag@2x.png";
+import { btns, images } from './assets.js';
+import { cases, casesNames, casesGoats, casesByCategory, casesByTimeline } from './cases.js';
+import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchCursorTypeContext } from './App.js';
+import { A, Emoji } from "./components.js";
+import { ReactComponent as ObjectRandom } from "./assets/basic/object_RANDOM.svg";	// TODO
+import { ReactComponent as AskMyCaseStudies } from "./assets/basic/hintblobs/ask_my_case_studies.svg";	// TODO
 
 /* Libraries */
-import { isSafari, isIE } from "react-device-detect";
-import MediaQuery from "react-responsive";
-import { Transition, TransitionGroup, CSSTransition } from "react-transition-group";
 import useIsInViewport from "use-is-in-viewport";
-import { GlassMagnifier } from "react-image-magnifiers";
-//import Spline from '@splinetool/react-spline'; // under experiment
-
-/* Global variables */
-const four_devarajas = ["ACM", "RehaBuddy", "Bitsrealm", "CruzRoja"];
-const objects = "https://prod.spline.design/qOffy9zkxi4id6yS/scene.splinecode"; // under experiment
+//import { isSafari, isIE } from "react-device-detect";
+//import parse from 'html-react-parser';
 
 
 
-/**
- * Home
- *
- * props:
- *	- mode (str)
- *	- toggleMode (func)
- */
-export default function Home (props) {
+/* Link Creator */
+function idCreator (str) {
+	return str.replace(/\//g, '-');
+}
 
-	/* Page */
-	const curr_route = useLocation().pathname.substring(1);
-	const [page, setPage] = useState(curr_route && ["resume", "home", "journey"].includes(curr_route) ? curr_route : "home");	// resume, home*, journey
-	const [newToHome, setNewToHome] = useState(true);
-	const [newToJourney, setNewToJourney] = useState(true);
-	useEffect(()=>{
-		if (page==="journey") {
-			setNewToJourney(false);
+/* Navigate to Case and Section */
+const controlBarHeight = 80;//px
+function scrollTo (target, scrollBehavior="smooth", preserveOffset=false) {
+	var prevNetPosition = 0;
+	if (preserveOffset == true) {
+		const prevElement = document.getElementById(idCreator(target));
+		prevNetPosition = prevElement.getBoundingClientRect().top;
+	}
+	setTimeout (() => {
+		var netPosition;
+		if (preserveOffset == false) {
+			const toElement = document.getElementById(idCreator(target));
+			netPosition = toElement.getBoundingClientRect().top;
+		} else {
+			netPosition = prevNetPosition;
 		}
-	},[page]);
+		const offsettedPosition = netPosition + window.pageYOffset - controlBarHeight;
+		//console.log(prevNetPosition, netPosition);	//DEBUG
+		window.scrollTo({
+			top: offsettedPosition,
+			behavior: scrollBehavior,
+		});
+	}, 0);
+		// TODO:
+		//	① better way to detect did mount
+		//	② use ref instead of ref, eg. refs.current[id].current.scrollIntoView(...);
+}
 
-
-	/* Primary nav tabs and their animation state */
-	const PNtabs = ["resume", "home", "journey"];
-	const [PNisChanging, setPNisChanging] = useState(false);
-	const [PNanimation, setPNanimation] = useState("");
-	const handle_PNT_click = (e, tab) => {
-		// e.preventDefault(); // no need to preventDefault here since the default is to switch path
-		setPage(tab);
-		if (page!==tab) {
-			setPNisChanging(true);
-			setPNanimation("home_tabs_primary_selected_" + page + "_to_" + tab);
-			setTimeout(() => {
-				setPNanimation("");
-				setPNisChanging(false);
-			}, 270); // var(--delay-m)
-		} else if (page==="resume") {
-			window.open("https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing", '_blank', 'noopener,noreferrer');
+/* Curr Case In View */
+const caseInViewContext = createContext(null);
+const dispatchCaseInViewContext = createContext(null);
+function caseInViewReducer (currState, caseInViewAction) {
+	switch (caseInViewAction.type) {
+		case "restoreCurrCase": {
+			if (currState.curr) { scrollTo(currState.curr, "auto", false); }
+			return currState;
+		}
+		case "changeByScroll": {
+			var newState = {...currState};
+			newState.curr = caseInViewAction.currCase;
+			return newState;
+		}
+		case "observerChingLing": {
+			var newState = {...currState};
+			newState.observer[caseInViewAction.caseName] = caseInViewAction.caseInViewState;
+			return newState;
+		}
+		default: {
+			console.error("Curr case in view error. Received caseInViewAction:", caseInViewAction);
 		}
 	}
+}
 
-
-	/* Case objects and relative functions */
-	let caseObjects = [];
-	for (let case_name of four_devarajas) {
-		caseObjects.push([case_name, ...cases[case_name][2]]);
+/* Sort-By Mode and Secondary Sections */
+const sortByContext = createContext(null);
+const dispatchSortByContext = createContext(null);
+function sortByReducer (currState, sortByAction) {
+	switch (sortByAction.type) {
+		case "toggle": {
+			var newState = {...currState};
+			newState.mode = !currState.mode;
+			return newState;
+		}
+		case "changeSecondaryByScroll": {
+			var newState = {...currState};
+			newState.secondary[currState.mode==true ? 0 : 1].curr = sortByAction.currSection;
+			return newState;
+		}
+		case "changeSecondaryByClick": {
+			scrollTo(currState.secondary[currState.mode==true ? 0 : 1].content[sortByAction.toSection][0]);
+			return currState;
+		}
+		case "observerChingLing": {
+			var newState = {...currState};
+			newState.secondary[currState.mode==true ? 0 : 1].observer[sortByAction.sectionIdx] = sortByAction.sectionInViewState;
+			return newState;
+		}
+		// case "reset": {
+		// 	return ({
+		// 		...currState,
+		// 		mode: false,
+		// 		secondary: [0,0],
+		// 	});
+		// }
+		// case "resetSecondary": {
+		// 	return ({
+		// 		...currState,
+		// 		secondary: [0,0],
+		// 	});
+		// }
+		default: {
+			console.error("Error in sort-by mode toggle. Received sortByAction:", sortByAction);
+		}
 	}
+}
 
-	const [hoveringObject, setHoveringObject] = useState(false);
-	const [hoveredCase, setHoveredCase] = useState(""); // "" or 1 of four_devarajas
-	const [timer, setTimer] = useState(true); // true(tic)*, false(tac)
-	const [blinkingObject, setBlinkingObject] = useState("");
 
-	useEffect(() => {
-		if (timer==true) {
-			setTimer(false);
-			setTimeout (() => {
-				const random = Math.random() * 5; // min=0 is inclusive, max=5 is exclusive
-				if (random < 1) { setBlinkingObject(""); }
-				else if (random < 2) { setBlinkingObject(caseObjects[0][0]); }
-				else if (random < 3) { setBlinkingObject(caseObjects[1][0]); }
-				else if (random < 4) { setBlinkingObject(caseObjects[2][0]); }
-				else if (random < 5) { setBlinkingObject(caseObjects[3][0]); }
-				setTimer(true);
-			}, 2000); // tic-tac every 2s
+
+export default function Home () {
+
+	/* Sort-By Mode and Secondary Sections */
+	// Sort-By Hook
+		const [sortBy, dispatchSortBy] = useReducer(sortByReducer, {
+			mode: false,	// true (left) = by Timeline, false (right) = by Category
+			secondary: [
+				{	// left
+					content: casesByTimeline,
+					refs: useRef(Array(casesByTimeline.length)),
+					observer: Array(casesByTimeline.length).fill(false),
+					curr: 0,
+				},
+				{	// right
+					content: casesByCategory,
+					refs: useRef(Array(casesByTimeline.length)),
+					observer: Array(casesByTimeline.length).fill(false),
+					curr: 0,
+				},
+			],
+		});
+	// Section Refs
+		const createSectionRefs = (refs) => {
+			for (let i = 0; i < refs.current.length; i++) {
+				const currSectionRef = createRef();
+				refs.current[i] = currSectionRef;
+			}
+		};
+		useEffect(() => {
+			createSectionRefs(sortBy.secondary[0].refs);
+			createSectionRefs(sortBy.secondary[1].refs);
+		}, []);
+	// Sections Observers
+		const observeSections = (observer, prevCurr) => {
+			let newCurr = 0;
+			for (let i = 0; i < observer.length; i++) {
+				if (observer[i]==false) { newCurr++; }
+				else {
+					if (newCurr != prevCurr) { dispatchSortBy({type: "changeSecondaryByScroll", currSection: newCurr}); }
+					return;
+				}
+			}
+			if (prevCurr != 0) { dispatchSortBy({type: "changeSecondaryByScroll", currSection: 0}); }
 		}
-	}, [timer]);
-	// useEffect(() => { console.log (timer==true? "tic" : "tac"); }, [timer]); //DEBUG
+		useEffect(() => {
+			observeSections(
+				sortBy.secondary[sortBy.mode==true ? 0 : 1].observer,
+				sortBy.secondary[sortBy.mode==true ? 0 : 1].curr
+			);
+		}, [sortBy]);
+	// Debuggers
+		// useEffect(() => { console.log("sortBy:", sortBy); }, [sortBy]);
 
-	useEffect(() => {
-		if (blinkingObject!=="") {
-			// console.log (blinkingObject + " blinks"); //DEBUG
-			setTimeout (() => { setBlinkingObject(""); }, 135); // blink for var(--delay-s)
+	/* Curr Case In View */
+	// Useful variables
+		const numCases = casesNames.length;
+		const [sections, setSections] = useState(sortBy.secondary[sortBy.mode==true ? 0 : 1].content);
+		useEffect(() => {
+			setSections(sortBy.secondary[sortBy.mode==true ? 0 : 1].content);
+		}, [sortBy]);
+	// Curr Case Hook
+		const [caseInView, dispatchCaseInView] = useReducer(caseInViewReducer, {
+			refs: useRef({}),
+			//refs: useRef(Array(casesByTimeline.length)),
+			observer: Array(casesByTimeline.length).fill(false),
+			curr: null,
+		});
+	// Case Refs
+		const createCaseRefs = (refs) => {
+			for (let i = 0; i < numCases; i++) {
+				const currCaseRef = createRef();
+				refs.current[casesNames[i]] = currCaseRef;
+				//refs.current[i] = currCaseRef;
+			}
+		};
+		useEffect(() => {
+			createCaseRefs(caseInView.refs);
+		}, []);
+	// Cases Observers
+		const caseAPrecedesB = (caseA, caseB) => {
+			//console.log(caseA, "precedes", caseB, "?");
+			for (let i = 0; i < sections.length; i++) {
+				for (let j = 0; j < sections[i][1].length; j++) {
+					if (sections[i][1][j] == caseA) { /*console.log("yes");*/return true; }
+					else if (sections[i][1][j] == caseB) { /*console.log("nah");*/return false; }
+					else { continue; }
+				}
+			}
 		}
-	}, [blinkingObject]);
-
-
-	/* Modal */
-	const [modalSrc, setModalSrc] = useState("");
-
-
-	/* Contact btns and their corresponding links */
-	const Cbtns = [
-		["email", "mailto:l1zhuang@ucsd.edu"/*link="mailto:zhuanglingye@163.com"*/],
-		["instagram", "https://www.instagram.com/juliet_baozi/"],
-		["linkedin", "https://www.linkedin.com/in/julietzhuang"]
-	];
-
-
-	/* Smooth transition animation helper */
-	const [loaded, setLoaded] = useState(false);
-	useEffect(() => {
-		window.onload = function() {
-			document.body.className += " loaded";
+		const observeCases = (observer, prevCurr) => {
+			let newCurr = null;
+			for (let i = 0; i < numCases; i++) {
+				if (observer[casesNames[i]]==false) { continue; }
+				else {
+					if (newCurr == null || caseAPrecedesB(casesNames[i], newCurr)) {
+						newCurr = casesNames[i];
+					}
+				}
+			}
+			if (newCurr != prevCurr) { dispatchCaseInView({type: "changeByScroll", currCase: newCurr}); }
 		}
-	}, []);
-	// const AboutMe_ref = useRef(null);
-	// const CaseBrief_ref = useRef(null);
+		useEffect(() => {
+			observeCases(caseInView.observer, caseInView.curr);
+		}, [caseInView]);
+	// Debuggers
+		// useEffect(() => { console.log("sections:", sections); }, [sections]);
+		// useEffect(() => { console.log("caseInView:", caseInView); }, [caseInView]);
 
-	const [homeDisplayInnerChanging, setHomeDisplayInnerChanging] = useState(false);
-	useEffect(() => {
-		setHomeDisplayInnerChanging(true);
-		setTimeout (() => {
-			setHomeDisplayInnerChanging(false);
-		}, 270); // var(--delay-m)
-	}, [hoveringObject, hoveredCase/*, page*/]);
-	useEffect(() => { // insurance
-		if (homeDisplayInnerChanging==true) {
-			setTimeout (() => {
-				setHomeDisplayInnerChanging(false);
-			}, 270); // var(--delay-m)
-		}
-	}, [homeDisplayInnerChanging]);
-
+	/* Hero Section In View */
+	const [heroInView, setHeroInView] = useState(true);
 
 	/* Render */
-	return (<>
-		<MediaQuery minWidth={800}>{(match) => match?
-
-			// Large Screen
-			<div
-				onLoad={() => { setLoaded(true); }}
-				className={
-					"page page_home " +
-					"page_" + props.mode + " " +
-					(loaded==true ? "page_loaded" : "")
-				}
-			>
-
-				<Modebtn mode={props.mode} toggleMode={props.toggleMode} />
-
-				<div className={
-					"home_tabs_div_outer home_tabs_primary " +
-					(page==="journey" ? "home_tabs_primary_journey" : "") + " " +
-					(PNisChanging ? "home_tabs_primary_changing" : "")
-				}><div className="home_tabs_div_inner">
-					<div className={
-						"home_tabs_primary_selected " +
-						"home_tabs_primary_selected_" + page + " " +
-						"home_tabs_primary_selected_" + props.mode + " " +
-						PNanimation
-					} />
-					<div className={
-						"home_tabs " +
-						(page==="journey" ? "home_tabs_journey" : "")
-					}>
-						{PNtabs.map(tab =>
-							<PNT
-								key={"PNtab-"+tab}
-								tab={tab}
-								active={page===tab}
-								onclick={(e) => { handle_PNT_click(e, tab); }}
-								newToJourney={newToJourney}
-								setNewToJourney={setNewToJourney}
-								mode={props.mode}
-								PNisChanging={PNisChanging}
-							/>
-						)}
-					</div>
-				</div></div>
-
-				<div className="full_page_container flex_container">
-					<div className={
-						"home_display_div_outer " +
-						"home_display_div_outer_" + page
-					}>
-						<div className={
-							"home_display_div_inner " +
-							"home_display_div_inner_" + page + " " +
-							(hoveringObject==true ?
-								("home_display_div_inner_case home_display_div_inner_")+hoveredCase
-							: "") + " " +
-							(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
-						}>
-							{(() => {
-								if (page === "home" && hoveringObject==true) {
-									return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
-								} else {
-									return ( <Outlet context={[modalSrc, setModalSrc]}/> );
-								}
-							})()}
-					</div></div>
-
-					<div className={"case_objects_div " + (page==="home" ? "case_objects_div_active" : "")}>
-						<CaseObjects
-							caseObjects={caseObjects}
-							hoveringObject={hoveringObject}
-							setHoveringObject={setHoveringObject}
-							hoveredCase={hoveredCase}
-							setHoveredCase={setHoveredCase}
-							newToHome={newToHome}
-							setNewToHome={setNewToHome}
-							mode={props.mode}
-							blinkingObject={blinkingObject}
-						/>
-					</div>
-				</div>
-
-				<div className="home_tabs_div_outer home_tabs_contact"><div className="home_tabs_div_inner"><div className="home_tabs">
-					{Cbtns.map(Cbtn_pair =>
-						<CB
-							key={"Cbtn-"+Cbtn_pair[0]}
-							btn={Cbtn_pair[0]}
-							link={Cbtn_pair[1]}
-							mode={props.mode}
-						/>
-					)}
-				</div></div></div>
-
-				<ImgModal
-					modalSrc={modalSrc}
-					mode={props.mode}
-				/>
-
-			</div>
-
-		:
-
-			// Small Screen
-			<>
-
-				<div
-					onLoad={() => { setLoaded(true); }}
-					className={
-						"page page_home " +
-						"page_" + props.mode + " " +
-						(loaded==true ? "page_loaded" : "")
-					}
-				>
-
-					<div className="mobile_hint">
-						Please use a wider screen for full experience!
-					</div>
-
-					<div className="flex_container flex_container_col">
-
-						<div className={
-							"home_display_div_inner " +
-							"home_display_div_inner_" + page + " " +
-							(hoveringObject==true ?
-								("home_display_div_inner_case home_display_div_inner_")+hoveredCase
-							: "") + " " +
-							(homeDisplayInnerChanging ? "home_display_div_inner_changing" : "")
-						}>
-							{(() => {
-								if (page === "home" && hoveringObject==true) {
-									return ( <CaseBrief hoveredCase={hoveredCase} mode={props.mode} /> );
-								} else {
-									return ( <Outlet context={[modalSrc, setModalSrc]}/> );
-								}
-							})()}
-						</div>
-
-						{/*TODO: <CaseCards?>*/}
-					</div>
-
-					<div className="home_tabs">
-						{Cbtns.map(Cbtn_pair =>
-							<CB
-								key={"Cbtn-"+Cbtn_pair[0]}
-								btn={Cbtn_pair[0]}
-								link={Cbtn_pair[1]}
-								mode={props.mode}
-							/>
-						)}
-					</div>
-
-					{/*<ImgModal
-						modalSrc={modalSrc}
-						mode={props.mode}
-					/>*/}
-
-				</div>
-
-				{/*<Modebtn mode={props.mode} toggleMode={props.toggleMode} />*/}
-				<div className="home_tabs home_tabs_primary">
-					{PNtabs.map(tab =>
-						<PNT
-							key={"PNtab-"+tab}
-							tab={tab}
-							active={page===tab}
-							onclick={(e) => { handle_PNT_click(e, tab); }}
-							newToJourney={newToJourney}
-							setNewToJourney={setNewToJourney}
-							mode={props.mode}
-							PNisChanging={PNisChanging}
-						/>
-					)}
-				</div>
-
-			</>
-		}</MediaQuery>
-	</>);
-}
-
-/**
- * Primary nav tab
- *
- * props:
- *	- tab (str)
- *	- active (bool)
- *	- onclick (func)
- *	- [newToJourney, setNewToJourney]
- *	- PNisChanging (bool)
- *	- mode (str)
- */
-function PNT (props) {
-
-	const [longHover, setLongHover] = useState(false);
-	let hoverTimer = 0;
-
-	return (<>
-		<div
-			className="home_tab_div"
-			onMouseEnter={() => {
-				hoverTimer = setTimeout(() => {
-					setLongHover(true);
-				}, 540); // var(--delay-l)
-			}}
-			onMouseLeave={() => {
-				clearTimeout(hoverTimer);
-				setLongHover(false);
-				//console.log ("timer cleared");
-			}}
-		>
-			<Link to={(props.tab==="home" ? "/" : ("/"+props.tab))} onDragStart={e => e.preventDefault()}>
-				<div
-					className = {
-						"home_tab cursor_pointer " +
-						(longHover==true && props.active==false && props.PNisChanging==false ? ("cursor_PNT_"+props.tab) : "") + " " +
-						"home_tab_primary_" + props.tab + (props.active==true ? "_active" : "") + " " +
-						"home_tab_primary_" + (props.active==true ? "active" : "default") + " " +
-						(props.PNisChanging==true ? "home_tab_switching" : "")
-					}
-					onClick={() => {
-						props.onclick();
-						if (props.tab==="journey") {
-							props.setNewToJourney(false);
-						}
-					}}
-					onDragStart={e => e.preventDefault()}
-				/>
-			</Link>
-			{props.newToJourney && props.tab==="journey" ?
-				<>{<MediaQuery minWidth={800}>{(match) => match?
-					<img className="home_tab_primary_journey_hint" srcSet={journey_hint_tag+" 2x"} />
-				: null }</MediaQuery>}</>
-			: null}
-		</div>
-		{props.tab==="journey" ?
-			<>{<MediaQuery minWidth={800}>{(match) => match?
-				<div
-					className="journey_timeline_div_outer"
-					style={{opacity: props.active==true ? "1" : "0"}}
-				>
-					<div className="journey_timeline_div_inner">
-						<div className={"journey_timeline_line journey_timeline_line_"+props.mode} />
-					</div>
-				</div>
-			: null }</MediaQuery>}</>
-		: null}
-	</>);
-}
-
-/**
- * Contact button
- *
- * props:
- *	- btn (str)
- *	- link (str)
- *	- mode (str)
- */
-function CB (props) {
 	return (
-		<div className="home_tab_div home_tab_contact_div">
+		<div className="home">
+				<Hero
+					inViewSetter={setHeroInView}
+				/>
+			<sortByContext.Provider value={sortBy}>
+			<dispatchSortByContext.Provider value={dispatchSortBy}>
+			<caseInViewContext.Provider value={caseInView}>
+			<dispatchCaseInViewContext.Provider value={dispatchCaseInView}>
+				<ControlBar
+					departed={!heroInView}
+				/>
+				<Cases />
+			</dispatchCaseInViewContext.Provider>
+			</caseInViewContext.Provider>
+			</dispatchSortByContext.Provider>
+			</sortByContext.Provider>
+				{/*<Thanks />	TODO*/}
+		</div>
+	);
+}
+
+
+
+/* Home Section Styler Wrapper Component */
+function HomeSection ({children, homeSectionId, className, style}) {
+	return (
+		<div className={className} style={style}>
+			<svg xmlns="http://www.w3.org/2000/svg" className="home-section-bg-canvas">
+				<defs><clipPath id={"home-section-bg-clipper-"+homeSectionId}>
+					<rect className="home-section-bg-clipper" />
+				</clipPath></defs>
+				<foreignObject
+					className="home-section-bg-container"
+					clipPath={"url(#home-section-bg-clipper-"+homeSectionId+")"}
+					width="100%" height="100%"
+				>
+					<div className="home-section-bg"></div>
+					{children[1]	/* clipped in bg */}
+				</foreignObject>
+			</svg>
+			<div className="home-section-fg-container">
+				{children[0]	/* floating in fg */}
+			</div>
+		</div>
+	);
+}
+
+function Hero ({inViewSetter}) {
+
+	/* Proper Greeting According To Time */
+	const getInTimeGreeting = () => {
+		var curHr = new Date().getHours();
+		if (curHr < 12) { return (<>Morning! <Emoji>😎</Emoji></>); }
+		else if (curHr < 18) { return (<>Good afternoon! <Emoji>🌼</Emoji></>); }
+		else { return (<>Good evening <Emoji>✨</Emoji></>); }
+	};
+	const inTimeGreeting = getInTimeGreeting();
+
+	/* Hero In View Observer */
+	const heroRef = useRef(null);
+	const [heroInView, heroInViewRef] = useIsInViewport({
+		target: heroRef,
+		threshold: 0,
+	});
+	useEffect (() => {
+		inViewSetter(heroInView);
+	}, [heroInView]);
+
+	/* Render */
+	return (
+		<div ref={heroInViewRef}>
+			<HomeSection
+				homeSectionId="home-hero"
+				className="home-hero"
+			>
+				<>
+					<div className="home-hero-mypic-container">
+						<img
+							className="home-hero-mypic home-hero-mypic-1"
+							src={images.home.hero.mypic1}
+							alt=""
+						/>
+						<img
+							className="home-hero-mypic home-hero-mypic-2"
+							src={images.home.hero.mypic2}
+							alt="A Photo Of Me"
+						/>
+					</div>
+					<div className="home-hero-selfintro-container">
+						<div className="home-hero-selfintro">
+							<div className="home-hero-contacts-container">
+								<div className="home-hero-selfintro-body">{inTimeGreeting} You found my little cabin on the internet!</div>
+								<div className="home-hero-contacts">
+									<HeroContactBtn btnContent="resume" />
+									<HeroContactBtn btnContent="email" />
+									<HeroContactBtn btnContent="instagram" />
+									<HeroContactBtn btnContent="linkedin" />
+								</div>
+							</div>
+							<div className="home-hero-selfintro-name-container">
+								<HeroName />
+								<div className="home-hero-selfintro-title">
+									UX/UI Designer + Frontend Developer
+								</div>
+							</div>
+							<div className="home-hero-selfintro-body">
+								I design for social good, and I believe practice makes perfect.
+								<br/>Walking on the path toward being a full-stack designer.
+								<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master" target="_blank">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
+							</div>
+						</div>
+						<div className="home-hero-objects-placeholder"></div>
+					</div>
+				</>
+				<>
+					<HeroObjects />
+				</>
+			</HomeSection>
+		</div>
+	);
+}
+
+function HeroName () {
+
+	/* Name */
+	const firstName = "Juliet";
+	const lastName = "Zhuang";
+
+	/* Render */
+	return (
+		<div className="home-hero-selfintro-name">
+			<div className="home-hero-selfintro-name-chargroup">{
+				firstName.split("").map((c, i) =>
+					<HeroNameChar key={i} char={c} />
+				)
+			}</div>
+			<div className="home-hero-selfintro-name-chargroup">{
+				lastName.split("").map((c, i) =>
+					<HeroNameChar key={i} char={c} />
+				)
+			}</div>
+		</div>
+	);
+}
+
+function HeroNameChar ({char}) {
+
+	/* Render */
+	return (
+		<span className="home-hero-selfintro-name-char">
+			{char}
+		</span>
+	);
+}
+
+function HeroContactBtn ({btnContent}) {
+
+	const btnInfo = btns.home.hero.contacts[btnContent];
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Hover Handler */
+	const [hovering, setHovering] = useState(false);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "pointer"});
+		setHovering(true);
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+		setHovering(false);
+	}
+
+	/* Render */
+	return (
+		<div className="home-hero-contacts-button-container">
 			<a
-				className = {
-					"home_tab home_tab_contact cursor_pointer " +
-					"home_tab_contact_" + props.btn
-				}
-				href={props.link}
+				className="home-hero-contacts-button-link ghost"
+				href={btnInfo.url}
 				target="_blank"
-				onDragStart={e => e.preventDefault()}
+			>
+				<div
+					className="home-hero-contacts-button"
+					onMouseEnter={hoverStarts}
+					onMouseOver={hoverStarts}
+					onMouseLeave={hoverEnds}
+				>
+					{btnInfo.icon}
+				</div>
+			</a>
+			<img
+				className={
+					"home-hero-contacts-button-hintblob " +
+					(hovering==true ? "hintblob-shown" : "")
+				}
+				style={{"--hintblob-left": btnInfo.hintblob.left+"px", "--hintblob-top": btnInfo.hintblob.top+"px"}}
+				src={btnInfo.hintblob.blob}
+				alt=""
 			/>
 		</div>
 	);
 }
 
+function HeroObjects () {
 
+	const objects = casesGoats;
 
-/**
- * Home page (about me)
- *
- * props:
- *	- mode (str)
- */
-function AboutMe (props) {
-
-	const biolist = [
-		["Major", "Cognitive Science with specialization in Design and Interaction"],
-		["Minor", "Computer Science"],
-		["Collage", "University of California, San Diego"],
-		["Year", "Senior undergraduate (graduating June 2023)"],
-	];
-
-	const [profilePicGaze, setProfilePicGaze] = useState(false);
-
-	return (
-		<>
-
-			<MediaQuery minWidth={800}>{(match) => match?
-
-				<div
-					className="profile_pic_div dis_select"
-					onMouseEnter={() => { setProfilePicGaze(true); }}
-					onMouseOver={() => { setProfilePicGaze(true); }}
-					onMouseLeave={() => { // hold the gaze for a while
-						setProfilePicGaze(true);
-						setTimeout(() => {
-							setProfilePicGaze(false);
-						}, 540); // var(--delay-l)
-					}}
-				>
-					<img
-						src={me1}
-						alt="A photo of me"
-						className={
-							"profile_pic profile_pic_static zlift " +
-							(profilePicGaze ? "profile_pic_gaze" : "")
-						}
-						onDragStart={e => e.preventDefault()}
-					/>
-					<img
-						src={me2}
-						alt="A photo of me"
-						className="profile_pic profile_pic_active"
-						onDragStart={e => e.preventDefault()}
-					/>
-				</div>
-
-			: null }</MediaQuery>
-
-			<div className={"selfintro zlift text"}>
-				<MediaQuery minWidth={800}>{(match) => match?
-					<p className={"text"}>
-						Hey! You found my little cabin on the internet!
-					</p>
-				: null }</MediaQuery>
-				<span className="selfintro_name">
-					{/*<span className="selfintro_name_word">
-						<span>L</span>
-						<span>i</span>
-						<span>n</span>
-						<span>g</span>
-						<span>y</span>
-						<span>e</span>
-					</span>*/}
-					<span className="selfintro_name_word">
-						<span>J</span>
-						<span>u</span>
-						<span>l</span>
-						<span>i</span>
-						<span>e</span>
-						<span>t</span>
-					</span>
-					<span className="selfintro_name_word">
-						<span>Z</span>
-						<span>h</span>
-						<span>u</span>
-						<span>a</span>
-						<span>n</span>
-						<span>g</span>
-					</span>
-					{/*<span className="selfintro_name_word">
-						<span>庄</span>
-						<span>令</span>
-						<span>晔</span>
-					</span>*/}
-				</span>
-				<p className="text_emphasize text">
-					UX/UI designer / Graphic designer / Illustrator
-				</p>
-				<p className="text">
-					I design for social good, and I believe practice makes perfect.
-				</p>
-				<p className="text">
-					Recently soaking up programming and 3D modeling skills, walking on the path towards being a full-stack designer.
-				</p>
-				<p className="text">
-					This website is <a href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master" target='_blank'>hand-coded</a> with React.js and ♡.
-				</p>
-				{/*<span>&nbsp;</span> {/* insert vertical space */}
-				{/*<div className="only_mobile">
-					<p>Hi, I am <span className="name">Lingye Zhuang</span>.<br/>I study cognitive science with HCI at UCSD.<br/>I design like a craftsman. I enjoy real world challenges and cross-discipline inspirations.</p>
-				</div>*/}
-			</div>
-
-		</>
-	);
-}
-
-
-
-/**
- * CaseObjects
- * 
- * props:
- *	- caseObjects (array)
- *	- [hoveringObject, setHoveringObject]
- *	- [hoveredCase, setHoveredCase]
- *	- [newToHome, setNewToHome]
- *	- mode (str)
- *	- blinkingObject (str)
- */
-function CaseObjects (props) {
-
-	/* Hover handlers */
-	const handle_object_mouseenter = (object_case, e) => {
-		if (! (e.buttons == 1 || e.buttons == 3)) {
-			props.setHoveringObject(true);
-			props.setHoveredCase(object_case);
-			props.setNewToHome(false);
-		}
+	/* Hover Handler */
+	const [hoveredIdx, setHoveredIdx] = useState(-1);	// -1 = none
+	const [hoveringObjects, setHoveringObjects] = useState(false);
+	const getHoverState = (idx) => {
+		if (hoveredIdx < 0) { return 0; }
+		else if (hoveredIdx === idx) { return 1; }
+		else { return 2; }
 	}
-	// const handle_object_mouseover = (object_case, e) => {
-	// 	console.log("TESTTEST");
-	// 	if (props.hoveringObject==false && ! (e.buttons == 1 || e.buttons == 3)) {
-	// 		props.setHoveringObject(true);
-	// 		props.setHoveredCase(object_case);
-	// 	}
-	// }
-	const handle_object_mouseleave = () => {
-		props.setHoveringObject(false);
-		props.setHoveredCase("");
+	const hoverObjectStarts = (idx) => {
+		setHoveringObjects(true);
+		setHoveredIdx(idx);
+	};
+	const hoverObjectEnds = () => { setHoveredIdx(-1); }
+	const hoverObjectsEnds = (e) => {
+		e.preventDefault();
+		setHoveringObjects(false);
 	}
 
 	/* Render */
 	return (
-		<div className="case_objects dis_select">
-			{props.caseObjects.map ((item, i) =>
-				<div key={"caseobject-"+item[0]} className="case_object_div">
-					{(i===2 && props.hoveringObject==false) ?
-						<div className="case_object_hint_div">
-							<img className="case_object_hint" srcSet={case_studies_hint_tag+" 2x"} />
-						</div>
-					: null }
-					<Link to={"/case-"+item[0]} state={{ goBack: false }} className="cursor_readmore_1">
-						<div
-							className={
-								"case_object " +
-								((props.hoveringObject==true && props.hoveredCase===item[0]) ? "case_object_active smooth_animation_xl" : "")
-							}
-							onMouseEnter={(e) => { handle_object_mouseenter(item[0], e); }}
-							//onMouseOver={(e) => { handle_object_mouseover(item[0], e); }}
-							onMouseLeave={handle_object_mouseleave}
-						>
-							<img
-								className={
-									"case_object_img " +
-									((i===2 && props.newToHome==true) ? "animation_case_object_bounce" : "")
-								}
-								srcSet={
-									(props.hoveringObject==false ?
-										(props.blinkingObject===item[0] ?
-											(props.mode==="light" ? item[7] : item[8])	// blinking
-										:
-											(props.mode==="light" ? item[1] : item[2])	// default
-										)
-									:
-										(props.hoveredCase===item[0] ?
-											(props.mode==="light" ? item[5] : item[6])	// active (hovered)
-										:
-											(props.mode==="light" ? item[3] : item[4])	// some fellow is active
-										)
-									)
-									+" 4x" // note that size is adjusted as 1/2 original size
-								}
-								onDragStart={e => e.preventDefault()}
-							/>
-						</div>
-					</Link>
-				</div>
+		<div
+			className="home-hero-objects"
+			onMouseLeave={hoverObjectsEnds}
+		>
+			{objects.map((object, idx) =>
+				<HeroObject
+					key={idx}
+					object={object}
+					hoverState={ getHoverState(idx) }
+					hoverStarted={() => { hoverObjectStarts(idx); }}
+					hoverEnded={() => { hoverObjectEnds(); }}
+				/>
 			)}
+			<AskMyCaseStudies
+				className={
+					"home-hero-objects-hintblob " +
+					((hoveredIdx < 0 && hoveringObjects == false) ? "hintblob-shown" : "")
+				}
+			/>
 		</div>
 	);
-
-	// Under experiment:
-
-	// const handle_object_hover = (e) => {
-	// 	console.log("Hovered!", e);
-	// 	props.setHoveringObject(true);
-	// 	props.setHoveredCase(e.target.name);
-	// }
-
-	// const handle_object_click = (e) => {
-	// 	console.log("Clicked!", e);
-	// }
-
-	// return (
-	// 	<div className="case_objects zlift">
-	// 		<Spline
-	// 			scene={objects}
-	// 			onMouseHover={handle_object_hover}
-	// 			onMouseDown={handle_object_click}
-	// 		/>
-	// 	</div>
-	// );
 }
 
-/**
- * Case brief
- *
- * props:
- *	- hoveredCase (str)
- *	- mode (str)
- */
-function CaseBrief (props) {
+function HeroObject ({object, hoverState, hoverStarted, hoverEnded}) {	// hoverState: 0 = default, 1 = curr, 2 = noncurr
 
-	if (! props.hoveredCase in cases) { return( <></> ); }
+	//const objectContent = cases[object];
 
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Hover Handler */
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "pointer"});
+		hoverStarted();
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+		hoverEnded();
+	}
+
+	/* Render */
 	return (
-		<div className="casebrief_div">
-			<div className={"casebrief_title text"}>{cases[props.hoveredCase][1]["title"]}</div>
-			<div className="casebrief">
-				<Bio
-					list={[...cases[props.hoveredCase][1]["case_brief"]]}
-					bullet_type="text"
-					mode={props.mode}
-				/>
-				<span className={"text"}>{cases[props.hoveredCase][1]["description"]}</span>
+		<div
+			className={
+				"home-hero-object-container " +
+				(hoverState===1 ? "curr" : "") + " " +
+				(hoverState===2 ? "noncurr" : "")
+			}
+			onMouseEnter={hoverStarts}
+			onMouseOver={hoverStarts}
+			onMouseLeave={hoverEnds}
+		>
+			<div className="object">
+				<ObjectRandom />
 			</div>
 		</div>
 	);
@@ -664,47 +527,574 @@ function CaseBrief (props) {
 
 
 
-/**
- * Resume page
- */
-function Resume (props) {
-	// if (isSafari || isIE) {
-		return (<>
-			<MediaQuery minWidth={800}>{(match) => match?
-				<div className="resume_div">
-					<img
-						className="resume"
-						src={resume}
-						onDragStart={e => e.preventDefault()}
-					/>
-				</div>
-			:
-				<img
-					className="resume"
-					src={resume}
-					onDragStart={e => e.preventDefault()}
+function ControlBar ({departed}) {
+
+	/* Mode Switch 1: Light-dark Mode */
+	const currMode = useContext(modeContext);
+	const dispatchMode = useContext(dispatchModeContext);
+	const modeUpdateHandler = () => {
+		dispatchMode({type: "toggle"});
+	}
+
+	/* Mode Switch 2: Language */
+	const currLanguage = useContext(languageContext);
+	const dispatchLanguage = useContext(dispatchLanguageContext);
+	const languageUpdateHandler = () => {
+		dispatchLanguage({type: "toggle"});
+	}
+
+	/* Sort-By Mode and Secondary Sections */
+	// Sort-by Toggle
+	const currSortBy = useContext(sortByContext);
+	const {mode: currSortByMode, secondary: currSortBySecondaries} = currSortBy;
+	const dispatchSortBy = useContext(dispatchSortByContext);
+	const caseInView = useContext(caseInViewContext);
+	const dispatchCaseInView = useContext(dispatchCaseInViewContext);
+	const sortByTogglerUpdateHandler = (e) => {
+		e.preventDefault();
+		dispatchSortBy({type: "toggle"});
+		dispatchCaseInView({type: "restoreCurrCase"});
+	}
+	// Secondary Tabs
+	const [newlyClickedSecondary, setNewlyClickedSecondary] = useState(-1);	// -1 = secondary is not changing by click just now
+	const sortBySecondaryUpdateHandler = (newCurr) => {
+		setNewlyClickedSecondary(newCurr);
+		dispatchSortBy({type: "changeSecondaryByClick", toSection: newCurr});
+	}
+	useEffect(() => {
+		if (newlyClickedSecondary >= 0) {
+			setTimeout(() => { setNewlyClickedSecondary(-1); }, 1000);	// 1s
+		}
+	}, [newlyClickedSecondary]);
+
+	/* Render */
+	return (
+		<div className="home-control">
+			<div className="home-control-leftgroup">
+				<ControlBarToggle
+					btnContent="sortby"
+					togglerCurr={currSortByMode}
+					togglerUpdateHandler={sortByTogglerUpdateHandler}
+					secondaries={currSortBySecondaries}
+					secondaryUpdateHandler={sortBySecondaryUpdateHandler}
+					newlyClickedSecondary={newlyClickedSecondary}
 				/>
-			}</MediaQuery>
-		</>);
-	// } else {
-	// 	return (
-	// 		<GlassMagnifier
-	// 			className="resume_GM"
-	// 			imageSrc={resume}
-	// 			largeImageSrc={resume}
-	// 			imageAlt="My resume! If not showing up, view at: https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing"
-	// 			magnifierSize={"360px"}
-	// 			square={true}
-	// 			magnifierBorderSize={2} //2px
-	// 			magnifierBorderColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-	// 			allowOverflow={false}
-	// 			// magnifierBackgroundColor={"rgba(253,96,65,1)"} //var(--color-xihongshi)
-	// 		/>
-	// 	);
-	// }
+			</div>
+			<div className="home-control-rightgroup">
+				<div className="home-control-rightgroup-subgroup">
+					<ControlBarSwitch
+						btnContent="mode"
+						curr={currMode.mode}
+						updateHandler={modeUpdateHandler}
+					/>
+					<ControlBarSwitch
+						btnContent="language"
+						curr={currLanguage}
+						updateHandler={languageUpdateHandler}
+					/>
+					{departed == true ?
+						<ControlBarButton
+							btnContent="totop"
+							clickHandler={() => { window.scrollTo(0,0); }}
+							itchClass="home-control-btn-totop-itching"
+						/>
+					: null }
+				</div>
+				{departed == true ?
+					<div className="home-control-rightgroup-subgroup">
+						<ControlBarButton
+							btnContent="resume"
+						/>
+						<ControlBarExpandable
+							btnContent="contacts"
+						/>
+					</div>
+				: null }
+			</div>
+		</div>
+	);
+}
+
+function ControlBarButton ({btnContent, clickHandler=undefined, itchClass=""}) {
+
+	const btnInfo = btns.home.control.btn[btnContent];
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Hover Handler */
+	const [hovered, setHovered] = useState(false);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		if (hovered == false) {
+			dispatchCursorType({type: "pointer"});
+			setHovered(true);
+			setTimeout (() => {
+				setHovered(false);
+			}, 280); // $home-control-btn-itching-transition time 270ms with a bit of extra
+		}
+	}
+
+	/* Click Handler */
+	const clicked = (e) => {
+		if (clickHandler) {
+			e.preventDefault();
+			clickHandler();
+		} else {
+			window.open(btnInfo.url, '_blank');
+		}
+	}
+
+	/* Render */
+	return (
+		<div
+			className={
+				"home-control-btn " +
+				(itchClass != "" ?
+					(hovered ? itchClass : "")
+				:
+					"home-control-btn-hover-default"
+				)
+			}
+			onMouseEnter={hoverStarts}
+			onMouseOver={() => {dispatchCursorType({type: "pointer"});}}
+			onMouseLeave={() => {dispatchCursorType({type: "default"});}}
+			onClick={clicked}
+		>
+			{btnInfo.icon}
+		</div>
+	);
+}
+
+function ControlBarToggle ({btnContent, togglerCurr, togglerUpdateHandler, secondaries, secondaryUpdateHandler, newlyClickedSecondary}) {	// togglerCurr: true = toggle to left, false = toggle to right
+
+	const toggleInfo = btns.home.control.toggler[btnContent];
+	const toggleSecondary = (togglerCurr==true ? secondaries[0] : secondaries[1]);
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Toggler Handler */
+	const [hoveredTogglerChanging, setHoveredTogglerChanging] = useState(false);
+	const [triggeredTogglerChanging, setTriggeredTogglerChanging] = useState(false);
+	const togglerHoverStarts = (e) => {
+		e.preventDefault();
+		if (hoveredTogglerChanging == false && triggeredTogglerChanging == false) {
+			dispatchCursorType({type: "pointer"});
+			setHoveredTogglerChanging(true);
+			setTimeout (() => {
+				setHoveredTogglerChanging(false);
+			}, 280); // $home-control-btn-itching-transition time 270ms with a bit of extra
+		}
+	}
+	const togglerChangeTriggered = (e) => {
+		e.preventDefault();
+		if (triggeredTogglerChanging == false) {
+			setTriggeredTogglerChanging(true);
+			setHoveredTogglerChanging(false);
+			togglerUpdateHandler(e);
+			setTimeout (() => {
+				setTriggeredTogglerChanging(false);
+			}, 145); // cooling-off period before next trigger, $time-s 135ms with a bit of extra
+		}
+	}
+
+	/* Secondary Handler */
+	// Hover effect is handled by CSS.
+	const secondaryChangeTriggered = (e, newCurr) => {
+		e.preventDefault();
+		secondaryUpdateHandler(newCurr);
+	}
+
+	/* Render */
+	return (
+		<div className="home-control-toggle">
+			<div
+				className={
+					"home-control-toggler " +
+					"home-control-toggler-" + (togglerCurr==true ? "left" : "right") + " " +
+					(hoveredTogglerChanging ? "home-control-toggler-itching" : "")
+				}
+				onMouseEnter={togglerHoverStarts}
+				onMouseOver={() => {dispatchCursorType({type: "pointer"});}}
+				onMouseLeave={() => {dispatchCursorType({type: "default"});}}
+				onClick={togglerChangeTriggered}
+			>
+				{toggleInfo.bg}
+				{toggleInfo.fg}
+			</div>
+			<div className="home-control-toggle-secondary">
+				{toggleSecondary.content.map((tab, idx) =>
+					<ControlBarToggleSecondaryTab
+						key={idx}
+						tabContent={tab[0]}
+						curr={
+							newlyClickedSecondary===idx
+							|| (newlyClickedSecondary<0 && toggleSecondary.curr===idx)
+						}
+						updateHandler={(e) => { secondaryChangeTriggered(e, idx); }}
+					/>
+				)}
+			</div>
+		</div>
+	);
+}
+
+function ControlBarToggleSecondaryTab ({tabContent, curr, updateHandler}) {
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "pointer"});
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+	}
+
+	/* Render */
+	return (
+		// <Link	//TODO!!!
+		// 	to={"/#" + tabContent}
+		// >
+			<div
+				className={
+					"home-control-toggle-secondary-tab " +
+					(curr==true ? "home-control-toggle-secondary-tab-curr" : "")
+				}
+				onMouseEnter={hoverStarts}
+				onMouseOver={hoverStarts}
+				onMouseLeave={hoverEnds}
+				onClick={updateHandler}
+			>
+				{tabContent}
+			</div>
+		// </Link>
+	);
+}
+
+function ControlBarSwitch ({btnContent, curr, updateHandler}) {	// curr: true = circle fg left, false = circle fg right
+
+	const switchIcons = btns.home.control.switch[btnContent];
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Switch Handler */
+	const [hoveredChanging, setHoveredChanging] = useState(false);
+	const [triggeredChanging, setTriggeredChanging] = useState(false);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		if (hoveredChanging == false && triggeredChanging == false) {
+			dispatchCursorType({type: "pointer"});
+			setHoveredChanging(true);
+			setTimeout (() => {
+				setHoveredChanging(false);
+			}, 280); // $home-control-btn-itching-transition time 270ms with a bit of extra
+		}
+	}
+	const changeTriggered = (e) => {
+		e.preventDefault();
+		if (triggeredChanging == false) {
+			setTriggeredChanging(true);
+			setHoveredChanging(false);
+			updateHandler();
+			setTimeout (() => {
+				setTriggeredChanging(false);
+			}, 145); // cooling-off period before next trigger, $time-s 135ms with a bit of extra
+		}
+	}
+
+	/* Render */
+	return (
+		<div
+			className={
+				"home-control-switch " +
+				"home-control-switch-" + (curr==true ? "left" : "right") + " " +
+				(hoveredChanging ? "home-control-switch-itching" : "")
+			}
+			onMouseEnter={hoverStarts}
+			onMouseOver={() => {dispatchCursorType({type: "pointer"});}}
+			onMouseLeave={() => {dispatchCursorType({type: "default"});}}
+			onClick={changeTriggered}
+		>
+			{switchIcons}
+			<div className="home-control-switch-mask"></div>
+		</div>
+	);
+}
+
+function ControlBarExpandable ({btnContent}) {
+
+	const expandableInfo = btns.home.control.expandable[btnContent];
+
+	/* Expand Handler */
+	const [hovered, setHovered] = useState(false);
+	const [hoverJustEnded, setHoverJustEnded] = useState(false);
+	const [expanded, setExpanded] = useState(false);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		setHovered(true);
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		setHovered(false);
+		setHoverJustEnded(true);
+	}
+	useEffect(() => {
+		if (hoverJustEnded == true) {
+			setTimeout (() => {
+				if (hovered == false) {
+					setHoverJustEnded(false);
+				}
+			}, 2010); // 2s with a bit of extra
+		}
+	}, [hoverJustEnded])
+	useEffect(() => {
+		if (hovered == true || hoverJustEnded == true) {
+			setExpanded(true);
+		} else {
+			setExpanded(false);
+		}
+	}, [hovered, hoverJustEnded])
+
+	/* Render */
+	return (
+		<div
+			className={
+				"home-control-expandable " +
+				(expanded == true ? "home-control-expandable-expanded" : "")
+			}
+			style={{"--num-duckling": expandableInfo[1].length}}
+			onMouseEnter={hoverStarts}
+			onMouseOver={hoverStarts}
+			onMouseLeave={hoverEnds}
+		>
+			<div className="home-control-expandable-icons">
+				<div className="home-control-expandable-motherduck">
+					{expandableInfo[0]}
+				</div>
+				{expandableInfo[1].map((duckling, idx) =>
+					<ControlBarButton
+						key={idx}
+						btnContent={duckling}
+					/>
+				)}
+			</div>
+		</div>
+	);
 }
 
 
 
-/* Export */
-export { AboutMe, Resume };
+function Cases () {
+
+	/* Sort-By Mode */
+	const sortBy = useContext(sortByContext);
+	const dispatchSortBy = useContext(dispatchSortByContext);
+	const sections = sortBy.secondary[sortBy.mode==true ? 0 : 1].content;
+
+	/* Curr Section In View */
+	const sectionInViewStateSetter = (idx, state) => {
+		dispatchSortBy({type: "observerChingLing", sectionIdx: idx, sectionInViewState: state});
+	}
+
+	/* Render */
+	return (
+		<div className="home-cases">
+			{sections.map((section, idx) =>
+				<CasesSection
+					key={section[0]}
+					sectionContent={section}
+					sectionRef={sortBy.secondary[sortBy.mode==true ? 0 : 1].refs.current[idx]}
+					sectionInViewStateSetter={(state) => { sectionInViewStateSetter(idx, state); }}
+				/>
+			)}
+		</div>
+	);
+}
+
+function CasesSection ({sectionContent, sectionRef, sectionInViewStateSetter}) {	// sectionContent: [0] title, [1] content, [2] bullet, [3] caption
+
+	/* Curr Section In View */
+	// Content
+	const [contentIsInView, sectionContentRef] = useIsInViewport({
+		target: sectionRef,
+		threshold: 0,
+		modTop: ("-" + (window.innerHeight/2 - 160) + "px"),
+			// $home-cases-section-title-bullet-size 160px, the section title should be above the horizontal middle line for the current section to be considered as the top visible one
+	});
+	useEffect (() => {
+		sectionInViewStateSetter(contentIsInView);
+	}, [contentIsInView]);
+	// Title
+	const titleRef = useRef(null);
+	const [titleAllInView, sectionTitleRef] = useIsInViewport({
+		target: titleRef,
+		threshold: 100,
+		modTop: ("-" + (controlBarHeight - 8) + "px"),	// leave a bit of room for error
+	});
+
+	/* Curr Case In View */
+	const caseInView = useContext(caseInViewContext);
+	const dispatchCaseInView = useContext(dispatchCaseInViewContext);
+	const caseInViewStateSetter = (caseName, state) => {
+		dispatchCaseInView({type: "observerChingLing", caseName: caseName, caseInViewState: state});
+	}
+
+	/* Render */
+	return (
+		<div
+			ref={sectionContentRef}
+			id={idCreator(sectionContent[0])}
+			className="home-cases-section"
+		>
+			<div
+				ref={sectionTitleRef}
+				className={
+					"home-cases-section-title-container " +
+					(titleAllInView==true ? "home-cases-section-title-inview" : "")
+				}
+			>
+				{sectionContent.length >= 3 ?
+					sectionContent[2]
+				:
+					<div className="home-cases-section-title-bullet-placeholder"></div>
+				}
+				<div className="home-cases-section-title">
+					{sectionContent[0]}
+					{sectionContent.length >= 4 ?
+						<div className="home-cases-section-title-caption">{sectionContent[3]}</div>
+					: null }
+				</div>
+			</div>
+			<div className="home-cases-section-content">
+				{sectionContent[1].map((caseName, idx) =>
+					<CaseCard
+						key={caseName}
+						caseId={caseName}
+						caseRef={caseInView.refs[caseName]}
+						caseInViewStateSetter={(state) => { caseInViewStateSetter(caseName, state); }}
+					/>
+				)}
+			</div>
+		</div>
+	);
+}
+
+function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
+
+	const caseContent = cases[caseId];
+
+	/* Curr Case In View */
+	const caseInView = useContext(caseInViewContext);
+	// Active
+	const [isInView, caseActiveRef] = useIsInViewport({
+		target: caseRef,
+		threshold: 100,
+		modTop: ("-" + (controlBarHeight - 0) + "px"),	// $case-card-title-height 0px
+		modBottom: ((window.innerHeight) + "px"),	// leaving space for longer cards
+	});
+	useEffect (() => {
+		caseInViewStateSetter(isInView);
+	}, [isInView]);
+	// Bench
+	const [isInViewport, caseBenchRef] = useIsInViewport({
+		target: caseRef,
+		threshold: 0,
+		modTop: ("-" + (controlBarHeight - 0) + "px"),
+	});
+
+	/* Styling Helper */
+	const [inViewStage, setInViewStage] = useState(0);	// 0 = off bench, 1 = on bench before ever activated, 2 = active, 3 = on banch after activated
+	useEffect(() => {
+		if (isInViewport == true) {
+			if (caseInView.curr == caseId) {
+				setInViewStage(2);
+			} else {
+				if (inViewStage === 0) {
+					setInViewStage(1);
+				} else if (inViewStage === 2) {
+					setInViewStage(3);
+				}
+			}
+		} else {
+			setInViewStage(0);
+		}
+	}, [isInViewport, caseInView]);
+	const [inViewStageClass, setInViewStageClass] = useState("");
+	const inViewStageClassSwitch = [
+		"",
+		"home-section-bench",
+		"home-section-active",
+		"home-section-substituted",
+	];
+	useEffect(() => {
+		if (inViewStage < 0 || inViewStage > 3) {
+			console.error("Error during assigning of in-view-stage-classes. caseId:", caseId, ", inViewStage:", inViewStage);
+			setInViewStageClass("");
+		}
+		var classList = "";
+		for (let s = 0; s < 4; s++) {
+			if (inViewStage >= s) {
+				classList += inViewStageClassSwitch[s] + " ";
+			} else {
+				break;
+			}
+		}
+		setInViewStageClass(classList);
+	}, [inViewStage]);
+
+	/* Render */
+	return (
+		<div
+			ref={(el) => { caseActiveRef(el); caseBenchRef(el); }}
+			id={idCreator(caseId)}
+		>
+			<HomeSection
+				homeSectionId={caseId}
+				className={"home-case " + inViewStageClass}
+				style={(caseContent.theme.color ? {
+					"--theme-bgcolor-light": caseContent.theme.color[0],
+					"--theme-title-color-light": caseContent.theme.color[1],
+					"--theme-bgcolor-dark": caseContent.theme.color[2],
+					"--theme-title-color-dark": caseContent.theme.color[3],
+				} : {})}
+			>
+				<>
+					<div className="home-case-img-container">
+						<img
+							className="home-case-img"
+							src={caseContent.thumbnail.img}
+							alt={"case thumbnail of " + caseContent.title}
+						/>	{/* TODO: enable pausing gif when inactive */}
+					</div>
+					<div className="home-case-text-container">
+						<div className="home-case-title">
+							{caseContent.title}
+						</div>
+						<div className="home-case-bio">
+							<div className="home-case-bio-item">{
+								caseContent.bio[1]//role
+							}</div>
+							<div className="home-case-bio-item">{
+								caseContent.bio[2]//duration
+							}</div>
+						</div>
+						<div className="home-case-brief">
+							{caseContent.thumbnail.brief}
+						</div>
+					</div>
+				</>
+				<>
+					<CaseObject />
+				</>
+			</HomeSection>
+		</div>
+	);
+}
+
+function CaseObject () {
+	return (<></>);	//TODO!
+}
