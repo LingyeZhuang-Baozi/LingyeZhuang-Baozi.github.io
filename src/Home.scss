@@ -1,0 +1,1096 @@
+	//@use "style";
+	@import "_style.scss";
+
+	/* Home */
+
+	$home-padding-X: $spacing-8;
+	$home-padding-Y: $spacing-7;
+	$home-gap: $spacing-7;
+	$home-control-height: $spacing-8;
+	$home-control-padding-Y: $spacing-4;
+
+	.home {
+		@extend %world;
+		display: flex;
+		flex-direction: column;
+		//padding: $home-padding-Y home-padding-X;
+		//gap: $home-gap;
+		// height: 100vh;
+		// overflow-y: scroll;
+		// scroll-snap-type: y mandatory;
+	}
+
+	// .home-cases-container {
+	// 	align-self: stretch;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	scroll-snap-align: start;
+	// }
+
+	/* Section */
+
+	$home-section-radius: $radius-l;
+	$home-section-bg-update-time: $time-sec;
+	$home-section-bgcolor-light: $color-gray6-F0;
+	$home-section-bgcolor-dark: $color-gray1-33;
+	$home-section-bgcolor-active-light: var(--theme-bgcolor-light, $home-section-bgcolor-light);
+	$home-section-bgcolor-active-dark: $color-gray1-33;//var(--theme-bgcolor-dark, $home-section-bgcolor-dark)
+	$home-section-transition-in-delay: $time-m;
+	$home-section-transition-in: $time-l ease $home-section-transition-in-delay;
+	$home-section-bgcolor-transition-in: background-color $home-section-transition-in;
+	$home-section-bgcolor-transition-out: $transition-bgcolor-out;
+	$home-section-color-transition-in: color $home-section-transition-in;
+	$home-section-color-transition-out: $transition-color-out;
+	$home-section-rotate-X: 15deg;
+	$home-section-rotate-Y: 10deg;
+	$home-section-rotate-perspective: 500vw;
+	$home-section-rotate-time: 8*$time-sec;
+	$home-section-bg-prerotate-time: $time-sec;
+	$home-section-bg-prerotate-transition: transform $home-section-bg-prerotate-time ease;
+
+	%home-section {
+		position: relative;
+		display: flex;
+	}
+
+	@keyframes home-section-bg-updater {
+		from { transform: rotateY(0deg); }
+		to { transform: rotateY(0.001deg); }
+	}
+	@keyframes home-section-bg-rotate {
+		0% { transform: perspective($home-section-rotate-perspective) rotateX($home-section-rotate-X) rotateY($home-section-rotate-Y); }
+		25% { transform: perspective($home-section-rotate-perspective) rotateX(-1*$home-section-rotate-X) rotateY($home-section-rotate-Y); }
+		50% { transform: perspective($home-section-rotate-perspective) rotateX(-1*$home-section-rotate-X) rotateY(-1*$home-section-rotate-Y); }
+		75% { transform: perspective($home-section-rotate-perspective) rotateX($home-section-rotate-X) rotateY(-1*$home-section-rotate-Y); }
+		100% { transform: perspective($home-section-rotate-perspective) rotateX($home-section-rotate-X) rotateY($home-section-rotate-Y); }
+	}
+
+	%home-section {
+		.home-section-bg-canvas {
+			pointer-events: none;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0; bottom: 0; left: 0; right: 0;
+		}
+
+		.home-section-bg-clipper {
+			width: calc(100% - 2 * $home-padding-X);
+			height: calc(100% - 2 * $home-padding-Y);
+			x: $home-padding-X;
+			y: $home-padding-Y;
+			rx: $home-section-radius;
+			transform-origin: 50% 50%;
+			transform: rotateX(0) rotateY(0);
+			//@include transition($transition: $home-section-bg-prerotate-transition);
+			animation: home-section-bg-updater $home-section-bg-update-time ease infinite 10ms;	// works like charm with a delay for some unknown reason
+		}
+
+		.home-section-bg-container {
+			width: 100%;
+			height: 100%;
+		}
+
+		.home-section-bg {
+			content: "";
+			position: absolute;
+			top: 0; bottom: 0; left: 0; right: 0;
+			z-index: $z-bg;
+			@include transition($transition: $home-section-bgcolor-transition-out);
+			animation: home-section-bg-updater $home-section-bg-update-time ease infinite;
+		}
+
+		&.home-section-active {
+			& .home-section-bg-clipper {
+				//transform: perspective($home-section-rotate-perspective) rotateX($home-section-rotate-X) rotateY($home-section-rotate-Y);	// 0% of home-section-bg-rotate
+				//animation: home-section-bg-rotate $home-section-rotate-time cubic-bezier(.6,.2,.4,.8) infinite $home-section-bg-prerotate-time;
+				//animation-play-state: running;
+			}
+
+			&.home-section-substituted .home-section-bg-clipper{
+				//animation-play-state: paused;
+			}
+
+			&:not(.home-section-substituted) .home-section-bg {
+				@include transition($transition: $home-section-bgcolor-transition-in);
+			}
+		}
+	}
+
+	.mode-light %home-section {
+		.home-section-bg {
+			background-color: $home-section-bgcolor-light;
+		}
+
+		&.home-section-active:not(.home-section-substituted) .home-section-bg {
+			background-color: $home-section-bgcolor-active-light !important;	// background: radial-gradient(circle at left, $home-section-bgcolor-active, $home-section-bgcolor-light);	// TOOD: https://keithjgrant.com/posts/2017/07/transitioning-gradients/
+		}
+	}
+
+	.mode-dark %home-section {
+		.home-section-bg {
+			background-color: $home-section-bgcolor-dark;
+		}
+
+		&.home-section-active:not(.home-section-substituted) .home-section-bg {
+			background-color: $home-section-bgcolor-active-dark !important;	// background: radial-gradient(circle at left, $home-section-bgcolor-active, $home-section-bgcolor-dark);	// TOOD: https://keithjgrant.com/posts/2017/07/transitioning-gradients/
+		}
+	}
+
+	%home-section .home-section-fg-container {
+		align-self: stretch;
+		flex-grow: 1;
+		z-index: 1;
+	}
+
+
+
+	/* Hero */
+
+	$home-hero-padding-X: $spacing-7;
+	$home-hero-padding-Y: $spacing-7;
+	$home-hero-gap: $spacing-7 + $spacing-3;
+
+	.home-hero {
+		@extend %home-section;
+		padding: $home-padding-Y 0 ($home-gap - $home-control-padding-Y);
+		// scroll-snap-align: start;
+	}
+
+	.home-hero .home-section-fg-container {
+		pointer-events: none;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		padding: $home-hero-padding-Y $home-padding-X;
+		gap: $home-hero-gap;
+		flex-wrap: wrap;
+	}
+
+	.home-hero .home-section-bg-clipper {
+		width: calc(100% - 2 * ($home-padding-X - $home-hero-padding-X));
+		x: $home-padding-X - $home-hero-padding-X;
+		animation: home-section-bg-rotate $home-section-rotate-time cubic-bezier(.6,.2,.4,.8) infinite;
+	}
+
+	/* Hero Self-intro */
+	$home-hero-selfintro-gap: $spacing-5;
+	$home-hero-selfintro-name-container-gap: $spacing-4;
+	$home-hero-selfintro-name-gap: 0 $spacing-4;
+	$home-hero-selfintro-name-color-light: $color-lanlv;
+	$home-hero-selfintro-name-color-dark: $color-lvsongshi;
+	$home-hero-selfintro-name-char-hover-color-light: $color-lvsongshi;
+	$home-hero-selfintro-name-char-hover-color-dark: $color-gray4-CC;
+	$home-hero-selfintro-name-char-hover-scaling: $scaling-m;
+	$home-hero-selfintro-name-char-hover-transition-in: transform ($transition-bouncer-s-time * $time-s) $transition-bouncer-s, $transition-color-in;
+	$home-hero-selfintro-name-char-hover-transition-out: $transition-transform-gentle-out, $transition-color-out;
+	$home-hero-selfintro-title-color-light: $color-lvsongshi;
+	$home-hero-selfintro-title-color-dark: $color-gray4-CC;
+
+	.home-hero-selfintro-container {
+		pointer-events: none;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.home-hero-selfintro {
+		pointer-events: auto;
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $home-hero-selfintro-gap;
+	}
+
+	.home-hero-selfintro-name-container {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $home-hero-selfintro-name-container-gap;
+	}
+
+	.home-hero-selfintro-name {
+		transform: translateX(-4px);
+		@extend %text-display;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: $home-hero-selfintro-name-gap;
+		flex-wrap: wrap;
+	}
+	.mode-light .home-hero-selfintro-name {
+		color: $home-hero-selfintro-name-color-light;
+	}
+	.mode-dark .home-hero-selfintro-name {
+		color: $home-hero-selfintro-name-color-dark;
+	}
+
+	.home-hero-selfintro-name-chargroup {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		flex-wrap: nowrap;
+	}
+
+	.home-hero-selfintro-name-char {
+		display: inline-block;
+		z-index: 0;
+		@include transition($transition: $home-hero-selfintro-name-char-hover-transition-out);
+	}
+
+	.home-hero-selfintro-name-char:hover {
+		transform: scale($home-hero-selfintro-name-char-hover-scaling);
+		z-index: 1;
+		@include transition($transition: $home-hero-selfintro-name-char-hover-transition-in);
+	}
+	.mode-light .home-hero-selfintro-name-char:hover {
+		color: $home-hero-selfintro-name-char-hover-color-light;
+	}
+	.mode-dark .home-hero-selfintro-name-char:hover {
+		color: $home-hero-selfintro-name-char-hover-color-dark;
+	}
+
+	.home-hero-selfintro-title {
+		@extend %text-h1;
+	}
+	.mode-light .home-hero-selfintro-title {
+		color: $home-hero-selfintro-title-color-light;
+	}
+	.mode-dark .home-hero-selfintro-title {
+		color: $home-hero-selfintro-title-color-dark;
+	}
+
+	.home-hero-selfintro-body {
+		@extend %text-body-important;
+	}
+
+	/* Hero Contacts */
+	$home-hero-contacts-container-gap: $spacing-5 $spacing-4;
+	$home-hero-contacts-button-size: $button-size;
+	$home-hero-contacts-button-icon-size: $button-icon-size;
+	$home-hero-contacts-gap: $spacing-3;
+	$home-hero-contacts-size:
+		4 * $home-hero-contacts-button-size
+		+ 3 * $home-hero-contacts-gap
+		- ($home-hero-contacts-button-size - $home-hero-contacts-button-icon-size);
+
+	.home-hero-contacts-container {
+		align-self: stretch;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		gap: $home-hero-contacts-container-gap;
+		flex-wrap: wrap-reverse;
+	}
+
+	.home-hero-contacts {
+		height: 0;
+		margin: ($home-hero-contacts-button-icon-size / 2) 0;
+		width: $home-hero-contacts-size;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: $home-hero-contacts-gap;
+	}
+
+	.home-hero-contacts-button-container {
+		position: relative;
+	}
+
+	.home-hero-contacts-button {
+		@extend %button;
+	}
+
+	.home-hero-contacts-button-hintblob {
+		@extend %hintblob;
+		left: var(--hintblob-left);
+		top: var(--hintblob-top);
+	}
+
+	/* Hero MyPic */
+	$home-hero-mypic-container-size: 400px;
+	$home-hero-mypic-container-radius: 24px;
+	$home-hero-mypic-container-hover-scaling: $scaling-l;
+	$home-hero-mypic-container-hover-transition-in: transform ($transition-bouncer-l-time * $time-m) $transition-bouncer-l;
+	$home-hero-mypic-container-hover-transition-out: $transition-transform-gentle-out;
+	$home-hero-mypic-hover-transition-in: opacity 200ms ease-in;
+	$home-hero-mypic-hover-transition-out: opacity 400ms ease-in-out;
+
+	.home-hero-mypic-container {
+		pointer-events: auto;
+		position: relative;
+		overflow: hidden;
+		width: $home-hero-mypic-container-size;
+		height: $home-hero-mypic-container-size;
+		border-radius: $home-hero-mypic-container-radius;
+		@include transition($transition: $home-hero-mypic-container-hover-transition-out);
+	}
+
+	.home-hero-mypic {
+		opacity: 1;
+		position: absolute;
+		width: 120%;
+		transform: translate(-45%,-40%);
+		left: 50%;
+		top: 50%;
+		min-width: 100%;
+		min-height: min(100%, 800px, 50vw);
+		object-fit: cover;
+		@include transition($transition: $home-hero-mypic-hover-transition-out);
+	}
+
+	.home-hero-mypic-1 { z-index: 1; }
+	.home-hero-mypic-2 { z-index: 0; }
+
+	.home-hero-mypic-container:hover {
+		transform: scale($home-hero-mypic-container-hover-scaling);
+		@include transition($transition: $home-hero-mypic-container-hover-transition-in);
+	}
+
+	.home-hero-mypic-container:hover .home-hero-mypic-1 {
+		opacity: 0;
+		@include transition($transition: $home-hero-mypic-hover-transition-in);
+	}
+
+	/* Hero Object */
+	$home-hero-objects-padding: $spacing-8;
+	$home-hero-objects-gap: $spacing-7;
+	$home-hero-object-resizer: 0.8;
+	$home-hero-object-height: $spacing-9;
+	$home-hero-object-displace-curr: $spacing-7;
+	$home-hero-object-displace-noncurr: $spacing-7;
+	$home-hero-objects-hintblob-transition-in: opacity $time-l ease, transform $time-l ease;
+	$home-hero-objects-hintblob-transition-out: opacity $time-xs ease, transform $time-l ease;
+	$home-hero-objects-hintblob-transition-out-displace: $spacing-4;
+
+	.home-hero-objects-placeholder {
+		pointer-events: none;
+		height: $home-hero-object-height;
+	}
+
+	.home-hero-objects {
+		pointer-events: auto;
+		position: absolute;
+		right: $home-hero-objects-padding;
+		bottom: -1 * ($home-hero-object-resizer * $object-height) + $home-hero-object-height + $home-padding-Y;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: flex-end;
+		gap: $home-hero-objects-gap;
+	}
+
+	.home-hero-object-container {
+		@include object-container($resizer: $home-hero-object-resizer, $curr-displace: $home-hero-object-displace-curr, $noncurr-displace: $home-hero-object-displace-noncurr);
+	}
+
+	.home-hero-objects-hintblob {
+		@extend %hintblob;
+		transform: translateY(-1*$home-hero-objects-hintblob-transition-out-displace);
+		left: auto;
+		right: 80px;
+		top: -102px;
+		@include transition($transition: $home-hero-objects-hintblob-transition-out);
+
+		&.hintblob-shown {
+			transform: translateY(0);
+			@include transition($transition: $home-hero-objects-hintblob-transition-in);
+		}
+	}
+
+
+
+	/* Control */
+
+	$home-control-padding: $home-control-padding-Y $spacing-8;
+	$home-control-gap-l: $spacing-6;
+	$home-control-gap-s: $spacing-5;
+	$home-control-bgcolor-light: $color-bg-light;
+	$home-control-bgcolor-dark: $color-bg-dark;
+	$home-control-element-height: $spacing-7;
+	$home-control-element-border: $border-width-s solid;
+	$home-control-element-border-color-light: $color-gray4-CC;
+	$home-control-element-border-color-dark: $color-gray2-66;
+
+	.home-control {
+		position: sticky;
+		z-index: $z-top;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: $home-control-padding;
+		left: 0px;
+		top: 0px;
+		height: $home-control-height - 2 * $home-control-padding-Y;
+	}
+	.mode-light .home-control {
+		background: $home-control-bgcolor-light;
+	}
+	.mode-dark .home-control {
+		background: $home-control-bgcolor-dark;
+	}
+
+	.home-control-leftgroup {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $home-control-gap-s;
+	}
+
+	.home-control-rightgroup {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-end;
+		gap: $home-control-gap-l;
+	}
+
+	.home-control-rightgroup-subgroup {
+		height: $home-control-element-height;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $home-control-gap-s;
+
+		&:not(:first-child) {
+			padding-left: $home-control-gap-l;
+			border-left: $home-control-element-border;
+		}
+	}
+	.mode-light .home-control-rightgroup-subgroup:not(:first-child) {
+		border-color: $home-control-element-border-color-light;
+	}
+	.mode-dark .home-control-rightgroup-subgroup:not(:first-child) {
+		border-color: $home-control-element-border-color-dark;
+	}
+
+	/* Control Btn */
+	$home-control-btn-size: $home-control-element-height;
+	$home-control-btn-bgcolor-light: $home-control-bgcolor-light;
+	$home-control-btn-bgcolor-dark: $home-control-bgcolor-dark;
+	$home-control-btn-icons-color-light: $color-gray1-33;
+	$home-control-btn-icons-color-dark: $color-gray4-CC;
+	$home-control-btn-hover-scaling: $scaling-s;
+	$home-control-btn-hover-transition-in: transform ($transition-bouncer-s-time * $time-xs) $transition-bouncer-s;
+	$home-control-btn-hover-transition-out: transform $time-s ease;
+	$home-control-btn-itching-displace: $spacing-3;
+	$home-control-btn-itching-transition: $time-m ease;
+
+	%home-control-btn {
+		width: $home-control-btn-size;
+		height: $home-control-btn-size;
+		border-radius: $radius-inf;
+		outline: $home-control-element-border;
+		overflow: hidden;
+	}
+	.mode-light %home-control-btn {
+		outline-color: $home-control-element-border-color-light;
+		background-color: $home-control-btn-bgcolor-light;
+	}
+	.mode-dark %home-control-btn {
+		outline-color: $home-control-element-border-color-dark;
+		background-color: $home-control-btn-bgcolor-dark;
+	}
+
+	.mode-light %home-control-btn .home-control-btn-icon {
+		fill: $home-control-btn-icons-color-light;
+	}
+	.mode-dark %home-control-btn .home-control-btn-icon {
+		fill: $home-control-btn-icons-color-dark;
+	}
+
+	.home-control-btn {
+		@extend %home-control-btn;
+		position: relative;
+	}
+
+	.home-control-btn .home-control-btn-icon {
+		@include position-center-absolute;
+	}
+
+	.home-control-btn .home-control-btn-icon {
+		@include transition($transition: $home-control-btn-hover-transition-out);
+	}
+
+	.home-control-btn.home-control-btn-hover-default:hover .home-control-btn-icon {
+		transform: translate(-50%,-50%) scale($home-control-btn-hover-scaling);
+		@include transition($transition: $home-control-btn-hover-transition-in);
+	}
+
+	.home-control-btn.home-control-btn-totop-itching .home-control-btn-icon {
+		animation: home-control-btn-totop-itching $home-control-btn-itching-transition;
+	}
+	@keyframes home-control-btn-totop-itching {	// TODO: fix funny glitch on hover
+		0% { top: 50%; }
+		50% { top: -49.999%; }
+		50.001% { top: 99.999%; }
+		100% { top: 50%; }
+	}
+
+	/* Control Toggle */
+	$home-control-toggle-gap-l: $home-control-gap-l;
+	$home-control-toggle-gap-s: $home-control-gap-s;
+	$home-control-toggler-node-size: $home-control-btn-size;
+	$home-control-toggler-gap: $spacing-3;
+	$home-control-toggler-fg-color-light: $color-lvsongshi;
+	$home-control-toggler-fg-color-dark: $color-gray1-33;
+	$home-control-toggler-bg-color-light: $home-control-btn-icons-color-light;
+	$home-control-toggler-bg-color-dark: $home-control-btn-icons-color-dark;
+	$home-control-toggler-curr-border-width: $border-width-m;
+	$home-control-toggler-curr-border: $home-control-toggler-curr-border-width solid;
+	$home-control-toggler-curr-color: $color-lvsongshi;
+	$home-control-toggler-curr-bgopacity-light: 0;
+	$home-control-toggler-curr-bgopacity-dark: 1;
+	$home-control-toggler-curr-position-left: $home-control-toggler-node-size / 2;
+	$home-control-toggler-curr-position-right: $home-control-toggler-node-size / 2 + $home-control-toggler-node-size + $home-control-toggler-gap;
+	$home-control-toggler-transition: $time-s $transition-bouncer-gentle;
+	$home-control-toggler-transition-mask: clip-path $home-control-toggler-transition;
+	$home-control-toggler-transition-ring: left $home-control-toggler-transition;
+	$home-control-toggle-secondary-color-dark: $color-gray5-E3;
+	$home-control-toggle-secondary-curr-color-light: $color-black;
+	$home-control-toggle-secondary-curr-color-dark: $color-lvsongshi;
+	$home-control-toggle-secondary-curr-indicator-height: $border-width-l;
+	$home-control-toggle-secondary-curr-indicator-width: 50%;
+	$home-control-toggle-secondary-curr-indicator-minwidth: $spacing-4;
+	$home-control-toggle-secondary-curr-indicator-maxwidth: $spacing-8;
+	$home-control-toggle-secondary-curr-indicator-radius: $radius-inf;
+	$home-control-toggle-secondary-curr-indicator-color: $color-lvsongshi;
+	$home-control-toggle-secondary-curr-indicator-transition-in: clip-path $time-s ease-out, opacity $time-xs ease;
+	$home-control-toggle-secondary-curr-indicator-transition-out: clip-path $time-m ease-in, opacity $time-xs ease ($time-m - $time-xs);
+
+	@keyframes home-control-toggle-transition-itching-left-fg {
+		0% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-left ($home-control-toggler-node-size / 2))); }
+		50% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at ($home-control-toggler-curr-position-left + $home-control-btn-itching-displace) ($home-control-toggler-node-size / 2))); }
+		100% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-left ($home-control-toggler-node-size / 2))); }
+	}
+	@keyframes home-control-toggle-transition-itching-right-fg {
+		0% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-right ($home-control-toggler-node-size / 2))); }
+		50% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at ($home-control-toggler-curr-position-right - $home-control-btn-itching-displace) ($home-control-toggler-node-size / 2))); }
+		100% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-right ($home-control-toggler-node-size / 2))); }
+	}
+	@keyframes home-control-toggle-transition-itching-left-ring {
+		0% { left: $home-control-toggler-curr-position-left; }
+		50% { left: $home-control-toggler-curr-position-left + $home-control-btn-itching-displace; }
+		100% { left: $home-control-toggler-curr-position-left; }
+	}
+	@keyframes home-control-toggle-transition-itching-right-ring {
+		0% { left: $home-control-toggler-curr-position-right; }
+		50% { left: $home-control-toggler-curr-position-right - $home-control-btn-itching-displace; }
+		100% { left: $home-control-toggler-curr-position-right; }
+	}
+
+	@mixin home-control-toggle-secondary-tab-curr-indicator {
+		content: "";
+		height: $home-control-toggle-secondary-curr-indicator-height;
+		width: $home-control-toggle-secondary-curr-indicator-width;
+		min-width: $home-control-toggle-secondary-curr-indicator-minwidth;
+		max-width: $home-control-toggle-secondary-curr-indicator-maxwidth;
+		border-radius: $home-control-toggle-secondary-curr-indicator-radius;
+		background-color: $home-control-toggle-secondary-curr-indicator-color;
+		position: absolute;
+		transform: translateX(-50%);
+		left: 50%;
+		bottom: 0;
+	}
+
+	@mixin home-control-toggle-secondary-tab-curr-indicator-shown {
+		opacity: 1;
+		@include clip-path($path: inset(0% 0% 0% 0% round $home-control-toggle-secondary-curr-indicator-radius));
+		@include transition($transition: $home-control-toggle-secondary-curr-indicator-transition-in);
+	}
+	@mixin home-control-toggle-secondary-tab-curr-indicator-hidden {
+		opacity: 0;
+		@include clip-path($path: inset(0% 100% 0% 100% round $home-control-toggle-secondary-curr-indicator-radius));
+		@include transition($transition: $home-control-toggle-secondary-curr-indicator-transition-out);
+	}
+
+	.home-control-toggle {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $home-control-toggle-gap-l;
+		@include unselectable;
+	}
+
+	.home-control-toggler {
+		position: relative;
+		width: 2 * $home-control-toggler-node-size + $home-control-toggler-gap;
+		height: $home-control-toggler-node-size;
+		border-radius: $radius-inf;
+	}
+	.mode-light .home-control-toggler {
+		background-color: $home-control-btn-bgcolor-light;
+	}
+	.mode-dark .home-control-toggler {
+		background-color: $home-control-btn-bgcolor-dark;
+	}
+
+	.home-control-toggler-fg {
+		@include position-center-absolute;
+		z-index: 1;
+		@include clip-path($path: circle(($home-control-toggler-node-size / 2)));
+		@include transition($transition: $home-control-toggler-transition-mask);
+	}
+	.home-control-toggler-left .home-control-toggler-fg {
+		@include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-left ($home-control-toggler-node-size / 2)));
+	}
+	.home-control-toggler-right .home-control-toggler-fg {
+		@include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-right ($home-control-toggler-node-size / 2)));
+	}
+	.mode-light .home-control-toggler-fg {
+		fill: $home-control-toggler-fg-color-light;
+	}
+	.mode-dark .home-control-toggler-fg {
+		fill: $home-control-toggler-fg-color-dark;
+	}
+
+	.home-control-toggler-bg {
+		@include position-center-absolute;
+	}
+	.mode-light .home-control-toggler-bg {
+		fill: $home-control-toggler-bg-color-light;
+	}
+	.mode-dark .home-control-toggler-bg {
+		fill: $home-control-toggler-bg-color-dark;
+	}
+
+	.home-control-toggler::before {
+		content: "";
+		position: absolute;
+		//@include position-center-absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: $radius-inf;
+		outline: $home-control-element-border;
+	}
+	.mode-light .home-control-toggler::before {
+		outline-color: $home-control-element-border-color-light;
+	}
+	.mode-dark .home-control-toggler::before {
+		outline-color: $home-control-element-border-color-dark;
+	}
+
+	.home-control-toggler::after {
+		content: "";
+		@include position-center-absolute;
+		width: $home-control-toggler-node-size;
+		height: $home-control-toggler-node-size;
+		border-radius: $radius-circle;
+		outline: $home-control-toggler-curr-border $home-control-toggler-curr-color;
+		@include transition($transition: $home-control-toggler-transition-ring);
+	}
+	.home-control-toggler-left.home-control-toggler::after {
+		left: $home-control-toggler-curr-position-left;
+	}
+	.home-control-toggler-right.home-control-toggler::after {
+		left: $home-control-toggler-curr-position-right;
+	}
+	.mode-light .home-control-toggler::after {
+		background-color: rgba($home-control-toggler-curr-color, $home-control-toggler-curr-bgopacity-light);
+	}
+	.mode-dark .home-control-toggler::after {
+		width: $home-control-toggler-node-size + 2 * $home-control-toggler-curr-border-width;
+		height: $home-control-toggler-node-size + 2 * $home-control-toggler-curr-border-width;
+		outline: none;
+		background-color: rgba($home-control-toggler-curr-color, $home-control-toggler-curr-bgopacity-dark);
+	}
+
+	.home-control-toggler.home-control-toggler-itching {
+		&.home-control-toggler-left {
+			.home-control-toggler-fg { animation: home-control-toggle-transition-itching-left-fg $home-control-btn-itching-transition; }
+			&::after { animation: home-control-toggle-transition-itching-left-ring $home-control-btn-itching-transition; }
+		}
+		&.home-control-toggler-right {
+			.home-control-toggler-fg { animation: home-control-toggle-transition-itching-right-fg $home-control-btn-itching-transition; }
+			&::after { animation: home-control-toggle-transition-itching-right-ring $home-control-btn-itching-transition; }
+		}
+	}
+
+	.home-control-toggler-mask {
+		clip-path: circle($home-control-toggler-node-size);
+	}
+
+	.home-control-toggle-secondary {
+		height: $home-control-element-height;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding-left: $home-control-toggle-gap-l;
+		gap: $home-control-toggle-gap-s;
+		border-left: $home-control-element-border;
+	}
+	.mode-light .home-control-toggle-secondary {
+		border-color: $home-control-element-border-color-light;
+	}
+	.mode-dark .home-control-toggle-secondary {
+		border-color: $home-control-element-border-color-dark;
+	}
+
+	.home-control-toggle-secondary-tab {
+		@extend %text-body-important;
+		height: $home-control-element-height;
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+
+		&::before {
+			@include home-control-toggle-secondary-tab-curr-indicator;
+			@include home-control-toggle-secondary-tab-curr-indicator-hidden;
+		}
+	}
+	.mode-dark .home-control-toggle-secondary-tab  {
+		color: $home-control-toggle-secondary-color-dark;
+	}
+
+	.home-control-toggle-secondary-tab-curr {
+		font-family: $font-sans-serif-bold;
+
+		&::before {
+			@include home-control-toggle-secondary-tab-curr-indicator-shown;
+		}
+	}
+	.mode-light .home-control-toggle-secondary-tab-curr  {
+		color: $home-control-toggle-secondary-curr-color-light;
+	}
+	.mode-dark .home-control-toggle-secondary-tab-curr  {
+		color: $home-control-toggle-secondary-curr-color-dark;
+	}
+
+	.home-control-toggle-secondary-tab:not(.home-control-toggle-secondary-tab-curr):hover::before {
+		@include home-control-toggle-secondary-tab-curr-indicator-shown;
+	}
+
+	/* Control Switch */
+	$home-control-switch-gap: $spacing-3;
+	$home-control-switch-icons-position-left: $home-control-btn-size - $home-control-switch-gap / 2;
+	$home-control-switch-icons-position-right: $home-control-switch-gap / 2;
+	$home-control-switch-transition: left $time-s $transition-bouncer-gentle;
+
+	@keyframes home-control-switch-transition-itching-left {
+		0% { left: $home-control-switch-icons-position-left; }
+		50% { left: $home-control-switch-icons-position-left - $home-control-btn-itching-displace; }
+		100% { left: $home-control-switch-icons-position-left; }
+	}
+	@keyframes home-control-switch-transition-itching-right {
+		0% { left: $home-control-switch-icons-position-right; }
+		50% { left: $home-control-switch-icons-position-right + $home-control-btn-itching-displace; }
+		100% { left: $home-control-switch-icons-position-right; }
+	}
+
+	.home-control-switch {
+		@extend %home-control-btn;
+		position: relative;
+		@include unselectable;
+	}
+
+	.home-control-switch-icons {
+		position: absolute;
+		transform: translate(-50%,-50%);
+		top: 50%;
+		@include transition($transition: $home-control-switch-transition);
+	}
+	.mode-light .home-control-switch-icons {
+		fill: $home-control-btn-icons-color-light;
+	}
+	.mode-dark .home-control-switch-icons {
+		fill: $home-control-btn-icons-color-dark;
+	}
+
+	.home-control-switch-left .home-control-switch-icons {
+		left: $home-control-switch-icons-position-left;
+	}
+	.home-control-switch-right .home-control-switch-icons {
+		left: $home-control-switch-icons-position-right;
+	}
+
+	.home-control-switch.home-control-switch-itching {
+		&.home-control-switch-left .home-control-switch-icons {
+			animation: home-control-switch-transition-itching-left $home-control-btn-itching-transition;
+		}
+		&.home-control-switch-right .home-control-switch-icons {
+			animation: home-control-switch-transition-itching-right $home-control-btn-itching-transition;
+		}
+	}
+
+	/* Control Expandable */
+	$control-expandable-expand-transition-in: $time-m ease;
+	$control-expandable-expand-transition-out: $time-l ease-in-out;
+	$control-expandable-duckling-num: var(--num-duckling, 1);
+
+	.home-control-expandable {
+		@extend %home-control-btn;
+		position: relative;
+		@include transition($transition: width $control-expandable-expand-transition-out);
+
+		.home-control-expandable-icons {
+			position: absolute;
+			transform: translateY(-50%);
+			top: 50%;
+			left: 0;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			@include transition($transition: left $control-expandable-expand-transition-out);
+		}
+
+		.home-control-expandable-motherduck {
+			width: $home-control-btn-size;
+			height: $home-control-btn-size;
+			border-radius: $radius-inf;
+		}
+
+		.home-control-btn {
+			outline: none;
+		}
+	}
+
+	.home-control-expandable.home-control-expandable-expanded {
+		width: calc($control-expandable-duckling-num * $home-control-btn-size);
+		@include transition($transition: width $control-expandable-expand-transition-in);
+
+		.home-control-expandable-icons {
+			left: -1 * $home-control-btn-size;
+			@include transition($transition: left $control-expandable-expand-transition-in);
+		}
+	}
+
+
+
+	/* Cases */
+
+	$home-cases-padding-Y: $spacing-7;
+	$home-cases-gap: $spacing-7;
+	$home-cases-section-title-indent: $spacing-5;
+	$home-cases-section-title-color-light: $color-lanlv;
+	$home-cases-section-title-color-dark: $color-gray2-66;
+	$home-cases-section-title-caption-color-light: $color-gray4-CC;
+	$home-cases-section-title-caption-color-dark: $color-gray1-33;
+	$home-cases-section-title-bullet-size: $spacing-10;
+	$home-cases-section-title-bullet-img-size: 1.5 * $home-cases-section-title-bullet-size;
+	$home-cases-section-title-bullet-color1-light: $color-lvsongshi;
+	$home-cases-section-title-bullet-color2-light: $color-bg-light;
+	$home-cases-section-title-bullet-color1-dark: $color-gray1-33;
+	$home-cases-section-title-bullet-color2-dark: $color-bg-dark;
+	$home-cases-section-title-bullet-peep-distance: $spacing-7;
+	$home-cases-section-title-bullet-peep-transition-in: left ($transition-bouncer-l-time * $time-m) $transition-bouncer-l;
+	$home-cases-section-title-bullet-peep-transition-out: left $time-l ease-in-out;
+
+	.home-cases {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		//gap: $home-cases-gap;
+		padding-bottom: $home-padding-Y;
+	}
+
+	.home-cases-section {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		padding-bottom: $home-cases-gap;
+	}
+
+	.home-cases-section-title-container {
+		position: relative;
+		align-self: start;
+		height: $home-cases-section-title-bullet-size;
+		display: flex;
+		padding: 0 $home-padding-X;
+		align-items: center;
+	}
+
+	.home-cases-section-title {
+		position: relative;
+		left: $home-cases-section-title-indent;
+		@extend %text-display;
+		display: flex;
+		flex-direction: column;
+		@include transition($transition: $home-cases-section-title-bullet-peep-transition-out);
+	}
+	.mode-light .home-cases-section-title  {
+		color: $home-cases-section-title-color-light;
+	}
+	.mode-dark .home-cases-section-title  {
+		color: $home-cases-section-title-color-dark;
+	}
+
+	.home-cases-section-title-caption {
+		@extend %text-h1;
+	}
+	.mode-light .home-cases-section-title-caption  {
+		color: $home-cases-section-title-caption-color-light;
+	}
+	.mode-dark .home-cases-section-title-caption  {
+		color: $home-cases-section-title-caption-color-dark;
+	}
+
+	.home-cases-section-title-bullet {
+		position: absolute;
+		transform: translate(-50%,-50%);
+		top: 50%;
+		left: 0;	// based on the format of bullet images
+		width: $home-cases-section-title-bullet-img-size;
+		height: $home-cases-section-title-bullet-img-size;
+		pointer-events: none;
+		@include transition($transition: $home-cases-section-title-bullet-peep-transition-out);
+	}
+	.mode-light .home-cases-section-title-bullet {
+		.home-cases-section-title-bullet-color1 { fill: $home-cases-section-title-bullet-color1-light; }
+		.home-cases-section-title-bullet-color2 { fill: $home-cases-section-title-bullet-color2-light; }
+	}
+	.mode-dark .home-cases-section-title-bullet {
+		.home-cases-section-title-bullet-color1 { fill: $home-cases-section-title-bullet-color1-dark; }
+		.home-cases-section-title-bullet-color2 { fill: $home-cases-section-title-bullet-color2-dark; }
+	}
+
+	.home-cases-section-title-bullet-placeholder {
+		content: "";
+		position: absolute;
+		transform: translate(-50%,-50%);
+		top: 50%;
+		left: 0;
+		width: $home-cases-section-title-bullet-size;
+		height: $home-cases-section-title-bullet-size;
+		border-radius: $radius-circle;
+		pointer-events: none;
+	}
+	.mode-light .home-cases-section-title-bullet-placeholder {
+		background-color: $home-cases-section-title-bullet-color1-light;
+	}
+	.mode-dark .home-cases-section-title-bullet-placeholder {
+		background-color: $home-cases-section-title-bullet-color1-dark;
+	}
+
+	.home-cases-section-title-container:not(:has(.home-cases-section-title-bullet-placeholder)):hover {
+		.home-cases-section-title {
+			left: $home-cases-section-title-indent + $home-cases-section-title-bullet-peep-distance;
+			@include transition($transition: $home-cases-section-title-bullet-peep-transition-in);
+		}
+		.home-cases-section-title-bullet {
+			left: $home-cases-section-title-bullet-peep-distance;
+			@include transition($transition: $home-cases-section-title-bullet-peep-transition-in);
+		}
+	}
+
+	.home-cases-section-title-inview .home-cases-section-title-bullet {
+		z-index: $z-top;
+	}
+
+	.home-cases-section-content {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		//gap: $home-cases-gap;
+	}
+
+	/* Case Card */
+	//$home-case-height: 320px;
+	$home-case-padding-right: $spacing-10;
+	$home-case-gap: 0;
+	$home-case-img-width: 400px;
+	$home-case-text-padding: $spacing-6 0;
+	$home-case-text-gap: $spacing-5;
+	$home-case-title-color-active-light: var(--theme-title-color-light, $color-gray1-33);
+	$home-case-title-color-active-dark: var(--theme-title-color-dark, $color-gray4-CC);
+	$home-case-bio-gap-X: $spacing-4;
+	$home-case-bio-gap-Y: 0;
+	$home-case-bio-height: $font-default;
+	$home-case-bio-divider: $border-width-s solid;
+	$home-case-bio-divider-color-light: $color-gray3-99;
+	$home-case-bio-divider-color-dark: $color-gray3-99;
+
+	.home-case {
+		@extend %home-section;
+		//height: $home-case-height;
+	}
+
+	.home-case .home-section-bg-clipper {
+		width: calc(100% - 2 * $home-padding-X);
+		height: calc(100% - $home-cases-gap);
+		x: $home-padding-X;
+		y: $home-cases-gap / 2;
+		rx: $home-section-radius;
+		transform-origin: 50% 50%;
+		transform: rotateX(0) rotateY(0);
+		@include transition($transition: $home-section-bg-prerotate-transition);
+	}
+
+	.home-case .home-section-fg-container {
+		pointer-events: none;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		padding: 0 ($home-padding-X + $home-case-padding-right) 0 $home-padding-X;
+		gap: $home-case-gap;
+		//flex-wrap: wrap;
+	}
+
+	.home-case-img-container {
+		flex-shrink: 0;
+		width: $home-case-img-width;
+		//height: $home-case-height;
+		height: 100%;
+	}
+
+	.home-case-text-container {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: $home-case-text-padding;
+		gap: $home-case-text-gap;
+	}
+
+	.home-case-title {
+		@extend %text-h1;
+		@include transition($transition: $home-section-color-transition-out);
+	}
+
+	.home-section-active:not(.home-section-substituted) .home-case-title {
+		@include transition($transition: $home-section-color-transition-in);
+	}
+
+	.mode-light .home-section-active:not(.home-section-substituted) .home-case-title {
+		color: $home-case-title-color-active-light !important;
+	}
+	.mode-dark .home-section-active:not(.home-section-substituted) .home-case-title {
+		color: $home-case-title-color-active-dark !important;
+	}
+
+	.home-case-bio {
+		align-self: stretch;
+		@extend %text-body-important;
+		line-height: $home-case-bio-height;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $home-case-bio-gap-Y $home-case-bio-gap-X;
+		flex-wrap: wrap;
+	}
+
+	.home-case-bio-item {
+		display: inline-flex;
+		flex-direction: row;
+		align-items: center;
+
+		&:not(:first-child) {
+			padding-left: $home-case-bio-gap-X;
+			border-left: $home-case-bio-divider;
+		}
+	}
+	.mode-light .home-case-bio-item:not(:first-child) {
+		border-color: $home-case-bio-divider-color-light;
+	}
+	.mode-dark .home-case-bio-item:not(:first-child) {
+		border-color: $home-case-bio-divider-color-dark;
+	}
+
+	.home-case-brief {
+		@extend %text-body;
+		pointer-events: auto;
+	}
