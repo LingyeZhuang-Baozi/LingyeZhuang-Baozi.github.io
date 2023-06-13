@@ -192,7 +192,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>I wore several hats in TSE, an highly selective student organization at UCSD that has developed software for 20+ nonprofit clients. As the marketing lead, I designed social media posts, flyers, and merchandise, maintaining a branding that upholds professionalism. I co-established the first design system at TSE, standardizing design tokens and fundamental components for future projects.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/TSE/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -217,7 +217,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>I took charge of revamping the company's website, setting the stage for the launch of their app. Conducting thorough user research, I crafted user personas that guided our design choices throughout the redesign process.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/CharmLife/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -242,7 +242,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>To connect farmers and truckers in Bhutan and improve good transportation, we built an Android app similar to Uber Eats. In the app, farmers can post jobs and track delivery progress, and drivers can search for suitable jobs and maximize their profits.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/LAK/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -267,7 +267,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>The mission of the nonprofit Make-A-Wish is to grant wishes to children with critical illness. My team built a volunteer hub that fulfills their needs to coordinate the diverse volunteer base and smoothen the wish-granting process.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/MAW/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -292,7 +292,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>As the sole designer on the team, I was in charge of everything design-relevant: I initialized a thorough rebrand and redesigned the <A href="https://www.mercuryalert.ai/">product website</A>, enhancing its usability and credibility, attracted a seed funding for the company. I created graphic design for instagram and facebook posts 3 times per week, and increased the like count by 50%. I iterated the sponsorship decks, business card, trifold, and questionnaires. The templates I designed are still in use to date.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/MercuryAlert/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -442,7 +442,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>Tailoring to Atlas's requirements, I designed and prototyped a full dashboard for e-commerce fullfillers. The dashboard contains data visualization panels, a message inbox, and detailed tracking of products, partners, and payments.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/Atlas/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -467,7 +467,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>Based on interview data and literature reviews, I conceptualized an electronic pet therapy putty device, which would provide stroke patients with ongoing motivation during their upper-limb recovery exercises at home, fostering engagement and progress.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/RehaBuddy/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -517,7 +517,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>Seeing students constantly overwhelmed by class readings, my team designed and implemented an app to help enhance their engagement with the reading together with their peers and bring back their motivation. We practiced the Double Diamond design process, as well as frontend languages including HTML, CSS, and javascript.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/GroupReads/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
@@ -592,7 +592,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: <>I crafted stylized illustrations and comics for articles on neuroscience and cognitive science, promoting popularization of the latest discoveries in these fields among the general public. By visually engaging audiences, my work bridged the gap between complex scientific concepts and wider understanding.</>,
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/Neureality/thumbnail_img.png"),
 		},
 		content: {
 			overview: [],
