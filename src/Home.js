@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 
 import './Home.scss';
 
-/* Foreign components */
+/* Foreign Components */
 import { btns, images } from './assets.js';
 import { cases, casesNames, casesGoats, casesByCategory, casesByTimeline } from './cases.js';
-import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchCursorTypeContext } from './App.js';
-import { A, Emoji } from "./components.js";
+import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext } from './App.js';
+import { ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji } from "./components.js";
+
+/* Important Assets */
 import { ReactComponent as ObjectRandom } from "./assets/basic/object_RANDOM.svg";	// TODO
-import { ReactComponent as AskMyCaseStudies } from "./assets/basic/hintblobs/ask_my_case_studies.svg";	// TODO
+import { ReactComponent as AskMyCaseStudies } from "./assets/basic/hintblobs/ask_my_case_studies.svg";
+import MyPic1 from "./assets/basic/me-1.jpg";
+import MyPic2 from "./assets/basic/me-2.jpg";
 
 /* Libraries */
 import useIsInViewport from "use-is-in-viewport";
@@ -230,6 +234,12 @@ export default function Home () {
 		// useEffect(() => { console.log("sections:", sections); }, [sections]);
 		// useEffect(() => { console.log("caseInView:", caseInView); }, [caseInView]);
 
+	/* Reset Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	useEffect(() => {
+		dispatchCursorType({type: "default"});
+	}, []);
+
 	/* Hero Section In View */
 	const [heroInView, setHeroInView] = useState(true);
 
@@ -251,7 +261,7 @@ export default function Home () {
 			</caseInViewContext.Provider>
 			</dispatchSortByContext.Provider>
 			</sortByContext.Provider>
-				{/*<Thanks />	TODO*/}
+				<Thanks />
 		</div>
 	);
 }
@@ -298,6 +308,7 @@ function Hero ({inViewSetter}) {
 	const [heroInView, heroInViewRef] = useIsInViewport({
 		target: heroRef,
 		threshold: 0,
+		modTop: "-8px",	// give a bit of room for error
 	});
 	useEffect (() => {
 		inViewSetter(heroInView);
@@ -314,12 +325,12 @@ function Hero ({inViewSetter}) {
 					<div className="home-hero-mypic-container">
 						<img
 							className="home-hero-mypic home-hero-mypic-1"
-							src={images.home.hero.mypic1}
+							src={MyPic1}
 							alt=""
 						/>
 						<img
 							className="home-hero-mypic home-hero-mypic-2"
-							src={images.home.hero.mypic2}
+							src={MyPic2}
 							alt="A Photo Of Me"
 						/>
 					</div>
@@ -343,7 +354,7 @@ function Hero ({inViewSetter}) {
 							<div className="home-hero-selfintro-body">
 								I design for social good, and I believe practice makes perfect.
 								<br/>Walking on the path toward being a full-stack designer.
-								<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master" target="_blank">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
+								<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
 							</div>
 						</div>
 						<div className="home-hero-objects-placeholder"></div>
@@ -429,7 +440,7 @@ function HeroContactBtn ({btnContent}) {
 			</a>
 			<img
 				className={
-					"home-hero-contacts-button-hintblob " +
+					"hintblob-left-top " +
 					(hovering==true ? "hintblob-shown" : "")
 				}
 				style={{"--hintblob-left": btnInfo.hintblob.left+"px", "--hintblob-top": btnInfo.hintblob.top+"px"}}
@@ -471,7 +482,7 @@ function HeroObjects () {
 			{objects.map((object, idx) =>
 				<HeroObject
 					key={idx}
-					object={object}
+					caseId={object}
 					hoverState={ getHoverState(idx) }
 					hoverStarted={() => { hoverObjectStarts(idx); }}
 					hoverEnded={() => { hoverObjectEnds(); }}
@@ -487,9 +498,9 @@ function HeroObjects () {
 	);
 }
 
-function HeroObject ({object, hoverState, hoverStarted, hoverEnded}) {	// hoverState: 0 = default, 1 = curr, 2 = noncurr
+function HeroObject ({caseId, hoverState, hoverStarted, hoverEnded}) {	// hoverState: 0 = default, 1 = curr, 2 = noncurr
 
-	//const objectContent = cases[object];
+	//const objectContent = cases[caseId];
 
 	/* Cursor */
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
@@ -497,7 +508,7 @@ function HeroObject ({object, hoverState, hoverStarted, hoverEnded}) {	// hoverS
 	/* Hover Handler */
 	const hoverStarts = (e) => {
 		e.preventDefault();
-		dispatchCursorType({type: "pointer"});
+		dispatchCursorType({type: "readmore"});
 		hoverStarted();
 	}
 	const hoverEnds = (e) => {
@@ -508,9 +519,10 @@ function HeroObject ({object, hoverState, hoverStarted, hoverEnded}) {	// hoverS
 
 	/* Render */
 	return (
-		<div
+		<Link
+			to={"/case-" + caseId}
 			className={
-				"home-hero-object-container " +
+				"home-hero-object-container ghost " +
 				(hoverState===1 ? "curr" : "") + " " +
 				(hoverState===2 ? "noncurr" : "")
 			}
@@ -518,10 +530,8 @@ function HeroObject ({object, hoverState, hoverStarted, hoverEnded}) {	// hoverS
 			onMouseOver={hoverStarts}
 			onMouseLeave={hoverEnds}
 		>
-			<div className="object">
-				<ObjectRandom />
-			</div>
-		</div>
+			<ObjectRandom />
+		</Link>
 	);
 }
 
@@ -570,7 +580,7 @@ function ControlBar ({departed}) {
 	/* Render */
 	return (
 		<div className="home-control">
-			<div className="home-control-leftgroup">
+			<div className="control-leftgroup">
 				<ControlBarToggle
 					btnContent="sortby"
 					togglerCurr={currSortByMode}
@@ -580,8 +590,8 @@ function ControlBar ({departed}) {
 					newlyClickedSecondary={newlyClickedSecondary}
 				/>
 			</div>
-			<div className="home-control-rightgroup">
-				<div className="home-control-rightgroup-subgroup">
+			<div className="control-rightgroup">
+				<div className="control-rightgroup-subgroup">
 					<ControlBarSwitch
 						btnContent="mode"
 						curr={currMode.mode}
@@ -593,17 +603,24 @@ function ControlBar ({departed}) {
 						updateHandler={languageUpdateHandler}
 					/>
 					{departed == true ?
-						<ControlBarButton
+						<ControlBarBtn
 							btnContent="totop"
-							clickHandler={() => { window.scrollTo(0,0); }}
-							itchClass="home-control-btn-totop-itching"
+							clickHandler={() => {
+								window.scrollTo({
+									top: 0,
+									left: 0,
+									behavior: "smooth",
+								});
+							}}
+							itchClass="control-btn-totop-itching"
 						/>
 					: null }
 				</div>
 				{departed == true ?
-					<div className="home-control-rightgroup-subgroup">
-						<ControlBarButton
+					<div className="control-rightgroup-subgroup">
+						<ControlBarBtn
 							btnContent="resume"
+							overflow={true}
 						/>
 						<ControlBarExpandable
 							btnContent="contacts"
@@ -615,275 +632,57 @@ function ControlBar ({departed}) {
 	);
 }
 
-function ControlBarButton ({btnContent, clickHandler=undefined, itchClass=""}) {
+function ControlBarBtn ({btnContent, overflow=false, clickHandler=undefined, itchClass="", hoveredObserver=undefined}) {
 
-	const btnInfo = btns.home.control.btn[btnContent];
-
-	/* Cursor */
-	const dispatchCursorType = useContext(dispatchCursorTypeContext);
-
-	/* Hover Handler */
-	const [hovered, setHovered] = useState(false);
-	const hoverStarts = (e) => {
-		e.preventDefault();
-		if (hovered == false) {
-			dispatchCursorType({type: "pointer"});
-			setHovered(true);
-			setTimeout (() => {
-				setHovered(false);
-			}, 280); // $home-control-btn-itching-transition time 270ms with a bit of extra
-		}
-	}
-
-	/* Click Handler */
-	const clicked = (e) => {
-		if (clickHandler) {
-			e.preventDefault();
-			clickHandler();
-		} else {
-			window.open(btnInfo.url, '_blank');
-		}
-	}
-
-	/* Render */
-	return (
-		<div
-			className={
-				"home-control-btn " +
-				(itchClass != "" ?
-					(hovered ? itchClass : "")
-				:
-					"home-control-btn-hover-default"
-				)
-			}
-			onMouseEnter={hoverStarts}
-			onMouseOver={() => {dispatchCursorType({type: "pointer"});}}
-			onMouseLeave={() => {dispatchCursorType({type: "default"});}}
-			onClick={clicked}
-		>
-			{btnInfo.icon}
-		</div>
-	);
+	/* Validate And Render */
+	const content = btns.home.control.btn[btnContent];
+	return (<>{content ?
+		<ControlBtn
+			btnContent={content}
+			overflow={overflow}
+			clickHandler={clickHandler}
+			itchClass={itchClass}
+			hoveredObserver={hoveredObserver}
+		/>
+	: null }</>);
 }
 
 function ControlBarToggle ({btnContent, togglerCurr, togglerUpdateHandler, secondaries, secondaryUpdateHandler, newlyClickedSecondary}) {	// togglerCurr: true = toggle to left, false = toggle to right
 
-	const toggleInfo = btns.home.control.toggler[btnContent];
-	const toggleSecondary = (togglerCurr==true ? secondaries[0] : secondaries[1]);
-
-	/* Cursor */
-	const dispatchCursorType = useContext(dispatchCursorTypeContext);
-
-	/* Toggler Handler */
-	const [hoveredTogglerChanging, setHoveredTogglerChanging] = useState(false);
-	const [triggeredTogglerChanging, setTriggeredTogglerChanging] = useState(false);
-	const togglerHoverStarts = (e) => {
-		e.preventDefault();
-		if (hoveredTogglerChanging == false && triggeredTogglerChanging == false) {
-			dispatchCursorType({type: "pointer"});
-			setHoveredTogglerChanging(true);
-			setTimeout (() => {
-				setHoveredTogglerChanging(false);
-			}, 280); // $home-control-btn-itching-transition time 270ms with a bit of extra
-		}
-	}
-	const togglerChangeTriggered = (e) => {
-		e.preventDefault();
-		if (triggeredTogglerChanging == false) {
-			setTriggeredTogglerChanging(true);
-			setHoveredTogglerChanging(false);
-			togglerUpdateHandler(e);
-			setTimeout (() => {
-				setTriggeredTogglerChanging(false);
-			}, 145); // cooling-off period before next trigger, $time-s 135ms with a bit of extra
-		}
-	}
-
-	/* Secondary Handler */
-	// Hover effect is handled by CSS.
-	const secondaryChangeTriggered = (e, newCurr) => {
-		e.preventDefault();
-		secondaryUpdateHandler(newCurr);
-	}
-
-	/* Render */
-	return (
-		<div className="home-control-toggle">
-			<div
-				className={
-					"home-control-toggler " +
-					"home-control-toggler-" + (togglerCurr==true ? "left" : "right") + " " +
-					(hoveredTogglerChanging ? "home-control-toggler-itching" : "")
-				}
-				onMouseEnter={togglerHoverStarts}
-				onMouseOver={() => {dispatchCursorType({type: "pointer"});}}
-				onMouseLeave={() => {dispatchCursorType({type: "default"});}}
-				onClick={togglerChangeTriggered}
-			>
-				{toggleInfo.bg}
-				{toggleInfo.fg}
-			</div>
-			<div className="home-control-toggle-secondary">
-				{toggleSecondary.content.map((tab, idx) =>
-					<ControlBarToggleSecondaryTab
-						key={idx}
-						tabContent={tab[0]}
-						curr={
-							newlyClickedSecondary===idx
-							|| (newlyClickedSecondary<0 && toggleSecondary.curr===idx)
-						}
-						updateHandler={(e) => { secondaryChangeTriggered(e, idx); }}
-					/>
-				)}
-			</div>
-		</div>
-	);
-}
-
-function ControlBarToggleSecondaryTab ({tabContent, curr, updateHandler}) {
-
-	/* Cursor */
-	const dispatchCursorType = useContext(dispatchCursorTypeContext);
-	const hoverStarts = (e) => {
-		e.preventDefault();
-		dispatchCursorType({type: "pointer"});
-	}
-	const hoverEnds = (e) => {
-		e.preventDefault();
-		dispatchCursorType({type: "default"});
-	}
-
-	/* Render */
-	return (
-		// <Link	//TODO!!!
-		// 	to={"/#" + tabContent}
-		// >
-			<div
-				className={
-					"home-control-toggle-secondary-tab " +
-					(curr==true ? "home-control-toggle-secondary-tab-curr" : "")
-				}
-				onMouseEnter={hoverStarts}
-				onMouseOver={hoverStarts}
-				onMouseLeave={hoverEnds}
-				onClick={updateHandler}
-			>
-				{tabContent}
-			</div>
-		// </Link>
-	);
+	/* Validate And Render */
+	const content = btns.home.control.toggler[btnContent];
+	return (<>{content ?
+		<ControlToggle
+			btnContent={content}
+			togglerCurr={togglerCurr}
+			togglerUpdateHandler={togglerUpdateHandler}
+			secondaries={secondaries}
+			secondaryUpdateHandler={secondaryUpdateHandler}
+			newlyClickedSecondary={newlyClickedSecondary}
+		/>
+	: null }</>);
 }
 
 function ControlBarSwitch ({btnContent, curr, updateHandler}) {	// curr: true = circle fg left, false = circle fg right
 
-	const switchIcons = btns.home.control.switch[btnContent];
-
-	/* Cursor */
-	const dispatchCursorType = useContext(dispatchCursorTypeContext);
-
-	/* Switch Handler */
-	const [hoveredChanging, setHoveredChanging] = useState(false);
-	const [triggeredChanging, setTriggeredChanging] = useState(false);
-	const hoverStarts = (e) => {
-		e.preventDefault();
-		if (hoveredChanging == false && triggeredChanging == false) {
-			dispatchCursorType({type: "pointer"});
-			setHoveredChanging(true);
-			setTimeout (() => {
-				setHoveredChanging(false);
-			}, 280); // $home-control-btn-itching-transition time 270ms with a bit of extra
-		}
-	}
-	const changeTriggered = (e) => {
-		e.preventDefault();
-		if (triggeredChanging == false) {
-			setTriggeredChanging(true);
-			setHoveredChanging(false);
-			updateHandler();
-			setTimeout (() => {
-				setTriggeredChanging(false);
-			}, 145); // cooling-off period before next trigger, $time-s 135ms with a bit of extra
-		}
-	}
-
-	/* Render */
-	return (
-		<div
-			className={
-				"home-control-switch " +
-				"home-control-switch-" + (curr==true ? "left" : "right") + " " +
-				(hoveredChanging ? "home-control-switch-itching" : "")
-			}
-			onMouseEnter={hoverStarts}
-			onMouseOver={() => {dispatchCursorType({type: "pointer"});}}
-			onMouseLeave={() => {dispatchCursorType({type: "default"});}}
-			onClick={changeTriggered}
-		>
-			{switchIcons}
-			<div className="home-control-switch-mask"></div>
-		</div>
-	);
+	/* Validate And Render */
+	const content = btns.home.control.switch[btnContent];
+	return (<>{content ?
+		<ControlSwitch
+			btnContent={content}
+			curr={curr}
+			updateHandler={updateHandler}
+		/>
+	: null }</>);
 }
 
 function ControlBarExpandable ({btnContent}) {
 
-	const expandableInfo = btns.home.control.expandable[btnContent];
-
-	/* Expand Handler */
-	const [hovered, setHovered] = useState(false);
-	const [hoverJustEnded, setHoverJustEnded] = useState(false);
-	const [expanded, setExpanded] = useState(false);
-	const hoverStarts = (e) => {
-		e.preventDefault();
-		setHovered(true);
-	}
-	const hoverEnds = (e) => {
-		e.preventDefault();
-		setHovered(false);
-		setHoverJustEnded(true);
-	}
-	useEffect(() => {
-		if (hoverJustEnded == true) {
-			setTimeout (() => {
-				if (hovered == false) {
-					setHoverJustEnded(false);
-				}
-			}, 2010); // 2s with a bit of extra
-		}
-	}, [hoverJustEnded])
-	useEffect(() => {
-		if (hovered == true || hoverJustEnded == true) {
-			setExpanded(true);
-		} else {
-			setExpanded(false);
-		}
-	}, [hovered, hoverJustEnded])
-
-	/* Render */
-	return (
-		<div
-			className={
-				"home-control-expandable " +
-				(expanded == true ? "home-control-expandable-expanded" : "")
-			}
-			style={{"--num-duckling": expandableInfo[1].length}}
-			onMouseEnter={hoverStarts}
-			onMouseOver={hoverStarts}
-			onMouseLeave={hoverEnds}
-		>
-			<div className="home-control-expandable-icons">
-				<div className="home-control-expandable-motherduck">
-					{expandableInfo[0]}
-				</div>
-				{expandableInfo[1].map((duckling, idx) =>
-					<ControlBarButton
-						key={idx}
-						btnContent={duckling}
-					/>
-				)}
-			</div>
-		</div>
-	);
+	/* Validate And Render */
+	const content = btns.home.control.expandable[btnContent];
+	return (<>{content ?
+		<ControlExpandable btnContent={content} />
+	: null }</>);
 }
 
 
@@ -902,16 +701,19 @@ function Cases () {
 
 	/* Render */
 	return (
-		<div className="home-cases">
-			{sections.map((section, idx) =>
-				<CasesSection
-					key={section[0]}
-					sectionContent={section}
-					sectionRef={sortBy.secondary[sortBy.mode==true ? 0 : 1].refs.current[idx]}
-					sectionInViewStateSetter={(state) => { sectionInViewStateSetter(idx, state); }}
-				/>
-			)}
-		</div>
+		// <div className="home-cases-container">
+		// 	<Thanks />
+			<div className="home-cases">
+				{sections.map((section, idx) =>
+					<CasesSection
+						key={section[0]}
+						sectionContent={section}
+						sectionRef={sortBy.secondary[sortBy.mode==true ? 0 : 1].refs.current[idx]}
+						sectionInViewStateSetter={(state) => { sectionInViewStateSetter(idx, state); }}
+					/>
+				)}
+			</div>
+		// </div>
 	);
 }
 
@@ -1088,13 +890,113 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 					</div>
 				</>
 				<>
-					<CaseObject />
+					<CaseObject
+						caseId={caseId}
+						caseIsActive={inViewStage===2}
+					/>
 				</>
 			</HomeSection>
 		</div>
 	);
 }
 
-function CaseObject () {
-	return (<></>);	//TODO!
+function CaseObject ({caseId, caseIsActive}) {
+
+	const caseObject = cases[caseId].theme.object;
+
+	/* Cursor */
+	const cursorType = useContext(cursorTypeContext);
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Click-me Hint */
+	const [hovered, setHovered] = useState(false);
+	const [activeStage, setActiveStage] = useState(0);	// 0 = case is not active, 1 = case is just activated and object has not been hovered yet, 2 = case is active and object has been hovered at least once
+	useEffect(() => {
+		if (caseIsActive == true) {
+			if (activeStage === 0) {
+				setActiveStage(1);
+			}
+		} else {
+			setActiveStage(0);
+		}
+	}, [caseIsActive]);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "readmore"});
+		setHovered(true);
+		if (activeStage === 1) {
+			setActiveStage(2);
+		}
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+		setHovered(false);
+	}
+
+	const hintblobSrcSwitch = btns.home.cases.clickme;
+	const [hintblobShown, setHintblobShown] = useState(false);
+	const [hintblobSrcIdx, setHintblobSrcIdx] = useState(0);
+	useEffect(() => {
+		if (hovered == true) {
+			setHintblobShown(true);
+			setHintblobSrcIdx(2);
+		} else {
+			if (activeStage > 0) {
+				setHintblobShown(true);
+				if (activeStage === 1) { setHintblobSrcIdx(1); }
+				else { setHintblobSrcIdx(0); }
+			} else {
+				setHintblobShown(false);
+			}
+		}
+	}, [hovered, activeStage]);
+
+	/* Render */
+	return (
+		<Link
+			to={"/case-" + caseId}
+			className="home-case-object-container-out ghost"
+			onMouseEnter={hoverStarts}
+			onMouseOver={hoverStarts}
+			onMouseLeave={hoverEnds}
+		>
+			<div className="home-case-object-rotater">
+				<div className="home-case-object-container-in">
+					{caseObject}
+				</div>
+			</div>
+			{cursorType != "readmore" ?	// avoid overlapping with the cursor blob
+				<img
+					className={
+						"home-case-object-hintblob " +
+						(hintblobShown==true ? "hintblob-shown" : "")// + " " +
+						//(cursorType=="readmore" ? "fade" : "")	// TODO: not working, fix this
+					}
+					//src={hintblobSrcSwitch[hintblobSrcIdx].blob}
+					src={hintblobSrcSwitch.blob}
+					//style={{"--hintblob-right": hintblobSrcSwitch[hintblobSrcIdx].right+"px", "--hintblob-top": hintblobSrcSwitch[hintblobSrcIdx].top+"px"}}
+					style={{"--hintblob-right": hintblobSrcSwitch.right+"px", "--hintblob-top": hintblobSrcSwitch.top+"px"}}
+					alt=""
+				/>
+			: null }
+		</Link>
+	);
+}
+
+
+
+function Thanks () {
+
+	/* Render */
+	return (
+		<div className="home-thanks-container">
+			<div className="home-thanks">
+				Thank you for making it this far! You are just amazing!
+			</div>
+			<div className="home-thanks-msg">
+				Maybe there is a chance that we can be friends? I am recently seeking a datapal to complete the <A href="http://www.dear-data.com/theproject">Dear Data challenge</A> with me, and build a lifelong friendship. No matter which part of the world you are in, if this interests you, please <A href="mailto:l1zhuang@ucsd.edu">send me an email</A>! <Emoji>😉</Emoji>
+			</div>
+		</div>
+	);
 }

@@ -1,0 +1,126 @@
+	//@use "style";
+	@import "_style.scss";
+
+	// Case
+	$case-padding: $spacing-8;
+	$case-gap: $spacing-8;
+	$case-bgcolor-light: var(--theme-bgcolor-light, $color-gray6-F0);
+	$case-bgcolor-dark: $color-gray1-33;//var(--theme-bgcolor-dark, $color-gray1-33)
+	$case-display-color-light: var(--theme-title-color-light, $color-gray1-33);
+	$case-display-color-dark: var(--theme-title-color-dark, $color-gray4-CC);
+	$case-object-fill-1-light: var(--theme-title-color-light, $object-fill-1-light);
+	$case-object-fill-1-dark: var(--theme-title-color-dark, $object-fill-1-dark);
+	$case-object-fill-2-light: $color-bg-light;
+	$case-object-fill-2-dark: $color-bg-dark;
+
+	// Header
+	$case-header-gap-X: $spacing-8;
+	$case-header-gap-Y: $spacing-7;
+	$case-header-bio-entry-gap: $spacing-2;
+	$case-header-bio-tldr-width: 400px;
+	$case-header-img-maxwidth: 50vw;
+	$case-header-img-maxheight: 100vh;
+	$case-header-object-hintblob-transition-in: opacity $time-l ease, transform $time-l ease;
+	$case-header-object-hintblob-transition-out: opacity $time-xs ease, transform $time-l ease;
+	$case-header-object-hintblob-transition-out-displace: $spacing-4;
+
+
+
+	.case-control {
+		@extend %control;
+		position: fixed;
+		background-color: transparent !important;
+	}
+
+
+
+	%case {
+		display: flex;
+		flex-direction: column;
+		padding: $case-padding;
+
+		.case-header {
+			width: 100%;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: $case-gap;
+
+			.case-header-title {
+				@extend %text-display;
+			}
+
+			.case-header-bio-container {
+				display: flex;
+				flex-direction: row;
+				align-items: flex-start;
+				gap: $case-header-gap-X;
+
+				.case-header-bio {
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					gap: $case-header-gap-Y;
+				}
+
+				.case-header-bio-entry-container {
+					align-self: stretch;
+					@extend %text-body-important;
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					gap: $case-header-bio-entry-gap;
+
+					&.case-header-bio-tldr {
+						width: $case-header-bio-tldr-width;
+					}
+
+					.case-header-bio-entry-title {
+						font-family: $font-sans-serif-bold;
+					}
+				}
+			}
+
+			.case-header-img-container-out {
+				z-index: $z-bg;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				max-width: $case-header-img-maxwidth;
+				max-height: $case-header-img-maxheight;
+				@include unselectable;
+
+				.case-header-img-container-in {
+					position: relative;
+					display: inline-block;
+					width: 100%;
+					height: 100%;
+
+					.case-header-img {
+						width: 100%;
+						@include position-center-absolute;
+						//@include transition($transition: $home-case-img-active-transition-out);
+					}
+				}
+			}
+
+			.case-header-object-hintblob {
+				@extend %hintblob;
+				// transform: translateY(-1*$case-header-object-hintblob-transition-out-displace);
+				// left: auto;
+				// right: 80px;
+				// top: -102px;
+				@include transition($transition: $case-header-object-hintblob-transition-out);
+
+				&.hintblob-shown {
+					// transform: translateY(0);
+					@include transition($transition: $case-header-object-hintblob-transition-in);
+				}
+			}
+		}
+	}
+
+	.case {
+		@extend %case;
+	}

@@ -15,10 +15,11 @@
 	@namespace svg "http://www.w3.org/2000/svg";
 	body {
 		all: initial;
-		cursor: none;
 		*:not(svg|*) {
 			all: unset;
 		}
+		overflow-x: hidden;
+		cursor: none;
 		transform-style: preserve-3d;
 	}
 
@@ -68,12 +69,10 @@
 		$lineheight-default: 1.8 * $font-default;
 	$font-hint: 16px;
 		$lineheight-hint: 1.5 * $font-hint;
-	$font-h1: 24px;
-		$lineheight-h1: 1.5 * $font-h1;
-		$letterspacing-h1: 0.01rem;
-	$font-h2: 20px;
+	$font-h1: 40px;
+		$lineheight-h1: 1.2 * $font-h1;
+	$font-h2: 24px;
 		$lineheight-h2: 1.5 * $font-h2;
-		$letterspacing-h2: 0.01rem;
 	$font-display: 80px;
 		$lineheight-display: 1 * $font-display;
 	$font-explanation: 12px;
@@ -180,15 +179,145 @@
 	// $transition-opacity-gentle-in: opacity $time-m ease-in;
 	// $transition-opacity-gentle-out: opacity $time-l ease-in-out;
 
+	/* Selection */
+
+	@mixin selection {
+		color: $color-xiangyabai;
+		background-color: $color-xihongshi;
+		text-shadow: none;
+	}
+	::selection { @include selection; }
+	::-moz-selection { @include selection; }
+
+	@mixin unselectable {
+		user-select: none;					// Chrome, Opera
+		-webkit-user-select: none;	// Safari
+		-khtml-user-select: none;		// Konqueror HTML
+		-moz-user-select: none;			// Firefox
+		-ms-user-select: none;			// Internet Explorer/Edge
+	}
+
 
 
 /*!*--- Basic component ---**/
 
+	/* MyLogo */
+	$logo-size: $spacing-7;
+	$logo-active-scaler: $scaling-s;
+	$logo-hand-position-L-left: 44.2px;
+	$logo-hand-position-L-top: 34.2px;
+	$logo-hand-position-R-left: -4.2px;
+	$logo-hand-position-R-top: 34.2px;
+	$logo-active-hand-position-L-left: 36.5px;
+	$logo-active-hand-position-L-top: 6.3px;
+	$logo-active-hand-position-R-left: 3.5px;
+	$logo-active-hand-position-R-top: 6.3px;
+	$logo-stroke-color-light: $color-gray1-33;
+	$logo-dough-color-light: $color-bg-light;
+	$logo-bg-color-light: $color-gray4-CC;
+	$logo-stroke-color-dark: $color-black;
+	$logo-dough-color-dark: $color-gray4-CC;
+	$logo-bg-color-dark: $color-gray2-66;
+	$logo-active-dough-color: $color-xiangyabai;
+	$logo-active-bg-color: $color-xihongshi;
+	$logo-transition-in: transform ($transition-bouncer-s-time * $time-xs) $transition-bouncer-s;
+	$logo-transition-out: transform $time-s ease;
+	$logo-content-transition-in-time: $time-s ease;
+	$logo-content-transition-out-time: $time-m ease-in-out;
+	$logo-bg-transition-in: $transition-fill-in;
+	$logo-bg-transition-out: fill $logo-content-transition-out-time;
+	$logo-hand-transition-in: left $logo-content-transition-in-time, top $logo-content-transition-in-time;
+	$logo-hand-transition-out: left $logo-content-transition-out-time, top $logo-content-transition-out-time;
+
+	.logo-container {
+		display: inline-block;
+		position: relative;
+		width: $logo-size;
+		height: $logo-size;
+		@include unselectable;
+	}
+
+	.logo {
+		display: inline-block;
+		// position: relative;
+		width: $logo-size;
+		height: $logo-size;
+		// @include unselectable;
+		transform: scale(1);
+		@include transition($transition: $logo-transition-out);
+
+		.logo-body {
+			@include position-center-absolute;
+
+			.logo-bg {
+				@include transition($transition: $logo-bg-transition-out);
+			}
+		}
+
+		.logo-hand-L {
+			position: absolute;
+			transform: translate(-50%,-50%);
+			left: $logo-hand-position-L-left;
+			top: $logo-hand-position-L-top;
+			@include transition($transition: $logo-hand-transition-out);
+			pointer-events: none;
+		}
+		.logo-hand-R {
+			position: absolute;
+			transform: translate(-50%,-50%);
+			left: $logo-hand-position-R-left;
+			top: $logo-hand-position-R-top;
+			@include transition($transition: $logo-hand-transition-out);
+			pointer-events: none;
+		}
+	}
+
+	.mode-light .logo {
+		.logo-body-stroke { fill: $logo-stroke-color-light; }
+		.logo-body-dough { fill: $logo-dough-color-light; }
+		.logo-bg { fill: $logo-bg-color-light; }
+	}
+	.mode-dark .logo {
+		.logo-body-stroke { fill: $logo-stroke-color-dark; }
+		.logo-body-dough { fill: $logo-dough-color-dark; }
+		.logo-bg { fill: $logo-bg-color-dark; }
+	}
+
+	.logo.logo-active {
+		transform: scale($logo-active-scaler);
+		@include transition($transition: $logo-transition-in);
+
+		.logo-body-dough { fill: $logo-active-dough-color; }
+		.logo-bg { fill: $logo-active-bg-color; }
+
+		.logo-hand-L {
+			position: absolute;
+			transform: translate(-50%,-50%);
+			left: $logo-active-hand-position-L-left;
+			top: $logo-active-hand-position-L-top;
+			@include transition($transition: $logo-hand-transition-in);
+		}
+		.logo-hand-R {
+			position: absolute;
+			transform: translate(-50%,-50%);
+			left: $logo-active-hand-position-R-left;
+			top: $logo-active-hand-position-R-top;
+			@include transition($transition: $logo-hand-transition-in);
+		}
+
+		.logo-bg {
+			@include transition($transition: $logo-bg-transition-in);
+		}
+	}
+
 	/* Text */
+	$text-max-width: 800px;
 	$text-color-display-light: $color-lanlv;
 	$text-color-display-dark: $color-gray2-66;
-	$text-color-h1-light: $color-gray1-33;
-	$text-color-h1-dark: $color-gray4-CC;
+	$text-color-h1-light: $color-lanlv;
+	$text-color-h1-dark: $color-gray3-99;
+	$text-color-h2-light: $color-gray1-33;
+	$text-color-h2-dark: $color-gray4-CC;
 	$text-color-body-light: $color-black;
 	$text-color-body-dark: $color-gray3-99;
 	$text-color-body-important-light: $color-black;
@@ -218,6 +347,18 @@
 		color: $text-color-h1-dark;
 	}
 
+	%text-h2 {
+		font-family: $font-serif;
+		font-size: $font-h2;
+		line-height: $lineheight-h2;
+	}
+	.mode-light %text-h2 {
+		color: $text-color-h2-light;
+	}
+	.mode-dark %text-h2 {
+		color: $text-color-h2-dark;
+	}
+
 	%text-body {
 		font-family: $font-sans-serif-light;
 		font-size: $font-default;
@@ -242,24 +383,6 @@
 		color: $text-color-body-important-dark;
 	}
 
-	// .text_hint {
-	// 	font-family: $font-sans-serif;
-	// 	font-size: $font-hint;
-	// 	line-height: $lineheight-hint;
-	// 	-webkit-transition: color $time-l ease-in-out;
-	// 	-moz-transition: color $time-l ease-in-out;
-	// 	-ms-transition: color $time-l ease-in-out;
-	// 	-o-transition: color $time-l ease-in-out;
-	// 	transition: color $time-l ease-in-out;
-	// }
-
-	// .text_emphasize {
-	// 	font-size: $font-h1;
-	// 	letter-spacing: $letterspacing-h1;
-	// 	line-height: $lineheight-h1;
-	// 	margin-block-end: calc(1.5 * $lineheight-default);
-	// }
-
 	body {
 		margin: 0;
 		@extend %text-body;
@@ -270,14 +393,27 @@
 
 	p {
 		@extend %text-body;
-		// margin-block-start: 0.5 * $lineheight-default;
-		// margin-block-end: 0.5 * $lineheight-default;
-		// @include transition($transition: color $time-l ease-in-out);
 	}
 	// span {
 	// 	font-size: $font-default;
 	// 	line-height: $lineheight-default;
 	// }
+
+	/* List */
+	$list-indent: $spacing-4;
+	$list-bullet-gap: 0;
+
+	ol, ul {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		padding-left: $list-indent;
+	}
+
+	li {
+		display: list-item;
+		padding-inline-start: $list-bullet-gap;
+	}
 
 	/* Link */
 	$link-color: $color-lvsongshi;
@@ -343,71 +479,6 @@
 		padding: 0 $emoji-padding-X;
 	}
 
-	// ul { margin: $block-reel; }
-
-	/* Content layout */
-/*	.content {
-
-		p {
-			line-height: $lineheight-default;
-			margin-block-end: calc(1.5 * $lineheight-default);
-		}
-
-		span {
-			background-color: var(--color);
-			border-radius: $radius-xs;
-			box-shadow: $radius-xs 0 0 var(--color), calc(-1 * $radius-xs) 0 0 var(--color);
-			-webkit-box-decoration-break: clone;
-			box-decoration-break: clone;
-				// reference:  https://stackoverflow.com/questions/63184618/how-to-highlight-some-phrases-with-rounded-boxes-in-text-with-css
-		}
-
-		a {
-			position: relative;
-			z-index: 1;
-			white-space: nowrap;
-			-webkit-transition: color $time-xs ease-in-out;
-			-moz-transition: color $time-xs ease-in-out;
-			-ms-transition: color $time-xs ease-in-out;
-			-o-transition: color $time-xs ease-in-out;
-			transition: color $time-xs ease-in-out;
-				// TODO: different color transition speed upon hover vs. when mode changes
-		}
-		a::before {
-			content: "";
-			background-color: $color-lvsongshi;
-			height: $border-width-l;
-			border-radius: $radius-inf;
-			display: block;
-			position: absolute;
-			width: 100%;
-			left: 0;
-			bottom: -8%;
-			z-index: -1;
-		}
-
-		ul { margin: $font-default 0; }
-		ol { margin: $font-default 0; }
-	}
-*/
-	/* Selection */
-
-	@mixin selection {
-		color: $color-xiangyabai;
-		background: $color-xihongshi;
-		text-shadow: none;
-	}
-	::selection { @include selection; }
-	::-moz-selection { @include selection; }
-
-	@mixin unselectable {
-		user-select: none;					// Chrome, Opera
-		-webkit-user-select: none;	// Safari
-		-khtml-user-select: none;		// Konqueror HTML
-		-moz-user-select: none;			// Firefox
-		-ms-user-select: none;			// Internet Explorer/Edge
-	}
-
 	/* World */
 
 	html {
@@ -467,16 +538,17 @@
 	.cursor-pointer { @include cursor-shape($cursor-type: $cursor-pointer); }
 	.cursor-progress { @include cursor-shape($cursor-type: $cursor-progress); }
 
+	.cursor-readmore {
+		content: "";
+		background-image: url("./assets/basic/cursors/read_more.png");
+		width: 104px;
+		height: 80px;
+		background-size: 104px 80px;
+		background-color: transparent;
+	}
+
 	.cursor_zoomin { cursor: zoom-in; }
 	.cursor_zoomout { cursor: zoom-out; }
-
-	// .cursor_readmore_1 { cursor: url("./assets/basic/read_more_1_cursor.svg") 50 116, pointer; } /* set as 1 pixel less for Safari */
-	// .cursor_readmore_2 { cursor: url("./assets/basic/read_more_2_cursor.svg") 79 32, pointer; }
-	// .cursor_random_case_study { cursor: url("./assets/basic/random_case_study_cursor.svg") 0 50, pointer; }
-
-	// .cursor_PNT_resume { cursor: url("./assets/basic/primary_nav_tab_cursor_resume.svg") 0 24, pointer; }
-	// .cursor_PNT_home { cursor: url("./assets/basic/primary_nav_tab_cursor_home.svg") 0 24, pointer; }
-	// .cursor_PNT_journey { cursor: url("./assets/basic/primary_nav_tab_cursor_journey.svg") 0 24, pointer; }
 
 	/* Mode Changing Helper */	//TODO!!!
 
@@ -593,9 +665,15 @@
 			fill: $color-xiangyabai;
 		}
 
-		&.fade .hintblob-fill-blob {
+		&.fade .hintblob-fill-blob {	// TODO: use this!?
 			fill: $color-gray3-99;
 		}
+	}
+
+	.hintblob-left-top {
+		@extend %hintblob;
+		left: var(--hintblob-left);
+		top: var(--hintblob-top);
 	}
 
 	/* Object */
@@ -606,6 +684,16 @@
 	$object-hover-transition-in: $transition-transform-gentle-in;
 	$object-hover-transition-in-bounce: transform ($transition-bouncer-l-time * $time-m) $transition-bouncer-l;
 	$object-hover-transition-out: $transition-transform-gentle-out;
+	$object-fill-1-light: $color-lanlv;
+	$object-fill-2-light: $color-bg-light;
+	$object-fill-1-dark: $color-lvsongshi;
+	$object-fill-2-dark: $color-bg-dark;
+	$animal-fill-1-light: $color-lvsongshi;
+	$animal-fill-2-light: $color-bg-light;
+	$animal-fill-1-dark: $color-gray1-33;
+	$animal-fill-2-dark: $color-bg-dark;
+	$object-fill-transition-in: $transition-fill-in;
+	$object-fill-transition-out: $transition-fill-out;
 
 	%object-container {
 		pointer-events: auto;
@@ -626,11 +714,17 @@
 			transform: translateX(-50%);
 			left: 50%;
 			bottom: 0;
+
+			.object-fill-1 { @include transition($transition: $object-fill-transition-out); }
+			.object-fill-2 { @include transition($transition: $object-fill-transition-out); }
 		}
 
 		&.curr {
 			transform: translateY(-1 * $curr-displace);
 			@include transition($transition: $object-hover-transition-in-bounce);
+
+			.object-fill-1 { @include transition($transition: $object-fill-transition-in); }
+			.object-fill-2 { @include transition($transition: $object-fill-transition-in); }
 		}
 
 		&.noncurr {
@@ -640,10 +734,10 @@
 	}
 
 	.mode-light {
-		.object .object-fill-1 { fill: $color-lanlv; }
-		.object .object-fill-2 { fill: $color-bg-light; }
-		.animal .animal-fill-1 { fill: $color-lvsongshi; }
-		.animal .animal-fill-2 { fill: $color-bg-light; }
+		.object .object-fill-1 { fill: $object-fill-1-light; }
+		.object .object-fill-2 { fill: $object-fill-2-light; }
+		.animal .animal-fill-1 { fill: $animal-fill-1-light; }
+		.animal .animal-fill-2 { fill: $animal-fill-2-light; }
 
 		%object-container.curr {}
 
@@ -651,14 +745,529 @@
 	}
 
 	.mode-dark {
-		.object .object-fill-1 { fill: $color-lvsongshi; }
-		.object .object-fill-2 { fill: $color-bg-dark; }
-		.animal .animal-fill-1 { fill: $color-gray1-33; }
-		.animal .animal-fill-2 { fill: $color-bg-dark; }
+		.object .object-fill-1 { fill: $object-fill-1-dark; }
+		.object .object-fill-2 { fill: $object-fill-2-dark; }
+		.animal .animal-fill-1 { fill: $animal-fill-1-dark; }
+		.animal .animal-fill-2 { fill: $animal-fill-2-dark; }
 
 		%object-container.curr {}
 
 		%object-container.noncurr {}
+	}
+
+	/* Control */
+	$control-height: $spacing-8;
+	$control-padding-X: $spacing-8;
+	$control-padding-Y: $spacing-4;
+	$control-padding: $control-padding-Y $control-padding-X;
+	$control-gap-l: $spacing-6;
+	$control-gap-s: $spacing-5;
+	$control-bgcolor-light: $color-bg-light;
+	$control-bgcolor-dark: $color-bg-dark;
+	$control-element-height: $spacing-7;
+	$control-element-border: $border-width-s solid;
+	$control-element-border-color-light: $color-gray4-CC;
+	$control-element-border-color-dark: $color-gray2-66;
+
+	%control {
+		position: sticky;
+		z-index: $z-top;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: $control-padding;
+		left: 0px;
+		top: 0px;
+		width: calc(100% - 2 * $control-padding-X);
+		height: $control-height - 2 * $control-padding-Y;
+	}
+	.mode-light %control {
+		background-color: $control-bgcolor-light;
+	}
+	.mode-dark %control {
+		background-color: $control-bgcolor-dark;
+	}
+
+	%control .control-leftgroup {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $control-gap-s;
+	}
+
+	%control .control-rightgroup {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-end;
+		gap: $control-gap-l;
+	}
+
+	%control .control-rightgroup-subgroup {
+		height: $control-element-height;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $control-gap-s;
+
+		&:not(:first-child) {
+			padding-left: $control-gap-l;
+			border-left: $control-element-border;
+		}
+	}
+	.mode-light %control .control-rightgroup-subgroup:not(:first-child) {
+		border-color: $control-element-border-color-light;
+	}
+	.mode-dark %control .control-rightgroup-subgroup:not(:first-child) {
+		border-color: $control-element-border-color-dark;
+	}
+
+	/* Control Btn */
+	$control-btn-size: $control-element-height;
+	$control-btn-bgcolor-light: $control-bgcolor-light;
+	$control-btn-bgcolor-dark: $control-bgcolor-dark;
+	$control-btn-icons-color-light: $color-gray1-33;
+	$control-btn-icons-color-dark: $color-gray4-CC;
+	$control-btn-hover-scaling: $scaling-s;
+	$control-btn-hover-transition-in: transform ($transition-bouncer-s-time * $time-xs) $transition-bouncer-s;
+	$control-btn-hover-transition-out: transform $time-s ease;
+	$control-btn-itching-displace: $spacing-3;
+	$control-btn-itching-transition: $time-m ease;
+
+	%control-btn {
+		display: inline-block;
+		width: $control-btn-size;
+		height: $control-btn-size;
+		border-radius: $radius-inf;
+		outline: $control-element-border;
+		overflow: hidden;
+	}
+	.mode-light %control-btn {
+		outline-color: $control-element-border-color-light;
+		background-color: $control-btn-bgcolor-light;
+	}
+	.mode-dark %control-btn {
+		outline-color: $control-element-border-color-dark;
+		background-color: $control-btn-bgcolor-dark;
+	}
+
+	.mode-light %control-btn .control-btn-icon {
+		fill: $control-btn-icons-color-light;
+	}
+	.mode-dark %control-btn .control-btn-icon {
+		fill: $control-btn-icons-color-dark;
+	}
+
+	%control .control-btn {
+		@extend %control-btn;
+		position: relative;
+	}
+
+	%control .control-btn .control-btn-icon {
+		@include position-center-absolute;
+	}
+
+	%control .control-btn .control-btn-icon {
+		@include transition($transition: $control-btn-hover-transition-out);
+	}
+
+	%control .control-btn.control-btn-hover-default:hover .control-btn-icon {
+		transform: translate(-50%,-50%) scale($control-btn-hover-scaling);
+		@include transition($transition: $control-btn-hover-transition-in);
+	}
+
+	%control .control-btn.control-btn-totop-itching .control-btn-icon {
+		animation: control-btn-totop-itching $control-btn-itching-transition;
+	}
+	@keyframes control-btn-totop-itching {	// TODO: fix funny glitch on hover
+		0% { top: 50%; }
+		50% { top: -49.999%; }
+		50.001% { top: 99.999%; }
+		100% { top: 50%; }
+	}
+
+	/* Control Toggle */
+	$control-toggle-gap-l: $control-gap-l;
+	$control-toggle-gap-s: $control-gap-s;
+	$control-toggler-node-size: $control-btn-size;
+	$control-toggler-gap: $spacing-3;
+	$control-toggler-fg-color-light: $color-lvsongshi;
+	$control-toggler-fg-color-dark: $color-gray1-33;
+	$control-toggler-bg-color-light: $control-btn-icons-color-light;
+	$control-toggler-bg-color-dark: $control-btn-icons-color-dark;
+	$control-toggler-curr-border-width: $border-width-m;
+	$control-toggler-curr-border: $control-toggler-curr-border-width solid;
+	$control-toggler-curr-color: $color-lvsongshi;
+	$control-toggler-curr-bgopacity-light: 0;
+	$control-toggler-curr-bgopacity-dark: 1;
+	$control-toggler-curr-position-left: $control-toggler-node-size / 2;
+	$control-toggler-curr-position-right: $control-toggler-node-size / 2 + $control-toggler-node-size + $control-toggler-gap;
+	$control-toggler-transition: $time-s $transition-bouncer-gentle;
+	$control-toggler-transition-mask: clip-path $control-toggler-transition;
+	$control-toggler-transition-ring: left $control-toggler-transition;
+	$control-toggle-secondary-color-dark: $color-gray5-E3;
+	$control-toggle-secondary-curr-color-light: $color-black;
+	$control-toggle-secondary-curr-color-dark: $color-lvsongshi;
+	$control-toggle-secondary-curr-indicator-height: $border-width-l;
+	$control-toggle-secondary-curr-indicator-width: 50%;
+	$control-toggle-secondary-curr-indicator-minwidth: $spacing-4;
+	$control-toggle-secondary-curr-indicator-maxwidth: $spacing-8;
+	$control-toggle-secondary-curr-indicator-radius: $radius-inf;
+	$control-toggle-secondary-curr-indicator-color: $color-lvsongshi;
+	$control-toggle-secondary-curr-indicator-transition-in: clip-path $time-s ease-out, opacity $time-xs ease;
+	$control-toggle-secondary-curr-indicator-transition-out: clip-path $time-m ease-in, opacity $time-xs ease ($time-m - $time-xs);
+
+	@keyframes control-toggle-transition-itching-left-fg {
+		0% { @include clip-path($path: circle(($control-toggler-node-size / 2) at $control-toggler-curr-position-left ($control-toggler-node-size / 2))); }
+		50% { @include clip-path($path: circle(($control-toggler-node-size / 2) at ($control-toggler-curr-position-left + $control-btn-itching-displace) ($control-toggler-node-size / 2))); }
+		100% { @include clip-path($path: circle(($control-toggler-node-size / 2) at $control-toggler-curr-position-left ($control-toggler-node-size / 2))); }
+	}
+	@keyframes control-toggle-transition-itching-right-fg {
+		0% { @include clip-path($path: circle(($control-toggler-node-size / 2) at $control-toggler-curr-position-right ($control-toggler-node-size / 2))); }
+		50% { @include clip-path($path: circle(($control-toggler-node-size / 2) at ($control-toggler-curr-position-right - $control-btn-itching-displace) ($control-toggler-node-size / 2))); }
+		100% { @include clip-path($path: circle(($control-toggler-node-size / 2) at $control-toggler-curr-position-right ($control-toggler-node-size / 2))); }
+	}
+	@keyframes control-toggle-transition-itching-left-ring {
+		0% { left: $control-toggler-curr-position-left; }
+		50% { left: $control-toggler-curr-position-left + $control-btn-itching-displace; }
+		100% { left: $control-toggler-curr-position-left; }
+	}
+	@keyframes control-toggle-transition-itching-right-ring {
+		0% { left: $control-toggler-curr-position-right; }
+		50% { left: $control-toggler-curr-position-right - $control-btn-itching-displace; }
+		100% { left: $control-toggler-curr-position-right; }
+	}
+
+	@mixin control-toggle-secondary-tab-curr-indicator {
+		content: "";
+		height: $control-toggle-secondary-curr-indicator-height;
+		width: $control-toggle-secondary-curr-indicator-width;
+		min-width: $control-toggle-secondary-curr-indicator-minwidth;
+		max-width: $control-toggle-secondary-curr-indicator-maxwidth;
+		border-radius: $control-toggle-secondary-curr-indicator-radius;
+		background-color: $control-toggle-secondary-curr-indicator-color;
+		position: absolute;
+		transform: translateX(-50%);
+		left: 50%;
+		bottom: 0;
+	}
+
+	@mixin control-toggle-secondary-tab-curr-indicator-shown {
+		opacity: 1;
+		@include clip-path($path: inset(0% 0% 0% 0% round $control-toggle-secondary-curr-indicator-radius));
+		@include transition($transition: $control-toggle-secondary-curr-indicator-transition-in);
+	}
+	@mixin control-toggle-secondary-tab-curr-indicator-hidden {
+		opacity: 0;
+		@include clip-path($path: inset(0% 100% 0% 100% round $control-toggle-secondary-curr-indicator-radius));
+		@include transition($transition: $control-toggle-secondary-curr-indicator-transition-out);
+	}
+
+	%control .control-toggle {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $control-toggle-gap-l;
+		@include unselectable;
+	}
+
+	%control .control-toggler {
+		position: relative;
+		width: 2 * $control-toggler-node-size + $control-toggler-gap;
+		height: $control-toggler-node-size;
+		border-radius: $radius-inf;
+	}
+	.mode-light %control .control-toggler {
+		background-color: $control-btn-bgcolor-light;
+	}
+	.mode-dark %control .control-toggler {
+		background-color: $control-btn-bgcolor-dark;
+	}
+
+	%control .control-toggler-fg {
+		@include position-center-absolute;
+		z-index: 1;
+		@include clip-path($path: circle(($control-toggler-node-size / 2)));
+		@include transition($transition: $control-toggler-transition-mask);
+	}
+	%control .control-toggler-left .control-toggler-fg {
+		@include clip-path($path: circle(($control-toggler-node-size / 2) at $control-toggler-curr-position-left ($control-toggler-node-size / 2)));
+	}
+	%control .control-toggler-right .control-toggler-fg {
+		@include clip-path($path: circle(($control-toggler-node-size / 2) at $control-toggler-curr-position-right ($control-toggler-node-size / 2)));
+	}
+	.mode-light %control .control-toggler-fg {
+		fill: $control-toggler-fg-color-light;
+	}
+	.mode-dark %control .control-toggler-fg {
+		fill: $control-toggler-fg-color-dark;
+	}
+
+	%control .control-toggler-bg {
+		@include position-center-absolute;
+	}
+	.mode-light %control .control-toggler-bg {
+		fill: $control-toggler-bg-color-light;
+	}
+	.mode-dark %control .control-toggler-bg {
+		fill: $control-toggler-bg-color-dark;
+	}
+
+	%control .control-toggler::before {
+		content: "";
+		position: absolute;
+		//@include position-center-absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: $radius-inf;
+		outline: $control-element-border;
+	}
+	.mode-light %control .control-toggler::before {
+		outline-color: $control-element-border-color-light;
+	}
+	.mode-dark %control .control-toggler::before {
+		outline-color: $control-element-border-color-dark;
+	}
+
+	%control .control-toggler::after {
+		content: "";
+		@include position-center-absolute;
+		width: $control-toggler-node-size;
+		height: $control-toggler-node-size;
+		border-radius: $radius-circle;
+		outline: $control-toggler-curr-border $control-toggler-curr-color;
+		@include transition($transition: $control-toggler-transition-ring);
+	}
+	%control .control-toggler-left.control-toggler::after {
+		left: $control-toggler-curr-position-left;
+	}
+	%control .control-toggler-right.control-toggler::after {
+		left: $control-toggler-curr-position-right;
+	}
+	.mode-light %control .control-toggler::after {
+		background-color: rgba($control-toggler-curr-color, $control-toggler-curr-bgopacity-light);
+	}
+	.mode-dark %control .control-toggler::after {
+		width: $control-toggler-node-size + 2 * $control-toggler-curr-border-width;
+		height: $control-toggler-node-size + 2 * $control-toggler-curr-border-width;
+		outline: none;
+		background-color: rgba($control-toggler-curr-color, $control-toggler-curr-bgopacity-dark);
+	}
+
+	%control .control-toggler.control-toggler-itching {
+		&.control-toggler-left {
+			.control-toggler-fg { animation: control-toggle-transition-itching-left-fg $control-btn-itching-transition; }
+			&::after { animation: control-toggle-transition-itching-left-ring $control-btn-itching-transition; }
+		}
+		&.control-toggler-right {
+			.control-toggler-fg { animation: control-toggle-transition-itching-right-fg $control-btn-itching-transition; }
+			&::after { animation: control-toggle-transition-itching-right-ring $control-btn-itching-transition; }
+		}
+	}
+
+	%control .control-toggler-mask {
+		clip-path: circle($control-toggler-node-size);
+	}
+
+	%control .control-toggle-secondary {
+		height: $control-element-height;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding-left: $control-toggle-gap-l;
+		gap: $control-toggle-gap-s;
+		border-left: $control-element-border;
+	}
+	.mode-light .control-toggle-secondary {
+		border-color: $control-element-border-color-light;
+	}
+	.mode-dark .control-toggle-secondary {
+		border-color: $control-element-border-color-dark;
+	}
+
+	%control .control-toggle-secondary-tab {
+		@extend %text-body-important;
+		height: $control-element-height;
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+
+		&::before {
+			@include control-toggle-secondary-tab-curr-indicator;
+			@include control-toggle-secondary-tab-curr-indicator-hidden;
+		}
+	}
+	.mode-dark .control-toggle-secondary-tab  {
+		color: $control-toggle-secondary-color-dark;
+	}
+
+	%control .control-toggle-secondary-tab-curr {
+		font-family: $font-sans-serif-bold;
+
+		&::before {
+			@include control-toggle-secondary-tab-curr-indicator-shown;
+		}
+	}
+	.mode-light %control .control-toggle-secondary-tab-curr  {
+		color: $control-toggle-secondary-curr-color-light;
+	}
+	.mode-dark %control .control-toggle-secondary-tab-curr  {
+		color: $control-toggle-secondary-curr-color-dark;
+	}
+
+	%control .control-toggle-secondary-tab:not(.control-toggle-secondary-tab-curr):hover::before {
+		@include control-toggle-secondary-tab-curr-indicator-shown;
+	}
+
+	/* Control Switch */
+	$control-switch-gap: $spacing-3;
+	$control-switch-icons-position-left: $control-btn-size - $control-switch-gap / 2;
+	$control-switch-icons-position-right: $control-switch-gap / 2;
+	$control-switch-transition: left $time-s $transition-bouncer-gentle;
+
+	@keyframes control-switch-transition-itching-left {
+		0% { left: $control-switch-icons-position-left; }
+		50% { left: $control-switch-icons-position-left - $control-btn-itching-displace; }
+		100% { left: $control-switch-icons-position-left; }
+	}
+	@keyframes control-switch-transition-itching-right {
+		0% { left: $control-switch-icons-position-right; }
+		50% { left: $control-switch-icons-position-right + $control-btn-itching-displace; }
+		100% { left: $control-switch-icons-position-right; }
+	}
+
+	%control .control-switch {
+		@extend %control-btn;
+		position: relative;
+		@include unselectable;
+	}
+
+	%control .control-switch-icons {
+		position: absolute;
+		transform: translate(-50%,-50%);
+		top: 50%;
+		@include transition($transition: $control-switch-transition);
+	}
+	.mode-light %control .control-switch-icons {
+		fill: $control-btn-icons-color-light;
+	}
+	.mode-dark %control .control-switch-icons {
+		fill: $control-btn-icons-color-dark;
+	}
+
+	%control .control-switch-left .control-switch-icons {
+		left: $control-switch-icons-position-left;
+	}
+	%control .control-switch-right .control-switch-icons {
+		left: $control-switch-icons-position-right;
+	}
+
+	%control .control-switch.control-switch-itching {
+		&.control-switch-left .control-switch-icons {
+			animation: control-switch-transition-itching-left $control-btn-itching-transition;
+		}
+		&.control-switch-right .control-switch-icons {
+			animation: control-switch-transition-itching-right $control-btn-itching-transition;
+		}
+	}
+
+	/* Control Expandable */
+	$control-expandable-expand-transition-in: $time-m ease;
+	$control-expandable-expand-transition-out: $time-l ease-in-out;
+	$control-expandable-duckling-num: var(--num-duckling, 1);
+
+	%control .control-expandable-container {
+		height: 100%;
+		position: relative;
+	}
+
+	%control .control-expandable {
+		@extend %control-btn;
+		position: relative;
+		@include transition($transition: width $control-expandable-expand-transition-out);
+
+		.control-expandable-icons {
+			position: absolute;
+			transform: translateY(-50%);
+			top: 50%;
+			left: 0;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			@include transition($transition: left $control-expandable-expand-transition-out);
+		}
+
+		.control-expandable-motherduck {
+			width: $control-btn-size;
+			height: $control-btn-size;
+			border-radius: $radius-inf;
+		}
+
+		.control-btn {
+			outline: none;
+		}
+	}
+
+	%control .control-expandable.control-expandable-expanded {
+		width: calc($control-expandable-duckling-num * $control-btn-size);
+		@include transition($transition: width $control-expandable-expand-transition-in);
+
+		.control-expandable-icons {
+			left: -1 * $control-btn-size;
+			@include transition($transition: left $control-expandable-expand-transition-in);
+		}
+	}
+
+	/* 404 Page Not Found */
+	$pnf-maxwidth: 4040px;
+	$pnf-padding-X: $spacing-10;
+	$pnf-padding: $spacing-8 $pnf-padding-X 0;
+	$pnf-text-lineheight: 1.2 * $font-display;
+	$pnf-text-color-light: $color-lanlv;
+	$pnf-text-color-dark: $color-gray2-66;
+	$pnf-hint-color: $color-xihongshi;
+	$pnf-hint-dot-transition: opacity $time-l ease-in-out;
+
+	.pnf {
+		margin: 0 auto;
+		width: calc(100vw - 2 * $pnf-padding-X);
+		max-width: $pnf-maxwidth;
+		height: 100vh;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		padding: $pnf-padding;
+	}
+
+	.pnf-text {
+		@extend %text-display;
+		line-height: $pnf-text-lineheight;
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+	}
+	.mode-light .pnf-text {
+		color: $pnf-text-color-light;
+	}
+	.mode-dark .pnf-text {
+		color: $pnf-text-color-dark;
+	}
+
+	.pnf-hint {
+		color: $pnf-hint-color;
+
+		.pnf-hint-dot {
+			opacity: 0;
+			@include transition($transition: $pnf-hint-dot-transition);
+
+			&.shown {
+				opacity: 1;
+			}
+		}
+	}
+
+	.pnf-img {
+		width: 100%;
 	}
 
 	/* Others */

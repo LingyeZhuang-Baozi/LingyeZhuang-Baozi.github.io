@@ -6,8 +6,7 @@
 	$home-padding-X: $spacing-8;
 	$home-padding-Y: $spacing-7;
 	$home-gap: $spacing-7;
-	$home-control-height: $spacing-8;
-	$home-control-padding-Y: $spacing-4;
+	//$home-thanks-height: 280px;
 
 	.home {
 		@extend %world;
@@ -34,7 +33,7 @@
 	$home-section-bgcolor-light: $color-gray6-F0;
 	$home-section-bgcolor-dark: $color-gray1-33;
 	$home-section-bgcolor-active-light: var(--theme-bgcolor-light, $home-section-bgcolor-light);
-	$home-section-bgcolor-active-dark: $color-gray1-33;//var(--theme-bgcolor-dark, $home-section-bgcolor-dark)
+	$home-section-bgcolor-active-dark: $home-section-bgcolor-dark;//var(--theme-bgcolor-dark, $home-section-bgcolor-dark)
 	$home-section-transition-in-delay: $time-m;
 	$home-section-transition-in: $time-l ease $home-section-transition-in-delay;
 	$home-section-bgcolor-transition-in: background-color $home-section-transition-in;
@@ -153,9 +152,12 @@
 
 	.home-hero {
 		@extend %home-section;
-		padding: $home-padding-Y 0 ($home-gap - $home-control-padding-Y);
+		padding: $home-padding-Y 0 ($home-gap - $control-padding-Y);
 		// scroll-snap-align: start;
+		z-index: 1;
 	}
+	.mode-light .home-hero { background-color: $color-bg-light; }
+	.mode-dark .home-hero { background-color: $color-bg-dark; }
 
 	.home-hero .home-section-fg-container {
 		pointer-events: none;
@@ -254,7 +256,7 @@
 	}
 
 	.home-hero-selfintro-title {
-		@extend %text-h1;
+		@extend %text-h2;
 	}
 	.mode-light .home-hero-selfintro-title {
 		color: $home-hero-selfintro-title-color-light;
@@ -304,12 +306,6 @@
 
 	.home-hero-contacts-button {
 		@extend %button;
-	}
-
-	.home-hero-contacts-button-hintblob {
-		@extend %hintblob;
-		left: var(--hintblob-left);
-		top: var(--hintblob-top);
 	}
 
 	/* Hero MyPic */
@@ -406,457 +402,8 @@
 
 
 	/* Control */
-
-	$home-control-padding: $home-control-padding-Y $spacing-8;
-	$home-control-gap-l: $spacing-6;
-	$home-control-gap-s: $spacing-5;
-	$home-control-bgcolor-light: $color-bg-light;
-	$home-control-bgcolor-dark: $color-bg-dark;
-	$home-control-element-height: $spacing-7;
-	$home-control-element-border: $border-width-s solid;
-	$home-control-element-border-color-light: $color-gray4-CC;
-	$home-control-element-border-color-dark: $color-gray2-66;
-
 	.home-control {
-		position: sticky;
-		z-index: $z-top;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		padding: $home-control-padding;
-		left: 0px;
-		top: 0px;
-		height: $home-control-height - 2 * $home-control-padding-Y;
-	}
-	.mode-light .home-control {
-		background: $home-control-bgcolor-light;
-	}
-	.mode-dark .home-control {
-		background: $home-control-bgcolor-dark;
-	}
-
-	.home-control-leftgroup {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: $home-control-gap-s;
-	}
-
-	.home-control-rightgroup {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: flex-end;
-		gap: $home-control-gap-l;
-	}
-
-	.home-control-rightgroup-subgroup {
-		height: $home-control-element-height;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: $home-control-gap-s;
-
-		&:not(:first-child) {
-			padding-left: $home-control-gap-l;
-			border-left: $home-control-element-border;
-		}
-	}
-	.mode-light .home-control-rightgroup-subgroup:not(:first-child) {
-		border-color: $home-control-element-border-color-light;
-	}
-	.mode-dark .home-control-rightgroup-subgroup:not(:first-child) {
-		border-color: $home-control-element-border-color-dark;
-	}
-
-	/* Control Btn */
-	$home-control-btn-size: $home-control-element-height;
-	$home-control-btn-bgcolor-light: $home-control-bgcolor-light;
-	$home-control-btn-bgcolor-dark: $home-control-bgcolor-dark;
-	$home-control-btn-icons-color-light: $color-gray1-33;
-	$home-control-btn-icons-color-dark: $color-gray4-CC;
-	$home-control-btn-hover-scaling: $scaling-s;
-	$home-control-btn-hover-transition-in: transform ($transition-bouncer-s-time * $time-xs) $transition-bouncer-s;
-	$home-control-btn-hover-transition-out: transform $time-s ease;
-	$home-control-btn-itching-displace: $spacing-3;
-	$home-control-btn-itching-transition: $time-m ease;
-
-	%home-control-btn {
-		width: $home-control-btn-size;
-		height: $home-control-btn-size;
-		border-radius: $radius-inf;
-		outline: $home-control-element-border;
-		overflow: hidden;
-	}
-	.mode-light %home-control-btn {
-		outline-color: $home-control-element-border-color-light;
-		background-color: $home-control-btn-bgcolor-light;
-	}
-	.mode-dark %home-control-btn {
-		outline-color: $home-control-element-border-color-dark;
-		background-color: $home-control-btn-bgcolor-dark;
-	}
-
-	.mode-light %home-control-btn .home-control-btn-icon {
-		fill: $home-control-btn-icons-color-light;
-	}
-	.mode-dark %home-control-btn .home-control-btn-icon {
-		fill: $home-control-btn-icons-color-dark;
-	}
-
-	.home-control-btn {
-		@extend %home-control-btn;
-		position: relative;
-	}
-
-	.home-control-btn .home-control-btn-icon {
-		@include position-center-absolute;
-	}
-
-	.home-control-btn .home-control-btn-icon {
-		@include transition($transition: $home-control-btn-hover-transition-out);
-	}
-
-	.home-control-btn.home-control-btn-hover-default:hover .home-control-btn-icon {
-		transform: translate(-50%,-50%) scale($home-control-btn-hover-scaling);
-		@include transition($transition: $home-control-btn-hover-transition-in);
-	}
-
-	.home-control-btn.home-control-btn-totop-itching .home-control-btn-icon {
-		animation: home-control-btn-totop-itching $home-control-btn-itching-transition;
-	}
-	@keyframes home-control-btn-totop-itching {	// TODO: fix funny glitch on hover
-		0% { top: 50%; }
-		50% { top: -49.999%; }
-		50.001% { top: 99.999%; }
-		100% { top: 50%; }
-	}
-
-	/* Control Toggle */
-	$home-control-toggle-gap-l: $home-control-gap-l;
-	$home-control-toggle-gap-s: $home-control-gap-s;
-	$home-control-toggler-node-size: $home-control-btn-size;
-	$home-control-toggler-gap: $spacing-3;
-	$home-control-toggler-fg-color-light: $color-lvsongshi;
-	$home-control-toggler-fg-color-dark: $color-gray1-33;
-	$home-control-toggler-bg-color-light: $home-control-btn-icons-color-light;
-	$home-control-toggler-bg-color-dark: $home-control-btn-icons-color-dark;
-	$home-control-toggler-curr-border-width: $border-width-m;
-	$home-control-toggler-curr-border: $home-control-toggler-curr-border-width solid;
-	$home-control-toggler-curr-color: $color-lvsongshi;
-	$home-control-toggler-curr-bgopacity-light: 0;
-	$home-control-toggler-curr-bgopacity-dark: 1;
-	$home-control-toggler-curr-position-left: $home-control-toggler-node-size / 2;
-	$home-control-toggler-curr-position-right: $home-control-toggler-node-size / 2 + $home-control-toggler-node-size + $home-control-toggler-gap;
-	$home-control-toggler-transition: $time-s $transition-bouncer-gentle;
-	$home-control-toggler-transition-mask: clip-path $home-control-toggler-transition;
-	$home-control-toggler-transition-ring: left $home-control-toggler-transition;
-	$home-control-toggle-secondary-color-dark: $color-gray5-E3;
-	$home-control-toggle-secondary-curr-color-light: $color-black;
-	$home-control-toggle-secondary-curr-color-dark: $color-lvsongshi;
-	$home-control-toggle-secondary-curr-indicator-height: $border-width-l;
-	$home-control-toggle-secondary-curr-indicator-width: 50%;
-	$home-control-toggle-secondary-curr-indicator-minwidth: $spacing-4;
-	$home-control-toggle-secondary-curr-indicator-maxwidth: $spacing-8;
-	$home-control-toggle-secondary-curr-indicator-radius: $radius-inf;
-	$home-control-toggle-secondary-curr-indicator-color: $color-lvsongshi;
-	$home-control-toggle-secondary-curr-indicator-transition-in: clip-path $time-s ease-out, opacity $time-xs ease;
-	$home-control-toggle-secondary-curr-indicator-transition-out: clip-path $time-m ease-in, opacity $time-xs ease ($time-m - $time-xs);
-
-	@keyframes home-control-toggle-transition-itching-left-fg {
-		0% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-left ($home-control-toggler-node-size / 2))); }
-		50% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at ($home-control-toggler-curr-position-left + $home-control-btn-itching-displace) ($home-control-toggler-node-size / 2))); }
-		100% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-left ($home-control-toggler-node-size / 2))); }
-	}
-	@keyframes home-control-toggle-transition-itching-right-fg {
-		0% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-right ($home-control-toggler-node-size / 2))); }
-		50% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at ($home-control-toggler-curr-position-right - $home-control-btn-itching-displace) ($home-control-toggler-node-size / 2))); }
-		100% { @include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-right ($home-control-toggler-node-size / 2))); }
-	}
-	@keyframes home-control-toggle-transition-itching-left-ring {
-		0% { left: $home-control-toggler-curr-position-left; }
-		50% { left: $home-control-toggler-curr-position-left + $home-control-btn-itching-displace; }
-		100% { left: $home-control-toggler-curr-position-left; }
-	}
-	@keyframes home-control-toggle-transition-itching-right-ring {
-		0% { left: $home-control-toggler-curr-position-right; }
-		50% { left: $home-control-toggler-curr-position-right - $home-control-btn-itching-displace; }
-		100% { left: $home-control-toggler-curr-position-right; }
-	}
-
-	@mixin home-control-toggle-secondary-tab-curr-indicator {
-		content: "";
-		height: $home-control-toggle-secondary-curr-indicator-height;
-		width: $home-control-toggle-secondary-curr-indicator-width;
-		min-width: $home-control-toggle-secondary-curr-indicator-minwidth;
-		max-width: $home-control-toggle-secondary-curr-indicator-maxwidth;
-		border-radius: $home-control-toggle-secondary-curr-indicator-radius;
-		background-color: $home-control-toggle-secondary-curr-indicator-color;
-		position: absolute;
-		transform: translateX(-50%);
-		left: 50%;
-		bottom: 0;
-	}
-
-	@mixin home-control-toggle-secondary-tab-curr-indicator-shown {
-		opacity: 1;
-		@include clip-path($path: inset(0% 0% 0% 0% round $home-control-toggle-secondary-curr-indicator-radius));
-		@include transition($transition: $home-control-toggle-secondary-curr-indicator-transition-in);
-	}
-	@mixin home-control-toggle-secondary-tab-curr-indicator-hidden {
-		opacity: 0;
-		@include clip-path($path: inset(0% 100% 0% 100% round $home-control-toggle-secondary-curr-indicator-radius));
-		@include transition($transition: $home-control-toggle-secondary-curr-indicator-transition-out);
-	}
-
-	.home-control-toggle {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: $home-control-toggle-gap-l;
-		@include unselectable;
-	}
-
-	.home-control-toggler {
-		position: relative;
-		width: 2 * $home-control-toggler-node-size + $home-control-toggler-gap;
-		height: $home-control-toggler-node-size;
-		border-radius: $radius-inf;
-	}
-	.mode-light .home-control-toggler {
-		background-color: $home-control-btn-bgcolor-light;
-	}
-	.mode-dark .home-control-toggler {
-		background-color: $home-control-btn-bgcolor-dark;
-	}
-
-	.home-control-toggler-fg {
-		@include position-center-absolute;
-		z-index: 1;
-		@include clip-path($path: circle(($home-control-toggler-node-size / 2)));
-		@include transition($transition: $home-control-toggler-transition-mask);
-	}
-	.home-control-toggler-left .home-control-toggler-fg {
-		@include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-left ($home-control-toggler-node-size / 2)));
-	}
-	.home-control-toggler-right .home-control-toggler-fg {
-		@include clip-path($path: circle(($home-control-toggler-node-size / 2) at $home-control-toggler-curr-position-right ($home-control-toggler-node-size / 2)));
-	}
-	.mode-light .home-control-toggler-fg {
-		fill: $home-control-toggler-fg-color-light;
-	}
-	.mode-dark .home-control-toggler-fg {
-		fill: $home-control-toggler-fg-color-dark;
-	}
-
-	.home-control-toggler-bg {
-		@include position-center-absolute;
-	}
-	.mode-light .home-control-toggler-bg {
-		fill: $home-control-toggler-bg-color-light;
-	}
-	.mode-dark .home-control-toggler-bg {
-		fill: $home-control-toggler-bg-color-dark;
-	}
-
-	.home-control-toggler::before {
-		content: "";
-		position: absolute;
-		//@include position-center-absolute;
-		width: 100%;
-		height: 100%;
-		border-radius: $radius-inf;
-		outline: $home-control-element-border;
-	}
-	.mode-light .home-control-toggler::before {
-		outline-color: $home-control-element-border-color-light;
-	}
-	.mode-dark .home-control-toggler::before {
-		outline-color: $home-control-element-border-color-dark;
-	}
-
-	.home-control-toggler::after {
-		content: "";
-		@include position-center-absolute;
-		width: $home-control-toggler-node-size;
-		height: $home-control-toggler-node-size;
-		border-radius: $radius-circle;
-		outline: $home-control-toggler-curr-border $home-control-toggler-curr-color;
-		@include transition($transition: $home-control-toggler-transition-ring);
-	}
-	.home-control-toggler-left.home-control-toggler::after {
-		left: $home-control-toggler-curr-position-left;
-	}
-	.home-control-toggler-right.home-control-toggler::after {
-		left: $home-control-toggler-curr-position-right;
-	}
-	.mode-light .home-control-toggler::after {
-		background-color: rgba($home-control-toggler-curr-color, $home-control-toggler-curr-bgopacity-light);
-	}
-	.mode-dark .home-control-toggler::after {
-		width: $home-control-toggler-node-size + 2 * $home-control-toggler-curr-border-width;
-		height: $home-control-toggler-node-size + 2 * $home-control-toggler-curr-border-width;
-		outline: none;
-		background-color: rgba($home-control-toggler-curr-color, $home-control-toggler-curr-bgopacity-dark);
-	}
-
-	.home-control-toggler.home-control-toggler-itching {
-		&.home-control-toggler-left {
-			.home-control-toggler-fg { animation: home-control-toggle-transition-itching-left-fg $home-control-btn-itching-transition; }
-			&::after { animation: home-control-toggle-transition-itching-left-ring $home-control-btn-itching-transition; }
-		}
-		&.home-control-toggler-right {
-			.home-control-toggler-fg { animation: home-control-toggle-transition-itching-right-fg $home-control-btn-itching-transition; }
-			&::after { animation: home-control-toggle-transition-itching-right-ring $home-control-btn-itching-transition; }
-		}
-	}
-
-	.home-control-toggler-mask {
-		clip-path: circle($home-control-toggler-node-size);
-	}
-
-	.home-control-toggle-secondary {
-		height: $home-control-element-height;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		padding-left: $home-control-toggle-gap-l;
-		gap: $home-control-toggle-gap-s;
-		border-left: $home-control-element-border;
-	}
-	.mode-light .home-control-toggle-secondary {
-		border-color: $home-control-element-border-color-light;
-	}
-	.mode-dark .home-control-toggle-secondary {
-		border-color: $home-control-element-border-color-dark;
-	}
-
-	.home-control-toggle-secondary-tab {
-		@extend %text-body-important;
-		height: $home-control-element-height;
-		position: relative;
-		display: inline-flex;
-		align-items: center;
-
-		&::before {
-			@include home-control-toggle-secondary-tab-curr-indicator;
-			@include home-control-toggle-secondary-tab-curr-indicator-hidden;
-		}
-	}
-	.mode-dark .home-control-toggle-secondary-tab  {
-		color: $home-control-toggle-secondary-color-dark;
-	}
-
-	.home-control-toggle-secondary-tab-curr {
-		font-family: $font-sans-serif-bold;
-
-		&::before {
-			@include home-control-toggle-secondary-tab-curr-indicator-shown;
-		}
-	}
-	.mode-light .home-control-toggle-secondary-tab-curr  {
-		color: $home-control-toggle-secondary-curr-color-light;
-	}
-	.mode-dark .home-control-toggle-secondary-tab-curr  {
-		color: $home-control-toggle-secondary-curr-color-dark;
-	}
-
-	.home-control-toggle-secondary-tab:not(.home-control-toggle-secondary-tab-curr):hover::before {
-		@include home-control-toggle-secondary-tab-curr-indicator-shown;
-	}
-
-	/* Control Switch */
-	$home-control-switch-gap: $spacing-3;
-	$home-control-switch-icons-position-left: $home-control-btn-size - $home-control-switch-gap / 2;
-	$home-control-switch-icons-position-right: $home-control-switch-gap / 2;
-	$home-control-switch-transition: left $time-s $transition-bouncer-gentle;
-
-	@keyframes home-control-switch-transition-itching-left {
-		0% { left: $home-control-switch-icons-position-left; }
-		50% { left: $home-control-switch-icons-position-left - $home-control-btn-itching-displace; }
-		100% { left: $home-control-switch-icons-position-left; }
-	}
-	@keyframes home-control-switch-transition-itching-right {
-		0% { left: $home-control-switch-icons-position-right; }
-		50% { left: $home-control-switch-icons-position-right + $home-control-btn-itching-displace; }
-		100% { left: $home-control-switch-icons-position-right; }
-	}
-
-	.home-control-switch {
-		@extend %home-control-btn;
-		position: relative;
-		@include unselectable;
-	}
-
-	.home-control-switch-icons {
-		position: absolute;
-		transform: translate(-50%,-50%);
-		top: 50%;
-		@include transition($transition: $home-control-switch-transition);
-	}
-	.mode-light .home-control-switch-icons {
-		fill: $home-control-btn-icons-color-light;
-	}
-	.mode-dark .home-control-switch-icons {
-		fill: $home-control-btn-icons-color-dark;
-	}
-
-	.home-control-switch-left .home-control-switch-icons {
-		left: $home-control-switch-icons-position-left;
-	}
-	.home-control-switch-right .home-control-switch-icons {
-		left: $home-control-switch-icons-position-right;
-	}
-
-	.home-control-switch.home-control-switch-itching {
-		&.home-control-switch-left .home-control-switch-icons {
-			animation: home-control-switch-transition-itching-left $home-control-btn-itching-transition;
-		}
-		&.home-control-switch-right .home-control-switch-icons {
-			animation: home-control-switch-transition-itching-right $home-control-btn-itching-transition;
-		}
-	}
-
-	/* Control Expandable */
-	$control-expandable-expand-transition-in: $time-m ease;
-	$control-expandable-expand-transition-out: $time-l ease-in-out;
-	$control-expandable-duckling-num: var(--num-duckling, 1);
-
-	.home-control-expandable {
-		@extend %home-control-btn;
-		position: relative;
-		@include transition($transition: width $control-expandable-expand-transition-out);
-
-		.home-control-expandable-icons {
-			position: absolute;
-			transform: translateY(-50%);
-			top: 50%;
-			left: 0;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			@include transition($transition: left $control-expandable-expand-transition-out);
-		}
-
-		.home-control-expandable-motherduck {
-			width: $home-control-btn-size;
-			height: $home-control-btn-size;
-			border-radius: $radius-inf;
-		}
-
-		.home-control-btn {
-			outline: none;
-		}
-	}
-
-	.home-control-expandable.home-control-expandable-expanded {
-		width: calc($control-expandable-duckling-num * $home-control-btn-size);
-		@include transition($transition: width $control-expandable-expand-transition-in);
-
-		.home-control-expandable-icons {
-			left: -1 * $home-control-btn-size;
-			@include transition($transition: left $control-expandable-expand-transition-in);
-		}
+		@extend %control;
 	}
 
 
@@ -880,13 +427,19 @@
 	$home-cases-section-title-bullet-peep-transition-in: left ($transition-bouncer-l-time * $time-m) $transition-bouncer-l;
 	$home-cases-section-title-bullet-peep-transition-out: left $time-l ease-in-out;
 
+	.home-cases-container {
+		position: relative;
+	}
+
 	.home-cases {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		//gap: $home-cases-gap;
-		padding-bottom: $home-padding-Y;
+		//margin-bottom: $home-thanks-height;
 	}
+	.mode-light .home-cases { background-color: $color-bg-light; }
+	.mode-dark .home-cases { background-color: $color-bg-dark; }
 
 	.home-cases-section {
 		position: relative;
@@ -920,7 +473,7 @@
 	}
 
 	.home-cases-section-title-caption {
-		@extend %text-h1;
+		@extend %text-h2;
 	}
 	.mode-light .home-cases-section-title-caption  {
 		color: $home-cases-section-title-caption-color-light;
@@ -993,7 +546,7 @@
 	$home-case-padding-right: $spacing-10;
 	$home-case-gap: 0;
 	$home-case-img-width: 400px;
-	$home-case-text-padding: $spacing-6 0;
+	$home-case-text-padding: ($spacing-6 + ($home-cases-gap / 2)) 0 ($spacing-7 + ($home-cases-gap / 2));
 	$home-case-text-gap: $spacing-5;
 	$home-case-title-color-active-light: var(--theme-title-color-light, $color-gray1-33);
 	$home-case-title-color-active-dark: var(--theme-title-color-dark, $color-gray4-CC);
@@ -1003,11 +556,54 @@
 	$home-case-bio-divider: $border-width-s solid;
 	$home-case-bio-divider-color-light: $color-gray3-99;
 	$home-case-bio-divider-color-dark: $color-gray3-99;
+	$home-case-img-nonactive-grayscale-light: 1;
+		$home-case-img-nonactive-brightness-light: 1.2;
+		$home-case-img-nonactive-contrast-light: 1.2;
+		$home-case-img-nonactive-opacity-light: 0.7;
+	$home-case-img-nonactive-grayscale-dark: 1;
+		$home-case-img-nonactive-brightness-dark: 0.35;
+		$home-case-img-nonactive-contrast-dark: 0.8;
+		$home-case-img-nonactive-opacity-dark: 1;
+	$home-case-img-active-grayscale: 0;
+		$home-case-img-active-brightness: 1;
+		$home-case-img-active-contrast: 1;
+		$home-case-img-active-opacity: 1;
 	$home-case-img-active-transition-in-delay: $time-l;
 	$home-case-img-active-transition-in-time: $time-l ease $home-case-img-active-transition-in-delay;
 	$home-case-img-active-transition-out-time: $time-l ease;
-	$home-case-img-active-transition-in: top $home-case-img-active-transition-in-time, transform $home-case-img-active-transition-in-time, filter $home-case-img-active-transition-in-time;
-	$home-case-img-active-transition-out: top $home-case-img-active-transition-out-time, transform $home-case-img-active-transition-out-time, filter $home-case-img-active-transition-out-time;
+	$home-case-img-active-transition-in:
+		top $home-case-img-active-transition-in-time,
+		transform $home-case-img-active-transition-in-time,
+		filter $home-case-img-active-transition-in-time,
+		opacity $home-case-img-active-transition-in-time;
+	$home-case-img-active-transition-out:
+		top $home-case-img-active-transition-out-time,
+		transform $home-case-img-active-transition-out-time,
+		filter $home-case-img-active-transition-out-time,
+		opacity $home-case-img-active-transition-out-time;
+	$home-case-object-resizer: 0.8;
+	$home-case-object-size: $home-case-object-resizer * $object-width;
+	$home-case-object-padding: $spacing-7;
+	$home-case-object-ccwrotate: -45deg;
+	$home-case-object-nonactive-fill-1-light: $color-gray3-99;
+	$home-case-object-nonactive-fill-1-dark: $color-gray2-66;
+	$home-case-object-nonactive-fill-2-light: $color-gray6-F0;
+	$home-case-object-nonactive-fill-2-dark: $color-gray1-33;
+	$home-case-object-active-fill-1-light: var(--theme-title-color-light, $object-fill-1-light);
+	$home-case-object-active-fill-1-dark: var(--theme-title-color-dark, $object-fill-1-dark);
+	$home-case-object-active-fill-2-light: $color-bg-light;
+	$home-case-object-active-fill-2-dark: $color-bg-dark;
+	$home-case-object-active-fill-transition-in: fill $home-case-img-active-transition-in-time;
+	$home-case-object-hover-displace: $spacing-7;
+	$home-case-object-hintblob-margin-X: $spacing-4;
+	$home-case-object-hintblob-margin-Y: $spacing-7;
+	$home-case-objects-hintblob-hover-scale: 1.08;
+	// $home-case-objects-hintblob-transition-in: opacity $home-case-img-active-transition-in-time, transform $time-s ease;
+	// $home-case-objects-hintblob-hover-transition-in: opacity $time-xs ease, transform ($transition-bouncer-s-time * $time-xs) $transition-bouncer-s;
+	// $home-case-objects-hintblob-transition-out: opacity $time-l ease, transform $time-s ease;
+	$home-case-objects-hintblob-transition-in: opacity $home-case-img-active-transition-in-time;
+	$home-case-objects-hintblob-hover-transition-in: opacity $time-xs ease;
+	$home-case-objects-hintblob-transition-out: opacity $time-l ease;
 
 	.home-case {
 		@extend %home-section;
@@ -1046,15 +642,24 @@
 		margin: ($home-cases-gap / 2) 0;
 		position: relative;
 		overflow: hidden;
+		@include unselectable;
 
 		.home-case-img {
 			width: 100%;
 			@include position-center-absolute;
 			transform: translate(-50%,0);
 			top: 0;
-			filter: grayscale(1);
 			@include transition($transition: $home-case-img-active-transition-out);
 		}
+	}
+
+	.mode-light .home-case-img-container .home-case-img {
+		filter: grayscale($home-case-img-nonactive-grayscale-light) brightness($home-case-img-nonactive-brightness-light) contrast($home-case-img-nonactive-contrast-light);
+		opacity: $home-case-img-nonactive-opacity-light;
+	}
+	.mode-dark .home-case-img-container .home-case-img {
+		filter: grayscale($home-case-img-nonactive-grayscale-dark) brightness($home-case-img-nonactive-brightness-dark) contrast($home-case-img-nonactive-contrast-dark);
+		opacity: $home-case-img-nonactive-opacity-dark;
 	}
 
 	@keyframes home-case-img-container-active {
@@ -1069,7 +674,8 @@
 		.home-case-img {
 			transform: translate(-50%,-50%);
 			top: 50%;
-			filter: grayscale(0);
+			filter: grayscale($home-case-img-active-grayscale) brightness($home-case-img-active-brightness) contrast($home-case-img-active-contrast);
+			opacity: $home-case-img-active-opacity;
 			@include transition($transition: $home-case-img-active-transition-in);
 		}
 	}
@@ -1084,7 +690,7 @@
 	}
 
 	.home-case-title {
-		@extend %text-h1;
+		@extend %text-h2;
 		@include transition($transition: $home-section-color-transition-out);
 	}
 
@@ -1130,4 +736,115 @@
 	.home-case-brief {
 		@extend %text-body;
 		pointer-events: auto;
+	}
+
+	.home-case-object-container-out {
+		position: absolute !important;
+		width: $home-case-object-size;
+		height: $home-case-object-size;
+		bottom: $home-cases-gap / 2 - $home-case-object-padding;
+		right: $home-padding-X - $home-case-object-padding;
+	}
+
+	.home-case-object-rotater {
+		position: relative;
+		display: inline-block;
+		width: $home-case-object-size;
+		height: $home-case-object-size;
+		transform: rotate($home-case-object-ccwrotate);
+	}
+
+	.home-case-object-container-in {
+		@include object-container($resizer: $home-case-object-resizer);
+		display: inline-block;
+	}
+
+	.home-case-object-container-out:hover .home-case-object-container-in {
+		transform: translateY(-1 * $home-case-object-hover-displace);
+		@include transition($transition: $object-hover-transition-in-bounce);
+	}
+
+	.mode-light .home-case-object-container-in .object {
+		.object-fill-1 { fill: $home-case-object-nonactive-fill-1-light; }
+		.object-fill-2 { fill: $home-case-object-nonactive-fill-2-light; }
+	}
+	.mode-dark .home-case-object-container-in .object {
+		.object-fill-1 { fill: $home-case-object-nonactive-fill-1-dark; }
+		.object-fill-2 { fill: $home-case-object-nonactive-fill-2-dark; }
+	}
+
+	.home-section-active:not(.home-section-substituted) .object {
+		.object-fill-1 { @include transition($transition: $home-case-object-active-fill-transition-in); }
+		.object-fill-2 { @include transition($transition: $home-case-object-active-fill-transition-in); }
+	}
+	.mode-light .home-section-active:not(.home-section-substituted) .home-case-object-container-in .object {
+		.object-fill-1 { fill: $home-case-object-active-fill-1-light; }
+		.object-fill-2 { fill: $home-case-object-active-fill-2-light; }
+	}
+	.mode-dark .home-section-active:not(.home-section-substituted) .home-case-object-container-in .object {
+		.object-fill-1 { fill: $home-case-object-active-fill-1-dark; }
+		.object-fill-2 { fill: $home-case-object-active-fill-2-dark; }
+	}
+
+	.home-case-object-container-out:hover .home-case-object-container-in .object {
+		.object-fill-1 { @include transition($transition: $object-fill-transition-in); }
+		.object-fill-2 { @include transition($transition: $object-fill-transition-in); }
+	}
+	.mode-light .home-case-object-container-out:hover .home-case-object-container-in .object {
+		.object-fill-1 { fill: $home-case-object-active-fill-1-light; }
+		.object-fill-2 { fill: $home-case-object-active-fill-2-light; }
+	}
+	.mode-dark .home-case-object-container-out:hover .home-case-object-container-in .object {
+		.object-fill-1 { fill: $home-case-object-active-fill-1-dark; }
+		.object-fill-2 { fill: $home-case-object-active-fill-2-dark; }
+	}
+
+	.home-case-object-hintblob {
+		@extend %hintblob;
+		//transform: translateY(-100%) scale(1);
+		transform: translateY(-100%);
+		left: auto;
+		right: calc($home-case-object-padding + var(--hintblob-right));
+		top: var(--hintblob-top);
+		@include transition($transition: $home-case-objects-hintblob-transition-out);
+
+		&.hintblob-shown {
+			//top: -1 * $home-case-object-hintblob-margin-X;
+			@include transition($transition: $home-case-objects-hintblob-transition-in);
+		}
+	}
+
+	.home-case-object-container-out:hover .home-case-object-hintblob {
+		//transform: translateY(-100%) scale($home-case-objects-hintblob-hover-scale);
+		@include transition($transition: $home-case-objects-hintblob-hover-transition-in);
+	}
+
+
+
+	/* Thanks */
+
+	$home-thanks-padding-Y: $spacing-8;
+	$home-thanks-gap: $spacing-5;
+	$home-thanks-color: $color-lvsongshi !important;
+
+	.home-thanks-container {
+		//position: fixed;
+		//bottom: 0;
+		//height: $home-thanks-height;
+		display: flex;
+		flex-direction: column;
+		padding: $home-thanks-padding-Y $home-padding-X;
+		margin-bottom: $home-padding-Y;
+		gap: $home-thanks-gap;
+	}
+
+	.home-thanks {
+		@extend %text-h2;	// @extend %text-display;
+		color: $home-thanks-color;
+	}
+
+	.home-thanks-msg {
+		@extend %text-body-important;
+		max-width: $text-max-width;
+		z-index: 1;
 	}

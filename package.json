@@ -29,7 +29,7 @@
     "react-sticky-mouse-tooltip": "^0.0.1",
     "react-transition-group": "^4.4.5",
     "react-viewport-list": "^5.4.1",
-    "sass": "^1.58.3",
+    "sass": "^1.63.3",
     "source-map-explorer": "^2.5.3",
     "use-is-in-viewport": "^1.0.9",
     "web-vitals": "^2.1.4"

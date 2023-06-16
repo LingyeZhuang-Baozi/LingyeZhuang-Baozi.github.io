@@ -1,14 +1,14 @@
 /*** Portfolio Version 3.0 ***/
 
-import React, { useState, useEffect, useReducer, createContext } from 'react';
-import { createHashRouter, RouterProvider, redirect, ScrollRestoration } from "react-router-dom";
+import React, { useState, useEffect, useReducer, createContext, useContext } from 'react';
+import { createHashRouter, RouterProvider, useLocation, redirect, /*TODO: ScrollRestoration*/ } from "react-router-dom";
 
 import './_style.scss';
 
-/* Foreign components */
+/* Foreign Components */
 import Home from './Home.js';
-//import Journey from './Journey.js';
-//import CaseSelector from './Case.js';
+import CaseSteamer from './Case.js';
+import PNFLight from "./assets/basic/404/img_light.png";	import PNFDark from "./assets/basic/404/img_dark.png";
 
 /* Libraries */
 //import { useMediaQuery } from 'react-responsive';
@@ -57,12 +57,14 @@ function languageReducer (currLanguage, languageAction) {
 }
 
 /* Cursor */
+export const cursorTypeContext = createContext(null);
 export const dispatchCursorTypeContext = createContext(null);
 function cursorTypeReducer (currCursorType, cursorTypeAction) {
 	switch (cursorTypeAction.type) {
 		case "default": { return ("default"); }
 		case "pointer": { return ("pointer"); }
 		case "progress": { return ("progress"); }
+		case "readmore": { return ("readmore"); }
 		default: { return ("default"); }
 	}
 }
@@ -124,12 +126,13 @@ export default function App() {
 					element: <Journey mode={mode} journeyBookmark={journeyBookmark} setJourneyBookmark={setJourneyBookmark} />,
 				},
 			],*/
-			//errorElement: <>{() => { redirect("/"); }}</>,	//TODO
+			errorElement: <PageNotFound />,	//TODO
 		},
-		// { path: "/:caseName",
-		// 	element: <CaseSelector mode={mode} toggleMode={toggleMode} />,
-		// 	//errorElement: <>{() => { redirect("/"); }}</>,
-		// },
+		{ path: "/:caseId",
+			element: <CaseSteamer />,
+			key: "haha",
+			errorElement: <PageNotFound />,
+		},
 	]);
 
 	/* Render */
@@ -143,9 +146,11 @@ export default function App() {
 			<dispatchModeContext.Provider value={dispatchMode}>
 			<languageContext.Provider value={language}>
 			<dispatchLanguageContext.Provider value={dispatchLanguage}>
+			<cursorTypeContext.Provider value={cursorType}>
 			<dispatchCursorTypeContext.Provider value={dispatchCursorType}>
 				<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
 			</dispatchCursorTypeContext.Provider>
+			</cursorTypeContext.Provider>
 			</dispatchLanguageContext.Provider>
 			</languageContext.Provider>
 			</dispatchModeContext.Provider>
@@ -161,6 +166,53 @@ export default function App() {
 					</div>
 				</div>
 			</div></div>
+		</div>
+	);
+}
+
+export function PageNotFound () {
+
+	/* Dot Timer */
+	const [dot1Shown, setDot1Shown] = useState(false);
+	const [dot2Shown, setDot2Shown] = useState(false);
+	const [dot3Shown, setDot3Shown] = useState(false);
+
+	/* Redirect */
+	useEffect(() => {
+		setTimeout(() => {
+			setDot1Shown(true);
+		}, 10); // immediately with a bit of extra
+		setTimeout(() => {
+			setDot2Shown(true);
+		}, 1010); // 1s with a bit of extra
+		setTimeout(() => {
+			setDot3Shown(true);
+		}, 2010); // 2s with a bit of extra
+		setTimeout(() => {
+			window.location.replace("/#/");
+		}, 3010); // 3s with a bit of extra
+	}, []);
+
+	/* Stylize By Mode */
+	const currMode = useContext(modeContext);
+
+	/* Render */
+	return (
+		<div className="pnf">
+			<div className="pnf-text">
+				Empty Wildland Here.
+				<div className="pnf-hint">
+					Let’s Go Home
+					<span className={"pnf-hint-dot " + (dot1Shown==true ? "shown" : "")}>.</span>
+					<span className={"pnf-hint-dot " + (dot2Shown==true ? "shown" : "")}>.</span>
+					<span className={"pnf-hint-dot " + (dot3Shown==true ? "shown" : "")}>.</span>
+				</div>
+			</div>
+			<img
+				className="pnf-img"
+				src={currMode.mode==true ? PNFLight : PNFDark}
+				alt=""
+			/>
 		</div>
 	);
 }
