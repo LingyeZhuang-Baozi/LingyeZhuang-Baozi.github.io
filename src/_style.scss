@@ -75,8 +75,6 @@
 		$lineheight-h2: 1.5 * $font-h2;
 	$font-display: 80px;
 		$lineheight-display: 1 * $font-display;
-	$font-explanation: 12px;
-		$lineheight-explanation: 1.2 * $font-explanation;
 
 	/* Spacing */
 	$spacing-1: 2px;
@@ -162,22 +160,24 @@
 		transition: $transition;
 	}
 
+	$transition-bouncer-s: cubic-bezier(0.4, 4, 0.1, 0.4);
+	$transition-bouncer-s-time: 4;	// TODO: side-by-side test of these time ratios
 	$transition-bouncer-l: cubic-bezier(0.6, 2.5, 0.4, 0.6);
 	$transition-bouncer-l-time: 1.5;
-	$transition-bouncer-s: cubic-bezier(0.4, 4, 0.1, 0.4);
-	$transition-bouncer-s-time: 4;
+	$transition-bouncer-xl: cubic-bezier(0.5, 1.7, 0.4, 0.8);
+	$transition-bouncer-xl-time: 1.35;
 	$transition-bouncer-gentle: cubic-bezier(0.6, 1.8, 0.6, 0.8);
 
 	$transition-color-in: color $time-xs ease;
 	$transition-color-out: color $time-l ease-in-out;
 	$transition-bgcolor-in: background-color $time-xs ease;
 	$transition-bgcolor-out: background-color $time-l ease-in-out;
-	$transition-fill-in: fill $time-xs ease;
-	$transition-fill-out: fill $time-l ease-in-out;
-	$transition-transform-gentle-in: transform $time-m ease;
-	$transition-transform-gentle-out: transform $time-l ease-in-out;
 	// $transition-opacity-gentle-in: opacity $time-m ease-in;
 	// $transition-opacity-gentle-out: opacity $time-l ease-in-out;
+	$transition-transform-gentle-in: transform $time-m ease;
+	$transition-transform-gentle-out: transform $time-l ease-in-out;
+	$transition-fill-in: fill $time-xs ease, stroke $time-xs ease;
+	$transition-fill-out: fill $time-l ease-in-out, stroke $time-l ease-in-out;
 
 	/* Selection */
 
@@ -196,6 +196,9 @@
 		-moz-user-select: none;			// Firefox
 		-ms-user-select: none;			// Internet Explorer/Edge
 	}
+
+	/* Allowed Pixel Error */
+	$error: $spacing-3;
 
 
 
@@ -322,6 +325,8 @@
 	$text-color-body-dark: $color-gray3-99;
 	$text-color-body-important-light: $color-black;
 	$text-color-body-important-dark: $color-gray4-CC;
+	$text-color-caption-light: $color-gray3-99;
+	$text-color-caption-dark: $color-gray3-99;
 
 	%text-display {
 		font-family: $font-serif;
@@ -383,6 +388,43 @@
 		color: $text-color-body-important-dark;
 	}
 
+	%text-caption {
+		font-family: $font-sans-serif-light;
+		font-size: $font-hint;
+		line-height: $lineheight-hint;
+	}
+	.mode-light %text-caption {
+		color: $text-color-caption-light;
+	}
+	.mode-dark %text-caption {
+		color: $text-color-caption-dark;
+	}
+
+	@mixin textstroke($color: $color-white, $width: $border-width-m) {
+		text-shadow:
+			(-1 * $width)	(-1 * $width)	0	$color,
+			0							(-1 * $width)	0	$color,
+			($width)			(-1 * $width)	0	$color,
+			($width)			0							0	$color,
+			($width)			($width)			0	$color,
+			0							($width)			0	$color,
+			(-1 * $width)	($width)			0	$color,
+			(-1 * $width)	0							0	$color;
+	}
+
+	/* Text Body */
+	$paragraph-expandable-peek-height: $spacing-10;
+	$paragraph-expandable-peek-minheight: $spacing-9;
+	$paragraph-expandable-fade-height: 320px;
+	$paragraph-expandable-mask-topextra: 100vh;
+	$paragraph-expandable-mask-height: calc(100% + $paragraph-expandable-fade-height + $paragraph-expandable-mask-topextra + $error);
+	$paragraph-expandable-prompt-bottom: $spacing-4;
+	$paragraph-expandable-transition-time: ($transition-bouncer-xl-time * $time-m) $transition-bouncer-xl;
+	$paragraph-expandable-expand-transition:
+		height $paragraph-expandable-transition-time,
+		-webkit-mask-position $paragraph-expandable-transition-time,
+		mask-position $paragraph-expandable-transition-time;
+
 	body {
 		margin: 0;
 		@extend %text-body;
@@ -398,6 +440,42 @@
 	// 	font-size: $font-default;
 	// 	line-height: $lineheight-default;
 	// }
+
+	.paragraph-expandable-container {
+		position: relative;
+		align-self: stretch;
+		display: flex;
+	}
+
+	.paragraph-expandable {
+		align-self: stretch;
+		overflow: hidden;
+		height: $paragraph-expandable-peek-height;
+		min-height: $paragraph-expandable-peek-minheight;
+		-webkit-mask-image: linear-gradient(to bottom, black calc(100% - $paragraph-expandable-fade-height), transparent 100%);
+		mask-image: linear-gradient(to bottom, black calc(100% - $paragraph-expandable-fade-height), transparent 100%);
+		-webkit-mask-size: 100% $paragraph-expandable-mask-height;	// leave a bit of room for error
+		mask-size: 100% $paragraph-expandable-mask-height;
+		-webkit-mask-position: 0 calc(100% - $paragraph-expandable-mask-height);
+		mask-position: 0 calc(100% - $paragraph-expandable-mask-height);
+		@include transition($transition: $paragraph-expandable-expand-transition);
+
+		&.expanded {
+			height: auto;
+			-webkit-mask-position: 0 (-1 * $paragraph-expandable-mask-topextra);
+			mask-position: 0 (-1 * $paragraph-expandable-mask-topextra);
+		}
+	}
+
+	.paragraph-expandable-prompt {
+		position: absolute;
+		transform: translateX(-50%);
+		left: 50%;
+		bottom: $paragraph-expandable-prompt-bottom;
+		@extend %text-body;	//@extend %text-body-important;
+		font-family: $font-sans-serif-bold !important;
+		@extend %link;
+	}
 
 	/* List */
 	$list-indent: $spacing-4;
@@ -422,50 +500,54 @@
 	$link-hover-transition-in: $time-xs ease;
 	$link-hover-transition-out: $time-m ease;
 
+	%link {
+		white-space: nowrap;
+		@include transition($transition: (color $link-hover-transition-out));
+		//font-family: $font-sans-serif-bold;
+
+		&::before {
+			content: "";
+			background-color: $link-color;
+			height: $link-underscore-width;
+			border-radius: $radius-inf;
+			display: block;
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			z-index: -1;
+			@include transition($transition: (background-color $link-hover-transition-out, height $link-hover-transition-out));
+		}
+
+		&:hover {
+			font-family: $font-sans-serif;
+			color: $link-color !important;
+			@include transition($transition: (color $link-hover-transition-in));
+
+			&::before {
+				height: $link-hover-underscore-width;
+				background-color: $link-color !important;
+				@include transition($transition: (background-color $link-hover-transition-in, height $link-hover-transition-in));
+			}
+		}
+	}
+
+	.mode-light %link::before {
+		background-color: $text-color-display-light;
+	}
+	.mode-dark %link::before {
+		background-color: $text-color-display-dark;
+	}
+
 	a {
 		text-decoration: none;
 		display: inline-block;
 
 		&:not(.ghost) {
-			white-space: nowrap;
 			position: relative;
-			@include transition($transition: (color $link-hover-transition-out));
-			//font-family: $font-sans-serif-bold;
-
-			&::before {
-				content: "";
-				background-color: $link-color;
-				height: $link-underscore-width;
-				border-radius: $radius-inf;
-				display: block;
-				position: absolute;
-				width: 100%;
-				bottom: 0;
-				z-index: -1;
-				@include transition($transition: (background-color $link-hover-transition-out, height $link-hover-transition-out));
-			}
-
-			&:hover {
-				font-family: $font-sans-serif;
-				color: $link-color;
-				@include transition($transition: (color $link-hover-transition-in));
-
-				&::before {
-					height: $link-hover-underscore-width;
-					background-color: $link-color;
-					@include transition($transition: (background-color $link-hover-transition-in, height $link-hover-transition-in));
-				}
-			}
+			@extend %link;
 		}
 
 		&.clicked {}
-	}
-
-	.mode-light a::before {
-		background-color: $text-color-display-light;
-	}
-	.mode-dark a::before {
-		background-color: $text-color-display-dark;
 	}
 
 	/* Emoji */
@@ -638,6 +720,41 @@
 		fill: $button-icon-hover-color-dark;
 	}
 
+	/* Image */
+	$image-reel: $spacing-4;
+	$image-gap: $spacing-3;
+	$image-min-width: 320px;
+	$image-max-width: 100vw;
+
+	.image-container {
+		align-self: stretch;
+		margin: $image-reel auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0px;
+		gap: $image-gap;
+	}
+
+	.image {
+		width: var(--image-width, 100%);
+		height: var(--image-height, auto);
+		min-width: $image-min-width;
+		max-width: $image-max-width;
+	}
+	.mode_light .image {
+		filter: brightness(100%) grayscale(0%);
+	}
+	.mode_dark .image {
+		filter: brightness(80%) grayscale(20%); // dark mode dimmer image
+	}
+
+	.image-caption {
+		align-self: stretch;
+		@extend %text-caption;
+		text-align: center;
+	}
+
 	/* Hint Blob */
 	$hintblob-transition-in: opacity $time-xs ease;
 	$hintblob-transition-out: opacity $time-s ease;
@@ -716,7 +833,9 @@
 			bottom: 0;
 
 			.object-fill-1 { @include transition($transition: $object-fill-transition-out); }
+			.object-stroke-1 { @include transition($transition: $object-fill-transition-out); }
 			.object-fill-2 { @include transition($transition: $object-fill-transition-out); }
+			.object-stroke-2 { @include transition($transition: $object-fill-transition-out); }
 		}
 
 		&.curr {
@@ -724,7 +843,9 @@
 			@include transition($transition: $object-hover-transition-in-bounce);
 
 			.object-fill-1 { @include transition($transition: $object-fill-transition-in); }
+			.object-stroke-1 { @include transition($transition: $object-fill-transition-in); }
 			.object-fill-2 { @include transition($transition: $object-fill-transition-in); }
+			.object-stroke-2 { @include transition($transition: $object-fill-transition-in); }
 		}
 
 		&.noncurr {
@@ -734,10 +855,14 @@
 	}
 
 	.mode-light {
-		.object .object-fill-1 { fill: $object-fill-1-light; }
-		.object .object-fill-2 { fill: $object-fill-2-light; }
-		.animal .animal-fill-1 { fill: $animal-fill-1-light; }
-		.animal .animal-fill-2 { fill: $animal-fill-2-light; }
+		.object .object-fill-1 { fill: $object-fill-1-light; stroke: transparent; }
+		.object .object-stroke-1 { stroke: $object-fill-1-light; fill: transparent; }
+		.object .object-fill-2 { fill: $object-fill-2-light; stroke: transparent; }
+		.object .object-stroke-2 { stroke: $object-fill-2-light; fill: transparent; }
+		.animal .animal-fill-1 { fill: $animal-fill-1-light; stroke: transparent; }
+		.animal .animal-stroke-1 { stroke: $animal-fill-1-light; fill: transparent; }
+		.animal .animal-fill-2 { fill: $animal-fill-2-light; stroke: transparent; }
+		.animal .animal-stroke-2 { stroke: $animal-fill-2-light; fill: transparent; }
 
 		%object-container.curr {}
 
@@ -745,10 +870,14 @@
 	}
 
 	.mode-dark {
-		.object .object-fill-1 { fill: $object-fill-1-dark; }
-		.object .object-fill-2 { fill: $object-fill-2-dark; }
-		.animal .animal-fill-1 { fill: $animal-fill-1-dark; }
-		.animal .animal-fill-2 { fill: $animal-fill-2-dark; }
+		.object .object-fill-1 { fill: $object-fill-1-dark; stroke: transparent; }
+		.object .object-stroke-1 { stroke: $object-fill-1-dark; fill: transparent; }
+		.object .object-fill-2 { fill: $object-fill-2-dark; stroke: transparent; }
+		.object .object-stroke-2 { stroke: $object-fill-2-dark; fill: transparent; }
+		.animal .animal-fill-1 { fill: $animal-fill-1-dark; stroke: transparent; }
+		.animal .animal-stroke-1 { stroke: $animal-fill-1-dark; fill: transparent; }
+		.animal .animal-fill-2 { fill: $animal-fill-2-dark; stroke: transparent; }
+		.animal .animal-stroke-2 { stroke: $animal-fill-2-dark; fill: transparent; }
 
 		%object-container.curr {}
 

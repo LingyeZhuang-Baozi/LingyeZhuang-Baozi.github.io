@@ -16,13 +16,31 @@
 	// Header
 	$case-header-gap-X: $spacing-8;
 	$case-header-gap-Y: $spacing-7;
-	$case-header-bio-entry-gap: $spacing-2;
+	$case-header-bio-width: 240px;
 	$case-header-bio-tldr-width: 400px;
+	$case-header-bio-entry-gap: $spacing-2;
+	$case-header-img-width: 800px;
 	$case-header-img-maxwidth: 50vw;
 	$case-header-img-maxheight: 100vh;
-	$case-header-object-hintblob-transition-in: opacity $time-l ease, transform $time-l ease;
-	$case-header-object-hintblob-transition-out: opacity $time-xs ease, transform $time-l ease;
-	$case-header-object-hintblob-transition-out-displace: $spacing-4;
+	$case-header-object-resizer: 0.8;
+	$case-header-object-size: $case-header-object-resizer * $object-width;
+	$case-header-object-hover-displace: $spacing-3;
+	$case-header-object-hover-transition-in: transform ($transition-bouncer-l-time * $time-s) $transition-bouncer-l;
+	$case-header-object-hover-transition-out: transform $time-m ease-in-out;
+	$case-header-object-prompt-gap: $spacing-3;
+	$case-header-object-prompt-fontsize: $font-h2;
+	$case-header-object-prompt-lineheight: 0.96 * $case-header-object-prompt-fontsize;
+	$case-header-object-prompt-icon-size: 48px;
+	$case-header-object-prompt-icon-hover-displace: $spacing-2;
+	$case-header-object-prompt-icon-hover-transition-in: transform ($transition-bouncer-s-time * $time-xs) $transition-bouncer-s;
+	$case-header-object-prompt-icon-hover-transition-out: transform $time-m ease-in-out;
+	$case-header-object-prompt-color: $color-xihongshi;
+
+	// Body
+	$case-body-maxwidth: $text-max-width;
+	$case-body-gap: $spacing-8;
+	$case-body-section-gap: $spacing-7;
+	$case-body-section-paragraph-gap: $spacing-5;
 
 
 
@@ -30,6 +48,11 @@
 		@extend %control;
 		position: fixed;
 		background-color: transparent !important;
+		pointer-events: none;
+
+		div {
+			pointer-events: auto;
+		}
 	}
 
 
@@ -38,89 +61,252 @@
 		display: flex;
 		flex-direction: column;
 		padding: $case-padding;
+		overflow: hidden;
+	}
 
-		.case-header {
-			width: 100%;
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			gap: $case-gap;
+	%case .case-header {
+		width: 100%;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-gap;
+	}
 
-			.case-header-title {
-				@extend %text-display;
+	%case .case-header-title {
+		@extend %text-display;
+	}
+	.mode-light %case .case-header-title {
+		color: $case-display-color-light;
+	}
+	.mode-dark %case .case-header-title {
+		color: $case-display-color-dark;
+	}
+
+	%case .case-header-bio-container {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: $case-header-gap-X;
+	}
+
+	%case .case-header-bio {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-header-gap-Y;
+		width: $case-header-bio-width;
+	}
+
+	%case .case-header-bio-entry-container {
+		align-self: stretch;
+		@extend %text-body-important;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-header-bio-entry-gap;
+
+		&.case-header-bio-tldr {
+			width: $case-header-bio-tldr-width;
+			align-self: auto;
+
+			.case-header-bio-entry-content {
+				position: relative;
 			}
+		}
 
-			.case-header-bio-container {
-				display: flex;
-				flex-direction: row;
-				align-items: flex-start;
-				gap: $case-header-gap-X;
+		.case-header-bio-entry-title {
+			font-family: $font-sans-serif-bold;
+		}
 
-				.case-header-bio {
-					display: flex;
-					flex-direction: column;
-					align-items: flex-start;
-					gap: $case-header-gap-Y;
-				}
-
-				.case-header-bio-entry-container {
-					align-self: stretch;
-					@extend %text-body-important;
-					display: flex;
-					flex-direction: column;
-					align-items: flex-start;
-					gap: $case-header-bio-entry-gap;
-
-					&.case-header-bio-tldr {
-						width: $case-header-bio-tldr-width;
-					}
-
-					.case-header-bio-entry-title {
-						font-family: $font-sans-serif-bold;
-					}
-				}
-			}
-
-			.case-header-img-container-out {
-				z-index: $z-bg;
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				max-width: $case-header-img-maxwidth;
-				max-height: $case-header-img-maxheight;
-				@include unselectable;
-
-				.case-header-img-container-in {
-					position: relative;
-					display: inline-block;
-					width: 100%;
-					height: 100%;
-
-					.case-header-img {
-						width: 100%;
-						@include position-center-absolute;
-						//@include transition($transition: $home-case-img-active-transition-out);
-					}
-				}
-			}
-
-			.case-header-object-hintblob {
-				@extend %hintblob;
-				// transform: translateY(-1*$case-header-object-hintblob-transition-out-displace);
-				// left: auto;
-				// right: 80px;
-				// top: -102px;
-				@include transition($transition: $case-header-object-hintblob-transition-out);
-
-				&.hintblob-shown {
-					// transform: translateY(0);
-					@include transition($transition: $case-header-object-hintblob-transition-in);
-				}
-			}
+		.case-header-bio-entry-content {
+			white-space: pre-wrap;
 		}
 	}
 
+	@mixin pillarHeightCalc($object-bottom: 0px) {
+		height: -1 * $object-bottom + $case-header-object-size / 2 - $case-header-bio-entry-gap;
+	}
+
+	%case .case-header-img {
+		z-index: $z-bg;
+		width: $case-header-img-width;
+		max-width: $case-header-img-maxwidth;
+		max-height: $case-header-img-maxheight;
+		@include position-center-absolute;
+		@include unselectable;
+		//@include transition($transition: $home-case-img-active-transition-out);
+	}
+
+	%case .case-header-object-container-out {
+		position: absolute;
+		width: $case-header-object-size;
+		height: $case-header-object-size;
+	}
+
+	%case .case-header-object-rotater {
+		position: relative;
+		display: inline-block;
+		width: $case-header-object-size;
+		height: $case-header-object-size;
+		transform: rotate(0);
+	}
+
+	%case .case-header-object-container-in {
+		@include object-container($resizer: $case-header-object-resizer, $curr-displace: $case-header-object-hover-displace);
+		@include transition($transition: $case-header-object-hover-transition-out);
+
+		&.curr {
+			@include transition($transition: $case-header-object-hover-transition-in);
+		}
+	}
+
+	.mode-light %case .case-header-object-container-in .object {
+		.object-fill-1 { fill: $case-object-fill-1-light; }
+		.object-stroke-1 { stroke: $case-object-fill-1-light; }
+		.object-fill-2 { fill: $case-object-fill-2-light; }
+		.object-stroke-2 { stroke: $case-object-fill-2-light; }
+	}
+	.mode-dark %case .case-header-object-container-in .object {
+		.object-fill-1 { fill: $case-object-fill-1-dark; }
+		.object-stroke-1 { stroke: $case-object-fill-1-dark; }
+		.object-fill-2 { fill: $case-object-fill-2-dark; }
+		.object-stroke-2 { stroke: $case-object-fill-2-dark; }
+	}
+
+	%case case-header-object-prompt-container {
+		position: relative;
+	}
+
+	%case .case-header-object-prompt {
+		position: absolute;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: flex-end;
+		gap: $case-header-object-prompt-gap;
+		@include unselectable;
+	}
+
+	%case .case-header-object-prompt-text {
+		@extend %text-h2;
+		line-height: $case-header-object-prompt-lineheight;
+		text-align: right;
+		white-space: pre-wrap;
+		color: $case-header-object-prompt-color !important;
+		flex-shrink: 0;
+	}
+	.mode-light %case .case-header-object-prompt-text {
+		@include textstroke($color: $color-bg-light);
+	}
+	.mode-dark %case .case-header-object-prompt-text {
+		@include textstroke($color: $color-bg-dark);
+	}
+
+	%case .case-header-object-prompt-icon {
+		fill: $case-header-object-prompt-color;
+		width: $case-header-object-prompt-icon-size;
+		height: $case-header-object-prompt-icon-size;
+		overflow: visible;
+		flex-shrink: 0;
+
+		& #open-external-arrow {
+			@include transition($transition: $case-header-object-prompt-icon-hover-transition-out);
+		}
+	}
+
+	%case .case-header-object-prompt.focused .case-header-object-prompt-icon #open-external-arrow {
+		transform: translate($case-header-object-prompt-icon-hover-displace, -1 * $case-header-object-prompt-icon-hover-displace);
+		@include transition($transition: $case-header-object-prompt-icon-hover-transition-in);
+	}
+
+	%case .case-body {
+		margin: $case-gap auto 0;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-body-gap;
+	}
+
+	%case .case-body-section {
+		align-self: stretch;
+		max-width: $case-body-maxwidth;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-body-section-gap;
+	}
+
+	%case .case-body-section-title {
+		align-self: stretch;
+		@extend %text-display;
+	}
+	.mode-light %case .case-body-section-title {
+		color: $case-display-color-light;
+	}
+
+	%case .case-body-section-content {
+		align-self: stretch;
+		@extend %text-body;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-body-section-paragraph-gap;
+
+		.paragraph-expandable-content {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: $case-body-section-paragraph-gap;
+		}
+	}
+
+
+
+	/* Case Templates */
 	.case {
 		@extend %case;
+	}
+
+	/* Case Template [0] */
+	$case-0-header-object-ccwrotate: 45deg;
+	$case-0-header-object-left: -1 * $case-padding + $case-header-object-size / 2;
+	$case-0-header-object-bottom: -160px;
+	$case-0-header-object-prompt-transform: translate(0,-100%);
+	$case-0-header-object-prompt-left: 160px;
+	$case-0-header-object-prompt-top: 40px;
+
+	.case.case-0 {
+
+		.case-header-bio-container {
+			flex-direction: row-reverse;
+		}
+
+		.case-header-img {
+			transform: translate(50%,-50%);
+			top: 50%;
+			right: 0;
+			left: auto;
+		}
+
+		.case-header-object-container-out {
+			transform: translate(-50%,50%);
+			left: $case-0-header-object-left;
+			bottom: $case-0-header-object-bottom;
+		}
+
+		.case-header-object-rotater {
+			transform: rotate($case-0-header-object-ccwrotate);
+		}
+
+		.case-header-object-pillar {
+			@include pillarHeightCalc($object-bottom: $case-0-header-object-bottom);
+		}
+
+		.case-header-object-prompt {
+			transform: $case-0-header-object-prompt-transform;
+			left: $case-0-header-object-prompt-left;
+			top: $case-0-header-object-prompt-top;
+		}
 	}

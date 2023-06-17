@@ -217,9 +217,9 @@ export const btns = {
 		},
 		cases: {
 			clickme: {
-				blob: require("./assets/basic/hintblobs/read_more.svg").default,
-				right: 8,
-				top: 0,
+				blob: require("./assets/basic/hintblobs/read_more_here.svg").default,
+				right: 20,
+				top: -4.2,
 			},
 			// clickme: [
 			// 	{

@@ -593,7 +593,7 @@
 	$home-case-object-active-fill-1-dark: var(--theme-title-color-dark, $object-fill-1-dark);
 	$home-case-object-active-fill-2-light: $color-bg-light;
 	$home-case-object-active-fill-2-dark: $color-bg-dark;
-	$home-case-object-active-fill-transition-in: fill $home-case-img-active-transition-in-time;
+	$home-case-object-active-fill-transition-in: fill $home-case-img-active-transition-in-time, stroke $home-case-img-active-transition-in-time;
 	$home-case-object-hover-displace: $spacing-7;
 	$home-case-object-hintblob-margin-X: $spacing-4;
 	$home-case-object-hintblob-margin-Y: $spacing-7;
@@ -766,37 +766,53 @@
 
 	.mode-light .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-case-object-nonactive-fill-1-light; }
+		.object-stroke-1 { stroke: $home-case-object-nonactive-fill-1-light; }
 		.object-fill-2 { fill: $home-case-object-nonactive-fill-2-light; }
+		.object-stroke-2 { stroke: $home-case-object-nonactive-fill-2-light; }
 	}
 	.mode-dark .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-case-object-nonactive-fill-1-dark; }
+		.object-stroke-1 { stroke: $home-case-object-nonactive-fill-1-dark; }
 		.object-fill-2 { fill: $home-case-object-nonactive-fill-2-dark; }
+		.object-stroke-2 { stroke: $home-case-object-nonactive-fill-2-dark; }
 	}
 
 	.home-section-active:not(.home-section-substituted) .object {
 		.object-fill-1 { @include transition($transition: $home-case-object-active-fill-transition-in); }
+		.object-stroke-1 { @include transition($transition: $home-case-object-active-fill-transition-in); }
 		.object-fill-2 { @include transition($transition: $home-case-object-active-fill-transition-in); }
+		.object-stroke-2 { @include transition($transition: $home-case-object-active-fill-transition-in); }
 	}
 	.mode-light .home-section-active:not(.home-section-substituted) .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-case-object-active-fill-1-light; }
+		.object-stroke-1 { stroke: $home-case-object-active-fill-1-light; }
 		.object-fill-2 { fill: $home-case-object-active-fill-2-light; }
+		.object-stroke-2 { stroke: $home-case-object-active-fill-2-light; }
 	}
 	.mode-dark .home-section-active:not(.home-section-substituted) .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-case-object-active-fill-1-dark; }
+		.object-stroke-1 { stroke: $home-case-object-active-fill-1-dark; }
 		.object-fill-2 { fill: $home-case-object-active-fill-2-dark; }
+		.object-stroke-2 { stroke: $home-case-object-active-fill-2-dark; }
 	}
 
 	.home-case-object-container-out:hover .home-case-object-container-in .object {
 		.object-fill-1 { @include transition($transition: $object-fill-transition-in); }
+		.object-stroke-1 { @include transition($transition: $object-fill-transition-in); }
 		.object-fill-2 { @include transition($transition: $object-fill-transition-in); }
+		.object-stroke-2 { @include transition($transition: $object-fill-transition-in); }
 	}
 	.mode-light .home-case-object-container-out:hover .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-case-object-active-fill-1-light; }
+		.object-stroke-1 { stroke: $home-case-object-active-fill-1-light; }
 		.object-fill-2 { fill: $home-case-object-active-fill-2-light; }
+		.object-stroke-2 { stroke: $home-case-object-active-fill-2-light; }
 	}
 	.mode-dark .home-case-object-container-out:hover .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-case-object-active-fill-1-dark; }
+		.object-stroke-1 { stroke: $home-case-object-active-fill-1-dark; }
 		.object-fill-2 { fill: $home-case-object-active-fill-2-dark; }
+		.object-stroke-2 { stroke: $home-case-object-active-fill-2-dark; }
 	}
 
 	.home-case-object-hintblob {

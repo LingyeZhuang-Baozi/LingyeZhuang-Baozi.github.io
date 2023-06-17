@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer, createContext, useContext, createRef, useRef } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //import { HashLink } from 'react-router-hash-link';
 
 import './Home.scss';
@@ -11,7 +11,6 @@ import { modeContext, dispatchModeContext, languageContext, dispatchLanguageCont
 import { ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji } from "./components.js";
 
 /* Important Assets */
-import { ReactComponent as ObjectRandom } from "./assets/basic/object_RANDOM.svg";	// TODO
 import { ReactComponent as AskMyCaseStudies } from "./assets/basic/hintblobs/ask_my_case_studies.svg";
 import MyPic1 from "./assets/basic/me-1.jpg";
 import MyPic2 from "./assets/basic/me-2.jpg";
@@ -297,7 +296,8 @@ function Hero ({inViewSetter}) {
 	/* Proper Greeting According To Time */
 	const getInTimeGreeting = () => {
 		var curHr = new Date().getHours();
-		if (curHr < 12) { return (<>Morning! <Emoji>😎</Emoji></>); }
+		if (curHr < 4) { return (<>Hey! My night owl buddy <Emoji>🦉</Emoji></>); }
+		else if (curHr < 12) { return (<>Morning! <Emoji>😎</Emoji></>); }
 		else if (curHr < 18) { return (<>Good afternoon! <Emoji>🌼</Emoji></>); }
 		else { return (<>Good evening <Emoji>✨</Emoji></>); }
 	};
@@ -500,7 +500,7 @@ function HeroObjects () {
 
 function HeroObject ({caseId, hoverState, hoverStarted, hoverEnded}) {	// hoverState: 0 = default, 1 = curr, 2 = noncurr
 
-	//const objectContent = cases[caseId];
+	const objectContent = cases[caseId].theme.object;
 
 	/* Cursor */
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
@@ -530,7 +530,7 @@ function HeroObject ({caseId, hoverState, hoverStarted, hoverEnded}) {	// hoverS
 			onMouseOver={hoverStarts}
 			onMouseLeave={hoverEnds}
 		>
-			<ObjectRandom />
+			{objectContent}
 		</Link>
 	);
 }
@@ -848,11 +848,21 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 		setInViewStageClass(classList);
 	}, [inViewStage]);
 
+	/* Double Click As Alternative To Open Case */
+	const navigate = useNavigate();
+	const doubleClickOpenCase = (e) => {
+		e.preventDefault();
+		if (caseContent.content) {
+			navigate("/case-" + caseId);
+		}
+	}
+
 	/* Render */
 	return (
 		<div
 			ref={(el) => { caseActiveRef(el); caseBenchRef(el); }}
 			id={idCreator(caseId)}
+			//onDoubleClick={doubleClickOpenCase}	// TODO
 		>
 			<HomeSection
 				homeSectionId={caseId}
@@ -885,15 +895,21 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 							}</div>
 						</div>
 						<div className="home-case-brief">
-							{caseContent.thumbnail.brief}
+							<ul>
+								{caseContent.thumbnail.brief.map((bullet, idx) =>
+									<li key={idx}>{bullet}</li>
+								)}
+							</ul>
 						</div>
 					</div>
 				</>
 				<>
-					<CaseObject
-						caseId={caseId}
-						caseIsActive={inViewStage===2}
-					/>
+					{caseContent.content ?
+						<CaseObject
+							caseId={caseId}
+							caseIsActive={inViewStage===2}
+						/>
+					: null }
 				</>
 			</HomeSection>
 		</div>

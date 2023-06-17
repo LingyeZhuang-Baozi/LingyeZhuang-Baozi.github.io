@@ -6,13 +6,12 @@ import './Case.scss';
 
 /* Foreign Components */
 import { btns, images } from './assets.js';
-import { cases, casesNames, bioStructure, templateHintblobMap } from './cases.js';
+import { cases, casesNames, bioStructure } from './cases.js';
 import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
-import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji } from "./components.js";
+import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img } from "./components.js";
 
 /* Important Assets */
-import { ReactComponent as VisitWebsiteL } from "./assets/basic/hintblobs/visit_website_L.svg";
-import { ReactComponent as VisitWebsiteR } from "./assets/basic/hintblobs/visit_website_R.svg";
+import { ReactComponent as OpenExternal } from "./assets/basic/hintblobs/open_external.svg";
 
 
 
@@ -29,6 +28,7 @@ export default function CaseSteamer () {
 		if (
 			URLtype=="case"
 			&& casesNames.some(cn => cn === caseId)
+			&& cases[caseId].content
 		) { return true; }
 		else { return false; }
 	}
@@ -75,6 +75,7 @@ function Case () {
 		>
 			<ControlBar />
 			<Header />
+			<Body />
 		</div>
 	);
 }
@@ -147,7 +148,7 @@ function ControlBarExpandable ({btnContent}) {
 	: null }</>);
 }
 
-function Header () {
+function Header ({singleLinePrompt}) {
 
 	const caseId = useContext(caseIdContext);
 	const caseContent = cases[caseId];
@@ -155,36 +156,37 @@ function Header () {
 	/* Render */
 	return (
 		<div className="case-header">
-			<div className="case-header-img-container-out"><div className="case-header-img-container-in">
-				<img
-					className="case-header-img"
-					src={caseContent.content.img}
-					alt=""
-				/>
-			</div></div>
+			<img
+				className="case-header-img"
+				src={caseContent.content.img}
+				alt=""
+			/>
 			<div className="case-header-title">{caseContent.title}</div>
 			<div className="case-header-bio-container">
 				<div className="case-header-bio">
-					{caseContent.bio.map((entry, idx) =>
-						<>{entry != "" ?
-							<div key={bioStructure[idx]} className="case-header-bio-entry-container">
-								<div className="case-header-bio-entry-title">{bioStructure[idx]}</div>
-								<div className="case-header-bio-entry-content">{entry}</div>
-							</div>
-						: null }</>
-					)}
+					{caseContent.bio.map((entry, idx) => {
+						if (entry != null && entry != "") {
+							return (
+								<div key={bioStructure[idx]} className="case-header-bio-entry-container">
+									<div className="case-header-bio-entry-title">{bioStructure[idx]}</div>
+									<div className="case-header-bio-entry-content">{entry}</div>
+								</div>
+							);
+						}
+					})}
 				</div>
 				<div className="case-header-bio-entry-container case-header-bio-tldr">
-					<div className="case-header-bio-entry-title">TL;DR</div>
+					<div className="case-header-bio-entry-title">In A Nutshell{/*TL;DR*/}</div>
 					<div className="case-header-bio-entry-content">
-						{caseContent.content.overview.length > 0 ?
-							caseContent.content.overview
-						:
-							caseContent.thumbnail.brief
-						}
+						{caseContent.content.tldr}
+						{caseContent.content.link ?
+							<HeaderObject />
+						: null }
 					</div>
+					{caseContent.content.link ?
+						<div className="case-header-object-pillar"></div>
+					: null }
 				</div>
-				<HeaderObject />
 			</div>
 		</div>
 	);
@@ -195,22 +197,111 @@ function HeaderObject () {
 	const caseId = useContext(caseIdContext);
 	const caseContent = cases[caseId];
 
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Hover Handler */
+	const [hovering, setHovering] = useState(false);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "pointer"});
+		setHovering(true);
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+		setHovering(false);
+	}
+
 	/* Render */
-	return (<>
-		{templateHintblobMap[cases[caseId].theme.template] == true ?
-			<VisitWebsiteL
-				className={
-					"case-header-object-hintblob " //+
-					//((hoveredIdx < 0 && hoveringObjects == false) ? "hintblob-shown" : "")
-				}
-			/>
-		:
-			<VisitWebsiteR
-				className={
-					"case-header-object-hintblob " //+
-					//((hoveredIdx < 0 && hoveringObjects == false) ? "hintblob-shown" : "")
-				}
-			/>
+	return (
+		<div className="case-header-object-container-out">
+			<div className="case-header-object-rotater">
+				<a
+					href={caseContent.content.link[1]}
+					className={
+						"case-header-object-container-in ghost " +
+						(hovering==true ? "curr" : "")
+					}
+					onMouseEnter={hoverStarts}
+					onMouseOver={hoverStarts}
+					onMouseLeave={hoverEnds}
+				>
+					{caseContent.theme.object}
+				</a>
+			</div>
+			<div className="case-header-object-prompt-container">
+				<a
+					href={caseContent.content.link[1]}
+					className={
+						"case-header-object-prompt ghost " +
+						(hovering==true ? "focused" : "")
+					}
+					onMouseEnter={hoverStarts}
+					onMouseOver={hoverStarts}
+					onMouseLeave={hoverEnds}
+				>
+					<div className="case-header-object-prompt-text">{caseContent.content.link[0]}</div>
+					<OpenExternal className="case-header-object-prompt-icon" />
+				</a>
+			</div>
+		</div>
+	);
+}
+
+function Body () {
+
+	const caseId = useContext(caseIdContext);
+	const bodyContent = cases[caseId].content.body;
+
+	/* Render */
+	const caseBody = () => {
+		switch (bodyContent[0]) {
+			case "challenge-solution": {
+				return (<></>);
+			}
+			case "freeform": {
+				return (
+					<>{bodyContent[1].map((section, idx) =>
+						<div key={idx} className="case-body-section">
+							<div className="case-body-section-title">{section[0]}</div>
+							<div className="case-body-section-content">{section[1]}</div>
+						</div>
+					)}</>
+				);
+			}
+			case "gallery": {
+				return (
+					<div className="case-body-gallery">
+						{bodyContent[1].map((img, idx) => {
+							if (!img[0]) {
+								console.error("Error reading image source at index:", idx);
+								return (<></>);
+							} else {
+								return (
+									<Img
+										src={img[0]}
+										sizeId={img[1] ? img[1] : 0}
+										alt={img[2] ? img[2] : ""}
+										caption={img[3] ? img[3] : ""}
+										zoomable={img[4] ? img[4] : false}
+									/>
+								);
+							}
+						})}
+					</div>
+				);
+			}
+			default: {
+				console.error("Error determining case body structure. Received structure type:", bodyContent[0]);
+				return (<></>);
+			}
 		}
-	</>);
+	}
+
+	return (
+		<div className="case-body">
+			{caseBody()}
+		</div>
+	);
 }
