@@ -78,14 +78,14 @@ export const casesByCategory = [
 	[	"Frontend",
 		["CheeseClub", "CreativityLab",],
 	],
+	[	"3D",
+		["AsTheWindBlows", /*"3DCG",*/ /*"CellInTheSpace",*/],
+	],
 	[	"Marketing",
 		["TSE",],
 	],
 	[	"Illustration",
 		["Neureality", "CU",],
-	],
-	[	"3D",
-		["AsTheWindBlows", /*"3DCG",*/ /*"CellInTheSpace",*/],
 	],
 	[	"Conceptualization",
 		["RehaBuddy", /*"PadPal",*/ "ThriveSD",],
@@ -146,7 +146,9 @@ export const cases = {
 			img: require("./assets/cases/AsTheWindBlows/thumbnail_img.gif"),
 		},
 		content: {
-			tldr: <>A Korok fan art game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy.</>,
+			tldr: ["TL;DR",
+				<>A Korok fan art game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy.</>
+			],
 			link: ["Watch\nDemo", "https://youtu.be/MUKqqoazBh4"],
 			body: ["challenge-solution", []],
 			evidence: [],
@@ -177,7 +179,9 @@ export const cases = {
 			img: require("./assets/cases/ALUM/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>ALUM, the mentorship program, seeked to enhance member engagement and simplify meeting scheduling. To address this need, my team designed an iOS app, where students can network with alumni mentors, schedule meetings, and keep track of their academic and career goals. We maintained an intuitive interface and a vibrant branding to keep the young students engaged. The app is now ready to be launched and facilitate mentorship for 2000+ students.</>,
+			tldr: ["TL;DR",
+				<>ALUM, the mentorship program, seeked to enhance member engagement and simplify meeting scheduling. To address this need, my team designed an iOS app, where students can network with alumni mentors, schedule meetings, and keep track of their academic and career goals. We maintained an intuitive interface and a vibrant branding to keep the young students engaged. The app is now ready to be launched and facilitate mentorship for 2000+ students.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -206,7 +210,9 @@ export const cases = {
 			img: require("./assets/cases/CheeseClub/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>As a response to the return-to-school challenge following the COVID-19 pandemic, my roommates and I founded Cheese Club. By hosting many cheese-related events, we created a safe space for students to connect and socialize. I designed and implemented our website using Figma and Webflow.</>,
+			tldr: ["TL;DR",
+				<>As a response to the return-to-school challenge following the COVID-19 pandemic, my roommates and I founded Cheese Club. By hosting many cheese-related events, we created a safe space for students to connect and socialize. I designed and implemented our website using Figma and Webflow.</>
+			],
 			link: ["Visit\nWebsite", "https://cheese-club-ucsd.webflow.io/"],
 			body: ["challenge-solution", []],
 			evidence: [],
@@ -235,7 +241,9 @@ export const cases = {
 			img: require("./assets/cases/CreativityLab/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>I led a 4-person team to design and develop a database website using Figma and ReactJS. The objective was to assist analysis of human behavior and guide gesture design in AR settings. Our website enables researchers to upload images capturing human behaviors, and label them with an encoding system we devised based on observation and collection of 2500 photos. Gesture designers can leverage our database to explore real-world human behaviors and occupancy of modalities across different scenarios.</>,
+			tldr: ["TL;DR",
+				<>I led a 4-person team to design and develop a database website using Figma and ReactJS. The objective was to assist analysis of human behavior and guide gesture design in AR settings. Our website enables researchers to upload images capturing human behaviors, and label them with an encoding system we devised based on observation and collection of 2500 photos. Gesture designers can leverage our database to explore real-world human behaviors and occupancy of modalities across different scenarios.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -264,18 +272,57 @@ export const cases = {
 			img: require("./assets/cases/TSE/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>I wore several hats in TSE. As the marketing lead, I designed social media posts, flyers, and merchandise, maintaining a branding that upholds professionalism. I co-established the first design system at TSE, standardizing design tokens and fundamental components for future projects.</>,
+			tldr: ["In A Nutshell",
+				<>I wore several hats in TSE. As the marketing lead, I designed social media posts, flyers, and merchandise, maintaining a branding that upholds professionalism. I co-established the first design system at TSE, standardizing design tokens and fundamental components for future projects.</>
+			],
 			link: ["Instagram\nPosts", "https://www.instagram.com/ucsd_tse/?hl=en"],
 			body: ["gallery", [
-				[require("./assets/cases/TSE/collection_FA22_recruitment.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/flyer_FA23_recruitment.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/flyer_intern_panel.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/instagram_FA22_recruitment_application_open.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/instagram_member_highlight.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/instagram_project_showcase.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/instagram_social_events.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/merch_shirt.png"), 0, "", "",,],
-				[require("./assets/cases/TSE/website_our_approach.png"), 0, "", "",,],
+				{
+					title: "Design System",
+					heightId: 0,
+					widthId: 0,
+					zoomable: true,
+					imgs: [
+						[require("./assets/cases/TSE/design_system_card.png"), ""],
+						[require("./assets/cases/TSE/design_system_color.png"), ""],
+						[require("./assets/cases/TSE/design_system_input.png"), ""],
+						[require("./assets/cases/TSE/design_system_modal.png"), ""],
+					]
+				},
+				{
+					title: "Posts And Flyers",
+					heightId: 0,
+					widthId: -1,
+					zoomable: false,
+					imgs: [
+						[require("./assets/cases/TSE/collection_FA22_recruitment.png"), ""],
+						[require("./assets/cases/TSE/instagram_FA22_recruitment_application_open.png"), ""],
+						[require("./assets/cases/TSE/flyer_FA23_recruitment.png"), ""],
+						[require("./assets/cases/TSE/flyer_intern_panel.png"), ""],
+						[require("./assets/cases/TSE/instagram_social_events.png"), ""],
+						[require("./assets/cases/TSE/instagram_project_showcase.png"), ""],
+						[require("./assets/cases/TSE/instagram_member_highlight.png"), ""],
+					]
+				},
+				{
+					title: "Merchandise",
+					heightId: 0,
+					widthId: -1,
+					zoomable: false,
+					imgs: [
+						[require("./assets/cases/TSE/merch_shirt.png"), ""],
+						[require("./assets/cases/TSE/merch_sticker_variants.png"), ""],
+					]
+				},
+				{
+					title: "Website",
+					heightId: -1,
+					widthId: 0,
+					zoomable: true, 
+					imgs: [
+						[require("./assets/cases/TSE/website_our_approach.png"), ""],
+					]
+				},
 			]],
 			evidence: [],
 			credits: [],
@@ -304,7 +351,9 @@ export const cases = {
 			img: require("./assets/cases/CharmLife/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>I took charge of revamping the company's website, setting the stage for the launch of their app. Conducting thorough user research, I crafted user personas that guided our design choices throughout the redesign process.</>,
+			tldr: ["TL;DR",
+				<>I took charge of revamping the company's website, setting the stage for the launch of their app. Conducting thorough user research, I crafted user personas that guided our design choices throughout the redesign process.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -332,7 +381,9 @@ export const cases = {
 			img: require("./assets/cases/LAK/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>My team partnered with Firstmile Bhutan to address the challenges of good transportation faced by Bhutanese farmers. We developed an Android app to connect farmers with truckers, ensuring efficient and reliable good transportation. The user journey involves farmers posting job requests, truckers signing up for suitable jobs, and farmers tracking the progress and rating the truckers. Our app enables crowd-sourcing for good transportation, maximizing value for truckers and fostering a connected agricultural community.</>,
+			tldr: ["TL;DR",
+				<>My team partnered with Firstmile Bhutan to address the challenges of good transportation faced by Bhutanese farmers. We developed an Android app to connect farmers with truckers, ensuring efficient and reliable good transportation. The user journey involves farmers posting job requests, truckers signing up for suitable jobs, and farmers tracking the progress and rating the truckers. Our app enables crowd-sourcing for good transportation, maximizing value for truckers and fostering a connected agricultural community.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -360,7 +411,9 @@ export const cases = {
 			img: require("./assets/cases/MAW/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>Make-A-Wish needed an efficient solution to coordinate their large and diverse volunteer base. So my team developed a volunteer hub webtool to fulfill their needs and simplify the wish-granting process for children with critical illnesses. Admin members can use the webtool to post events, manage volunteers, and organize documents. Volunteers can easily sign up for events, and access documents and resources.</>,
+			tldr: ["TL;DR",
+				<>Make-A-Wish needed an efficient solution to coordinate their large and diverse volunteer base. So my team developed a volunteer hub webtool to fulfill their needs and simplify the wish-granting process for children with critical illnesses. Admin members can use the webtool to post events, manage volunteers, and organize documents. Volunteers can easily sign up for events, and access documents and resources.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -390,7 +443,9 @@ export const cases = {
 			img: require("./assets/cases/MercuryAlert/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>As the sole designer on the team, I was in charge of everything design-relevant, and attracted a seed funding for Mercury Alert. Contributions included:<ul><li>Product website rebrand and redesign, enhancing usability and credibility.</li><li>Graphic design for Instagram and Facebook posts, 3x/week, increased likes by 50%.</li><li>Sponsorship decks, business card, trifold, questionnaires. Templates I designed are still in use to date.</li></ul></>,
+			tldr: ["TL;DR",
+				<>As the sole designer on the team, I was in charge of everything design-relevant, and attracted a seed funding for Mercury Alert. Contributions included:<ul><li>Product website rebrand and redesign, enhancing usability and credibility.</li><li>Graphic design for Instagram and Facebook posts, 3x/week, increased likes by 50%.</li><li>Sponsorship decks, business card, trifold, questionnaires. Templates I designed are still in use to date.</li></ul></>
+			],
 			link: ["Visit\nWebsite", "https://www.mercuryalert.ai/"],
 			body: ["challenge-solution", []],
 			evidence: [],
@@ -471,7 +526,9 @@ export const cases = {
 			img: require("./assets/cases/Bitsrealm/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>I joined Bitsrealm when it was still a startup. As the sole designer on the team, I worked closely with game writers and developers to craft branding and prototypes for 4 digital products, and enabled a successful debut of the company's virtual concerts. The branding I started is still in use today.</>,
+			tldr: ["TL;DR",
+				<>I joined Bitsrealm when it was still a startup. As the sole designer on the team, I worked closely with game writers and developers to craft branding and prototypes for 4 digital products, and enabled a successful debut of the company's virtual concerts. The branding I started is still in use today.</>
+			],
 			link: ["Visit\nWebsite", "https://bitsrealm.com/home"],
 			body: ["challenge-solution", []],
 			evidence: [],
@@ -501,7 +558,9 @@ export const cases = {
 			img: require("./assets/cases/CruzRoja/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>Red Cross Tijuana was cultivating an ambulance dispatching system to coordinate the limited emergency service resources. I collaborated with a cross-disciplinary team and redesigned the UI of the dispatching system, prioritizing usability and information hierarchy to optimize efficiency, bringing reliable health care to millions of citizens in Tijuana, Mexico. This project was one of the most complex and rewarding design challenges I have undertaken.</>,
+			tldr: ["TL;DR",
+				<>Red Cross Tijuana was cultivating an ambulance dispatching system to coordinate the limited emergency service resources. I collaborated with a cross-disciplinary team and redesigned the UI of the dispatching system, prioritizing usability and information hierarchy to optimize efficiency, bringing reliable health care to millions of citizens in Tijuana, Mexico. This project was one of the most complex and rewarding design challenges I have undertaken.</>
+			],
 			link: ["Read Article\nAbout Us", "https://today.ucsd.edu/story/lifesaving-app"],
 			body: ["challenge-solution", []],
 			evidence: [],
@@ -531,7 +590,9 @@ export const cases = {
 			img: require("./assets/cases/ACM/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <><ul><li>To help ACM@UCSD attract potential members, my team upgraded its website. We strategically restructured the layout, curated fresh content, and enhanced user interactions for intuitive navigation.</li><li>As a personal side project, I also created graphic design for external marketing, and illustrations for a small game.</li></ul></>,
+			tldr: ["TL;DR",
+				<><ul><li>To help ACM@UCSD attract potential members, my team upgraded its website. We strategically restructured the layout, curated fresh content, and enhanced user interactions for intuitive navigation.</li><li>As a personal side project, I also created graphic design for external marketing, and illustrations for a small game.</li></ul></>
+			],
 			link: ["Visit\nWebsite", "https://acmucsd.com/"],
 			body: ["challenge-solution", []],
 			evidence: [],
@@ -560,7 +621,9 @@ export const cases = {
 			img: require("./assets/cases/Atlas/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>Following to Atlas's requirements, I designed and prototyped a full dashboard for e-commerce fullfillers. It featured data visualization panels, a message inbox, and comprehensive tracking of products, partners, and payments. This project sparked my love for fast-paced work environment and laid the foundation for my future journey in multiple startups.</>,
+			tldr: ["TL;DR",
+				<>Following to Atlas's requirements, I designed and prototyped a full dashboard for e-commerce fullfillers. It featured data visualization panels, a message inbox, and comprehensive tracking of products, partners, and payments. This project sparked my love for fast-paced work environment and laid the foundation for my future journey in multiple startups.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -589,7 +652,9 @@ export const cases = {
 			img: require("./assets/cases/RehaBuddy/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>Based on interview data and literature reviews, I conceptualized an electronic pet therapy putty device, which would provide stroke patients with ongoing motivation during their upper-limb rehabilitation exercises at home, fostering engagement and progress.</>,
+			tldr: ["TL;DR",
+				<>Based on interview data and literature reviews, I conceptualized an electronic pet therapy putty device, which would provide stroke patients with ongoing motivation during their upper-limb rehabilitation exercises at home, fostering engagement and progress.</>
+			],
 			link: ["Watch Video\nPresentation", "https://youtu.be/guaNhrMuORA?t=1214"],
 			body: ["freeform", [
 				["Problem", <>
@@ -694,7 +759,9 @@ export const cases = {
 			img: require("./assets/cases/PadPal/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>Period being a taboo topic prevents girls and women in rural Pune, India from properly managing their menstrual health. But period is a normal and beautiful part of life, and nothing to be ashamed of. In collaboration with Project Kilimanjaro, I led the design of a menstrual care bag with an instruction manual. The bag can be easily hand-sewed and used to carry menstrual products safely and sanitarily.</>,
+			tldr: ["TL;DR",
+				<>Period being a taboo topic prevents girls and women in rural Pune, India from properly managing their menstrual health. But period is a normal and beautiful part of life, and nothing to be ashamed of. In collaboration with Project Kilimanjaro, I led the design of a menstrual care bag with an instruction manual. The bag can be easily hand-sewed and used to carry menstrual products safely and sanitarily.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -720,7 +787,9 @@ export const cases = {
 			img: require("./assets/cases/GroupReads/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>Seeing students constantly overwhelmed by class readings, my team designed and implemented an app to help enhance their engagement with the reading together with their peers and bring back their motivation. We practiced the Double Diamond design process, as well as frontend languages including HTML, CSS, and javascript.</>,
+			tldr: ["TL;DR",
+				<>Seeing students constantly overwhelmed by class readings, my team designed and implemented an app to help enhance their engagement with the reading together with their peers and bring back their motivation. We practiced the Double Diamond design process, as well as frontend languages including HTML, CSS, and javascript.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -774,7 +843,9 @@ export const cases = {
 			img: require("./assets/cases/ThriveSD/thumbnail_img.png"),
 		},
 		contentNAH: {
-			tldr: <>In response to the Covid-19 outbreak, my team proposed a buy-1-give-1 model to recover the supply and consumption chain, and help small restaurants and homeless individuals survive hard time. This was one of my first real-world projects. I collaborated with a group of problem solvers from various walks of life, practiced design thinking, researched stakeholders, and developed this proposal.</>,
+			tldr: ["TL;DR",
+				<>In response to the Covid-19 outbreak, my team proposed a buy-1-give-1 model to recover the supply and consumption chain, and help small restaurants and homeless individuals survive hard time. This was one of my first real-world projects. I collaborated with a group of problem solvers from various walks of life, practiced design thinking, researched stakeholders, and developed this proposal.</>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
@@ -802,7 +873,9 @@ export const cases = {
 			img: require("./assets/cases/Neureality/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <>I crafted stylized illustrations and comics for articles on neuroscience and cognitive science, promoting popularization of the latest discoveries in these fields among the general public.</>,// By visually engaging audiences, my work bridged the gap between complex scientific concepts and wider understanding.</>,
+			tldr: ["TL;DR",
+			<>I crafted stylized illustrations and comics for articles on neuroscience and cognitive science, promoting popularization of the latest discoveries in these fields among the general public.</>,// By visually engaging audiences, my work bridged the gap between complex scientific concepts and wider understanding.</>
+		],
 			link: ["Read The\nComic", "https://mp.weixin.qq.com/s/L-uOl1hxBeGsVr0k_ifKxw"],
 			body: ["challenge-solution", []],
 			evidence: [],
@@ -962,7 +1035,9 @@ export const cases = {
 			img: require("./assets/cases/CU/thumbnail_img.png"),
 		},
 		content: {
-			tldr: <><ul><li>I led a team of 3 and designed the mascot for Chinese Union, communicating closely with the executive board for feedback and refining the design accordingly.</li><li>I also created poster illustrations for events and festivals</li></ul></>,
+			tldr: ["TL;DR",
+				<><ul><li>I led a team of 3 and designed the mascot for Chinese Union, communicating closely with the executive board for feedback and refining the design accordingly.</li><li>I also created poster illustrations for events and festivals</li></ul></>
+			],
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],

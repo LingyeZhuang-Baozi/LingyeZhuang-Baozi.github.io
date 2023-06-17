@@ -12,6 +12,7 @@ import { ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji }
 
 /* Important Assets */
 import { ReactComponent as AskMyCaseStudies } from "./assets/basic/hintblobs/ask_my_case_studies.svg";
+import { ReactComponent as AnonymousObject } from "./assets/cases/_case/_anonymous.svg";
 import MyPic1 from "./assets/basic/me-1.jpg";
 import MyPic2 from "./assets/basic/me-2.jpg";
 
@@ -925,7 +926,7 @@ function CaseObject ({caseId, caseIsActive}) {
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
 
 	/* Click-me Hint */
-	const [hovered, setHovered] = useState(false);
+	const [hovering, setHovering] = useState(false);
 	const [activeStage, setActiveStage] = useState(0);	// 0 = case is not active, 1 = case is just activated and object has not been hovered yet, 2 = case is active and object has been hovered at least once
 	useEffect(() => {
 		if (caseIsActive == true) {
@@ -939,7 +940,7 @@ function CaseObject ({caseId, caseIsActive}) {
 	const hoverStarts = (e) => {
 		e.preventDefault();
 		dispatchCursorType({type: "readmore"});
-		setHovered(true);
+		setHovering(true);
 		if (activeStage === 1) {
 			setActiveStage(2);
 		}
@@ -947,14 +948,14 @@ function CaseObject ({caseId, caseIsActive}) {
 	const hoverEnds = (e) => {
 		e.preventDefault();
 		dispatchCursorType({type: "default"});
-		setHovered(false);
+		setHovering(false);
 	}
 
 	const hintblobSrcSwitch = btns.home.cases.clickme;
 	const [hintblobShown, setHintblobShown] = useState(false);
 	const [hintblobSrcIdx, setHintblobSrcIdx] = useState(0);
 	useEffect(() => {
-		if (hovered == true) {
+		if (hovering == true) {
 			setHintblobShown(true);
 			setHintblobSrcIdx(2);
 		} else {
@@ -966,7 +967,7 @@ function CaseObject ({caseId, caseIsActive}) {
 				setHintblobShown(false);
 			}
 		}
-	}, [hovered, activeStage]);
+	}, [hovering, activeStage]);
 
 	/* Render */
 	return (
@@ -979,7 +980,7 @@ function CaseObject ({caseId, caseIsActive}) {
 		>
 			<div className="home-case-object-rotater">
 				<div className="home-case-object-container-in">
-					{caseObject}
+					{hovering ? caseObject : <AnonymousObject />}
 				</div>
 			</div>
 			{cursorType != "readmore" ?	// avoid overlapping with the cursor blob

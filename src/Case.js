@@ -8,7 +8,7 @@ import './Case.scss';
 import { btns, images } from './assets.js';
 import { cases, casesNames, bioStructure } from './cases.js';
 import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
-import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img } from "./components.js";
+import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img, ImgGallery } from "./components.js";
 
 /* Important Assets */
 import { ReactComponent as OpenExternal } from "./assets/basic/hintblobs/open_external.svg";
@@ -176,9 +176,13 @@ function Header ({singleLinePrompt}) {
 					})}
 				</div>
 				<div className="case-header-bio-entry-container case-header-bio-tldr">
-					<div className="case-header-bio-entry-title">In A Nutshell{/*TL;DR*/}</div>
+					<div className="case-header-bio-entry-title">
+						{caseContent.content.tldr[0] && caseContent.content.tldr[0] != "" ?
+							caseContent.content.tldr[0] : "TL;DR"
+						}
+					</div>
 					<div className="case-header-bio-entry-content">
-						{caseContent.content.tldr}
+						{caseContent.content.tldr[1]}
 						{caseContent.content.link ?
 							<HeaderObject />
 						: null }
@@ -272,24 +276,18 @@ function Body () {
 			}
 			case "gallery": {
 				return (
-					<div className="case-body-gallery">
-						{bodyContent[1].map((img, idx) => {
-							if (!img[0]) {
-								console.error("Error reading image source at index:", idx);
-								return (<></>);
-							} else {
-								return (
-									<Img
-										src={img[0]}
-										sizeId={img[1] ? img[1] : 0}
-										alt={img[2] ? img[2] : ""}
-										caption={img[3] ? img[3] : ""}
-										zoomable={img[4] ? img[4] : false}
-									/>
-								);
-							}
-						})}
-					</div>
+					<>{bodyContent[1].map((collection, idx) =>
+						<div key={idx} className="case-body-gallery-collection">
+							<div className="case-body-section-title">{collection.title}</div>
+							<ImgGallery
+								imgList={collection.imgs}
+								heightId={collection.heightId}
+								widthId={collection.widthId}
+								zoomable={collection.zoomable}
+								autoplay={false}	// TODO: autoplay!!!
+							/>
+						</div>
+					)}</>
 				);
 			}
 			default: {

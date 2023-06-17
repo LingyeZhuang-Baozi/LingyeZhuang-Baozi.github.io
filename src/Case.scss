@@ -57,20 +57,26 @@
 
 
 
+	/* Case */
+
 	%case {
 		display: flex;
 		flex-direction: column;
-		padding: $case-padding;
+		padding: $case-padding 0;
 		overflow: hidden;
 	}
 
+	/* Header */
+
 	%case .case-header {
-		width: 100%;
+		align-self: stretch;
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		gap: $case-gap;
+		padding: 0 $case-padding;
+		z-index: 1;
 	}
 
 	%case .case-header-title {
@@ -129,7 +135,7 @@
 	}
 
 	%case .case-header-img {
-		z-index: $z-bg;
+		z-index: -1;	//z-index: $z-bg;
 		width: $case-header-img-width;
 		max-width: $case-header-img-maxwidth;
 		max-height: $case-header-img-maxheight;
@@ -221,6 +227,8 @@
 	}
 
 	%case .case-body {
+		align-self: stretch;
+		max-width: 100%;
 		margin: $case-gap auto 0;
 		display: flex;
 		flex-direction: column;
@@ -234,6 +242,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+		padding: 0 $case-padding;
 		gap: $case-body-section-gap;
 	}
 
@@ -243,6 +252,22 @@
 	}
 	.mode-light %case .case-body-section-title {
 		color: $case-display-color-light;
+	}
+
+	%case .case-body-gallery-collection {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-body-section-gap;
+
+		.case-body-section-title {
+			margin: 0 $case-padding;
+		}
+
+		.gallery-container-in {
+			margin: 0 $case-padding;
+		}
 	}
 
 	%case .case-body-section-content {

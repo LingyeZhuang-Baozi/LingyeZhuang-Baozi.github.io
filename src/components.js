@@ -553,6 +553,7 @@ export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
 		["125%", "auto"],
 		["150%", "auto"],
 		["1000%", "auto"],	// CSS will clamp this to page width
+		["auto", "100%"],
 	];
 
 	/* Zoom Handler */	// TODO: modal
@@ -561,7 +562,7 @@ export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
 	return (
 		<div className="image-container">
 			<img
-				className="image"
+				className={"image " + (zoomable ? "zoomable" : "")}
 				src={src}
 				alt={alt}
 				style={{"--image-width": sizeMap[sizeId][0], "--image-height": sizeMap[sizeId][1]}}
@@ -569,6 +570,53 @@ export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
 			{caption != "" ?
 				<div className="image-caption">{caption}</div>
 			: null }
+		</div>
+	);
+}
+
+export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, autoplay=true, zoomable=true}) {	// imgList: [[image as required path, alt], [...]]
+
+	/* Standardize Size */
+	const heightMap = ["400px", "600px", "800px", "200px", "50vh", "100vh"];
+	const widthMap = ["400px", "600px", "800px", "200px", "50vw"];
+
+	/* Hover To Stop */
+
+	/* Zoom Handler */	// TODO: modal
+
+	/* Render */
+	return (
+		<div
+			className={
+				"gallery-container-out " +
+				(heightId >= 0 ? "fixed-height" : "") + " " +
+				(widthId >= 0 ? "fixed-width" : "") + " " +
+				(wrap == true ? "wrap" : "") + " " +
+				(autoplay == true ? "autoplay" : "static")
+			}
+			style={{
+				"--gallery-width": (widthId >= 0 ? widthMap[widthId] : "auto"),
+				"--gallery-height": (heightId >= 0 ? heightMap[heightId] : "auto"),
+			}}
+		>
+			<div className="gallery-container-in">
+				<div className="gallery">
+					{imgList.map((img, idx) => {
+						if (img.length < 1) {
+							console.error("Error reading image source at index", idx, "of imgList", imgList);
+						} else {
+							return (
+								<img
+									key={idx}
+									className={"gallery-image " + (zoomable ? "zoomable" : "")}
+									src={img[0]}
+									alt={img.length > 1 ? img[1] : ""}
+								/>
+							);
+						}
+					})}
+				</div>
+			</div>
 		</div>
 	);
 }
