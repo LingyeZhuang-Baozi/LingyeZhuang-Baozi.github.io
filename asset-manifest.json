@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e5d1e522.css",
-    "main.js": "/static/js/main.ede1d6d2.js",
+    "main.css": "/static/css/main.15c5feba.css",
+    "main.js": "/static/js/main.08e27662.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
     "static/media/_pigeon.png": "/static/media/_pigeon.d1ecdb0eef40332d070d.png",
     "static/media/instagram_social_events.png": "/static/media/instagram_social_events.8c734bcae0cdc224096f.png",
@@ -12,16 +12,21 @@
     "static/media/DelaGothicOne.ttf": "/static/media/DelaGothicOne.401851edd0d782de8f11.ttf",
     "static/media/collection_FA22_recruitment.png": "/static/media/collection_FA22_recruitment.6e834174862958c45735.png",
     "static/media/EmojiOneBW.otf": "/static/media/EmojiOneBW.776bd29aacc83d7cbbf3.otf",
-    "static/media/instagram_member_highlight.png": "/static/media/instagram_member_highlight.2b227031313359b396c9.png",
+    "static/media/instagram_member_highlight.png": "/static/media/instagram_member_highlight.e03f177b419260814145.png",
+    "static/media/merch_sticker_variants.png": "/static/media/merch_sticker_variants.0d1860315f396f72e763.png",
     "static/media/sketch1.png": "/static/media/sketch1.0fa287f70d3175a0f4d2.png",
     "static/media/thumbnail_img.png": "/static/media/thumbnail_img.70f0289e9d7e681b57a6.png",
+    "static/media/design_system_modal.png": "/static/media/design_system_modal.e92b9690b459da3721f2.png",
     "static/media/flyer_FA23_recruitment.png": "/static/media/flyer_FA23_recruitment.e6c7a673a4aa14076f3b.png",
     "static/media/sketch2.png": "/static/media/sketch2.24957d601097b039c84a.png",
     "static/media/website_our_approach.png": "/static/media/website_our_approach.d08131eacfbb6d626765.png",
     "static/media/me-2.jpg": "/static/media/me-2.b91363c7a4cee909f4a7.jpg",
+    "static/media/design_system_card.png": "/static/media/design_system_card.c3fb9e60f72f71d74ae6.png",
     "static/media/me-1.jpg": "/static/media/me-1.92f8a82592706bbccdea.jpg",
+    "static/media/design_system_color.png": "/static/media/design_system_color.72789b54086f44982566.png",
     "static/media/storyboard2.png": "/static/media/storyboard2.59c95d24789cd278504c.png",
     "static/media/sketch3.png": "/static/media/sketch3.6d959c41f0f6fbf3a0bc.png",
+    "static/media/design_system_input.png": "/static/media/design_system_input.004678982b0eb820ab32.png",
     "static/media/storyboard1.png": "/static/media/storyboard1.b48cab78d5da62655c42.png",
     "static/media/merch_shirt.png": "/static/media/merch_shirt.a24c2dd7cc0754596f69.png",
     "static/media/img_dark.png": "/static/media/img_dark.3b089c1c141a9f7293a2.png",
@@ -42,15 +47,16 @@
     "static/media/cursor_progress.svg": "/static/media/cursor_progress.cb3ee5b0de08c25d0dc9.svg",
     "static/media/open_external.svg": "/static/media/open_external.65f90d0681ffe4b77a7859eb8526a663.svg",
     "static/media/cursor_pointer.svg": "/static/media/cursor_pointer.a1d21311c6eb1d9a6521.svg",
-    "static/media/_object.svg": "/static/media/_object.6974f42b0e49eaf53a27d4bbb4c86208.svg",
+    "static/media/_anonymous.svg": "/static/media/_anonymous.6974f42b0e49eaf53a27d4bbb4c86208.svg",
     "index.html": "/index.html",
+    "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
     "static/media/cursor_default.svg": "/static/media/cursor_default.5ee881c6dbfb75d3f16f.svg",
-    "main.e5d1e522.css.map": "/static/css/main.e5d1e522.css.map",
-    "main.ede1d6d2.js.map": "/static/js/main.ede1d6d2.js.map",
+    "main.15c5feba.css.map": "/static/css/main.15c5feba.css.map",
+    "main.08e27662.js.map": "/static/js/main.08e27662.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e5d1e522.css",
-    "static/js/main.ede1d6d2.js"
+    "static/css/main.15c5feba.css",
+    "static/js/main.08e27662.js"
   ]
 }
