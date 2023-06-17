@@ -284,7 +284,7 @@ function Body () {
 								heightId={collection.heightId}
 								widthId={collection.widthId}
 								zoomable={collection.zoomable}
-								autoplay={false}	// TODO: autoplay!!!
+								autoplay={false} wrap={true}	// TODO: autoplay!!!
 							/>
 						</div>
 					)}</>
