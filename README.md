@@ -1,4 +1,4 @@
-Made with React JS and ♡.
+Juliet Zhuang's portfolio site, made with React JS and ♡.
 
 
 
