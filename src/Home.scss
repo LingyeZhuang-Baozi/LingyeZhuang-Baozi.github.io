@@ -68,8 +68,6 @@
 		.home-section-bg-canvas {
 			pointer-events: none;
 			position: absolute;
-			width: 100%;
-			height: 100%;
 			top: 0; bottom: 0; left: 0; right: 0;
 		}
 
@@ -99,6 +97,24 @@
 			animation: home-section-bg-updater $home-section-bg-update-time ease infinite;
 		}
 
+		&:not(.home-section-fancy) {
+
+			.home-section-bg-container {
+				position: relative;
+				display: inline-block;
+				border-radius: $home-section-radius;
+				overflow: hidden;
+			}
+		}
+
+		&.home-section-fancy {
+
+			.home-section-bg-canvas {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
 		&.home-section-active {
 			& .home-section-bg-clipper {
 				//transform: perspective($home-section-rotate-perspective) rotateX($home-section-rotate-X) rotateY($home-section-rotate-Y);	// 0% of home-section-bg-rotate
@@ -122,7 +138,7 @@
 		}
 
 		&.home-section-active:not(.home-section-substituted) .home-section-bg {
-			background-color: $home-section-bgcolor-active-light !important;	// background: radial-gradient(circle at left, $home-section-bgcolor-active, $home-section-bgcolor-light);	// TOOD: https://keithjgrant.com/posts/2017/07/transitioning-gradients/
+			background-color: $home-section-bgcolor-active-light !important;
 		}
 	}
 
@@ -132,7 +148,7 @@
 		}
 
 		&.home-section-active:not(.home-section-substituted) .home-section-bg {
-			background-color: $home-section-bgcolor-active-dark !important;	// background: radial-gradient(circle at left, $home-section-bgcolor-active, $home-section-bgcolor-dark);	// TOOD: https://keithjgrant.com/posts/2017/07/transitioning-gradients/
+			background-color: $home-section-bgcolor-active-dark !important;
 		}
 	}
 
@@ -149,6 +165,10 @@
 	$home-hero-padding-X: $spacing-7;
 	$home-hero-padding-Y: $spacing-7;
 	$home-hero-gap: $spacing-7 + $spacing-3;
+
+	.home-hero-container {
+		overflow: hidden;
+	}
 
 	.home-hero {
 		@extend %home-section;
@@ -274,10 +294,6 @@
 	$home-hero-contacts-button-size: $button-size;
 	$home-hero-contacts-button-icon-size: $button-icon-size;
 	$home-hero-contacts-gap: $spacing-3;
-	$home-hero-contacts-size:
-		4 * $home-hero-contacts-button-size
-		+ 3 * $home-hero-contacts-gap
-		- ($home-hero-contacts-button-size - $home-hero-contacts-button-icon-size);
 
 	.home-hero-contacts-container {
 		align-self: stretch;
@@ -291,8 +307,9 @@
 
 	.home-hero-contacts {
 		height: 0;
-		margin: ($home-hero-contacts-button-icon-size / 2) 0;
-		width: $home-hero-contacts-size;
+		margin:
+			($home-hero-contacts-button-icon-size / 2)
+			(-1 * ($home-hero-contacts-button-size - $home-hero-contacts-button-icon-size) / 2);
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -364,7 +381,7 @@
 	$home-hero-objects-hintblob-transition-out: opacity $time-xs ease, transform $time-l ease;
 	$home-hero-objects-hintblob-transition-out-displace: $spacing-4;
 
-	.home-hero-objects-placeholder {
+	.home-hero-objects-pillar {
 		pointer-events: none;
 		height: $home-hero-object-height;
 	}
@@ -543,10 +560,12 @@
 
 	/* Case Card */
 	//$home-case-height: 320px;
-	$home-case-padding-right: $spacing-10;
 	$home-case-gap: 0;
 	$home-case-img-width: 400px;
-	$home-case-text-padding: ($spacing-6 + ($home-cases-gap / 2)) 0 ($spacing-7 + ($home-cases-gap / 2));
+	$home-case-text-padding-X: $spacing-7;
+	$home-text-margin-right: $spacing-10;
+	$home-case-text-padding-T: $spacing-6;
+	$home-case-text-padding-B: $spacing-7;
 	$home-case-text-gap: $spacing-5;
 	$home-case-title-color-active-light: var(--theme-title-color-light, $color-gray1-33);
 	$home-case-title-color-active-dark: var(--theme-title-color-dark, $color-gray4-CC);
@@ -595,6 +614,7 @@
 	$home-case-object-active-fill-2-dark: $color-bg-dark;
 	$home-case-object-active-fill-transition-in: fill $home-case-img-active-transition-in-time, stroke $home-case-img-active-transition-in-time;
 	$home-case-object-hover-displace: $spacing-7;
+	$home-case-object-hintblob-height: 85.2px;	// = 81px hintblob height + 4.2px gap
 	$home-case-object-hintblob-margin-X: $spacing-4;
 	$home-case-object-hintblob-margin-Y: $spacing-7;
 	$home-case-objects-hintblob-hover-scale: 1.08;
@@ -607,11 +627,16 @@
 
 	.home-case {
 		@extend %home-section;
+		z-index: 1;
 		//height: $home-case-height;
 	}
 
 	.home-case.home-section-active:not(.home-section-substituted) {
 		z-index: 2;
+	}
+
+	.home-case .home-section-bg-canvas {
+		padding: ($home-cases-gap / 2) $home-padding-X;
 	}
 
 	.home-case .home-section-bg-clipper {
@@ -627,19 +652,21 @@
 
 	.home-case .home-section-fg-container {
 		pointer-events: none;
+		position: relative;
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
-		padding: 0 ($home-padding-X + $home-case-padding-right) 0 $home-padding-X;
+		padding: 0 ($home-padding-X + $home-text-margin-right - $home-case-text-padding-X) 0 $home-padding-X;
 		gap: $home-case-gap;
-		//flex-wrap: wrap;
+		flex-wrap: wrap;
+		height: 100%;
 	}
 
 	.home-case-img-container {
+		align-self: stretch;
 		flex-shrink: 0;
 		width: $home-case-img-width;
-		height: calc(100% - $home-cases-gap);
-		margin: ($home-cases-gap / 2) 0;
+		margin: ($home-cases-gap / 2) (-1 * $home-case-text-padding-X) ($home-cases-gap / 2) 0;
 		position: relative;
 		overflow: hidden;
 		@include unselectable;
@@ -679,14 +706,22 @@
 			@include transition($transition: $home-case-img-active-transition-in);
 		}
 	}
+	.mode-dark .home-section-active:not(.home-section-substituted) .home-case-img-container .home-case-img {
+		filter: grayscale($content-image-grayscale-dim + $home-case-img-active-grayscale) brightness($content-image-brightness-dim * $home-case-img-active-brightness) contrast($home-case-img-active-contrast);
+	}
 
+	$home-case-text-container-width: calc(100vw - (2 * $home-padding-X + $home-text-margin-right) - (2 * $home-case-text-padding-X) - $home-case-img-width - $error);
 	.home-case-text-container {
 		flex-grow: 1;
+		width: $home-case-text-container-width;
+		min-width: max($home-case-text-container-width, $home-case-img-width);	// these 3 lines together make the magic happen
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		padding: $home-case-text-padding;
+		margin: ($home-cases-gap / 2) 0;
+		padding: $home-case-text-padding-T $home-case-text-padding-X $home-case-text-padding-B;
 		gap: $home-case-text-gap;
+		z-index: 1;
 	}
 
 	.home-case-title {
@@ -742,8 +777,24 @@
 		position: absolute !important;
 		width: $home-case-object-size;
 		height: $home-case-object-size;
-		bottom: $home-cases-gap / 2 - $home-case-object-padding;
-		right: $home-padding-X - $home-case-object-padding;
+		bottom: -1 * $home-case-object-padding;
+		right: -1 * $home-case-object-padding;
+		z-index: 2;
+		pointer-events: auto;
+	}
+
+	.home-section-active:not(.home-section-substituted) .home-case-object-container-out {
+		height: $home-case-object-size + $home-case-object-hintblob-height;
+	}
+
+	.home-case-object-positioner {
+		position: relative;
+		display: inline-block;
+		// width: 100%;
+		// height: 100%;
+	}
+	.home-section-active:not(.home-section-substituted) .home-case-object-positioner {
+		transform: translateY($home-case-object-hintblob-height);
 	}
 
 	.home-case-object-rotater {

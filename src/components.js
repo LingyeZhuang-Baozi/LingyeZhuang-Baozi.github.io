@@ -71,6 +71,8 @@ export function Logo ({linkTo, clickHandler, hintblob}) {
 	);
 }
 
+
+
 export function ControlBtn ({btnContent, overflow=false, clickHandler, itchClass="", hoveredObserver}) {
 
 	/* Cursor */
@@ -145,6 +147,8 @@ export function ControlBtn ({btnContent, overflow=false, clickHandler, itchClass
 		</div>
 	);
 }
+
+
 
 export function ControlToggle ({btnContent, togglerCurr, togglerUpdateHandler, secondaries, secondaryUpdateHandler, newlyClickedSecondary}) {	// togglerCurr: true = toggle to left, false = toggle to right
 
@@ -246,6 +250,7 @@ export function ControlToggle ({btnContent, togglerCurr, togglerUpdateHandler, s
 		</div>
 	);
 }
+
 function ControlToggleSecondaryTab ({tabContent, curr, updateHandler}) {
 
 	/* Cursor */
@@ -279,6 +284,8 @@ function ControlToggleSecondaryTab ({tabContent, curr, updateHandler}) {
 		// </Link>
 	);
 }
+
+
 
 export function ControlSwitch ({btnContent, curr, updateHandler}) {	// curr: true = circle fg left, false = circle fg right
 
@@ -328,6 +335,8 @@ export function ControlSwitch ({btnContent, curr, updateHandler}) {	// curr: tru
 		</div>
 	);
 }
+
+
 
 export function ControlExpandable ({btnContent}) {
 
@@ -437,6 +446,8 @@ export function ControlExpandable ({btnContent}) {
 	);
 }
 
+
+
 export function A ({children, href, target='_blank', className=""}) {
 
 	/* Cursor */
@@ -475,13 +486,19 @@ export function A ({children, href, target='_blank', className=""}) {
 	);
 }
 
+
+
 export function Emoji ({children}) {
 	return ( <span className="emoji">{children}</span> );
 }
 
+
+
 export function P ({children}) {
 	return ( <div className="paragraph">{children}</div> );
 }
+
+
 
 export function ExpandablePs ({children, peekHeight="160px", prompt="Read More", defaultExpanded=false}) {
 
@@ -574,30 +591,54 @@ export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
 	);
 }
 
+
+
 export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, autoplay=true, zoomable=true}) {	// imgList: [[image as required path, alt], [...]]
 
 	/* Standardize Size */
-	const heightMap = ["400px", "600px", "800px", "200px", "50vh", "100vh"];
-	const widthMap = ["400px", "600px", "800px", "200px", "50vw"];
+	const heightMap = ["400px", "600px", "800px", "300px", "200px", "50vh", "100vh"];
+	const widthMap = ["400px", "600px", "800px", "300px", "200px", "50vw", "100%"];
 
-	/* Hover To Stop */
+	/* Dispatch Render */
+	const classList =
+		"gallery-container-out " +
+		(heightId >= 0 ? "fixed-height" : "") + " " +
+		(widthId >= 0 ? "fixed-width" : "") + " " +
+		(wrap == true ? "wrap" : "");
+	const styleList = {
+		"--gallery-height": (heightId >= 0 ? heightMap[heightId] : "auto"),
+		"--gallery-width": (widthId >= 0 ? widthMap[widthId] : "auto"),
+	};
+	if (autoplay == false) {
+		return (
+			<ImgGalleryStatic
+				imgList={imgList}
+				classList={classList}
+				styleList={styleList}
+				zoomable={zoomable}
+			/>
+		);
+	} else {
+		return (
+			<ImgGalleryAutoplay
+				imgList={imgList}
+				classList={classList}
+				styleList={styleList}
+				zoomable={zoomable}
+			/>
+		);
+	}
+}
+
+function ImgGalleryStatic ({imgList, classList, styleList, zoomable}) {
 
 	/* Zoom Handler */	// TODO: modal
 
 	/* Render */
 	return (
 		<div
-			className={
-				"gallery-container-out " +
-				(heightId >= 0 ? "fixed-height" : "") + " " +
-				(widthId >= 0 ? "fixed-width" : "") + " " +
-				(wrap == true ? "wrap" : "") + " " +
-				(autoplay == true ? "autoplay" : "static")
-			}
-			style={{
-				"--gallery-width": (widthId >= 0 ? widthMap[widthId] : "auto"),
-				"--gallery-height": (heightId >= 0 ? heightMap[heightId] : "auto"),
-			}}
+			className={classList + " static"}
+			style={styleList}
 		>
 			<div className="gallery-container-in">
 				<div className="gallery">
@@ -608,7 +649,7 @@ export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, a
 							return (
 								<img
 									key={idx}
-									className={"gallery-image " + (zoomable ? "zoomable" : "")}
+									className={"gallery-image " + (zoomable==true ? "zoomable" : "")}
 									src={img[0]}
 									alt={img.length > 1 ? img[1] : ""}
 								/>
@@ -619,4 +660,218 @@ export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, a
 			</div>
 		</div>
 	);
+}
+
+function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
+
+	/* Autoplay If Reasonable */
+	const [autoplayOn, setAutoplayOn] = useState(false);
+	const galleryRef = useRef(null);
+	const numImgs = imgList.length;
+	const [allImgLoader, setAllImgLoader] = useState(Array(2 * numImgs).fill(false));
+	const [allImgLoaded, setAllImgLoaded] = useState(false);
+	useEffect(() => {
+		if (!allImgLoader.includes(false)) { setAllImgLoaded(true); }
+		else { setAllImgLoaded(false); }
+	}, [allImgLoader]);
+	const [galleryWidth, setGalleryWidth] = useState();	// since autoplayOn is off by default, galleryWidth only contains 1 copy of the images set
+	const [galleryAutoplayTime, setGalleryAutoplayTime] = useState("100000ms");	// $time-inf
+	const confirmImgLoaded = (idx) => {
+		setAllImgLoader(prev => {
+			let newAllImgLoader = [...prev];
+			newAllImgLoader[idx] = true;
+			return newAllImgLoader;
+		});
+	}
+	useEffect(() => {
+		if (galleryRef.current && allImgLoaded == true) {
+			const galleryWidth = galleryRef.current.getBoundingClientRect().width;
+				// "getBoundingClientRect().width" gets the accurate floating point width value. "clientWidth" only gets int.
+			setGalleryWidth(galleryWidth);
+			setGalleryAutoplayTime((5 * (2 * galleryWidth + 16) + "ms"));
+				// Speed is 0.02pixel/ms, aka 5ms/pixel.
+				// Gallery full width when autoplaying will contain 2 copies of the images set, plus middle $gallery-gap 16px.
+		}
+	}, [galleryRef, allImgLoaded]);
+	const {width: viewportWidth} = useViewportDimensions();
+	useEffect(() => {
+		if (galleryWidth) {
+			if (viewportWidth >= galleryWidth) { setAutoplayOn(false); }	// 
+			else { setAutoplayOn(true); }
+		}		
+	}, [galleryWidth, viewportWidth]);
+
+	/* Hover To Stop */
+	const [hoveringImg, setHoveringImg] = useState(false);
+	const hoverImgStarts = (e) => {
+		e.preventDefault();
+		setHoveringImg(true);
+	}
+	const hoverImgEnds = (e) => {
+		e.preventDefault();
+		setHoveringImg(false);
+	}
+
+	/* Zoom Handler */	// TODO: modal
+
+	/* Render */
+	return (
+		<div
+			className={
+				classList + " " +
+				(autoplayOn ? "autoplay" : "static")
+			}
+			style={{
+				...styleList,
+				"--gallery-autoplay-time": galleryAutoplayTime,
+			}}
+		>
+			<div className="gallery-container-in">
+				<div
+					ref={galleryRef}
+					className={"gallery " + (hoveringImg ? "wait" : "")}
+					onMouseLeave={hoverImgEnds}
+				>
+					{imgList.map((img, idx) => {
+						if (img.length < 1) {
+							console.error("Error reading image source at index", idx, "of imgList", imgList);
+						} else {
+							return (
+								<img
+									key={idx}
+									className={"gallery-image " + (zoomable==true ? "zoomable" : "")}
+									src={img[0]}
+									alt={img.length > 1 ? img[1] : ""}
+									onLoad={() => { confirmImgLoaded(idx); }}
+									onMouseEnter={hoverImgStarts}
+									onMouseOver={hoverImgStarts}
+									onMouseLeave={hoverImgEnds}
+								/>
+							);
+						}
+					})}
+					{imgList.map((img, idx) => {
+						if (img.length < 1) {
+							console.error("Error reading image source at index", idx, "of imgList", imgList);
+						} else {
+							return (
+								<img
+									key={numImgs + idx}
+									className={
+										"gallery-image " +
+										(zoomable ? "zoomable" : "")
+									}
+									style={{"display": autoplayOn==true ? "flex" : "none"}}
+									src={img[0]}
+									alt={img.length > 1 ? img[1] : ""}
+									onLoad={() => { confirmImgLoaded(numImgs + idx); }}
+									onMouseEnter={hoverImgStarts}
+									onMouseOver={hoverImgStarts}
+								/>
+							);
+						}
+					})}
+				</div>
+			</div>
+		</div>
+	);
+}
+
+function Scrollable ({data, frame, children}) {	// data: [<device height>, <device width>, <screen top>, <screen right>, <screen bottom>, <screen left>]
+
+	/* Scroll Indicator */	// TODO: fading on top and bottom with intersection observer?
+	const scrollMeHintblob = btns.components.scrollable.hintblob;
+	const [scrolling, setScrolling] = useState(false);
+	const timerRef = useRef(null);
+	const scrollStarts = () => {
+		if(timerRef.current) {
+			clearTimeout(timerRef.current);
+		}
+		setScrolling(true);
+		timerRef.current = setTimeout(() => {
+			setScrolling(false);
+		}, 810);	// $time-xl 800ms with a bit of extra
+	}
+
+	/* Render */
+	return (
+		<div
+			className="scrollable-container"
+			style={{
+				"--frame-height": data[0],
+				"--frame-width": data[1],
+				"--screen-top": data[2],
+				"--screen-right": data[3],
+				"--screen-bottom": data[4],
+				"--screen-left": data[5]
+		}}
+		>
+			<div className="scrollable">
+				<div
+					className="scrollable-content"
+					onScroll={scrollStarts}
+				>
+					{children}
+				</div>
+				{frame}
+				<img
+					className={
+						"scrollable-hintblob hintblob-right-top " +
+						(scrolling==false ? "hintblob-shown" : "")
+					}
+					src={scrollMeHintblob.blob}
+					style={{"--hintblob-right": scrollMeHintblob.right+"px", "--hintblob-top": scrollMeHintblob.top+"px"}}
+					alt=""
+				/>
+			</div>
+		</div>
+	);
+}
+
+export function ScrollableMobile ({children}) {	// screen size: 390 x 844
+
+	/* Data */
+	const data = ["894", "446", "24", "28", "26", "28"];
+	const frame =
+		<svg className="scrollable-frame scrollable-mobile-frame" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 446 894">
+			<path className="scrollable-frame-fill-1" fillRule="evenodd" clipRule="evenodd" d="M2.53903 231.312C1.71366 231.498 0.723927 231.974 0.195445 232.649C0.0865909 232.788 0.000488281 233.228 0.000488281 233.356C0.000488281 239.742 0.000488281 259.194 0.000488281 291.712C0.000488281 291.848 0.121681 292.534 0.195886 292.701C0.623549 293.66 1.36662 293.892 2.53903 294.446H4.98963C4.98963 292.699 5.01406 233.021 4.98963 231.312H2.53903Z"/> <path className="scrollable-frame-fill-1" fillRule="evenodd" clipRule="evenodd" d="M2.53903 313.925C1.71366 314.11 0.723927 314.586 0.195445 315.261C0.0865909 315.401 0.000488281 315.841 0.000488281 315.968C0.000488281 322.354 0.000488281 341.807 0.000488281 374.324C0.000488281 374.46 0.121681 375.147 0.195886 375.313C0.623549 376.272 1.36662 376.504 2.53903 377.059H4.98963C4.98963 375.311 5.01406 315.633 4.98963 313.925H2.53903Z"/> <path className="scrollable-frame-fill-1" fillRule="evenodd" clipRule="evenodd" d="M2.53903 168.179C1.13703 168.179 0.000488281 169.253 0.000488281 170.577V200.035C0.000488281 201.359 1.13703 202.433 2.53903 202.433H4.98963C4.98963 200.631 5.01406 169.94 4.98963 168.179H2.53903Z"/> <path className="scrollable-frame-fill-1" fillRule="evenodd" clipRule="evenodd" d="M443.461 265C444.863 265 446 268.228 446 272.21V360.79C446 364.772 444.863 368 443.461 368H441.011C441.011 362.582 440.986 270.296 441.011 265H443.461Z"/> <path className="scrollable-frame-stroke-1 scrollable-frame-fill-0" d="M5 76.6385C5 50.9108 10.975 32.0569 23.2687 19.6248C35.5604 7.19488 54.3514 1 80.3994 1H365.601C391.649 1 410.44 7.19488 422.731 19.6248C435.025 32.0569 441 50.9108 441 76.6385V817.362C441 842.185 434.611 861.052 422.091 873.717C409.573 886.379 390.769 893 365.601 893H80.3994C54.3514 893 35.5603 886.805 23.2687 874.375C10.975 861.943 5 843.089 5 817.362V76.6385ZM138.586 54.1993C130.389 54.1993 124.596 51.2518 120.846 47.1725C117.076 43.0723 115.319 37.7731 115.319 33.0131L115.319 32.8676C115.32 30.7511 115.321 28.262 114.185 26.3289C112.936 24.2034 110.516 23 106.346 23H73.0659C58.8125 23 47.2687 27.3059 39.2869 35.2875C31.3051 43.2691 26.9991 54.8126 26.9991 69.0657L26.9991 822.933C26.9991 837.186 31.3051 848.729 39.2869 856.711C47.2687 864.693 58.8125 868.999 73.0658 868.999H372.933C387.187 868.999 398.73 864.693 406.712 856.711C414.694 848.729 419 837.186 419 822.933L419 69.0657C419 54.8126 414.694 43.2691 406.712 35.2875C398.73 27.3059 387.187 23 372.933 23H339.306C335.136 23 332.709 24.2046 331.462 26.3817C330.869 27.4161 330.596 28.5863 330.464 29.7588C330.333 30.9176 330.333 32.15 330.333 33.329V33.3598C330.333 42.5134 323.361 54.1993 307.066 54.1993H138.586Z" strokeWidth="2" vectorEffect="non-scaling-stroke"/> <path className="scrollable-frame-fill-1" fillRule="evenodd" clipRule="evenodd" d="M270 40C273.314 40 276 37.3137 276 34C276 30.6863 273.314 28 270 28C266.686 28 264 30.6863 264 34C264 37.3137 266.686 40 270 40Z"/> <path className="scrollable-frame-fill-1" d="M196 34C196 31.5 197.5 30 200 30H246C248.5 30 250 31.5 250 34C250 36.5 248.5 38 246 38H200C197.5 38 196 36.5 196 34Z"/> <line className="scrollable-frame-stroke-1" x1="158" y1="854" x2="288" y2="854" strokeWidth="4" strokeLinecap="round" vectorEffect="non-scaling-stroke"/>
+		</svg>
+		;
+
+	/* Render */
+	return (
+		<Scrollable data={data} frame={frame}>
+			{children}
+		</Scrollable>
+	);
+}
+
+export function ScrollableDesktop ({children}) {	// TODO
+
+	/* Data */
+	const data = [];
+	const frame = <></>;
+
+	/* Render */
+	return (
+		<Scrollable data={data} frame={frame}>
+			{children}
+		</Scrollable>
+	);
+}
+
+
+
+function useViewportDimensions() {	// custom hook must start with "use"
+	const [viewportDimensions, setViewportDimensions] = useState(getViewportDimensions());
+	useEffect(() => {
+		const handleResize = () => { setViewportDimensions(getViewportDimensions()); }
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+	return viewportDimensions;
+}
+function getViewportDimensions() {
+	const { innerWidth: width, innerHeight: height } = window;
+	return { width, height };
 }

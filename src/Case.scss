@@ -140,6 +140,7 @@
 		max-width: $case-header-img-maxwidth;
 		max-height: $case-header-img-maxheight;
 		@include position-center-absolute;
+		@extend %content-image;
 		@include unselectable;
 		//@include transition($transition: $home-case-img-active-transition-out);
 	}
@@ -267,6 +268,20 @@
 
 		.gallery-container-in {
 			margin: 0 $case-padding;
+		}
+	}
+
+	%case .case-body-gallery-spotlight-container-out {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+
+		.case-body-gallery-spotlight-container-in {
+			@include position-center-absolute;
 		}
 	}
 

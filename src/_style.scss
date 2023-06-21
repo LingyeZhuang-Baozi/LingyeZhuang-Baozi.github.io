@@ -725,6 +725,15 @@
 	$image-gap: $spacing-3;
 	$image-min-width: 320px;
 	$image-max-width: 100vw;
+	$content-image-brightness-dim: 80%;//80%*original
+	$content-image-grayscale-dim: 20%;//20%+original
+
+	.mode-light %content-image {
+		filter: brightness(100%) grayscale(0%);
+	}
+	.mode-dark %content-image {
+		filter: brightness($content-image-brightness-dim) grayscale($content-image-grayscale-dim); // dark mode dimmer image
+	}
 
 	%zoomable-image {}
 
@@ -743,16 +752,11 @@
 		height: var(--image-height, auto);
 		min-width: $image-min-width;
 		max-width: $image-max-width;
+		@extend %content-image;
 
 		&.zoomable {
 			@extend %zoomable-image;
 		}
-	}
-	.mode_light .image {
-		filter: brightness(100%) grayscale(0%);
-	}
-	.mode_dark .image {
-		filter: brightness(80%) grayscale(20%); // dark mode dimmer image
 	}
 
 	.image-caption {
@@ -762,10 +766,16 @@
 	}
 
 	/* Image Gallery */
-	$gallery-gap: $spacing-4;	// TODO?
+	$gallery-gap: $spacing-4;
 	$gallery-padding-X: $spacing-4;
 	$gallery-height: var(--gallery-height, auto);
 	$gallery-width: var(--gallery-width, auto);
+	$gallery-autoplay-time: var(--gallery-autoplay-time, $time-inf);
+
+	@keyframes gallery-autoplay {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(-50%); }
+	}
 
 	.gallery-container-out {
 		width: 100%;
@@ -787,6 +797,7 @@
 
 		.gallery-image {
 			flex-shrink: 0;
+			@extend %content-image;
 
 			&.zoomable {
 				@extend %zoomable-image;
@@ -810,7 +821,7 @@
 		&.fixed-height.fixed-width {
 
 			.gallery {
-				// TODO: fade???
+				// TODO: bottom fade???
 			}
 
 			.gallery-image {
@@ -830,10 +841,102 @@
 
 		&.autoplay {
 			overflow: hidden;
+
+			.gallery-container-in {
+				margin: 0 !important;
+			}
+
+			.gallery {
+				padding-right: $gallery-gap;
+				animation: gallery-autoplay $gallery-autoplay-time linear infinite;
+
+				&.wait {
+					animation-play-state: paused;
+				}
+			}
 		}
 
 		&.static {
 			overflow: scroll;
+		}
+	}
+
+	/* Scrollable */
+	$scrollable-height: calc(100vh - $spacing-7);
+	$scrollable-minheight: 400px;
+	$frame-height: var(--frame-height);
+	$scrollable-maxheight: calc($frame-height * 1px);
+	$frame-width: var(--frame-width);
+	$scrollable-frame-fill-0-light: $color-bg-light;
+	$scrollable-frame-fill-1-light: $color-gray4-CC;
+	$scrollable-frame-fill-0-dark: $color-bg-dark;
+	$scrollable-frame-fill-1-dark: $color-gray2-66;
+	$scrollable-screen-top: var(--screen-top, 0);
+	$scrollable-screen-right: var(--screen-right, 0);
+	$scrollable-screen-bottom: var(--screen-bottom, 0);
+	$scrollable-screen-left: var(--screen-left, 0);
+	$scrollable-hintblob-transition-in: opacity $time-l ease-in-out !important;
+	$scrollable-hintblob-transition-out: opacity $time-xs ease !important;
+
+	.scrollable-container {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		height: $scrollable-height;
+		min-height: $scrollable-minheight;
+		max-height: $scrollable-maxheight;
+	}
+
+	.scrollable {
+		position: relative;
+		display: inline-block;
+		height: 100%;
+		// svg automatically adjusts width.
+		//z-index: 1;
+		//-webkit-transform: translate3d(0,0,0);
+	}
+
+	.scrollable-content {
+		position: absolute;
+		top: calc($scrollable-height / $frame-height * $scrollable-screen-top);
+		right: calc($scrollable-height / $frame-height * $scrollable-screen-right);
+		bottom: calc($scrollable-height / $frame-height * $scrollable-screen-bottom);
+		left: calc($scrollable-height / $frame-height * $scrollable-screen-left);
+		overflow: scroll;
+		//z-index: -1;
+
+		& > * {
+			width: 100%;
+		}
+	}
+
+	.scrollable-frame {
+		position: relative;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	.mode-light .scrollable-frame {
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-light; /*stroke: transparent;*/ }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-light; /*fill: transparent;*/ }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-light; /*stroke: transparent;*/ }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-light; /*fill: transparent;*/ }
+	}
+	.mode-dark .scrollable-frame {
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-dark; /*stroke: transparent;*/ }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-dark; /*fill: transparent;*/ }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-dark; /*stroke: transparent;*/ }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-dark; /*fill: transparent;*/ }
+	}
+
+	.scrollable-hintblob {
+		@include transition($transition: $scrollable-hintblob-transition-out);
+
+		&.hintblob-shown {
+			opacity: 1;
+			@include transition($transition: $scrollable-hintblob-transition-in);
 		}
 	}
 
@@ -872,6 +975,13 @@
 	.hintblob-left-top {
 		@extend %hintblob;
 		left: var(--hintblob-left);
+		top: var(--hintblob-top);
+	}
+
+	.hintblob-right-top {
+		@extend %hintblob;
+		left: auto;
+		right: var(--hintblob-right);
 		top: var(--hintblob-top);
 	}
 
@@ -937,14 +1047,14 @@
 	}
 
 	.mode-light {
-		.object .object-fill-1 { fill: $object-fill-1-light; stroke: transparent; }
-		.object .object-stroke-1 { stroke: $object-fill-1-light; fill: transparent; }
-		.object .object-fill-2 { fill: $object-fill-2-light; stroke: transparent; }
-		.object .object-stroke-2 { stroke: $object-fill-2-light; fill: transparent; }
-		.animal .animal-fill-1 { fill: $animal-fill-1-light; stroke: transparent; }
-		.animal .animal-stroke-1 { stroke: $animal-fill-1-light; fill: transparent; }
-		.animal .animal-fill-2 { fill: $animal-fill-2-light; stroke: transparent; }
-		.animal .animal-stroke-2 { stroke: $animal-fill-2-light; fill: transparent; }
+		.object .object-fill-1 { fill: $object-fill-1-light; /*stroke: transparent;*/ }
+		.object .object-stroke-1 { stroke: $object-fill-1-light; /*fill: transparent;*/ }
+		.object .object-fill-2 { fill: $object-fill-2-light; /*stroke: transparent;*/ }
+		.object .object-stroke-2 { stroke: $object-fill-2-light; /*fill: transparent;*/ }
+		.animal .animal-fill-1 { fill: $animal-fill-1-light; /*stroke: transparent;*/ }
+		.animal .animal-stroke-1 { stroke: $animal-fill-1-light; /*fill: transparent;*/ }
+		.animal .animal-fill-2 { fill: $animal-fill-2-light; /*stroke: transparent;*/ }
+		.animal .animal-stroke-2 { stroke: $animal-fill-2-light; /*fill: transparent;*/ }
 
 		%object-container.curr {}
 
@@ -952,14 +1062,14 @@
 	}
 
 	.mode-dark {
-		.object .object-fill-1 { fill: $object-fill-1-dark; stroke: transparent; }
-		.object .object-stroke-1 { stroke: $object-fill-1-dark; fill: transparent; }
-		.object .object-fill-2 { fill: $object-fill-2-dark; stroke: transparent; }
-		.object .object-stroke-2 { stroke: $object-fill-2-dark; fill: transparent; }
-		.animal .animal-fill-1 { fill: $animal-fill-1-dark; stroke: transparent; }
-		.animal .animal-stroke-1 { stroke: $animal-fill-1-dark; fill: transparent; }
-		.animal .animal-fill-2 { fill: $animal-fill-2-dark; stroke: transparent; }
-		.animal .animal-stroke-2 { stroke: $animal-fill-2-dark; fill: transparent; }
+		.object .object-fill-1 { fill: $object-fill-1-dark; /*stroke: transparent;*/ }
+		.object .object-stroke-1 { stroke: $object-fill-1-dark; /*fill: transparent;*/ }
+		.object .object-fill-2 { fill: $object-fill-2-dark; /*stroke: transparent;*/ }
+		.object .object-stroke-2 { stroke: $object-fill-2-dark; /*fill: transparent;*/ }
+		.animal .animal-fill-1 { fill: $animal-fill-1-dark; /*stroke: transparent;*/ }
+		.animal .animal-stroke-1 { stroke: $animal-fill-1-dark; /*fill: transparent;*/ }
+		.animal .animal-fill-2 { fill: $animal-fill-2-dark; /*stroke: transparent;*/ }
+		.animal .animal-stroke-2 { stroke: $animal-fill-2-dark; /*fill: transparent;*/ }
 
 		%object-container.curr {}
 

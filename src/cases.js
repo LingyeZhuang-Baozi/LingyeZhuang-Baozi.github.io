@@ -39,9 +39,9 @@ import { isSafari, isIE } from "react-device-detect";
 // Objects
 import { ReactComponent as ObjectAsTheWindBlows } from "./assets/cases/_case/_object.svg";
 import { ReactComponent as ObjectALUM } from "./assets/cases/_case/_object.svg";
-import { ReactComponent as ObjectCheeseClub } from "./assets/cases/_case/_object.svg";
+import { ReactComponent as ObjectCheeseClub } from "./assets/cases/CheeseClub/object.svg";
 import { ReactComponent as ObjectCreativityLab } from "./assets/cases/_case/_object.svg";
-import { ReactComponent as ObjectTSE } from "./assets/cases/_case/_object.svg";
+import { ReactComponent as ObjectTSE } from "./assets/cases/TSE/object.svg";
 import { ReactComponent as ObjectCharmLife } from "./assets/cases/_case/_object.svg";
 import { ReactComponent as ObjectLAK } from "./assets/cases/LAK/object.svg";
 import { ReactComponent as ObjectMAW } from "./assets/cases/MAW/object.svg";
@@ -214,14 +214,72 @@ export const cases = {
 				<>As a response to the return-to-school challenge following the COVID-19 pandemic, my roommates and I founded Cheese Club. By hosting many cheese-related events, we created a safe space for students to connect and socialize. I designed and implemented our website using Figma and Webflow.</>
 			],
 			link: ["Visit\nWebsite", "https://cheese-club-ucsd.webflow.io/"],
-			body: ["challenge-solution", []],
+			body: ["freeform", [
+				["Branding", <>
+					<P>We are a club about friendship, sharing, and fun, offering a gentle and warm space for socialization and destressing. To convey this message in the branding, I selected colors and typographies that balance between playfulness and comfort, creating a striking yet welcoming vibe.</P>
+					<P>Inspired from <A href="https://www.craftui.com/">Alla Kholmatova</A>'s book Design Systems, I believe naming of elements is also part of the branding, and good names can inform designers when and how to use the elements. Therefore, when naming the colors of Cheese Club, instead of using generic labels like "primary yellow" and "secondary brown", I chose names that are not only descriptive, but also evoke emotions and align with the brand personality. "The Cheese" is obviously the core color for Cheese Club. "The Coffee", a side dish, serve as a complement to "The Cheese". Both "Elegant Gray" and "Wild Magenta" are accent, but "Elegant Gray" is subtle and slightly more formal, while "Wild Magenta" is loud and meant to be used for highlights.</P>
+					<Img
+						src={require("./assets/cases/CheeseClub/branding_colors.png")}
+						sizeId={0}
+						alt="color branding guidlines"
+						caption="brand colors, with carefully selected names"
+						zoomable={false}
+					/>
+					<P>Each member uses their unique superpower to contribute towards the collective goal of fostering socialization and bonding, and my strength lies in design. By the way, upon my suggestion, we all gave ourselves a cheese name, like secret agents. My cheese name is Mozzarella :></P>
+					<Img
+						src={require("./assets/cases/CheeseClub/wrappers.png")}
+						sizeId={0}
+						alt="wrapper patterns"
+						caption="wrapper patterns I designed"
+						zoomable={false}
+					/>
+				</>],
+				["Responsive Design", <>
+					<P>Webflow made building responsive websites very efficient. With my previous fontend practice and familaity with the Figma auto layout system, I quickly picked up Webflow. Starting with sketching multiple ideas, I then crafted a comprehensive prototype using Figma. Once these plannings were completed, the implementation phase progressed smoothly, and I developed the Cheese Club website within a weekend using Webflow.</P>
+					<Img
+						src={require("./assets/cases/CheeseClub/website_home.png")}
+						sizeId={0}
+						alt="website home page"
+						caption="home page of the Cheese Club website I made"
+						zoomable={false}
+					/>
+					<Img
+						src={require("./assets/cases/CheeseClub/website_about.png")}
+						sizeId={0}
+						alt="website about page"
+						caption="about page"
+						zoomable={false}
+					/>
+					<Img
+						src={require("./assets/cases/CheeseClub/website_events.png")}
+						sizeId={0}
+						alt="website events page"
+						caption="events page"
+						zoomable={false}
+					/>
+					<Img
+						src={require("./assets/cases/CheeseClub/website_individual_event.png")}
+						sizeId={0}
+						alt="website individual event page"
+						caption="individual event page"
+						zoomable={false}
+					/>
+					<Img
+						src={require("./assets/cases/CheeseClub/website_cheese_roll.gif")}
+						sizeId={0}
+						alt="prototype of a fancy navigation bar animation: cheese rolling from bottom to top of the screen"
+						caption="A fancy animation of the navigation bar that I designed, abandoned due to time constraint."
+						zoomable={false}
+					/>
+				</>],
+			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/CheeseClub/logo.png"),
 		},
 		theme: {
 			object: <ObjectCheeseClub />,
-			color: ["#FFEDD5", "#99002F", "#641F15", "#FBC477"],
+			color: ["#FFEDD5", "#7C0F31", "#641F15", "#FBC477"],
 			template: 0,
 		},
 		next: "",
@@ -278,36 +336,44 @@ export const cases = {
 			link: ["Instagram\nPosts", "https://www.instagram.com/ucsd_tse/?hl=en"],
 			body: ["gallery", [
 				{
-					title: "Design System",
+					title: "Posts And Flyers",
 					heightId: 0,
+					widthId: -1,
+					wrap: false,
+					autoplay: true,
+					zoomable: false,
+					imgs: [
+						[require("./assets/cases/TSE/instagram_FA22_recruitment_application_open.png"), "fall 2022 recruitment instagram graphic when application opens"],
+						[require("./assets/cases/TSE/collection_FA22_recruitment.png"), "fall 2022 recruitment materials"],
+						[require("./assets/cases/TSE/instagram_FA22_recruitment_application_closing.png"), "fall 2022 recruitment instagram graphic when application is closing"],
+						[require("./assets/cases/TSE/flyer_FA23_recruitment.png"), "fall 2023 recruitment flyer"],
+						[require("./assets/cases/TSE/flyer_intern_panel.png"), "intern panel flyer"],
+						[require("./assets/cases/TSE/instagram_social_events.png"), "social events showcase instagram post"],
+						[require("./assets/cases/TSE/instagram_project_showcase.png"), "project showcase instagram post"],
+						[require("./assets/cases/TSE/instagram_member_highlight.png"), "member highlight instagram post"],
+					]
+				},
+				{
+					title: "Design System",
+					heightId: -1,
 					widthId: 0,
+					wrap: false,
+					autoplay: true,
 					zoomable: true,
 					imgs: [
 						[require("./assets/cases/TSE/design_system_card.png"), ""],
 						[require("./assets/cases/TSE/design_system_color.png"), ""],
 						[require("./assets/cases/TSE/design_system_input.png"), ""],
-						[require("./assets/cases/TSE/design_system_modal.png"), ""],
-					]
-				},
-				{
-					title: "Posts And Flyers",
-					heightId: 0,
-					widthId: -1,
-					zoomable: false,
-					imgs: [
-						[require("./assets/cases/TSE/collection_FA22_recruitment.png"), ""],
-						[require("./assets/cases/TSE/instagram_FA22_recruitment_application_open.png"), ""],
-						[require("./assets/cases/TSE/flyer_FA23_recruitment.png"), ""],
-						[require("./assets/cases/TSE/flyer_intern_panel.png"), ""],
-						[require("./assets/cases/TSE/instagram_social_events.png"), ""],
-						[require("./assets/cases/TSE/instagram_project_showcase.png"), ""],
-						[require("./assets/cases/TSE/instagram_member_highlight.png"), ""],
+						[require("./assets/cases/TSE/design_system_modal1.png"), ""],
+						[require("./assets/cases/TSE/design_system_modal2.png"), ""],
 					]
 				},
 				{
 					title: "Merchandise",
 					heightId: 0,
 					widthId: -1,
+					wrap: true,
+					autoplay: false,
 					zoomable: false,
 					imgs: [
 						[require("./assets/cases/TSE/merch_shirt.png"), ""],
@@ -318,6 +384,8 @@ export const cases = {
 					title: "Website",
 					heightId: -1,
 					widthId: 0,
+					wrap: true,
+					autoplay: false,
 					zoomable: true, 
 					imgs: [
 						[require("./assets/cases/TSE/website_our_approach.png"), ""],
@@ -877,10 +945,46 @@ export const cases = {
 			<>I crafted stylized illustrations and comics for articles on neuroscience and cognitive science, promoting popularization of the latest discoveries in these fields among the general public.</>,// By visually engaging audiences, my work bridged the gap between complex scientific concepts and wider understanding.</>
 		],
 			link: ["Read The\nComic", "https://mp.weixin.qq.com/s/L-uOl1hxBeGsVr0k_ifKxw"],
-			body: ["challenge-solution", []],
+			body: ["gallery", [
+				{
+					title: "Illustrations",
+					heightId: 0,
+					widthId: -1,
+					wrap: true,
+					autoplay: false,
+					zoomable: true,
+					imgs: [
+						[require("./assets/cases/Neureality/rat_1_crystal_skull.jpeg"), "crystal skull rat"],
+						[require("./assets/cases/Neureality/rat_2_tetrode_recording.jpeg"), "tetrode recording rat"],
+						[require("./assets/cases/Neureality/the_blind_man_and_the_elephants.jpeg"), "the blind man and the elephants"],
+						[require("./assets/cases/Neureality/eeg_1.png"), "EEG illustration 1"],
+						[require("./assets/cases/Neureality/eeg_2.png"), "EEG illustration 2"],
+						[require("./assets/cases/Neureality/sacculina_carcini.png"), "sacculina carcini in crab"],
+					]
+				},
+				{
+					title: "Comic",
+					spotlight: ["mobile", require("./assets/cases/Neureality/loneliness_comic_final_line_drawing.jpeg"), "comic post final line drawing"],
+					heightId: -1,
+					widthId: 3,
+					wrap: false,
+					autoplay: true,
+					zoomable: false,
+					imgs: [
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_1_1.png"), "comic character design sketches"],
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_1_2.png"), "comic character design sketches"],
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_2.png"), "comic illustration style variants"],
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_3_1.png"), "comic character design variants 1"],
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_3_2.png"), "comic character design variants 2"],
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_3_3.png"), "comic character design variants 3"],
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_4.png"), "Tachie of the finalized character design"],
+						[require("./assets/cases/Neureality/loneliness_comic_character_design_5.jpeg"), "illustration to communicate the intended vibe of the character"],
+					]
+				},
+			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/Neureality/thumbnail_img.png"),
 		},
 		theme: {
 			object: <ObjectNeureality />,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, createContext, useContext, createRef, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useReducer, createContext, useContext } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 //import { HashLink } from 'react-router-hash-link';
 
@@ -8,7 +8,7 @@ import './Case.scss';
 import { btns, images } from './assets.js';
 import { cases, casesNames, bioStructure } from './cases.js';
 import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
-import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img, ImgGallery } from "./components.js";
+import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img, ImgGallery, ScrollableMobile, ScrollableDesktop } from "./components.js";
 
 /* Important Assets */
 import { ReactComponent as OpenExternal } from "./assets/basic/hintblobs/open_external.svg";
@@ -276,16 +276,38 @@ function Body () {
 			}
 			case "gallery": {
 				return (
-					<>{bodyContent[1].map((collection, idx) =>
+					<>{bodyContent[1].map((collection, idx) => 
 						<div key={idx} className="case-body-gallery-collection">
-							<div className="case-body-section-title">{collection.title}</div>
-							<ImgGallery
-								imgList={collection.imgs}
-								heightId={collection.heightId}
-								widthId={collection.widthId}
-								zoomable={collection.zoomable}
-								autoplay={false} wrap={true}	// TODO: autoplay!!!
-							/>
+							{collection.title ?
+								<div className="case-body-section-title">{collection.title}</div>
+							: null }
+							{collection.spotlight ?
+								<>{collection.spotlight[0] == "mobile" ?
+									<ScrollableMobile>
+										<img
+											src={collection.spotlight[1]}
+											alt={collection.spotlight[2]}
+										/>
+									</ScrollableMobile>
+								:
+									<ScrollableDesktop>
+										<img
+											src={collection.spotlight[1]}
+											alt={collection.spotlight[2]}
+										/>
+									</ScrollableDesktop>
+								}</>
+							: null }
+							{collection.imgs ?
+								<ImgGallery
+									imgList={collection.imgs}
+									heightId={collection.heightId}
+									widthId={collection.widthId}
+									wrap={collection.wrap}
+									autoplay={collection.autoplay}
+									zoomable={collection.zoomable}
+								/>
+							: null }
 						</div>
 					)}</>
 				);

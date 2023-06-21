@@ -160,15 +160,9 @@ export default function Home () {
 		}, []);
 	// Sections Observers
 		const observeSections = (observer, prevCurr) => {
-			let newCurr = 0;
-			for (let i = 0; i < observer.length; i++) {
-				if (observer[i]==false) { newCurr++; }
-				else {
-					if (newCurr != prevCurr) { dispatchSortBy({type: "changeSecondaryByScroll", currSection: newCurr}); }
-					return;
-				}
-			}
-			if (prevCurr != 0) { dispatchSortBy({type: "changeSecondaryByScroll", currSection: 0}); }
+			let newCurr = observer.findIndex(item => item==true);
+			if (newCurr === -1) { newCurr = 0; }
+			if (newCurr != prevCurr) { dispatchSortBy({type: "changeSecondaryByScroll", currSection: newCurr}); }
 		}
 		useEffect(() => {
 			observeSections(
@@ -268,10 +262,25 @@ export default function Home () {
 
 
 
-/* Home Section Styler Wrapper Component */
+/* Home Section Styler Wrapper Components */
 function HomeSection ({children, homeSectionId, className, style}) {
 	return (
 		<div className={className} style={style}>
+			<div className="home-section-bg-canvas">
+				<div className="home-section-bg-container">
+					<div className="home-section-bg"></div>
+					{children[1]	/* clipped in bg */}
+				</div>
+			</div>
+			<div className="home-section-fg-container">
+				{children[0]	/* floating in fg */}
+			</div>
+		</div>
+	);
+}
+function HomeSectionFancy ({children, homeSectionId, className, style}) {
+	return (
+		<div className={"home-section-fancy " + className} style={style}>
 			<svg xmlns="http://www.w3.org/2000/svg" className="home-section-bg-canvas">
 				<defs><clipPath id={"home-section-bg-clipper-"+homeSectionId}>
 					<rect className="home-section-bg-clipper" />
@@ -293,6 +302,28 @@ function HomeSection ({children, homeSectionId, className, style}) {
 }
 
 function Hero ({inViewSetter}) {
+
+	/* Language */
+	//const language = useContext(languageContext);
+
+	/* Switch Content According To Hovered Object */
+	const goatsContent = casesGoats.map(caseId => cases[caseId]);
+	const [hoveringObjects, setHoveringObjects] = useState(false);
+	const [hoveredIdx, setHoveredIdx] = useState(-1);	// -1 = none
+	const getHoverState = (idx) => {
+		if (hoveredIdx < 0) { return 0; }
+		else if (hoveredIdx === idx) { return 1; }
+		else { return 2; }
+	}
+	const hoverObjectStarts = (idx) => {
+		setHoveringObjects(true);
+		setHoveredIdx(idx);
+	};
+	const hoverObjectEnds = () => { setHoveredIdx(-1); }
+	const hoverObjectsEnds = (e) => {
+		e.preventDefault();
+		setHoveringObjects(false);
+	}
 
 	/* Proper Greeting According To Time */
 	const getInTimeGreeting = () => {
@@ -317,8 +348,8 @@ function Hero ({inViewSetter}) {
 
 	/* Render */
 	return (
-		<div ref={heroInViewRef}>
-			<HomeSection
+		<div ref={heroInViewRef} className="home-hero-container">
+			<HomeSectionFancy
 				homeSectionId="home-hero"
 				className="home-hero"
 			>
@@ -344,6 +375,7 @@ function Hero ({inViewSetter}) {
 									<HeroContactBtn btnContent="email" />
 									<HeroContactBtn btnContent="instagram" />
 									<HeroContactBtn btnContent="linkedin" />
+									{/*{language == false ? <HeroContactBtn btnContent="wechat" /> : null}*/}
 								</div>
 							</div>
 							<div className="home-hero-selfintro-name-container">
@@ -358,13 +390,32 @@ function Hero ({inViewSetter}) {
 								<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
 							</div>
 						</div>
-						<div className="home-hero-objects-placeholder"></div>
+						<div className="home-hero-objects-pillar"></div>
 					</div>
 				</>
 				<>
-					<HeroObjects />
+					<div
+						className="home-hero-objects"
+						onMouseLeave={hoverObjectsEnds}
+					>
+						{casesGoats.map((object, idx) =>
+							<HeroObject
+								key={idx}
+								caseId={object}
+								hoverState={ getHoverState(idx) }
+								hoverStarted={() => { hoverObjectStarts(idx); }}
+								hoverEnded={() => { hoverObjectEnds(); }}
+							/>
+						)}
+						<AskMyCaseStudies
+							className={
+								"home-hero-objects-hintblob " +
+								((hoveredIdx < 0 && hoveringObjects == false) ? "hintblob-shown" : "")
+							}
+						/>
+					</div>
 				</>
-			</HomeSection>
+			</HomeSectionFancy>
 		</div>
 	);
 }
@@ -447,53 +498,6 @@ function HeroContactBtn ({btnContent}) {
 				style={{"--hintblob-left": btnInfo.hintblob.left+"px", "--hintblob-top": btnInfo.hintblob.top+"px"}}
 				src={btnInfo.hintblob.blob}
 				alt=""
-			/>
-		</div>
-	);
-}
-
-function HeroObjects () {
-
-	const objects = casesGoats;
-
-	/* Hover Handler */
-	const [hoveredIdx, setHoveredIdx] = useState(-1);	// -1 = none
-	const [hoveringObjects, setHoveringObjects] = useState(false);
-	const getHoverState = (idx) => {
-		if (hoveredIdx < 0) { return 0; }
-		else if (hoveredIdx === idx) { return 1; }
-		else { return 2; }
-	}
-	const hoverObjectStarts = (idx) => {
-		setHoveringObjects(true);
-		setHoveredIdx(idx);
-	};
-	const hoverObjectEnds = () => { setHoveredIdx(-1); }
-	const hoverObjectsEnds = (e) => {
-		e.preventDefault();
-		setHoveringObjects(false);
-	}
-
-	/* Render */
-	return (
-		<div
-			className="home-hero-objects"
-			onMouseLeave={hoverObjectsEnds}
-		>
-			{objects.map((object, idx) =>
-				<HeroObject
-					key={idx}
-					caseId={object}
-					hoverState={ getHoverState(idx) }
-					hoverStarted={() => { hoverObjectStarts(idx); }}
-					hoverEnded={() => { hoverObjectEnds(); }}
-				/>
-			)}
-			<AskMyCaseStudies
-				className={
-					"home-hero-objects-hintblob " +
-					((hoveredIdx < 0 && hoveringObjects == false) ? "hintblob-shown" : "")
-				}
 			/>
 		</div>
 	);
@@ -598,11 +602,11 @@ function ControlBar ({departed}) {
 						curr={currMode.mode}
 						updateHandler={modeUpdateHandler}
 					/>
-					<ControlBarSwitch
+					{/*<ControlBarSwitch
 						btnContent="language"
 						curr={currLanguage}
 						updateHandler={languageUpdateHandler}
-					/>
+					/>*/}
 					{departed == true ?
 						<ControlBarBtn
 							btnContent="totop"
@@ -955,10 +959,7 @@ function CaseObject ({caseId, caseIsActive}) {
 	const [hintblobShown, setHintblobShown] = useState(false);
 	const [hintblobSrcIdx, setHintblobSrcIdx] = useState(0);
 	useEffect(() => {
-		if (hovering == true) {
-			setHintblobShown(true);
-			setHintblobSrcIdx(2);
-		} else {
+		if (hovering == false) {
 			if (activeStage > 0) {
 				setHintblobShown(true);
 				if (activeStage === 1) { setHintblobSrcIdx(1); }
@@ -978,25 +979,27 @@ function CaseObject ({caseId, caseIsActive}) {
 			onMouseOver={hoverStarts}
 			onMouseLeave={hoverEnds}
 		>
-			<div className="home-case-object-rotater">
-				<div className="home-case-object-container-in">
-					{hovering ? caseObject : <AnonymousObject />}
+			<div className="home-case-object-positioner">
+				<div className="home-case-object-rotater">
+					<div className="home-case-object-container-in">
+						{hovering ? caseObject : <AnonymousObject />}
+					</div>
 				</div>
+				{cursorType != "readmore" ?	// avoid overlapping with the cursor blob
+					<img
+						className={
+							"home-case-object-hintblob " +
+							(hintblobShown==true ? "hintblob-shown" : "")// + " " +
+							//(cursorType=="readmore" ? "fade" : "")	// TODO: not working, fix this
+						}
+						//src={hintblobSrcSwitch[hintblobSrcIdx].blob}
+						src={hintblobSrcSwitch.blob}
+						//style={{"--hintblob-right": hintblobSrcSwitch[hintblobSrcIdx].right+"px", "--hintblob-top": hintblobSrcSwitch[hintblobSrcIdx].top+"px"}}
+						style={{"--hintblob-right": hintblobSrcSwitch.right+"px", "--hintblob-top": hintblobSrcSwitch.top+"px"}}
+						alt=""
+					/>
+				: null }
 			</div>
-			{cursorType != "readmore" ?	// avoid overlapping with the cursor blob
-				<img
-					className={
-						"home-case-object-hintblob " +
-						(hintblobShown==true ? "hintblob-shown" : "")// + " " +
-						//(cursorType=="readmore" ? "fade" : "")	// TODO: not working, fix this
-					}
-					//src={hintblobSrcSwitch[hintblobSrcIdx].blob}
-					src={hintblobSrcSwitch.blob}
-					//style={{"--hintblob-right": hintblobSrcSwitch[hintblobSrcIdx].right+"px", "--hintblob-top": hintblobSrcSwitch[hintblobSrcIdx].top+"px"}}
-					style={{"--hintblob-right": hintblobSrcSwitch.right+"px", "--hintblob-top": hintblobSrcSwitch.top+"px"}}
-					alt=""
-				/>
-			: null }
 		</Link>
 	);
 }
