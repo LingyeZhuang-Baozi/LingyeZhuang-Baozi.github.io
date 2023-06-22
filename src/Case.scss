@@ -310,6 +310,8 @@
 	}
 
 	/* Case Template [0] */
+	$case-0-header-image-transform: translate(25%,-50%);
+	$case-0-header-image-filter: contrast(0.7) grayscale(1) opacity(0.2);
 	$case-0-header-object-ccwrotate: 45deg;
 	$case-0-header-object-left: -1 * $case-padding + $case-header-object-size / 2;
 	$case-0-header-object-bottom: -160px;
@@ -324,10 +326,11 @@
 		}
 
 		.case-header-img {
-			transform: translate(50%,-50%);
+			transform: $case-0-header-image-transform;
 			top: 50%;
 			right: 0;
 			left: auto;
+			filter: $case-0-header-image-filter;
 		}
 
 		.case-header-object-container-out {

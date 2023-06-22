@@ -662,7 +662,10 @@ export const cases = {
 				<><ul><li>To help ACM@UCSD attract potential members, my team upgraded its website. We strategically restructured the layout, curated fresh content, and enhanced user interactions for intuitive navigation.</li><li>As a personal side project, I also created graphic design for external marketing, and illustrations for a small game.</li></ul></>
 			],
 			link: ["Visit\nWebsite", "https://acmucsd.com/"],
-			body: ["challenge-solution", []],
+			body: ["challenge-solution", [
+				[],
+				[],
+			]],
 			evidence: [],
 			credits: [],
 			img: require("./assets/cases/_case/_img.png"),
@@ -695,7 +698,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/Atlas/cover_img.png"),
 		},
 		theme: {
 			object: <ObjectAtlas />,
@@ -803,7 +806,7 @@ export const cases = {
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/RehaBuddy/thumbnail_img.png"),
+			img: require("./assets/cases/RehaBuddy/cover_img.png"),
 		},
 		theme: {
 			object: <ObjectRehaBuddy />,

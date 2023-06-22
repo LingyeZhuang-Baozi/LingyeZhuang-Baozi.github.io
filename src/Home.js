@@ -18,7 +18,7 @@ import MyPic2 from "./assets/basic/me-2.jpg";
 
 /* Libraries */
 import useIsInViewport from "use-is-in-viewport";
-//import { isSafari, isIE } from "react-device-detect";
+import { isSafari, isIE } from "react-device-detect";
 //import parse from 'html-react-parser';
 
 
@@ -264,6 +264,8 @@ export default function Home () {
 
 /* Home Section Styler Wrapper Components */
 function HomeSection ({children, homeSectionId, className, style}) {
+
+	/* Render */
 	return (
 		<div className={className} style={style}>
 			<div className="home-section-bg-canvas">
@@ -278,28 +280,44 @@ function HomeSection ({children, homeSectionId, className, style}) {
 		</div>
 	);
 }
+
 function HomeSectionFancy ({children, homeSectionId, className, style}) {
-	return (
-		<div className={"home-section-fancy " + className} style={style}>
-			<svg xmlns="http://www.w3.org/2000/svg" className="home-section-bg-canvas">
-				<defs><clipPath id={"home-section-bg-clipper-"+homeSectionId}>
-					<rect className="home-section-bg-clipper" />
-				</clipPath></defs>
-				<foreignObject
-					className="home-section-bg-container"
-					clipPath={"url(#home-section-bg-clipper-"+homeSectionId+")"}
-					width="100%" height="100%"
-				>
-					<div className="home-section-bg"></div>
-					{children[1]	/* clipped in bg */}
-				</foreignObject>
-			</svg>
-			<div className="home-section-fg-container">
-				{children[0]	/* floating in fg */}
+
+	/* Render */
+	if (isSafari||isIE) {
+		return (
+			<HomeSection
+				children={children}
+				homeSectionId={homeSectionId}
+				className={className}
+				style={style}
+			/>
+		);
+	} else {
+		return (
+			<div className={"home-section-fancy " + className} style={style}>
+				<svg xmlns="http://www.w3.org/2000/svg" className="home-section-bg-canvas">
+					<defs><clipPath id={"home-section-bg-clipper-"+homeSectionId}>
+						<rect className="home-section-bg-clipper" />
+					</clipPath></defs>
+					<foreignObject
+						className="home-section-bg-container"
+						clipPath={"url(#home-section-bg-clipper-"+homeSectionId+")"}
+						width="100%" height="100%"
+					>
+						<div className="home-section-bg"></div>
+						{children[1]	/* clipped in bg */}
+					</foreignObject>
+				</svg>
+				<div className="home-section-fg-container">
+					{children[0]	/* floating in fg */}
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
+
+
 
 function Hero ({inViewSetter}) {
 

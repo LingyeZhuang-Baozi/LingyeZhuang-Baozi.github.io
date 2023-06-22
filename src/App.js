@@ -11,6 +11,7 @@ import CaseSteamer from './Case.js';
 import PNFLight from "./assets/basic/404/img_light.png";	import PNFDark from "./assets/basic/404/img_dark.png";
 
 /* Libraries */
+import { isSafari, isIE } from "react-device-detect";
 //import { useMediaQuery } from 'react-responsive';
 
 
@@ -140,7 +141,8 @@ export default function App() {
 		<div className={"groundfloor " +
 			"mode-" + (mode.mode==true ? "light" : "dark") + " " +
 			(mode.changing==true ? "mode-changing" : "") + " " +
-			"language-" + (language==true ? "en" : "cn")
+			"language-" + (language==true ? "en" : "cn") + " " +
+			(isSafari||isIE ? "missout-browser" : "")
 		}>
 			<modeContext.Provider value={mode}>
 			<dispatchModeContext.Provider value={dispatchMode}>

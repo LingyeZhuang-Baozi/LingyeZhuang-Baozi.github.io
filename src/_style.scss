@@ -696,6 +696,15 @@
 		background-color: $button-bgcolor-dark;
 		outline-color: $button-border-color-dark;
 	}
+	.missout-browser %button {
+		outline: none;
+	}
+	.mode-light.missout-browser %button {
+		border: $button-border-width solid $button-border-color-light;
+	}
+	.mode-dark.missout-browser %button {
+		border: $button-border-width solid $button-border-color-dark;
+	}
 
 	%button > .button-icon {
 		width: $button-icon-size;
@@ -919,16 +928,16 @@
 	}
 
 	.mode-light .scrollable-frame {
-		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-light; /*stroke: transparent;*/ }
-		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-light; /*fill: transparent;*/ }
-		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-light; /*stroke: transparent;*/ }
-		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-light; /*fill: transparent;*/ }
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-light; stroke: transparent; }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-light; fill: transparent; }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-light; stroke: transparent; }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-light; fill: transparent; }
 	}
 	.mode-dark .scrollable-frame {
-		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-dark; /*stroke: transparent;*/ }
-		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-dark; /*fill: transparent;*/ }
-		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-dark; /*stroke: transparent;*/ }
-		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-dark; /*fill: transparent;*/ }
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-dark; stroke: transparent; }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-dark; fill: transparent; }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-dark; stroke: transparent; }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-dark; fill: transparent; }
 	}
 
 	.scrollable-hintblob {
@@ -1056,42 +1065,42 @@
 	}
 
 	.mode-light {
-		.object .object-fill-1 { fill: $object-fill-1-light; /*stroke: transparent;*/ }
-		.object .object-stroke-1 { stroke: $object-fill-1-light; /*fill: transparent;*/ }
-		.object .object-fill-2 { fill: $object-fill-2-light; /*stroke: transparent;*/ }
-		.object .object-stroke-2 { stroke: $object-fill-2-light; /*fill: transparent;*/ }
-		.animal .animal-fill-1 { fill: $animal-fill-1-light; /*stroke: transparent;*/ }
-		.animal .animal-stroke-1 { stroke: $animal-fill-1-light; /*fill: transparent;*/ }
-		.animal .animal-fill-2 { fill: $animal-fill-2-light; /*stroke: transparent;*/ }
-		.animal .animal-stroke-2 { stroke: $animal-fill-2-light; /*fill: transparent;*/ }
+		.object .object-fill-1 { fill: $object-fill-1-light; stroke: transparent; }
+		.object .object-stroke-1 { stroke: $object-fill-1-light; fill: transparent; }
+		.object .object-fill-2 { fill: $object-fill-2-light; stroke: transparent; }
+		.object .object-stroke-2 { stroke: $object-fill-2-light; fill: transparent; }
+		.animal .animal-fill-1 { fill: $animal-fill-1-light; stroke: transparent; }
+		.animal .animal-stroke-1 { stroke: $animal-fill-1-light; fill: transparent; }
+		.animal .animal-fill-2 { fill: $animal-fill-2-light; stroke: transparent; }
+		.animal .animal-stroke-2 { stroke: $animal-fill-2-light; fill: transparent; }
 
 		%object-container.curr {}
 
 		%object-container.noncurr {
-		.object .object-fill-1 { fill: $object-noncurr-fill-1-light; /*stroke: transparent;*/ }
-		.object .object-stroke-1 { stroke: $object-noncurr-fill-1-light; /*fill: transparent;*/ }
-		.object .object-fill-2 { fill: $object-noncurr-fill-2-light; /*stroke: transparent;*/ }
-		.object .object-stroke-2 { stroke: $object-noncurr-fill-2-light; /*fill: transparent;*/ }
+		.object .object-fill-1 { fill: $object-noncurr-fill-1-light; stroke: transparent; }
+		.object .object-stroke-1 { stroke: $object-noncurr-fill-1-light; fill: transparent; }
+		.object .object-fill-2 { fill: $object-noncurr-fill-2-light; stroke: transparent; }
+		.object .object-stroke-2 { stroke: $object-noncurr-fill-2-light; fill: transparent; }
 		}
 	}
 
 	.mode-dark {
-		.object .object-fill-1 { fill: $object-fill-1-dark; /*stroke: transparent;*/ }
-		.object .object-stroke-1 { stroke: $object-fill-1-dark; /*fill: transparent;*/ }
-		.object .object-fill-2 { fill: $object-fill-2-dark; /*stroke: transparent;*/ }
-		.object .object-stroke-2 { stroke: $object-fill-2-dark; /*fill: transparent;*/ }
-		.animal .animal-fill-1 { fill: $animal-fill-1-dark; /*stroke: transparent;*/ }
-		.animal .animal-stroke-1 { stroke: $animal-fill-1-dark; /*fill: transparent;*/ }
-		.animal .animal-fill-2 { fill: $animal-fill-2-dark; /*stroke: transparent;*/ }
-		.animal .animal-stroke-2 { stroke: $animal-fill-2-dark; /*fill: transparent;*/ }
+		.object .object-fill-1 { fill: $object-fill-1-dark; stroke: transparent; }
+		.object .object-stroke-1 { stroke: $object-fill-1-dark; fill: transparent; }
+		.object .object-fill-2 { fill: $object-fill-2-dark; stroke: transparent; }
+		.object .object-stroke-2 { stroke: $object-fill-2-dark; fill: transparent; }
+		.animal .animal-fill-1 { fill: $animal-fill-1-dark; stroke: transparent; }
+		.animal .animal-stroke-1 { stroke: $animal-fill-1-dark; fill: transparent; }
+		.animal .animal-fill-2 { fill: $animal-fill-2-dark; stroke: transparent; }
+		.animal .animal-stroke-2 { stroke: $animal-fill-2-dark; fill: transparent; }
 
 		%object-container.curr {}
 
 		%object-container.noncurr {
-		.object .object-fill-1 { fill: $object-noncurr-fill-1-dark; /*stroke: transparent;*/ }
-		.object .object-stroke-1 { stroke: $object-noncurr-fill-1-dark; /*fill: transparent;*/ }
-		.object .object-fill-2 { fill: $object-noncurr-fill-2-dark; /*stroke: transparent;*/ }
-		.object .object-stroke-2 { stroke: $object-noncurr-fill-2-dark; /*fill: transparent;*/ }
+		.object .object-fill-1 { fill: $object-noncurr-fill-1-dark; stroke: transparent; }
+		.object .object-stroke-1 { stroke: $object-noncurr-fill-1-dark; fill: transparent; }
+		.object .object-fill-2 { fill: $object-noncurr-fill-2-dark; stroke: transparent; }
+		.object .object-stroke-2 { stroke: $object-noncurr-fill-2-dark; fill: transparent; }
 		}
 	}
 
@@ -1189,6 +1198,15 @@
 	.mode-dark %control-btn {
 		outline-color: $control-element-border-color-dark;
 		background-color: $control-btn-bgcolor-dark;
+	}
+	.missout-browser %control-btn {
+		outline: none;
+	}
+	.mode-light.missout-browser %control-btn {
+		border: $control-element-border $control-element-border-color-light;
+	}
+	.mode-dark.missout-browser %control-btn {
+		border: $control-element-border $control-element-border-color-dark;
 	}
 
 	.mode-light %control-btn .control-btn-icon {
@@ -1342,6 +1360,12 @@
 	.mode-dark %control .control-toggler-fg {
 		fill: $control-toggler-fg-color-dark;
 	}
+	.missout-browser %control .control-toggler-left .control-toggler-fg {
+		@include clip-path($path: circle(($control-toggler-node-size / 2) at left));
+	}
+	.missout-browser %control .control-toggler-right .control-toggler-fg {
+		@include clip-path($path: circle(($control-toggler-node-size / 2) at right));
+	}
 
 	%control .control-toggler-bg {
 		@include position-center-absolute;
@@ -1368,6 +1392,15 @@
 	.mode-dark %control .control-toggler::before {
 		outline-color: $control-element-border-color-dark;
 	}
+	.missout-browser %control .control-toggler::before {
+		outline: none;
+	}
+	.mode-light %control .control-toggler::before {
+		border: $control-element-border $control-element-border-color-light;
+	}
+	.mode-dark %control .control-toggler::before {
+		border: $control-element-border $control-element-border-color-dark;
+	}
 
 	%control .control-toggler::after {
 		content: "";
@@ -1377,6 +1410,10 @@
 		border-radius: $radius-circle;
 		outline: $control-toggler-curr-border $control-toggler-curr-color;
 		@include transition($transition: $control-toggler-transition-ring);
+	}
+	.missout-browser %control .control-toggler::after {
+		outline: none;
+		border: $control-toggler-curr-border $control-toggler-curr-color;
 	}
 	%control .control-toggler-left.control-toggler::after {
 		left: $control-toggler-curr-position-left;
@@ -1391,6 +1428,7 @@
 		width: $control-toggler-node-size + 2 * $control-toggler-curr-border-width;
 		height: $control-toggler-node-size + 2 * $control-toggler-curr-border-width;
 		outline: none;
+		border: none;
 		background-color: rgba($control-toggler-curr-color, $control-toggler-curr-bgopacity-dark);
 	}
 
@@ -1402,6 +1440,16 @@
 		&.control-toggler-right {
 			.control-toggler-fg { animation: control-toggle-transition-itching-right-fg $control-btn-itching-transition; }
 			&::after { animation: control-toggle-transition-itching-right-ring $control-btn-itching-transition; }
+		}
+	}
+	.missout-browser %control .control-toggler.control-toggler-itching {
+		&.control-toggler-left {
+			.control-toggler-fg { animation: none; }
+			&::after { animation: none; }
+		}
+		&.control-toggler-right {
+			.control-toggler-fg { animation: none; }
+			&::after { animation: none; }
 		}
 	}
 
@@ -1545,6 +1593,7 @@
 
 		.control-btn {
 			outline: none;
+			border: none !important;
 		}
 	}
 
