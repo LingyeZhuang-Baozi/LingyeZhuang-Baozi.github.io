@@ -6,6 +6,12 @@
 	$home-padding-X: $spacing-8;
 	$home-padding-Y: $spacing-7;
 	$home-gap: $spacing-7;
+	$home-object-active-fill-1-light: var(--theme-title-color-light, $object-fill-1-light);
+	$home-object-active-fill-1-dark: var(--theme-title-color-dark, $object-fill-1-dark);
+	$home-object-active-fill-2-light: $color-bg-light;
+	$home-object-active-fill-2-dark: $color-bg-dark;
+	$home-case-title-color-active-light: var(--theme-title-color-light, $color-gray1-33);
+	$home-case-title-color-active-dark: var(--theme-title-color-dark, $color-gray4-CC);
 	//$home-thanks-height: 280px;
 
 	.home {
@@ -132,24 +138,12 @@
 		}
 	}
 
-	.mode-light %home-section {
-		.home-section-bg {
+	.mode-light %home-section .home-section-bg {
 			background-color: $home-section-bgcolor-light;
-		}
-
-		&.home-section-active:not(.home-section-substituted) .home-section-bg {
-			background-color: $home-section-bgcolor-active-light !important;
-		}
 	}
 
-	.mode-dark %home-section {
-		.home-section-bg {
+	.mode-dark %home-section .home-section-bg {
 			background-color: $home-section-bgcolor-dark;
-		}
-
-		&.home-section-active:not(.home-section-substituted) .home-section-bg {
-			background-color: $home-section-bgcolor-active-dark !important;
-		}
 	}
 
 	%home-section .home-section-fg-container {
@@ -164,7 +158,11 @@
 
 	$home-hero-padding-X: $spacing-7;
 	$home-hero-padding-Y: $spacing-7;
-	$home-hero-gap: $spacing-7 + $spacing-3;
+	$home-hero-gap-X: $spacing-7 + $spacing-3;
+	$home-hero-gap-Y: $spacing-7;
+	$home-hero-fg-displace: $spacing-8;
+	$home-hero-fg-transition-in: transform $time-l ease, opacity $time-m ease $time-s;
+	$home-hero-fg-transition-out: transform $time-l ease-in-out $time-xs, opacity $time-m ease $time-xs;
 
 	.home-hero-container {
 		overflow: hidden;
@@ -179,20 +177,49 @@
 	.mode-light .home-hero { background-color: $color-bg-light; }
 	.mode-dark .home-hero { background-color: $color-bg-dark; }
 
+	.home-hero .home-section-bg-clipper {
+		width: calc(100% - 2 * ($home-padding-X - $home-hero-padding-X));
+		x: $home-padding-X - $home-hero-padding-X;
+		animation: home-section-bg-rotate $home-section-rotate-time cubic-bezier(.6,.2,.4,.8) infinite;
+	}
+
 	.home-hero .home-section-fg-container {
+		pointer-events: none;
+		position: relative;
+	}
+
+	.home-hero .home-hero-fg {
+		position: relative;
 		pointer-events: none;
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
 		padding: $home-hero-padding-Y $home-padding-X;
-		gap: $home-hero-gap;
+		gap: $home-hero-gap-Y $home-hero-gap-X;
 		flex-wrap: wrap;
-	}
+		opacity: 0;
+		@include transition($transition: $home-hero-fg-transition-out);
 
-	.home-hero .home-section-bg-clipper {
-		width: calc(100% - 2 * ($home-padding-X - $home-hero-padding-X));
-		x: $home-padding-X - $home-hero-padding-X;
-		animation: home-section-bg-rotate $home-section-rotate-time cubic-bezier(.6,.2,.4,.8) infinite;
+		&.home-hero-fg-hero {
+			transform: translateY(-1 * $home-hero-fg-displace);
+		}
+
+		&.home-hero-fg-cases {
+			position: absolute;
+			//height: 100%;
+			top: 0; /*bottom: 0;*/ left: 0; right: 0;
+			//align-items: center;
+			gap: $home-hero-gap-Y $home-hero-gap-X;
+			transform: translateY($home-hero-fg-displace);
+			@include unselectable;
+		}
+
+		&.curr {
+			z-index: 1;
+			transform: translateY(0);
+			opacity: 1;
+			@include transition($transition: $home-hero-fg-transition-in);
+		}
 	}
 
 	/* Hero Self-intro */
@@ -402,6 +429,19 @@
 		@include object-container($resizer: $home-hero-object-resizer, $curr-displace: $home-hero-object-displace-curr, $noncurr-displace: $home-hero-object-displace-noncurr);
 	}
 
+	.mode-light .home-hero-object-container.curr .object {
+		.object-fill-1 { fill: $home-object-active-fill-1-light; }
+		.object-stroke-1 { stroke: $home-object-active-fill-1-light; }
+		.object-fill-2 { fill: $home-object-active-fill-2-light; }
+		.object-stroke-2 { stroke: $home-object-active-fill-2-light; }
+	}
+	.mode-dark .home-hero-object-container.curr .object {
+		.object-fill-1 { fill: $home-object-active-fill-1-dark; }
+		.object-stroke-1 { stroke: $home-object-active-fill-1-dark; }
+		.object-fill-2 { fill: $home-object-active-fill-2-dark; }
+		.object-stroke-2 { stroke: $home-object-active-fill-2-dark; }
+	}
+
 	.home-hero-objects-hintblob {
 		@extend %hintblob;
 		transform: translateY(-1*$home-hero-objects-hintblob-transition-out-displace);
@@ -413,6 +453,92 @@
 		&.hintblob-shown {
 			transform: translateY(0);
 			@include transition($transition: $home-hero-objects-hintblob-transition-in);
+		}
+	}
+
+	/* Hero Case */
+	$home-hero-case-img-container-width: 400px;
+	$home-hero-case-img-container-height: 400px;
+	$home-hero-case-img-width: 480px;
+	$home-hero-case-img-right: 40px;
+	$home-hero-case-text-minwidth: 400px;
+	$home-hero-case-text-gap-X: $spacing-8;
+	$home-hero-case-text-gap-Y: $spacing-6;
+	$home-hero-case-bio-gap-Y: $spacing-5;
+	$home-hero-case-bio-entry-gap: 0;
+
+	.mode-light .home-hero .home-section-bg {
+		background-color: $home-section-bgcolor-active-light !important;
+	}
+	.mode-dark .home-hero .home-section-bg {
+		background-color: $home-section-bgcolor-active-dark !important;
+	}
+
+	.home-hero-case-img-container {
+		position: relative;
+		width: $home-hero-case-img-container-width;
+		height: $home-hero-case-img-container-height;
+		flex-shrink: 0;
+		@include unselectable;
+	}
+
+	.home-hero-case-img {
+		width: $home-hero-case-img-width;
+		position: absolute;
+		transform: translateY(-50%);
+		top: 50%;
+		right: -1 * $home-hero-case-img-right;
+	}
+	.mode-dark .home-hero-case-img {
+		filter: grayscale($content-image-grayscale-dim) brightness($content-image-brightness-dim);
+	}
+
+	$home-hero-case-text-container-width: calc(100vw - (2 * $home-padding-X) - (2 * $home-hero-padding-Y) - $home-hero-gap-X - $home-hero-case-img-width - $error);
+	.home-hero-case-text-container {
+		flex-grow: 1;
+		width: $home-hero-case-text-container-width;
+		min-width: max($home-hero-case-text-container-width, $home-hero-case-text-minwidth);	// these 3 lines together make the magic happen
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $home-hero-case-text-gap-Y;
+		@extend %text-body-important;
+	}
+
+	.home-hero-case-title {
+		@extend %text-h1;
+	}
+	.mode-light .home-hero-case-title {
+		color: $home-case-title-color-active-light !important;
+	}
+	.mode-dark .home-hero-case-title {
+		color: $home-case-title-color-active-dark !important;
+	}
+
+	.home-hero-case-bio-container {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $home-hero-case-bio-gap-Y;
+	}
+
+	.home-hero-case-bio {
+		align-self: stretch;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: $home-hero-case-bio-gap-Y $home-hero-case-text-gap-X;
+		flex-wrap: wrap;
+	}
+
+	.home-hero-case-bio-entry {
+		display: inline-flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $home-hero-case-bio-entry-gap;
+
+		.home-hero-case-bio-entry-title {
+			font-family: $font-sans-serif-bold;
 		}
 	}
 
@@ -567,8 +693,6 @@
 	$home-case-text-padding-T: $spacing-6;
 	$home-case-text-padding-B: $spacing-7;
 	$home-case-text-gap: $spacing-5;
-	$home-case-title-color-active-light: var(--theme-title-color-light, $color-gray1-33);
-	$home-case-title-color-active-dark: var(--theme-title-color-dark, $color-gray4-CC);
 	$home-case-bio-gap-X: $spacing-4;
 	$home-case-bio-gap-Y: 0;
 	$home-case-bio-height: $font-default;
@@ -608,11 +732,7 @@
 	$home-case-object-nonactive-fill-1-dark: $color-gray2-66;
 	$home-case-object-nonactive-fill-2-light: $color-gray6-F0;
 	$home-case-object-nonactive-fill-2-dark: $color-gray1-33;
-	$home-case-object-active-fill-1-light: var(--theme-title-color-light, $object-fill-1-light);
-	$home-case-object-active-fill-1-dark: var(--theme-title-color-dark, $object-fill-1-dark);
-	$home-case-object-active-fill-2-light: $color-bg-light;
-	$home-case-object-active-fill-2-dark: $color-bg-dark;
-	$home-case-object-active-fill-transition-in: fill $home-case-img-active-transition-in-time, stroke $home-case-img-active-transition-in-time;
+	$home-object-active-fill-transition-in: fill $home-case-img-active-transition-in-time, stroke $home-case-img-active-transition-in-time;
 	$home-case-object-hover-displace: $spacing-7;
 	$home-case-object-hintblob-height: 85.2px;	// = 81px hintblob height + 4.2px gap
 	$home-case-object-hintblob-margin-X: $spacing-4;
@@ -648,6 +768,13 @@
 		transform-origin: 50% 50%;
 		transform: rotateX(0) rotateY(0);
 		@include transition($transition: $home-section-bg-prerotate-transition);
+	}
+
+	.mode-light .home-case.home-section-active:not(.home-section-substituted) .home-section-bg {
+		background-color: $home-section-bgcolor-active-light !important;
+	}
+	.mode-dark .home-case.home-section-active:not(.home-section-substituted) .home-section-bg {
+		background-color: $home-section-bgcolor-active-dark !important;
 	}
 
 	.home-case .home-section-fg-container {
@@ -829,22 +956,22 @@
 	}
 
 	.home-section-active:not(.home-section-substituted) .object {
-		.object-fill-1 { @include transition($transition: $home-case-object-active-fill-transition-in); }
-		.object-stroke-1 { @include transition($transition: $home-case-object-active-fill-transition-in); }
-		.object-fill-2 { @include transition($transition: $home-case-object-active-fill-transition-in); }
-		.object-stroke-2 { @include transition($transition: $home-case-object-active-fill-transition-in); }
+		.object-fill-1 { @include transition($transition: $home-object-active-fill-transition-in); }
+		.object-stroke-1 { @include transition($transition: $home-object-active-fill-transition-in); }
+		.object-fill-2 { @include transition($transition: $home-object-active-fill-transition-in); }
+		.object-stroke-2 { @include transition($transition: $home-object-active-fill-transition-in); }
 	}
 	.mode-light .home-section-active:not(.home-section-substituted) .home-case-object-container-in .object {
-		.object-fill-1 { fill: $home-case-object-active-fill-1-light; }
-		.object-stroke-1 { stroke: $home-case-object-active-fill-1-light; }
-		.object-fill-2 { fill: $home-case-object-active-fill-2-light; }
-		.object-stroke-2 { stroke: $home-case-object-active-fill-2-light; }
+		.object-fill-1 { fill: $home-object-active-fill-1-light; }
+		.object-stroke-1 { stroke: $home-object-active-fill-1-light; }
+		.object-fill-2 { fill: $home-object-active-fill-2-light; }
+		.object-stroke-2 { stroke: $home-object-active-fill-2-light; }
 	}
 	.mode-dark .home-section-active:not(.home-section-substituted) .home-case-object-container-in .object {
-		.object-fill-1 { fill: $home-case-object-active-fill-1-dark; }
-		.object-stroke-1 { stroke: $home-case-object-active-fill-1-dark; }
-		.object-fill-2 { fill: $home-case-object-active-fill-2-dark; }
-		.object-stroke-2 { stroke: $home-case-object-active-fill-2-dark; }
+		.object-fill-1 { fill: $home-object-active-fill-1-dark; }
+		.object-stroke-1 { stroke: $home-object-active-fill-1-dark; }
+		.object-fill-2 { fill: $home-object-active-fill-2-dark; }
+		.object-stroke-2 { stroke: $home-object-active-fill-2-dark; }
 	}
 
 	.home-case-object-container-out:hover .home-case-object-container-in .object {
@@ -854,16 +981,16 @@
 		.object-stroke-2 { @include transition($transition: $object-fill-transition-in); }
 	}
 	.mode-light .home-case-object-container-out:hover .home-case-object-container-in .object {
-		.object-fill-1 { fill: $home-case-object-active-fill-1-light; }
-		.object-stroke-1 { stroke: $home-case-object-active-fill-1-light; }
-		.object-fill-2 { fill: $home-case-object-active-fill-2-light; }
-		.object-stroke-2 { stroke: $home-case-object-active-fill-2-light; }
+		.object-fill-1 { fill: $home-object-active-fill-1-light; }
+		.object-stroke-1 { stroke: $home-object-active-fill-1-light; }
+		.object-fill-2 { fill: $home-object-active-fill-2-light; }
+		.object-stroke-2 { stroke: $home-object-active-fill-2-light; }
 	}
 	.mode-dark .home-case-object-container-out:hover .home-case-object-container-in .object {
-		.object-fill-1 { fill: $home-case-object-active-fill-1-dark; }
-		.object-stroke-1 { stroke: $home-case-object-active-fill-1-dark; }
-		.object-fill-2 { fill: $home-case-object-active-fill-2-dark; }
-		.object-stroke-2 { stroke: $home-case-object-active-fill-2-dark; }
+		.object-fill-1 { fill: $home-object-active-fill-1-dark; }
+		.object-stroke-1 { stroke: $home-object-active-fill-1-dark; }
+		.object-fill-2 { fill: $home-object-active-fill-2-dark; }
+		.object-stroke-2 { stroke: $home-object-active-fill-2-dark; }
 	}
 
 	.home-case-object-hintblob {

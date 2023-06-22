@@ -69,7 +69,7 @@ import { ReactComponent as ObjectCU } from "./assets/cases/_case/_object.svg";
 
 export const casesNames = ["AsTheWindBlows", "ALUM", "CheeseClub", "CreativityLab", "TSE", "CharmLife", "LAK", "MAW", "MercuryAlert", /*"3DCG",*/ /*"2022Art",*/ "Bitsrealm", "CruzRoja", "ACM", "Atlas", "RehaBuddy", /*"PadPal",*/ /*"GroupReads",*/ /*"2021Art",*/ "ThriveSD", "Neureality", /*"CellInTheSpace",*/ /*"2020Art",*/ /*"GaokaoFighting",*/ /*"2DCG",*/ /*"KaonashiRobot",*/ "CU"];	// Cases are in the same order.
 
-export const casesGoats = ["ALUM", "CreativityLab", "AsTheWindBlows"];
+export const casesGoats = ["CreativityLab", "AsTheWindBlows", "ALUM"];
 
 export const casesByCategory = [
 	[	"UX/UI",

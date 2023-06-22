@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, createContext, useContext, createRef, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useReducer, createContext, useContext, createRef, useRef } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 //import { HashLink } from 'react-router-hash-link';
 
@@ -304,12 +304,13 @@ function HomeSectionFancy ({children, homeSectionId, className, style}) {
 function Hero ({inViewSetter}) {
 
 	/* Language */
-	//const language = useContext(languageContext);
+	//const language = useContext(languageContext);	// TODO: wechat contact, QR code?
 
 	/* Switch Content According To Hovered Object */
 	const goatsContent = casesGoats.map(caseId => cases[caseId]);
 	const [hoveringObjects, setHoveringObjects] = useState(false);
 	const [hoveredIdx, setHoveredIdx] = useState(-1);	// -1 = none
+	const [shownFg, setShownFg] = useState(-1);	// -1 = hero
 	const getHoverState = (idx) => {
 		if (hoveredIdx < 0) { return 0; }
 		else if (hoveredIdx === idx) { return 1; }
@@ -319,11 +320,22 @@ function Hero ({inViewSetter}) {
 		setHoveringObjects(true);
 		setHoveredIdx(idx);
 	};
-	const hoverObjectEnds = () => { setHoveredIdx(-1); }
+	const hoverObjectEnds = () => {
+		setHoveredIdx(-1);
+	}
 	const hoverObjectsEnds = (e) => {
 		e.preventDefault();
 		setHoveringObjects(false);
 	}
+	useEffect(() => {
+		if (hoveringObjects == false) {
+			setShownFg(-1);
+		} else {
+			if (hoveredIdx >= 0) {
+				setShownFg(hoveredIdx);
+			}
+		}
+	}, [hoveringObjects, hoveredIdx]);
 
 	/* Proper Greeting According To Time */
 	const getInTimeGreeting = () => {
@@ -348,50 +360,105 @@ function Hero ({inViewSetter}) {
 
 	/* Render */
 	return (
-		<div ref={heroInViewRef} className="home-hero-container">
+		<div
+			ref={heroInViewRef}
+			className="home-hero-container"
+			style={(shownFg >= 0 && goatsContent[shownFg].theme.color ? {
+				"--theme-bgcolor-light": goatsContent[shownFg].theme.color[0],
+				"--theme-bgcolor-dark": goatsContent[shownFg].theme.color[2],
+			} : {})}
+		>
 			<HomeSectionFancy
 				homeSectionId="home-hero"
 				className="home-hero"
 			>
 				<>
-					<div className="home-hero-mypic-container">
-						<img
-							className="home-hero-mypic home-hero-mypic-1"
-							src={MyPic1}
-							alt=""
-						/>
-						<img
-							className="home-hero-mypic home-hero-mypic-2"
-							src={MyPic2}
-							alt="A Photo Of Me"
-						/>
+					<div className={
+						"home-hero-fg home-hero-fg-hero " +
+						(shownFg < 0 ? "curr" : "")
+					}>
+						<div className="home-hero-mypic-container">
+							<img
+								className="home-hero-mypic home-hero-mypic-1"
+								src={MyPic1}
+								alt=""
+							/>
+							<img
+								className="home-hero-mypic home-hero-mypic-2"
+								src={MyPic2}
+								alt="A Photo Of Me"
+							/>
+						</div>
+						<div className="home-hero-selfintro-container">
+							<div className="home-hero-selfintro">
+								<div className="home-hero-contacts-container">
+									<div className="home-hero-selfintro-body">{inTimeGreeting} You found my little cabin on the internet!</div>
+									<div className="home-hero-contacts">
+										<HeroContactBtn btnContent="resume" />
+										<HeroContactBtn btnContent="email" />
+										<HeroContactBtn btnContent="instagram" />
+										<HeroContactBtn btnContent="linkedin" />
+										{/*{language == false ? <HeroContactBtn btnContent="wechat" /> : null}*/}
+									</div>
+								</div>
+								<div className="home-hero-selfintro-name-container">
+									<HeroName />
+									<div className="home-hero-selfintro-title">
+										UX/UI Designer + Frontend Developer
+									</div>
+								</div>
+								<div className="home-hero-selfintro-body">
+									I design for social good, and I believe practice makes perfect.
+									<br/>Walking on the path toward being a full-stack designer.
+									<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
+								</div>
+							</div>
+							<div className="home-hero-objects-pillar"></div>
+						</div>
 					</div>
-					<div className="home-hero-selfintro-container">
-						<div className="home-hero-selfintro">
-							<div className="home-hero-contacts-container">
-								<div className="home-hero-selfintro-body">{inTimeGreeting} You found my little cabin on the internet!</div>
-								<div className="home-hero-contacts">
-									<HeroContactBtn btnContent="resume" />
-									<HeroContactBtn btnContent="email" />
-									<HeroContactBtn btnContent="instagram" />
-									<HeroContactBtn btnContent="linkedin" />
-									{/*{language == false ? <HeroContactBtn btnContent="wechat" /> : null}*/}
-								</div>
+					{goatsContent.map((caseContent, idx) =>
+						<div
+							key={idx}
+							className={
+								"home-hero-fg home-hero-fg-cases " +
+								(shownFg == idx ? "curr" : "")
+							}
+							style={(caseContent.theme.color ? {
+								"--theme-title-color-light": caseContent.theme.color[1],
+								"--theme-title-color-dark": caseContent.theme.color[3],
+							} : {})}
+						>
+							<div className="home-hero-case-img-container">
+								<img
+									className="home-hero-case-img"
+									src={caseContent.thumbnail.img}
+									alt=""
+								/>
 							</div>
-							<div className="home-hero-selfintro-name-container">
-								<HeroName />
-								<div className="home-hero-selfintro-title">
-									UX/UI Designer + Frontend Developer
+							<div className="home-hero-case-text-container">
+								<div className="home-hero-case-title">
+									{caseContent.title}
 								</div>
-							</div>
-							<div className="home-hero-selfintro-body">
-								I design for social good, and I believe practice makes perfect.
-								<br/>Walking on the path toward being a full-stack designer.
-								<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
+								<div className="home-hero-case-bio-container">
+									<div className="home-hero-case-bio">
+										<div className="home-hero-case-bio-entry">
+											<div className="home-hero-case-bio-entry-title">My Role</div>
+											{ caseContent.bio[1] }
+										</div>
+										<div className="home-hero-case-bio-entry">
+											<div className="home-hero-case-bio-entry-title">Timeline</div>
+											{ caseContent.bio[2] }
+										</div>
+									</div>
+									<div className="home-hero-case-brief">
+										{caseContent.thumbnail.brief.map((bullet, idx) =>
+											<Fragment key={idx}>{bullet} </Fragment>
+										)}
+									</div>
+								</div>
 							</div>
 						</div>
-						<div className="home-hero-objects-pillar"></div>
-					</div>
+					)}
 				</>
 				<>
 					<div
@@ -410,7 +477,7 @@ function Hero ({inViewSetter}) {
 						<AskMyCaseStudies
 							className={
 								"home-hero-objects-hintblob " +
-								((hoveredIdx < 0 && hoveringObjects == false) ? "hintblob-shown" : "")
+								((hoveringObjects == false) ? "hintblob-shown" : "")
 							}
 						/>
 					</div>
@@ -505,7 +572,7 @@ function HeroContactBtn ({btnContent}) {
 
 function HeroObject ({caseId, hoverState, hoverStarted, hoverEnded}) {	// hoverState: 0 = default, 1 = curr, 2 = noncurr
 
-	const objectContent = cases[caseId].theme.object;
+	const caseContent = cases[caseId];
 
 	/* Cursor */
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
@@ -531,11 +598,15 @@ function HeroObject ({caseId, hoverState, hoverStarted, hoverEnded}) {	// hoverS
 				(hoverState===1 ? "curr" : "") + " " +
 				(hoverState===2 ? "noncurr" : "")
 			}
+			style={(caseContent.theme.color ? {
+				"--theme-title-color-light": caseContent.theme.color[1],
+				"--theme-title-color-dark": caseContent.theme.color[3],
+			} : {})}
 			onMouseEnter={hoverStarts}
 			onMouseOver={hoverStarts}
 			onMouseLeave={hoverEnds}
 		>
-			{objectContent}
+			{caseContent.theme.object}
 		</Link>
 	);
 }

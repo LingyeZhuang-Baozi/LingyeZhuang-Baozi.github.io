@@ -997,6 +997,10 @@
 	$object-fill-2-light: $color-bg-light;
 	$object-fill-1-dark: $color-lvsongshi;
 	$object-fill-2-dark: $color-bg-dark;
+	$object-noncurr-fill-1-light: $color-gray4-CC;
+	$object-noncurr-fill-2-light: $color-gray4-CC;
+	$object-noncurr-fill-1-dark: $color-gray2-66;
+	$object-noncurr-fill-2-dark: $color-gray2-66;
 	$animal-fill-1-light: $color-lvsongshi;
 	$animal-fill-2-light: $color-bg-light;
 	$animal-fill-1-dark: $color-gray1-33;
@@ -1043,6 +1047,11 @@
 		&.noncurr {
 			transform: translateY($noncurr-displace);
 			@include transition($transition: $object-hover-transition-in);
+
+			.object-fill-1 { @include transition($transition: $object-fill-transition-in); }
+			.object-stroke-1 { @include transition($transition: $object-fill-transition-in); }
+			.object-fill-2 { @include transition($transition: $object-fill-transition-in); }
+			.object-stroke-2 { @include transition($transition: $object-fill-transition-in); }
 		}
 	}
 
@@ -1058,7 +1067,12 @@
 
 		%object-container.curr {}
 
-		%object-container.noncurr {}
+		%object-container.noncurr {
+		.object .object-fill-1 { fill: $object-noncurr-fill-1-light; /*stroke: transparent;*/ }
+		.object .object-stroke-1 { stroke: $object-noncurr-fill-1-light; /*fill: transparent;*/ }
+		.object .object-fill-2 { fill: $object-noncurr-fill-2-light; /*stroke: transparent;*/ }
+		.object .object-stroke-2 { stroke: $object-noncurr-fill-2-light; /*fill: transparent;*/ }
+		}
 	}
 
 	.mode-dark {
@@ -1073,7 +1087,12 @@
 
 		%object-container.curr {}
 
-		%object-container.noncurr {}
+		%object-container.noncurr {
+		.object .object-fill-1 { fill: $object-noncurr-fill-1-dark; /*stroke: transparent;*/ }
+		.object .object-stroke-1 { stroke: $object-noncurr-fill-1-dark; /*fill: transparent;*/ }
+		.object .object-fill-2 { fill: $object-noncurr-fill-2-dark; /*stroke: transparent;*/ }
+		.object .object-stroke-2 { stroke: $object-noncurr-fill-2-dark; /*fill: transparent;*/ }
+		}
 	}
 
 	/* Control */
