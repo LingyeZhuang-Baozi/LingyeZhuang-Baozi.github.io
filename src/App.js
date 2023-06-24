@@ -66,6 +66,7 @@ function cursorTypeReducer (currCursorType, cursorTypeAction) {
 		case "pointer": { return ("pointer"); }
 		case "progress": { return ("progress"); }
 		case "readmore": { return ("readmore"); }
+		case "none": { return ("none"); }
 		default: { return ("default"); }
 	}
 }

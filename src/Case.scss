@@ -8,6 +8,8 @@
 	$case-bgcolor-dark: $color-gray1-33;//var(--theme-bgcolor-dark, $color-gray1-33)
 	$case-display-color-light: var(--theme-title-color-light, $color-gray1-33);
 	$case-display-color-dark: var(--theme-title-color-dark, $color-gray4-CC);
+	$case-h1-color-light: $color-gray3-99;
+	$case-h1-color-dark: $color-gray3-99;
 	$case-object-fill-1-light: var(--theme-title-color-light, $object-fill-1-light);
 	$case-object-fill-1-dark: var(--theme-title-color-dark, $object-fill-1-dark);
 	$case-object-fill-2-light: $color-bg-light;
@@ -41,6 +43,7 @@
 	$case-body-gap: $spacing-8;
 	$case-body-section-gap: $spacing-7;
 	$case-body-section-paragraph-gap: $spacing-5;
+	$case-body-subsection-gap: $case-body-section-paragraph-gap;
 
 
 
@@ -255,6 +258,10 @@
 		color: $case-display-color-light;
 	}
 
+	.mode-dark %case .case-body-section-title-challenge-solution {
+		color: $case-display-color-dark;
+	}
+
 	%case .case-body-gallery-collection {
 		align-self: stretch;
 		display: flex;
@@ -300,6 +307,35 @@
 			align-items: flex-start;
 			gap: $case-body-section-paragraph-gap;
 		}
+	}
+
+	%case .case-body-subsection {
+		align-self: stretch;
+		max-width: $case-body-maxwidth;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-body-subsection-gap;
+	}
+
+	%case .case-body-subsection-title {
+		align-self: stretch;
+		@extend %text-h1;
+	}
+	.mode-light %case .case-body-subsection-title {
+		color: $case-h1-color-light;
+	}
+	.mode-dark %case .case-body-subsection-title {
+		color: $case-h1-color-dark;
+	}
+
+	%case .case-body-subsection-content {
+		align-self: stretch;
+		@extend %text-body;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: $case-body-section-paragraph-gap;
 	}
 
 

@@ -32,7 +32,7 @@
  *	}
  */
 
-import { A, Emoji, P, ExpandablePs, Img } from "./components.js";
+import { A, Emoji, P, ExpandablePs, Img, ImgGallery, Prototype } from "./components.js";
 import { isSafari, isIE } from "react-device-detect";
 
 /* Assets */
@@ -268,7 +268,7 @@ export const cases = {
 						src={require("./assets/cases/CheeseClub/website_cheese_roll.gif")}
 						sizeId={0}
 						alt="prototype of a fancy navigation bar animation: cheese rolling from bottom to top of the screen"
-						caption="A fancy animation of the navigation bar that I designed, abandoned due to time constraint."
+						caption="A fancy animation of the navigation bar during brainstorming, abandoned due to time constraint."
 						zoomable={false}
 					/>
 				</>],
@@ -598,7 +598,20 @@ export const cases = {
 				<>I joined Bitsrealm when it was still a startup. As the sole designer on the team, I worked closely with game writers and developers to craft branding and prototypes for 4 digital products, and enabled a successful debut of the company's virtual concerts. The branding I started is still in use today.</>
 			],
 			link: ["Visit\nWebsite", "https://bitsrealm.com/home"],
-			body: ["challenge-solution", []],
+			body: ["challenge-solution", [	// TODO: go through ChatGPT
+				[	// Challenge
+					["", <>
+						<P>When I interned at Bitsrealm, the VR startup only had 6 members. Thanks to the compact size, every member took on a big share of responsibility, and we formed a tight bond among our team. I was the only designer on the team, and I produced branding and prototypes for a series of 4 websites during my 6 weeks internship. I had a glance of the fast pace of the industry, upgraded my design skill, and received precious friendship.</P>
+						<P>Bitsrealm was planning its first virtual concert. It needed 4 UI designs to supplement the event:<ol>
+							<li>A main website to introduce the project and attract audience,</li>
+							<li>A ticketing flow,</li>
+							<li>An control center for the artist during performance,</li>
+							<li>A mobile end interface for audience without VR device.</li>
+						</ol></P>
+					</>],
+				],
+				[],
+			]],
 			evidence: [],
 			credits: [],
 			img: require("./assets/cases/_case/_img.png"),
@@ -630,10 +643,108 @@ export const cases = {
 				<>Red Cross Tijuana was cultivating an ambulance dispatching system to coordinate the limited emergency service resources. I collaborated with a cross-disciplinary team and redesigned the UI of the dispatching system, prioritizing usability and information hierarchy to optimize efficiency, bringing reliable health care to millions of citizens in Tijuana, Mexico. This project was one of the most complex and rewarding design challenges I have undertaken.</>
 			],
 			link: ["Read Article\nAbout Us", "https://today.ucsd.edu/story/lifesaving-app"],
-			body: ["challenge-solution", []],
+			body: ["challenge-solution", [
+				[	// Challenge
+					["", <>
+						<P>The Red Cross (Cruz Roja) in Tijuana, Mexico supports disaster victims and responds to emergencies. However, their non-profit status budget posed budgetary challenges. Our team aimed to develop an efficient and low-cost dispatching system for Cruz Roja.</P>
+						<P>Specifically for me, I led the UI sub-team, and worked on improving dispatch speed and accuracy by optimizing the interface's information hierarchy and visual representations.</P>
+					</>],
+					["Roadmap", <>
+						<P>We noticed that the existing design of Cruz Roja's dispatching system contained useful features, such as ambulance states filter and waypoints specification. Yet the interface suffered from confusion and inefficiency, due to ambiguous wording, poor visual cues, non-compliance with UI conventions, and lack of readable structure.</P>
+						<P>Therefore, we thoroughly analyzed the old interface and created a comprehensive list of all features and information it contained. Based on their importance and state, I categorized the features into three types: "definitely needed", "can be removed", and "to be improved". This list became a roadmap that guided our redesign. We decided that our top 3 priorities:<ol>
+							<li>Simplify the ambulances menu,</li>
+							<li>Organize the dispatch menu,</li>
+							<li>Strengthen the integration between menus and the map.</li>
+						</ol></P>
+						<ExpandablePs prompt="View Full Features List" peekHeight="360px">
+							<Img
+								src={require("./assets/cases/CruzRoja/old_interface_feature_table.png")}
+								sizeId={0}
+								alt="a detailed table of features to keep, add, or remove on the interface"
+								caption="the list of all features and information to keep, add, and remove, based on the old interface"
+								zoomable={false}
+							/>
+						</ExpandablePs>
+					</>],
+				],
+				[	// Solution
+					["Simplify Ambulances Menu", <>
+						<P>In the old design, the ambulances menu was long and cluttered, making it difficult for users to find what they needed.</P>
+						<P>Two solutions were considered: using auto-collapse accordions to limit expanded sections, or grouping elements into packs under multiple tabs. The second option was chosen to reduce interaction costs.</P>
+						<P>The ambulances menu was divided into two tabs: "ambulances" for frequently used ambulance states, and a "settings" tab for less commonly used filters. Ambulance states were simplified, condensed from over 10 states into 6.</P>
+						<Img
+							src={require("./assets/cases/CruzRoja/ambulances_menu_iterations.png")}
+							sizeId={4}
+							alt="ambulances menu iterations"
+							caption="ambulances menu iterations"
+							zoomable={false}
+						/>
+						<P>We also designed some additional features to aid dispatchers in selecting ambulances, including a search bar, a filter for ambulance capabilities, and auto-ordering based on relevance, distance, and alphabetical order.</P>
+						<Img
+							src={require("./assets/cases/CruzRoja/ambulances_menu_semiautomation.png")}
+							sizeId={2}
+							alt="ambulances menu with search, filter, and auto-ordering"
+							caption="additional features to aid ambulance selection: search, filter, auto-ordering"
+							zoomable={false}
+						/>
+					</>],
+					["Organize Dispatch Menu", <>
+						<P>The old dispatch menu was messy and impractical, but it held valuable ideas that could lead to useful functionalities.</P>
+						<P>We improved it by displaying dispatch details clearly, simplifying editing, and enabling timely instructions to EMTs via SNS messages.</P>
+						<Img
+							src={require("./assets/cases/CruzRoja/dispatch_menu_iterations.png")}
+							sizeId={0}
+							alt="dispatch menu iterations"
+							caption="Just like the river spirit in Spirited Away, our dispatch menu needed a deep clean."
+							zoomable={false}
+						/>
+						<P>Please play with the prototypes and see it for yourself!</P>
+						<Prototype
+							src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D0%253A1%26type%3Ddesign%26node-id%3D27-1500%26viewport%3D-16%252C106%252C0.13%26scaling%3Dscale-down%26starting-point-node-id%3D27%253A1500%26mode%3Ddesign%26hide-ui%3D1"
+							caption="Try viewing details of each dispatch ↑"
+							frameWidth="125%"
+							frameRatioId={1}
+							prototypeWidth="200%"
+							prototypeHeight="110%"
+							prototypeTop="-2%"
+							prototypeLeft="auto"
+							prototypeRight="-20%"
+						/>
+						<Prototype
+							src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D0%253A1%26type%3Ddesign%26node-id%3D27-1962%26viewport%3D-16%252C106%252C0.13%26scaling%3Dscale-down%26starting-point-node-id%3D27%253A1962%26mode%3Ddesign%26hide-ui%3D1"
+							caption="Try editing a dispatched call and send a SNS message to EMTs ↑"
+							frameWidth="125%"
+							frameRatioId={1}
+							prototypeWidth="200%"
+							prototypeHeight="110%"
+							prototypeTop="-2%"
+							prototypeLeft="auto"
+							prototypeRight="-20%"
+						/>
+					</>],
+					["Contextual Info On Map", <>
+						<P>The old interface lacked communication between the map and menus, which reduced efficiency.</P>
+						<P>To address this, we established a more direct mapping between menus and the map. Key information, such as ambulance names and availability, was made visible on the map surface. Key interactions, such as selecting and dispatching ambulances, were made possible directly on the map.</P>
+						<P>We also introduced waypoint pins and arrow routes, to provide additional context to an ambulance when it is selected from either the map or one of the menus. Again, all these improvements aimed to improve usability, efficiency, and provide a comprehensive view for dispatchers.</P>
+						<Img
+							src={require("./assets/cases/CruzRoja/map_popup_iterations.png")}
+							sizeId={0}
+							alt="map popup iterations"
+							caption="map popup before and after redesign"
+							zoomable={false}
+						/>
+					</>],
+				],
+				[	// Reflection
+					["", <>
+						<P>This project witnessed my growth. Those senses of "this could be better" that I couldn't describe accurately back then, I am glad I now have language for them. Between my two quarter on the project, I took two summer internships, and returned with enhanced experience. I was able to approach the problems in a more data-driven way, and rethink the interface based on its high-level purpose. Till today, stepping back often to view the mission from a higher level remains my key strategy for designing complex interfaces.</P>
+						<P>Cruz Roja was the most challenging interface that I have redesigned so far, due to the significant amount of information that I had to manage and find an appropriate way to display for. When I look back, I now recognize the issue about map-menu connection, or direct manipulation on map, as the most valuable among all three that were identified, because improving the inter-connection between map and menus would cohere the entire interface and bring efficiency and functionality to a new level.</P>
+					</>],
+				],
+			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/CruzRoja/cover_img.png"),
 		},
 		theme: {
 			object: <ObjectCruzRoja />,
@@ -663,12 +774,102 @@ export const cases = {
 			],
 			link: ["Visit\nWebsite", "https://acmucsd.com/"],
 			body: ["challenge-solution", [
-				[],
-				[],
+				[	// Challenge
+					["", <>
+						<P>ACM@UCSD, a student community for developers and designers, was taking steps to broaden its impact and attract new members. In response to this need, we decided to upgrade ACM's website. Our aim is to shift the focus from sponsorship to members, enriching the site's content and enhancing user interactions.</P>
+					</>],
+					["User Research", <>
+						<P>To gain insights about what college students would look for on a student organization's website, we first tested ACM's old site with interviewees, including current board members and other UCSD students who were unfamiliar with ACM.</P>
+						<P>We identified recurring patterns from the feedback received:<ul>
+							<li>The introductions provided on the website were often too brief or general, leaving newcomers unable to form a clear understanding of our organization.</li>
+							<li>Poorly worded buttons led to confusion as they set wrong expectations.</li>
+							<li>On a positive note, the aesthetic style of the old website was highly appreciated.</li>
+						</ul></P>
+						<Img
+							src={require("./assets/cases/ACM/feedback_wordcloud.png")}
+							sizeId={1}
+							alt="wordcloud with interview feedback"
+							caption="feedback from the initial user research"
+							zoomable={false}
+						/>
+						<P>Based on these feedback, we established key principles for the redesign:<ul>
+							<li>Enhance website content with specific and descriptive information.</li>
+							<li>Refine the buttons and restructure the website for an intuitive user flow.</li>
+							<li>Preserve the widely appreciated rainbow + white style.</li>
+						</ul></P>
+						<Img
+							src={require("./assets/cases/ACM/userflow.png")}
+							sizeId={4}
+							alt="new userflow diagram"
+							caption="new userflow that we planned based on user feedback"
+							zoomable={false}
+						/>
+					</>],
+				],
+				[	// Solution
+					["", <>
+						<P>We optimized our solution via many rounds of iteration. In the following I will elaborate on 2 features that I took charge of and turned out successful among our target users.</P>
+					</>],
+					["Communities", <>
+						<P>In the old version of the website, ACM's sub-communities, such as AI, Hack, and Design, were presented merely as names without any additional context. Clicking on these names would redirect users to Discord channels, which our interviewees found unexpected and counterintuitive.</P>
+						<P>To address this issue, we introduced a "communities" tab. By using the plural term "communities", we prevented confusion with the existing "about us" page.</P>
+						<P>After gathering information about each sub-community, we organized them into an accordion list on the "communities" page. However, we noticed that the plain white background created a slight ambiguity in distinguishing one section from another. As a solution, we added a subtle detail to the design: By introducing a minimalistic color bar next to each section, we achieved clear differentiation between the sub-community sections, while maintaining a clean and polished style.</P>
+						<Img
+							src={require("./assets/cases/ACM/prototypes_communities.png")}
+							sizeId={4}
+							alt="low- to high-fidelity prototypes for the communities page"
+							caption=""
+							zoomable={false}
+						/>
+					</>],
+					["About Us", <>
+						<P>ACM had long recognized the importance of introducing its board members to website visitors. Our interviewees also expressed the desire to emphasize with real member faces on our website.</P>
+						<P>To effectively present the board members, we designed compact profile cards that summarized each member's name, title, and contact information. Additionally, considering the large size of ACM's board, we provided a filter functionality, allowing users to search for members from specific sub-communities. For the filter design, we decided to use rounded chips, which conveyed a youthful and approachable vibe, appealing to the target audience of ACM who were college students especially freshmen.</P>
+						<Img
+							src={require("./assets/cases/ACM/prototypes_about.png")}
+							sizeId={0}
+							alt="low- to high-fidelity prototypes for the about page"
+							caption=""
+							zoomable={false}
+						/>
+					</>],
+					["Communication With Devs", <>
+						<P>We held regular bi-weekly meetings with the development team and worked together to implement our design. These meetings were very helpful, both in terms of gaining valuable feedback, and enhancing our ability to effectively communicate design decisions.</P>
+						<P>The development team brought to table fresh perspectives that we hadn't initially considered, including addressing edge scenarios, accommodating lengthy board titles, and ensuring compatibility across various screen sizes.</P>
+						<P>Collaborating closely with the developers provided me with a deeper understanding of the implementation process. Over time, I developed a stronger sense of the cost-effectiveness of different design choices.</P>
+					</>],
+					["Illustrations For Bread Baker Game",
+						<ImgGallery
+							heightId={4}
+							widthId={-1}
+							wrap={false}
+							autoplay={true}
+							zoomable={false}
+							style={{
+								"position": "absolute",
+								"transform": "translateX(-50%)",
+								"left": "50%",
+								"marginTop": "0",
+							}}
+							imgList={[
+								[require("./assets/cases/ACM/breadbaker_croissant.png"), "bread baker game illustration croissant cat"],
+								[require("./assets/cases/ACM/breadbaker_bun.png"), "bread baker game illustration bun cat"],
+								[require("./assets/cases/ACM/breadbaker_manager1.png"), "bread baker game illustration manager 1"],
+								[require("./assets/cases/ACM/breadbaker_manager2.png"), "bread baker game illustration manager 2"],
+								[require("./assets/cases/ACM/breadbaker_bagel.png"), "bread baker game illustration bagel cat"],
+								[require("./assets/cases/ACM/breadbaker_donut.png"), "bread baker game illustration donut cat"],
+								[require("./assets/cases/ACM/breadbaker_manager3.png"), "bread baker game illustration manager 3"],
+								[require("./assets/cases/ACM/breadbaker_muffin.png"), "bread baker game illustration muffin cat"],
+								[require("./assets/cases/ACM/breadbaker_pretzel.png"), "bread baker game illustration pretzel cat"],
+								[require("./assets/cases/ACM/breadbaker_manager4.png"), "bread baker game illustration manager 4"],
+							]}
+						/>
+					],
+				],
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/ACM/cover_img.png"),
 		},
 		theme: {
 			object: <ObjectACM />,

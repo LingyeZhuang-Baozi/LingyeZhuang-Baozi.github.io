@@ -488,6 +488,14 @@
 		padding-left: $list-indent;
 	}
 
+	ol {
+		list-style-type: decimal;
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
 	li {
 		display: list-item;
 		padding-inline-start: $list-bullet-gap;
@@ -616,6 +624,11 @@
 		mask-image: $cursor-type;
 	}
 
+	.cursor-none {
+		background-color: transparent;
+		cursor: auto;
+	}
+
 	.cursor-default { @include cursor-shape($cursor-type: $cursor-default); }
 	.cursor-pointer { @include cursor-shape($cursor-type: $cursor-pointer); }
 	.cursor-progress { @include cursor-shape($cursor-type: $cursor-progress); }
@@ -731,9 +744,9 @@
 
 	/* Image */
 	$image-reel: $spacing-4;
-	$image-gap: $spacing-3;
 	$image-min-width: 320px;
 	$image-max-width: 100vw;
+	$image-caption-gap: $spacing-3;
 	$content-image-brightness-dim: 80%;//80%*original
 	$content-image-grayscale-dim: 20%;//20%+original
 
@@ -753,7 +766,7 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 0px;
-		gap: $image-gap;
+		gap: $image-caption-gap;
 	}
 
 	.image {
@@ -884,6 +897,7 @@
 	$scrollable-screen-right: var(--screen-right, 0);
 	$scrollable-screen-bottom: var(--screen-bottom, 0);
 	$scrollable-screen-left: var(--screen-left, 0);
+	$scrollable-screen-radius: $spacing-4;
 	$scrollable-hintblob-transition-in: opacity $time-l ease-in-out !important;
 	$scrollable-hintblob-transition-out: opacity $time-xs ease !important;
 
@@ -913,7 +927,8 @@
 		right: calc($scrollable-height / $frame-height * $scrollable-screen-right);
 		bottom: calc($scrollable-height / $frame-height * $scrollable-screen-bottom);
 		left: calc($scrollable-height / $frame-height * $scrollable-screen-left);
-		overflow: scroll;
+		border-radius: $scrollable-screen-radius;
+		overflow-y: scroll;
 		//z-index: -1;
 
 		& > * {
@@ -928,16 +943,16 @@
 	}
 
 	.mode-light .scrollable-frame {
-		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-light; stroke: transparent; }
-		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-light; fill: transparent; }
-		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-light; stroke: transparent; }
-		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-light; fill: transparent; }
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-light; }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-light; }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-light; }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-light; }
 	}
 	.mode-dark .scrollable-frame {
-		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-dark; stroke: transparent; }
-		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-dark; fill: transparent; }
-		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-dark; stroke: transparent; }
-		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-dark; fill: transparent; }
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-dark; }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-dark; }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-dark; }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-dark; }
 	}
 
 	.scrollable-hintblob {
@@ -947,6 +962,56 @@
 			opacity: 1;
 			@include transition($transition: $scrollable-hintblob-transition-in);
 		}
+	}
+
+	/* prototype */
+	$prototype-minwidth: 400px;
+	$prototype-maxheight: calc(100vh - $spacing-8);
+
+	.prototype-container-out {
+		align-self: stretch;
+		width: 100%;
+		min-width: $prototype-minwidth;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: $image-caption-gap;
+	}
+
+	.prototype-container-mid {
+		width: var(--frame-width, 100%);
+		max-width: $prototype-maxheight;
+		min-width: $prototype-minwidth;
+		flex-shrink: 0;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+	}
+
+	.prototype-container-in {
+		width: 100%;
+		padding-top: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.prototype {
+		position: absolute;
+		width: var(--prototype-width, 100%);
+		height: var(--prototype-height, 100%);
+		top: var(--prototype-top, 0);
+		left: var(--prototype-left, auto);
+		right: var(--prototype-right, auto);
+	}
+
+	.prototype-container-out.ratio-1-1 {
+		.prototype-container-mid { max-width: $prototype-maxheight; }
+		.prototype-container-in { padding-top: 100%; }
+	}
+
+	.prototype-container-out.ratio-3-4 {
+		.prototype-container-mid { max-width: calc($prototype-maxheight / 3 * 4); }
+		.prototype-container-in { padding-top: 75%; }
 	}
 
 	/* Hint Blob */

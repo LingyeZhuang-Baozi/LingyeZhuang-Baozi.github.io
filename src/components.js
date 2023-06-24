@@ -560,6 +560,8 @@ export function ExpandablePs ({children, peekHeight="160px", prompt="Read More",
 	);
 }
 
+
+
 export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
 
 	/* Standardize Size */
@@ -593,7 +595,7 @@ export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
 
 
 
-export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, autoplay=true, zoomable=true}) {	// imgList: [[image as required path, alt], [...]]
+export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, autoplay=true, zoomable=true, style={}}) {	// imgList: [[image as required path, alt], [...]]
 
 	/* Standardize Size */
 	const heightMap = ["400px", "600px", "800px", "300px", "200px", "50vh", "100vh"];
@@ -606,6 +608,7 @@ export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, a
 		(widthId >= 0 ? "fixed-width" : "") + " " +
 		(wrap == true ? "wrap" : "");
 	const styleList = {
+		...style,
 		"--gallery-height": (heightId >= 0 ? heightMap[heightId] : "auto"),
 		"--gallery-width": (widthId >= 0 ? widthMap[widthId] : "auto"),
 	};
@@ -777,6 +780,8 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 	);
 }
 
+
+
 function Scrollable ({data, frame, children}) {	// data: [<device height>, <device width>, <screen top>, <screen right>, <screen bottom>, <screen left>]
 
 	/* Scroll Indicator */	// TODO: fading on top and bottom with intersection observer?
@@ -857,6 +862,58 @@ export function ScrollableDesktop ({children}) {	// TODO
 		<Scrollable data={data} frame={frame}>
 			{children}
 		</Scrollable>
+	);
+}
+
+
+
+export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, prototypeWidth="100%", prototypeHeight="100%", prototypeTop="0%", prototypeLeft="auto", prototypeRight="auto"}) {	// Prototype data should be in percentage.
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	const cursorOver = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "none"});
+	}
+	const cursorOut = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+	}
+
+	/* Frame Ratio */
+	const ratioMap = ["1-1", "3-4", "4-3"];	// height-width
+
+	/* Render */
+	return (
+		<div
+			className={
+				"prototype-container-out " +
+				"ratio-" + ratioMap[frameRatioId]
+			}
+			style={{
+				"--frame-width": frameWidth,
+				"--prototype-width": prototypeWidth,
+				"--prototype-height": prototypeHeight,
+				"--prototype-top": prototypeTop,
+				"--prototype-left": prototypeLeft,
+				"--prototype-right": prototypeRight,
+			}}
+		>
+			<div className="prototype-container-mid">
+				<div className="prototype-container-in">
+					<iframe
+						src={src}
+						className="prototype"
+						onMouseEnter={cursorOver}
+						onMouseOver={cursorOver}
+						onMouseLeave={cursorOut}
+					></iframe>
+				</div>
+			</div>
+			{caption != "" ?
+				<div className="image-caption">{caption}</div>
+			: null }
+		</div>
 	);
 }
 

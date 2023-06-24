@@ -261,9 +261,26 @@ function Body () {
 	/* Render */
 	const caseBody = () => {
 		switch (bodyContent[0]) {
+
 			case "challenge-solution": {
-				return (<></>);
+				const sectionTitles = ["Challenge", "Solution", "Reflection"];
+				return (	// TODO: highlight the "Challenge" and "Solution" sections?
+					<>{bodyContent[1].map((section, i) =>
+						<div key={"section"+i} className="case-body-section">
+							<div className="case-body-section-title case-body-section-title-challenge-solution">{sectionTitles[i]}</div>
+							<div className="case-body-section-content">
+								{section.map((subsection, j) =>
+									<div key={"subsection"+j} className="case-body-subsection">
+										{ subsection[0] != "" ? <div className="case-body-subsection-title">{subsection[0]}</div> : null }
+										<div className="case-body-subsection-content">{subsection[1]}</div>
+									</div>
+								)}
+							</div>
+						</div>
+					)}</>
+				);
 			}
+
 			case "freeform": {
 				return (
 					<>{bodyContent[1].map((section, idx) =>
@@ -274,6 +291,7 @@ function Body () {
 					)}</>
 				);
 			}
+
 			case "gallery": {
 				return (
 					<>{bodyContent[1].map((collection, idx) => 
@@ -312,6 +330,7 @@ function Body () {
 					)}</>
 				);
 			}
+
 			default: {
 				console.error("Error determining case body structure. Received structure type:", bodyContent[0]);
 				return (<></>);
