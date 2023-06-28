@@ -884,75 +884,99 @@
 	}
 
 	/* Scrollable */
-	$scrollable-height: calc(100vh - $spacing-7);
-	$scrollable-minheight: 400px;
-	$frame-height: var(--frame-height);
-	$scrollable-maxheight: calc($frame-height * 1px);
-	$frame-width: var(--frame-width);
-	$scrollable-frame-fill-0-light: $color-bg-light;
-	$scrollable-frame-fill-1-light: $color-gray4-CC;
-	$scrollable-frame-fill-0-dark: $color-bg-dark;
-	$scrollable-frame-fill-1-dark: $color-gray2-66;
+	$scrollable-frame-height: var(--frame-height);
+	$scrollable-padding-X: $spacing-5;
+	$scrollable-frame-maxheight: min(
+		calc($scrollable-frame-height * 1px),
+		calc(100vh - 2 * $scrollable-padding-X));
+	$scrollable-frame-width: var(--frame-width);
+	$scrollable-padding-Y: $spacing-8;
+	$scrollable-frame-minwidth: calc(0.5 * $scrollable-frame-width * 1px);
+	$scrollable-frame-maxwidth: min(
+		calc($scrollable-frame-maxheight / $scrollable-frame-height * $scrollable-frame-width),
+		calc(100vw -  2 * $scrollable-padding-Y));
 	$scrollable-screen-top: var(--screen-top, 0);
 	$scrollable-screen-right: var(--screen-right, 0);
 	$scrollable-screen-bottom: var(--screen-bottom, 0);
 	$scrollable-screen-left: var(--screen-left, 0);
-	$scrollable-screen-radius: $spacing-4;
+	$scrollable-frame-fill-0-light: $color-bg-light;
+	$scrollable-frame-fill-1-light: $color-gray4-CC;
+	$scrollable-frame-fill-0-dark: $color-bg-dark;
+	$scrollable-frame-fill-1-dark: $color-gray2-66;
 	$scrollable-hintblob-transition-in: opacity $time-l ease-in-out !important;
 	$scrollable-hintblob-transition-out: opacity $time-xs ease !important;
+	$scrollable-screen-radius-mobile: 16px;
+	$scrollable-screen-radius-desktop: 0px;
 
-	.scrollable-container {
+	.scrollable-container-out {
+		align-self: stretch;
 		width: 100%;
+		flex-shrink: 0;
 		display: flex;
-		flex-direction: row;
 		justify-content: center;
-		align-items: center;
-		height: $scrollable-height;
-		min-height: $scrollable-minheight;
-		max-height: $scrollable-maxheight;
+		align-items: flex-start;
+		min-width: $scrollable-frame-minwidth;
 	}
 
-	.scrollable {
+	.scrollable-container-mid {
+		flex-shrink: 0;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+	}
+
+	.scrollable-container-in {
 		position: relative;
 		display: inline-block;
-		height: 100%;
-		// svg automatically adjusts width.
-		//z-index: 1;
-		//-webkit-transform: translate3d(0,0,0);
+		width: calc($scrollable-frame-width * 1px);
+		min-width: $scrollable-frame-minwidth;
+		max-width: $scrollable-frame-maxwidth;
+		padding-top: calc(100% / $scrollable-frame-width * $scrollable-frame-height);
 	}
 
 	.scrollable-content {
 		position: absolute;
-		top: calc($scrollable-height / $frame-height * $scrollable-screen-top);
-		right: calc($scrollable-height / $frame-height * $scrollable-screen-right);
-		bottom: calc($scrollable-height / $frame-height * $scrollable-screen-bottom);
-		left: calc($scrollable-height / $frame-height * $scrollable-screen-left);
-		border-radius: $scrollable-screen-radius;
+		top: calc(100% / $scrollable-frame-height * $scrollable-screen-top);
+		bottom: calc(100% / $scrollable-frame-height * $scrollable-screen-bottom);
+		left: calc(100% / $scrollable-frame-width * $scrollable-screen-left);
+		right: calc(100% / $scrollable-frame-width * $scrollable-screen-right);
 		overflow-y: scroll;
-		//z-index: -1;
 
 		& > * {
 			width: 100%;
 		}
 	}
 
-	.scrollable-frame {
-		position: relative;
-		z-index: 1;
+	.scrollable-mobile-frame .scrollable-content {
+		border-radius: $scrollable-screen-radius-mobile;
+	}
+
+	.scrollable-desktop-frame .scrollable-content {
+		border-radius: $scrollable-screen-radius-desktop;
+	}
+
+	.scrollable-frame-container {
+		position: absolute;
+		top: 0; bottom: 0; left: 0; right: 0;
 		pointer-events: none;
 	}
 
+	.scrollable-frame {
+		position: relative;
+		z-index: 1;
+	}
+
 	.mode-light .scrollable-frame {
-		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-light; }
-		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-light; }
-		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-light; }
-		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-light; }
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-light; stroke: transparent; }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-light; fill: transparent; }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-light; stroke: transparent; }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-light; fill: transparent; }
 	}
 	.mode-dark .scrollable-frame {
-		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-dark; }
-		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-dark; }
-		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-dark; }
-		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-dark; }
+		.scrollable-frame-fill-0 { fill: $scrollable-frame-fill-0-dark; stroke: transparent; }
+		.scrollable-frame-stroke-0 { stroke: $scrollable-frame-fill-0-dark; fill: transparent; }
+		.scrollable-frame-fill-1 { fill: $scrollable-frame-fill-1-dark; stroke: transparent; }
+		.scrollable-frame-stroke-1 { stroke: $scrollable-frame-fill-1-dark; fill: transparent; }
 	}
 
 	.scrollable-hintblob {
@@ -1008,10 +1032,21 @@
 		.prototype-container-mid { max-width: $prototype-maxheight; }
 		.prototype-container-in { padding-top: 100%; }
 	}
-
 	.prototype-container-out.ratio-3-4 {
 		.prototype-container-mid { max-width: calc($prototype-maxheight / 3 * 4); }
 		.prototype-container-in { padding-top: 75%; }
+	}
+	.prototype-container-out.ratio-4-3 {
+		.prototype-container-mid { max-width: calc($prototype-maxheight / 4 * 3); }
+		.prototype-container-in { padding-top: 133.33%; }
+	}
+	.prototype-container-out.ratio-1-2 {
+		.prototype-container-mid { max-width: calc($prototype-maxheight * 2); }
+		.prototype-container-in { padding-top: 50%; }
+	}
+	.prototype-container-out.ratio-2-1 {
+		.prototype-container-mid { max-width: calc($prototype-maxheight / 2); }
+		.prototype-container-in { padding-top: 200%; }
 	}
 
 	/* Hint Blob */

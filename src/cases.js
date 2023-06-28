@@ -361,11 +361,11 @@ export const cases = {
 					autoplay: true,
 					zoomable: true,
 					imgs: [
-						[require("./assets/cases/TSE/design_system_card.png"), ""],
-						[require("./assets/cases/TSE/design_system_color.png"), ""],
-						[require("./assets/cases/TSE/design_system_input.png"), ""],
-						[require("./assets/cases/TSE/design_system_modal1.png"), ""],
-						[require("./assets/cases/TSE/design_system_modal2.png"), ""],
+						[require("./assets/cases/TSE/design_system_card.png"), "TSE design system: card"],
+						[require("./assets/cases/TSE/design_system_color.png"), "TSE design system: color"],
+						[require("./assets/cases/TSE/design_system_input.png"), "TSE design system: input"],
+						[require("./assets/cases/TSE/design_system_modal1.png"), "TSE design system: modal 1"],
+						[require("./assets/cases/TSE/design_system_modal2.png"), "TSE design system: modal 2"],
 					]
 				},
 				{
@@ -376,20 +376,13 @@ export const cases = {
 					autoplay: false,
 					zoomable: false,
 					imgs: [
-						[require("./assets/cases/TSE/merch_shirt.png"), ""],
-						[require("./assets/cases/TSE/merch_sticker_variants.png"), ""],
+						[require("./assets/cases/TSE/merch_shirt.png"), "shirt merchandise"],
+						[require("./assets/cases/TSE/merch_sticker_variants.png"), "sticker variants"],
 					]
 				},
 				{
 					title: "Website",
-					heightId: -1,
-					widthId: 0,
-					wrap: true,
-					autoplay: false,
-					zoomable: true, 
-					imgs: [
-						[require("./assets/cases/TSE/website_our_approach.png"), ""],
-					]
+					spotlight: ["desktop", require("./assets/cases/TSE/website_our_approach.png"), "our approach page of website, with a timeline visualization"],
 				},
 			]],
 			evidence: [],
@@ -418,7 +411,7 @@ export const cases = {
 			],
 			img: require("./assets/cases/CharmLife/thumbnail_img.png"),
 		},
-		content: {
+		contentNAH: {
 			tldr: ["TL;DR",
 				<>I took charge of revamping the company's website, setting the stage for the launch of their app. Conducting thorough user research, I crafted user personas that guided our design choices throughout the redesign process.</>
 			],
@@ -608,13 +601,106 @@ export const cases = {
 							<li>An control center for the artist during performance,</li>
 							<li>A mobile end interface for audience without VR device.</li>
 						</ol></P>
+						<Img
+							src={require("./assets/cases/Bitsrealm/four_websites_relationship.png")}
+							sizeId={1}
+							alt="4 website relationship"
+							caption="relationship between the 4 websites I designed for the virtual concert"
+							zoomable={false}
+						/>
 					</>],
 				],
-				[],
+				[	// Solution
+					["Branding", <>
+						<P>For Bitsrealm whose ambition is in the metaverse, I aimed for the branding to convey a futuristic vibe. Therefore, I selected a color palette with dark gray as background and a with striking neon green as highlight. To add visual interest and prevent the background from feeling overly rigid, I incorporated a subtle glassmorphism texture. As requested by my supervisor, I maintained a minimalist style for both the colors and the typography.</P>
+						<Img
+							src={require("./assets/cases/Bitsrealm/branding.png")}
+							sizeId={0}
+							alt="branding guidlines including colors, typography, icons"
+							caption="the futuristic branding for Bitsrealm whose ambition is in the metaverse"
+							zoomable={false}
+						/>
+						<P>In the following, I will elaborate on 3 features that I'm proud of. I'll begin with the navigation bar on the main company website, which promotes the virtual concert.</P>
+					</>],
+					["Main Website: Navigation", <>
+						<P>The navigation bar design for the main website prioritizes simplicity, precision, and efficiency, aiming to draw minimal attention compared to the page content.</P>
+						<P>The desktop version follows a conventional layout with the logo on the left and tabs on the right. All tab labels are kept concise, enabling users to quickly understand where they lead to. The "login" button stands out visually since it's an action rather than a webpage link.</P>
+						<Img
+							src={require("./assets/cases/Bitsrealm/navbar_desktop.png")}
+							sizeId={3}
+							alt="a detailed documentation of the desktop navigation bar and animation effects upon interaction"
+							caption="a detailed documentation I created for the desktop navigation bar, providing unambiguous guidance to devs"
+							zoomable={false}
+						/>
+						<P>For the mobile version, I chose a hamburger menu instead of a bottom navigation bar to avoid cluttering with search engine elements or Android navigation buttons. While this may slightly impact discoverability, the three lines icon is widely recognized as the menu symbol among our tech-savvy target audience.</P>
+						<P>I maintained consistency in the highlight style for indicating the current page, but increased the weight to enhance visibility.</P>
+						<P>Secondary tabs were positioned below the header bar, featuring distinct visual layouts for two types of functions: "categorical" tabs for specific genres, and "navigational" tabs for different sections within a page. I carefully crafted these mobile navigation elements with scalability in mind.</P>
+						<Img
+							src={require("./assets/cases/Bitsrealm/navbar_mobile.png")}
+							sizeId={0}
+							alt="iterations of mobile navigation elements, from low-fidelity brainstorming to the final high-fidelity prototype"
+							caption="iteration process of mobile navigation"
+							zoomable={false}
+						/>
+					</>],
+					["Ticketing Site: Ticket Card", <>
+						<P>The ticketing site would facilitate the audience in booking tickets for the virtual concert. Users could select their desired ticket type (e.g. VIP ticket) and proceed to confirm and make payment.</P>
+						<P>With usability in mind, I created two ticket card layouts to suit different scenarios: one focused on clarity and was used for ticket selection, while the other aimed for visual appeal and appeared on confirmation and post-purchase pages. In order to adhere to established conventions, I drew inspiration from existing event websites and flight ticket apps during the design process.</P>
+						<Img
+							src={require("./assets/cases/Bitsrealm/tickets_responsive_flow.png")}
+							sizeId={0}
+							alt="ticketing flow"
+							caption="ticketing flow showing the two layouts of ticket cards used in different cases"
+							zoomable={false}
+						/>
+						<P>Here is a prototype of the ticketing site, where you can explore upcoming virtual concerts, learn about the artists, and book tickets:</P>
+						<Prototype
+							src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D411%253A1897%26type%3Ddesign%26node-id%3D411-3294%26viewport%3D227%252C-123%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D411%253A3294%26mode%3Ddesign%26hide-ui%3D1"
+							caption="Try booking a ticket for a virtual concert ↑"
+							frameWidth="50%"
+							frameRatioId={4}
+							prototypeWidth="200%"
+							prototypeHeight="100%"
+							prototypeTop="0%"
+							prototypeLeft="-50%"
+							prototypeRight="-50%"
+						/>
+					</>],
+					["Mobile Audience Interface: Landscape Game-like UI", <>
+						<P>To accommodate audience without VR devices, a mobile interface was created to allow them to enjoy and engage with the virtual concert on their phones.</P>
+						<P>I was really excited for the chance to design a game-like interface in landscape orientation, which presented unique challenges compared to traditional mobile app design. I did plenty of research and took into consideration factors such as thumb zones, bimanual interaction, and physical ergonomics of touch screen buttons during my design. The screen was divided into multiple areas based on thumb zones, and functions were allocated based on expected frequency of usage and potential simultaneous use.</P>
+						<P>Beyond designing on Figma using a laptop, I tested the interface on my own phone to ensure accurate and comfortable tapping experience.</P>
+						<Img
+							src={require("./assets/cases/Bitsrealm/function_thumb_zone_overlapping.png")}
+							sizeId={3}
+							alt="diagram showing the overlapping of important functions and easy-to-reach thumb zones"
+							caption="As seen in the mapping between the locations of interactable elements and thumb zones, the most crucial functions are also the easiest to reach."
+							zoomable={false}
+						/>
+						<P>Please play with the prototypes and see it for yourself!</P>
+						<Prototype
+							src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D562%253A7532%26type%3Ddesign%26node-id%3D562-9601%26viewport%3D342%252C226%252C0.05%26scaling%3Dcontain%26starting-point-node-id%3D562%253A9601%26mode%3Ddesign%26hide-ui%3D1"
+							caption="Play with the mobile audience interface ↑"
+							frameWidth="100%"
+							frameRatioId={3}
+							prototypeWidth="200%"
+							prototypeHeight="120%"
+							prototypeTop="-10%"
+							prototypeLeft="-50%"
+							prototypeRight="-50%"
+						/>
+					</>],
+				],
+				[	// Reflection
+					["", <>
+						<P>I really enjoyed the learning by doing, which is the best term to describe my internship experience. I actively absorbed industry standards, frequently asked for feedback for iterative design improvements, and tested the interface to ensure a seamless user experience. The fast-paced nature of the industry taught me the importance of thorough documentation and responsible quality control.</P>
+						<P>6 months after I left, Bitsrealm's first virtual concert took place successfully! The main website that I prototyped underwent further iterations, while preserving the original branding I created.</P>
+					</>],
+				],
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/Bitsrealm/cover_img.png"),
 		},
 		theme: {
 			object: <ObjectBitsrealm />,
@@ -896,7 +982,56 @@ export const cases = {
 			tldr: ["TL;DR",
 				<>Following to Atlas's requirements, I designed and prototyped a full dashboard for e-commerce fullfillers. It featured data visualization panels, a message inbox, and comprehensive tracking of products, partners, and payments. This project sparked my love for fast-paced work environment and laid the foundation for my future journey in multiple startups.</>
 			],
-			body: ["challenge-solution", []],
+			body: ["gallery", [
+				{
+					title: "Branding",
+					heightId: 0,
+					widthId: -1,
+					wrap: true,
+					autoplay: false,
+					zoomable: false,
+					imgs: [
+						[require("./assets/cases/Atlas/branding_process.png"), "branding process"],
+					]
+				},
+				{
+					title: "Brainstorm",
+					heightId: 3,
+					widthId: -1,
+					wrap: false,
+					autoplay: true,
+					zoomable: true,
+					imgs: [
+						[require("./assets/cases/Atlas/workflow_mindmap.png"), "workflow mindmap"],
+						[require("./assets/cases/Atlas/main_sketch.png"), "main tab sketch"],
+						[require("./assets/cases/Atlas/tracking_orders_sketch.png"), "orders tab sketch"],
+						[require("./assets/cases/Atlas/products_sketch.png"), "products tab sketch"],
+						[require("./assets/cases/Atlas/payment_sketch.png"), "payment tab sketch"],
+						[require("./assets/cases/Atlas/help_sketch.png"), "help tab sketch"],
+						[require("./assets/cases/Atlas/inbox_sketch1.png"), "inbox tab sketch 1"],
+						[require("./assets/cases/Atlas/inbox_sketch2.png"), "inbox tab sketch 2"],
+					]
+				},
+				{
+					title: "Prototypes",
+					heightId: 0,
+					widthId: -1,
+					wrap: false,
+					autoplay: true,
+					zoomable: true,
+					imgs: [
+						[require("./assets/cases/Atlas/main_1.png"), "main tab high-fidelity"],
+						[require("./assets/cases/Atlas/tracking_orders_1.png"), "orders tab high-fidelity 1"],
+						[require("./assets/cases/Atlas/tracking_orders_2.png"), "orders tab high-fidelity 2"],
+						[require("./assets/cases/Atlas/tracking_orders_3.png"), "orders tab high-fidelity 3"],
+						[require("./assets/cases/Atlas/products_1.png"), "products tab high-fidelity"],
+						[require("./assets/cases/Atlas/partners_1.png"), "partners tab high-fidelity"],
+						[require("./assets/cases/Atlas/payment_1.png"), "payment tab high-fidelity"],
+						[require("./assets/cases/Atlas/help_1.png"), "help tab high-fidelity"],
+						[require("./assets/cases/Atlas/inbox_1.png"), "inbox tab high-fidelity"],
+					]
+				},
+			]],
 			evidence: [],
 			credits: [],
 			img: require("./assets/cases/Atlas/cover_img.png"),
@@ -1342,14 +1477,39 @@ export const cases = {
 			],
 			img: require("./assets/cases/CU/thumbnail_img.png"),
 		},
-		content: {
+		contentNAH: {
 			tldr: ["TL;DR",
 				<><ul><li>I led a team of 3 and designed the mascot for Chinese Union, communicating closely with the executive board for feedback and refining the design accordingly.</li><li>I also created poster illustrations for events and festivals</li></ul></>
 			],
-			body: ["challenge-solution", []],
+			body: ["gallery", [
+				{
+					title: "Mascot Design",
+					heightId: 1,
+					widthId: -1,
+					wrap: true,
+					autoplay: false,
+					zoomable: false,
+					imgs: [
+						[require("./assets/cases/CU/mascot_draft_to_final.gif"), "mascot process from sketch to final turnarounds"],
+						[require("./assets/cases/CU/mascot_coloring.gif"), "mascot coloring trials"],
+						[require("./assets/cases/CU/mascot_drafts.png"), "mascot initial pencil sketches"],
+					]
+				},
+				{
+					title: "Posters",
+					heightId: -1,
+					widthId: 2,
+					wrap: false,
+					autoplay: false,
+					zoomable: false,
+					imgs: [
+						[require("./assets/cases/CU/poster_earthday.png"), "Earth Day poster"],
+					]
+				},
+			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			img: require("./assets/cases/CU/cover_img.png"),
 		},
 		theme: {
 			object: <ObjectCU />,
