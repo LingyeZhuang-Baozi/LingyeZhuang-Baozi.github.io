@@ -465,7 +465,7 @@
 	$home-hero-case-text-gap-X: $spacing-8;
 	$home-hero-case-text-gap-Y: $spacing-6;
 	$home-hero-case-bio-gap-Y: $spacing-5;
-	$home-hero-case-bio-entry-gap: 0;
+	$home-hero-case-bio-entry-gap: $spacing-3;
 
 	.mode-light .home-hero .home-section-bg {
 		background-color: $home-section-bgcolor-active-light !important;
@@ -533,7 +533,7 @@
 
 	.home-hero-case-bio-entry {
 		display: inline-flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: flex-start;
 		gap: $home-hero-case-bio-entry-gap;
 

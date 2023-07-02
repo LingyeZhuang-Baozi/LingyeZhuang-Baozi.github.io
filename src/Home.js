@@ -460,11 +460,11 @@ function Hero ({inViewSetter}) {
 								<div className="home-hero-case-bio-container">
 									<div className="home-hero-case-bio">
 										<div className="home-hero-case-bio-entry">
-											<div className="home-hero-case-bio-entry-title">My Role</div>
+											<div className="home-hero-case-bio-entry-title">My Role:</div>
 											{ caseContent.bio[1] }
 										</div>
 										<div className="home-hero-case-bio-entry">
-											<div className="home-hero-case-bio-entry-title">Timeline</div>
+											<div className="home-hero-case-bio-entry-title">Timeline:</div>
 											{ caseContent.bio[2] }
 										</div>
 									</div>

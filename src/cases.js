@@ -37,10 +37,10 @@ import { isSafari, isIE } from "react-device-detect";
 
 /* Assets */
 // Objects
-import { ReactComponent as ObjectAsTheWindBlows } from "./assets/cases/_case/_object.svg";
+import { ReactComponent as ObjectAsTheWindBlows } from "./assets/cases/AsTheWindBlows/object.svg";
 import { ReactComponent as ObjectALUM } from "./assets/cases/ALUM/object.svg";
 import { ReactComponent as ObjectCheeseClub } from "./assets/cases/CheeseClub/object.svg";
-import { ReactComponent as ObjectCreativityLab } from "./assets/cases/_case/_object.svg";
+import { ReactComponent as ObjectCreativityLab } from "./assets/cases/CreativityLab/object.svg";
 import { ReactComponent as ObjectTSE } from "./assets/cases/TSE/object.svg";
 import { ReactComponent as ObjectCharmLife } from "./assets/cases/_case/_object.svg";
 import { ReactComponent as ObjectLAK } from "./assets/cases/LAK/object.svg";
@@ -51,7 +51,7 @@ import { ReactComponent as Object2022Art } from "./assets/cases/_case/_object.sv
 import { ReactComponent as ObjectBitsrealm } from "./assets/cases/Bitsrealm/object.svg";
 import { ReactComponent as ObjectCruzRoja } from "./assets/cases/CruzRoja/object.svg";
 import { ReactComponent as ObjectACM } from "./assets/cases/ACM/object.svg";
-import { ReactComponent as ObjectAtlas } from "./assets/cases/_case/_object.svg";
+import { ReactComponent as ObjectAtlas } from "./assets/cases/Atlas/object.svg";
 import { ReactComponent as ObjectRehaBuddy } from "./assets/cases/RehaBuddy/object.svg";
 import { ReactComponent as ObjectPadPal } from "./assets/cases/PadPal/object.svg";	//NAH
 import { ReactComponent as ObjectGroupReads } from "./assets/cases/GroupReads/object.svg";	//NAH
