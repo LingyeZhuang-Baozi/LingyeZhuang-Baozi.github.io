@@ -502,6 +502,17 @@ export function P ({children}) {
 
 export function ExpandablePs ({children, peekHeight="160px", prompt="Read More", defaultExpanded=false}) {
 
+	/* Prompt Hover Handler */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	const promptHoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "pointer"});
+	}
+	const promptHoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+	}
+
 	/* Expand Handler */
 	const [expanded, setExpanded] = useState(defaultExpanded);
 	const expandableContentRef = useRef(null);
@@ -514,29 +525,19 @@ export function ExpandablePs ({children, peekHeight="160px", prompt="Read More",
 	const expand = (e) => {
 		e.preventDefault();
 		setExpanded(true);
+		dispatchCursorType({type: "default"});
 	}
 	// const collapse = (e) => {
 	// 	e.preventDefault();
 	// 	setExpanded(false);
 	// }
 
-	/* Prompt Hover Handler */
-	const dispatchCursorType = useContext(dispatchCursorTypeContext);
-	const promptHoverStarts = (e) => {
-		e.preventDefault();
-		dispatchCursorType({type: "pointer"});
-	}
-	const promptHoverEnds = (e) => {
-		e.preventDefault();
-		dispatchCursorType({type: "default"});
-	}
-
 	/* Render */
 	return (
 		<div className="paragraph-expandable-container">
 			<div
 				className={"paragraph-expandable " + (expanded==true ? "expanded" : "")}
-				style={{ "height" : expanded==true ? contentFullHeight : peekHeight}}
+				style={{ "height" : expanded==true ? "auto"/*contentFullHeight*/ : peekHeight}}	// TODO: smooth expansion, the current method with contentFullHeight doesn't work with screen resize or large image load.
 			>
 				<div
 					ref={expandableContentRef}

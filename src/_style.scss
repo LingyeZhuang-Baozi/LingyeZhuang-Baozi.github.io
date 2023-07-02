@@ -1495,10 +1495,10 @@
 	.missout-browser %control .control-toggler::before {
 		outline: none;
 	}
-	.mode-light %control .control-toggler::before {
+	.mode-light.missout-browser %control .control-toggler::before {
 		border: $control-element-border $control-element-border-color-light;
 	}
-	.mode-dark %control .control-toggler::before {
+	.mode-dark.missout-browser %control .control-toggler::before {
 		border: $control-element-border $control-element-border-color-dark;
 	}
 

@@ -38,7 +38,7 @@ import { isSafari, isIE } from "react-device-detect";
 /* Assets */
 // Objects
 import { ReactComponent as ObjectAsTheWindBlows } from "./assets/cases/_case/_object.svg";
-import { ReactComponent as ObjectALUM } from "./assets/cases/_case/_object.svg";
+import { ReactComponent as ObjectALUM } from "./assets/cases/ALUM/object.svg";
 import { ReactComponent as ObjectCheeseClub } from "./assets/cases/CheeseClub/object.svg";
 import { ReactComponent as ObjectCreativityLab } from "./assets/cases/_case/_object.svg";
 import { ReactComponent as ObjectTSE } from "./assets/cases/TSE/object.svg";
@@ -182,10 +182,92 @@ export const cases = {
 			tldr: ["TL;DR",
 				<>ALUM, the mentorship program, seeked to enhance member engagement and simplify meeting scheduling. To address this need, my team designed an iOS app, where students can network with alumni mentors, schedule meetings, and keep track of their academic and career goals. We maintained an intuitive interface and a vibrant branding to keep the young students engaged. The app is now ready to be launched and facilitate mentorship for 2000+ students.</>
 			],
-			body: ["challenge-solution", []],
+			body: ["challenge-solution", [
+				[	// Challenge
+					["", <>
+						<P>Last summer, ALUM for Northwood piloted its mentorship program, connecting high school mentees with alumni mentors who guided and supported them in achieving their goals. The pilot run proved the effectiveness of ALUM's mentorship modal, yet also brought to light further challenges to be addressed.</P>
+						<ExpandablePs prompt="Read More Challenge Details">
+							<P>The first challenge was the difficulty to maintain regular and long-term engagement among members, especially for mentees who needed to initiate communication and schedule meetings. To address this, we developed a mobile app to simplify and standardize meeting scheduling and encourage engagement with push notifications.</P>
+							<P>We chose a mobile app to maximize daily exposure to our users, as phones are their readily accessible and commonly used devices. We began with the iOS system, which was widely used by Northwood students, and considered expanding to Android in the future. We drew reference and inspiration from Duolingo, which has a similar objective of fostering consistent engagement within a similar age group.</P>
+							<P>Another challenge was the tedious and error-prone process for ALUM admins to manual manage applications, pair mentors and mentees, and keep track of feedback. To tackle this, we created a neat admin portal. It allowed admins to access organized information about members and sessions, and streamlined the reviewing and pairing process.</P>
+							<P>Keeping in mind the time constraint, we upheld versioning and scalability. We acknowledged that perfection couldn't be achieved at once, so we brainstormed, refined, implemented quickly, and iterated frequently. We planted seeds of potentially useful features in the app, which would be tested and harvested in the upcoming mentorship season.</P>
+						</ExpandablePs>
+						<Img
+							src={require("./assets/cases/ALUM/app_icon_iterations.png")}
+							sizeId={0}
+							alt="iterations of the app icon based on ALUM logo"
+							caption="iterations of the app icon"
+							zoomable={false}
+						/>
+					</>],
+				],
+				[	// Solution
+					["Neat Flowcharts As Bones", <>
+						<P>Learning from past experience, I required our design team to be clear about the app's high-level structure and the purpose of each feature before diving into specific design details.</P>
+						<P>We introduced a new method of creating userflow diagrams that allowed us to view the interface at different levels of abstraction. We began by organizing user tasks into sections at an abstract level to structure the skeleton of the interface. From there, we fleshed out specific UI elements that aligned with each section's purpose. This process led us to identify reusable components and gain a thorough understanding of the interface before creating any sketches or prototypes.</P>
+						<Img
+							src={require("./assets/cases/ALUM/userflow_example.png")}
+							sizeId={4}
+							alt="userflow of the home tab to showcase how our new method can help us adhere to the high-level goals"
+							caption="example of our multi-level userflow based on high-level user goals"
+							zoomable={false}
+						/>
+						<P>We designed a comprehensive push notification system to guide users before, during, and after mentorship meetings. To make it easier for internal communication, I created a notification timeline that visualized timing of each notification message.</P>
+						<Img
+							src={require("./assets/cases/ALUM/notifications_timeline.png")}
+							sizeId={5}
+							alt="notifications timeline, including notifications at these key timepoints: schedule meeting, upcoming session alert, post-session reflection, cancel and reschedule meeting"
+							caption="notification timelines that I created for internal communication"
+							zoomable={false}
+						/>
+					</>],
+					["Frequent Iterations As Flesh", <>
+						<P>We practiced an agile-style versioning and upheld scalability. The minimum viable product (MVP) that had been implemented covered the most basic functionalities, such as scheduling one meeting with one mentor. The next version will introduce a home tab with supplemental features, such as sessions dashboard and action items.</P>
+						<Img
+							src={require("./assets/cases/ALUM/versioning_example.png")}
+							sizeId={0}
+							alt="MVP versus Version 2 design for sessions display, to showcase our versioning"
+							caption="example that we progressively completed and refined features via versioning"
+							zoomable={false}
+						/>
+						<Img
+							src={require("./assets/cases/ALUM/modularization_example.png")}
+							sizeId={4}
+							alt="different states of two home sections: upcoming sessions and last session, to showcase our modular design for scalability"
+							caption="example of our modular design, which helped ensure scalability"
+							zoomable={false}
+						/>
+						<Img
+							src={require("./assets/cases/ALUM/component_composition.png")}
+							sizeId={0}
+							alt="the searching tag UI block is composed of basic components such as search bar, list of tags, list of options"
+							caption="example of composing a complex UI element using basic reusable components"
+							zoomable={false}
+						/>
+						<P>We brainstormed even more ideas to enhance engagement, such as a goals tab to track mentee's progress and facilitate mentorship meetings, and an iOS widget to further improve accessibility. While these ideas were simplified or postponed in the current version, they can be revisited in future updates.</P>
+						<Img
+							src={require("./assets/cases/ALUM/goals_iterations.png")}
+							sizeId={4}
+							alt="iterations of the goals section: we have considered custom tags, deadlines, pining, etc., but we eventually simplified to an action iten list associated with each session to pilot in MVP"
+							caption="To assist mentees in goal tracking, we explored various ideas. But considering time constraints and trade-offs with other features, we decided to simplify and pilot an action item list associated with each session in the MVP."
+							zoomable={false}
+						/>
+					</>],
+					["Vital Branding As Blood", <>
+						<P>At first, we strictly followed ALUM's existing branding, but the app turned out dull and unengaging with the provided colors and fonts. Recognizing the importance of visual appeal in user engagement, we discussed this concern with the clients and received their support. As a result, we revitalized the branding, adopting a bolder and more modern style.</P>
+						<Img
+							src={require("./assets/cases/ALUM/branding_evolution.png")}
+							sizeId={4}
+							alt="the change of branding: from strictly following the styleguide provided by ALUM, to exploring different colors and typographies, till finalizing a vital style to enhance visual appeal and user experience"
+							caption="Recognizing the importance of visual appeal in user engagement, we revitalized the branding."
+							zoomable={false}
+						/>
+					</>],
+				],
+			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_pigeon.png"),
+			img: require("./assets/cases/ALUM/thumbnail_img.png"),
 		},
 		theme: {
 			object: <ObjectALUM />,
@@ -217,7 +299,7 @@ export const cases = {
 			body: ["freeform", [
 				["Branding", <>
 					<P>We are a club about friendship, sharing, and fun, offering a gentle and warm space for socialization and destressing. To convey this message in the branding, I selected colors and typographies that balance between playfulness and comfort, creating a striking yet welcoming vibe.</P>
-					<P>Inspired from <A href="https://www.craftui.com/">Alla Kholmatova</A>'s book Design Systems, I believe naming of elements is also part of the branding, and good names can inform designers when and how to use the elements. Therefore, when naming the colors of Cheese Club, instead of using generic labels like "primary yellow" and "secondary brown", I chose names that are not only descriptive, but also evoke emotions and align with the brand personality. "The Cheese" is obviously the core color for Cheese Club. "The Coffee", a side dish, serve as a complement to "The Cheese". Both "Elegant Gray" and "Wild Magenta" are accent, but "Elegant Gray" is subtle and slightly more formal, while "Wild Magenta" is loud and meant to be used for highlights.</P>
+					<P>Inspired from Alla Kholmatova's book <A href="https://www.craftui.com/">Design Systems</A>, I believe naming of elements is also part of the branding, and good names can inform designers when and how to use the elements. Therefore, when naming the colors of Cheese Club, instead of using generic labels like "primary yellow" and "secondary brown", I chose names that are not only descriptive, but also evoke emotions and align with the brand personality. "The Cheese" is obviously the core color for Cheese Club. "The Coffee", a side dish, serve as a complement to "The Cheese". Both "Elegant Gray" and "Wild Magenta" are accent, but "Elegant Gray" is subtle and slightly more formal, while "Wild Magenta" is loud and meant to be used for highlights.</P>
 					<Img
 						src={require("./assets/cases/CheeseClub/branding_colors.png")}
 						sizeId={0}
