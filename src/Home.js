@@ -5,16 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import './Home.scss';
 
 /* Foreign Components */
-import { btns, images } from './assets.js';
+import { btns, /*images*/ } from './assets.js';
 import { cases, casesNames, casesGoats, casesByCategory, casesByTimeline } from './cases.js';
 import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext } from './App.js';
-import { ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji } from "./components.js";
+import { ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img } from "./components.js";
 
 /* Important Assets */
 import { ReactComponent as AskMyCaseStudies } from "./assets/basic/hintblobs/ask_my_case_studies.svg";
 import { ReactComponent as AnonymousObject } from "./assets/cases/_case/_anonymous.svg";
-import MyPic1 from "./assets/basic/me-1.jpg";
-import MyPic2 from "./assets/basic/me-2.jpg";
+import MyPicWebp1 from "./assets/basic/me/me-1.webp";	import MyPicWebp2 from "./assets/basic/me/me-2.webp";	import MyPicJpg1 from "./assets/basic/me/me-1.jpg";	import MyPicJpg2 from "./assets/basic/me/me-2.jpg";
 
 /* Libraries */
 import useIsInViewport from "use-is-in-viewport";
@@ -396,14 +395,16 @@ function Hero ({inViewSetter}) {
 						(shownFg < 0 ? "curr" : "")
 					}>
 						<div className="home-hero-mypic-container">
-							<img
+							<Img
 								className="home-hero-mypic home-hero-mypic-1"
-								src={MyPic1}
+								srcWebp={MyPicWebp1}
+								srcJpg={MyPicJpg1}
 								alt=""
 							/>
-							<img
+							<Img
 								className="home-hero-mypic home-hero-mypic-2"
-								src={MyPic2}
+								srcWebp={MyPicWebp2}
+								srcJpg={MyPicJpg2}
 								alt="A Photo Of Me"
 							/>
 						</div>
@@ -447,11 +448,7 @@ function Hero ({inViewSetter}) {
 							} : {})}
 						>
 							<div className="home-hero-case-img-container">
-								<img
-									className="home-hero-case-img"
-									src={caseContent.thumbnail.img}
-									alt=""
-								/>
+								{caseContent.thumbnail.img ? caseContent.thumbnail.img : null}
 							</div>
 							<div className="home-hero-case-text-container">
 								<div className="home-hero-case-title">
@@ -882,6 +879,7 @@ function CasesSection ({sectionContent, sectionRef, sectionInViewStateSetter}) {
 function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 
 	const caseContent = cases[caseId];
+	const ID = idCreator(caseId);
 
 	/* Curr Case In View */
 	const caseInView = useContext(caseInViewContext);
@@ -942,6 +940,24 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 		setInViewStageClass(classList);
 	}, [inViewStage]);
 
+	/* Pause Gif When Inactive */
+	useEffect(() => {
+		const thumbnailGifHtmlCollection = document.getElementById(ID).getElementsByTagName("video");
+		if (thumbnailGifHtmlCollection.length > 0) {
+			thumbnailGifHtmlCollection[0].pause();
+		}
+	}, []);
+	useEffect(() => {
+		const thumbnailGifHtmlCollection = document.getElementById(ID).getElementsByTagName("video");
+		if (thumbnailGifHtmlCollection.length > 0) {
+			if (inViewStage === 2) {
+				thumbnailGifHtmlCollection[0].play();
+			} else {
+				thumbnailGifHtmlCollection[0].pause();
+			}
+		}
+	}, [inViewStage]);
+
 	/* Double Click As Alternative To Open Case */
 	const navigate = useNavigate();
 	const doubleClickOpenCase = (e) => {
@@ -955,7 +971,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 	return (
 		<div
 			ref={(el) => { caseActiveRef(el); caseBenchRef(el); }}
-			id={idCreator(caseId)}
+			id={ID}
 			//onDoubleClick={doubleClickOpenCase}	// TODO
 		>
 			<HomeSection
@@ -970,11 +986,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 			>
 				<>
 					<div className="home-case-img-container">
-						<img
-							className="home-case-img"
-							src={caseContent.thumbnail.img}
-							alt={"case thumbnail of " + caseContent.title}
-						/>	{/* TODO: enable pausing gif when inactive */}
+						{caseContent.thumbnail.img ? caseContent.thumbnail.img : null}
 					</div>
 					<div className="home-case-text-container">
 						<div className="home-case-title">

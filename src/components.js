@@ -1,4 +1,4 @@
-import React, { useState , useEffect, useContext, useRef } from 'react';
+import React, { useState , useEffect, useContext, useRef, cloneElement } from 'react';
 import { Link } from "react-router-dom";
 
 /* Foreign Components */
@@ -563,7 +563,39 @@ export function ExpandablePs ({children, peekHeight="160px", prompt="Read More",
 
 
 
-export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
+export function Img ({className="", alt="", srcWebp, srcPng, srcJpeg, srcJpg, onLoad}) {
+	return (
+		<picture onLoad={onLoad}>
+			{srcWebp ? <source type="image/webp" srcSet={srcWebp} /> : null}
+			{srcPng ? <source type="image/png" srcSet={srcPng} /> : null}
+			{srcJpeg ? <source type="image/jpeg" srcSet={srcJpeg} /> : null}
+			{srcJpg ? <source type="image/jpg" srcSet={srcJpg} /> : null}
+			{srcPng ? <img src={srcPng} alt={alt} className={"img " + className} /> : null}
+			{srcJpeg ? <img src={srcJpeg} alt={alt} className={"img " + className} /> : null}
+			{srcJpg ? <img src={srcJpg} alt={alt} className={"img " + className} /> : null}
+		</picture>
+	);
+}
+
+export function Gif ({className="", alt="", srcWebm, srcMov, srcMp4, onLoad}) {	// TODO: enable pausing gif when inactive
+	return (
+		<video
+			className={"img gif " + className}
+			autoPlay loop muted playsInline
+			//title={alt}
+			onLoad={onLoad}
+		>
+			{srcWebm ? <source type="video/webm" src={srcWebm} /> : null}
+			{srcMov ? <source type="video/mov" src={srcMov} /> : null}
+			{srcMp4 ? <source type="video/mp4" src={srcMp4} /> : null}
+			{alt}
+		</video>
+	);
+}
+
+
+
+export function Image ({children, caption="", sizeId=0, zoomable=true}) {	// children: <Img> or <Gif>
 
 	/* Standardize Size */
 	const sizeMap = [
@@ -581,12 +613,12 @@ export function Img ({src, alt="", caption="", sizeId=0, zoomable=true}) {
 	/* Render */
 	return (
 		<div className="image-container">
-			<img
+			<div
 				className={"image " + (zoomable ? "zoomable" : "")}
-				src={src}
-				alt={alt}
 				style={{"--image-width": sizeMap[sizeId][0], "--image-height": sizeMap[sizeId][1]}}
-			/>
+			>
+				{children}
+			</div>
 			{caption != "" ?
 				<div className="image-caption">{caption}</div>
 			: null }
@@ -646,17 +678,18 @@ function ImgGalleryStatic ({imgList, classList, styleList, zoomable}) {
 		>
 			<div className="gallery-container-in">
 				<div className="gallery">
-					{imgList.map((img, idx) => {
+					{imgList.map((img, idx) => {	// img: <Img> or <Gif>
 						if (img.length < 1) {
 							console.error("Error reading image source at index", idx, "of imgList", imgList);
+							return (<></>);
 						} else {
 							return (
-								<img
+								<div
 									key={idx}
 									className={"gallery-image " + (zoomable==true ? "zoomable" : "")}
-									src={img[0]}
-									alt={img.length > 1 ? img[1] : ""}
-								/>
+								>
+									{img}
+								</div>
 							);
 						}
 					})}
@@ -700,7 +733,7 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 	const {width: viewportWidth} = useViewportDimensions();
 	useEffect(() => {
 		if (galleryWidth) {
-			if (viewportWidth >= galleryWidth) { setAutoplayOn(false); }	// 
+			if (viewportWidth >= galleryWidth) { setAutoplayOn(false); }
 			else { setAutoplayOn(true); }
 		}		
 	}, [galleryWidth, viewportWidth]);
@@ -723,7 +756,7 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 		<div
 			className={
 				classList + " " +
-				(autoplayOn ? "autoplay" : "static")
+				"autoplay"//(autoplayOn ? "autoplay" : "static")
 			}
 			style={{
 				...styleList,
@@ -736,21 +769,23 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 					className={"gallery " + (hoveringImg ? "wait" : "")}
 					onMouseLeave={hoverImgEnds}
 				>
-					{imgList.map((img, idx) => {
+					{imgList.map((img, idx) => {	// img: <Img> or <Gif>
 						if (img.length < 1) {
 							console.error("Error reading image source at index", idx, "of imgList", imgList);
 						} else {
 							return (
-								<img
+								<div
 									key={idx}
 									className={"gallery-image " + (zoomable==true ? "zoomable" : "")}
-									src={img[0]}
-									alt={img.length > 1 ? img[1] : ""}
-									onLoad={() => { confirmImgLoaded(idx); }}
 									onMouseEnter={hoverImgStarts}
 									onMouseOver={hoverImgStarts}
 									onMouseLeave={hoverImgEnds}
-								/>
+								>
+									{cloneElement(
+										img,
+										{ onLoad: () => { confirmImgLoaded(idx); }, }
+									)}
+								</div>
 							);
 						}
 					})}
@@ -759,19 +794,22 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 							console.error("Error reading image source at index", idx, "of imgList", imgList);
 						} else {
 							return (
-								<img
+								<div
 									key={numImgs + idx}
 									className={
 										"gallery-image " +
 										(zoomable ? "zoomable" : "")
 									}
 									style={{"display": autoplayOn==true ? "flex" : "none"}}
-									src={img[0]}
-									alt={img.length > 1 ? img[1] : ""}
 									onLoad={() => { confirmImgLoaded(numImgs + idx); }}
 									onMouseEnter={hoverImgStarts}
 									onMouseOver={hoverImgStarts}
-								/>
+								>
+									{cloneElement(
+										img,
+										{ onLoad: () => { confirmImgLoaded(idx); }, }
+									)}
+								</div>
 							);
 						}
 					})}

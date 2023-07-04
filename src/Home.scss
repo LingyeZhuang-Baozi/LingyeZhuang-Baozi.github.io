@@ -482,15 +482,15 @@
 		@include unselectable;
 	}
 
-	.home-hero-case-img {
+	.home-hero-case-img-container .img {
 		width: $home-hero-case-img-width;
 		position: absolute;
 		transform: translateY(-50%);
 		top: 50%;
 		right: -1 * $home-hero-case-img-right;
 	}
-	.mode-dark .home-hero-case-img {
-		filter: grayscale($content-image-grayscale-dim) brightness($content-image-brightness-dim);
+	.mode-dark .home-hero-case-img-container .img {
+		filter: grayscale($img-grayscale-dim) brightness($img-brightness-dim);
 	}
 
 	$home-hero-case-text-container-width: calc(100vw - (2 * $home-padding-X) - (2 * $home-hero-padding-Y) - $home-hero-gap-X - $home-hero-case-img-width - $error);
@@ -798,7 +798,7 @@
 		overflow: hidden;
 		@include unselectable;
 
-		.home-case-img {
+		.img {
 			width: 100%;
 			@include position-center-absolute;
 			transform: translate(-50%,0);
@@ -807,11 +807,11 @@
 		}
 	}
 
-	.mode-light .home-case-img-container .home-case-img {
+	.mode-light .home-case-img-container .img {
 		filter: grayscale($home-case-img-nonactive-grayscale-light) brightness($home-case-img-nonactive-brightness-light) contrast($home-case-img-nonactive-contrast-light);
 		opacity: $home-case-img-nonactive-opacity-light;
 	}
-	.mode-dark .home-case-img-container .home-case-img {
+	.mode-dark .home-case-img-container .img {
 		filter: grayscale($home-case-img-nonactive-grayscale-dark) brightness($home-case-img-nonactive-brightness-dark) contrast($home-case-img-nonactive-contrast-dark);
 		opacity: $home-case-img-nonactive-opacity-dark;
 	}
@@ -825,7 +825,7 @@
 		animation: home-case-img-container-active $home-case-img-active-transition-in-time;
 		animation-fill-mode: both;
 
-		.home-case-img {
+		.img {
 			transform: translate(-50%,-50%);
 			top: 50%;
 			filter: grayscale($home-case-img-active-grayscale) brightness($home-case-img-active-brightness) contrast($home-case-img-active-contrast);
@@ -833,8 +833,8 @@
 			@include transition($transition: $home-case-img-active-transition-in);
 		}
 	}
-	.mode-dark .home-section-active:not(.home-section-substituted) .home-case-img-container .home-case-img {
-		filter: grayscale($content-image-grayscale-dim + $home-case-img-active-grayscale) brightness($content-image-brightness-dim * $home-case-img-active-brightness) contrast($home-case-img-active-contrast);
+	.mode-dark .home-section-active:not(.home-section-substituted) .home-case-img-container .img {
+		filter: grayscale($img-grayscale-dim + $home-case-img-active-grayscale) brightness($img-brightness-dim * $home-case-img-active-brightness) contrast($home-case-img-active-contrast);
 	}
 
 	$home-case-text-container-width: calc(100vw - (2 * $home-padding-X + $home-text-margin-right) - (2 * $home-case-text-padding-X) - $home-case-img-width - $error);

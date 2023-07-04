@@ -370,12 +370,12 @@ export const btns = {
 
 
 
-export const images = {
-	home: {
-		hero: {
-			mypic1: require("./assets/basic/me-1.jpg"),
-			mypic2: require("./assets/basic/me-2.jpg"),
-		},
-		//img: require(),
-	},
-}
+// export const images = {	//TODO
+// 	home: {
+// 		hero: {
+// 			mypic1: require("./assets/basic/me/me-1.jpg"),
+// 			mypic2: require("./assets/basic/me/me-2.jpg"),
+// 		},
+// 		//img: require(),
+// 	},
+// }

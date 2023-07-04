@@ -6,7 +6,7 @@
  *			bio: [<client>(text_object), <role>(str), <duration>(text_object)],
  *			thumbnail: {
  *				brief: [...](list of str),
- *				img: <thumbnail_img>(img as required path),
+ *				img: <thumbnail_img>(img as required paths),
  *			},
  *			content: {
  *				tldr: (text_object),
@@ -19,10 +19,10 @@
  *				]],
  *				evidence: (text_object),
  *				credits: (text_object),
- *				img: <cover_img>(img as required path),
+ *				img: <cover_img>(img as required paths),
  *			},
  *			theme: {
- *				object: <object>(img as required path),	// TODO: img(s)
+ *				object: <object>(svg component),	// TODO: component"s"
  *				color?: [<color-bg-light>(str), <color-title-light>(str), <color-bg-dark>(str), <color-title-dark>(str)],
  *				template?: <template-id | 0, 1, 2>(int),
  *			},
@@ -32,7 +32,7 @@
  *	}
  */
 
-import { A, Emoji, P, ExpandablePs, Img, ImgGallery, Prototype } from "./components.js";
+import { A, Emoji, P, ExpandablePs, Img, Gif, Image, ImgGallery, Prototype } from "./components.js";
 import { isSafari, isIE } from "react-device-detect";
 
 /* Assets */
@@ -143,17 +143,37 @@ export const cases = {
 				"3D multiplayer game made from scratch in 10 weeks, demoed to 300+ audience.",
 				"Modeled and animated characters and map using Blender, maintaining a stylized game art.",
 			],
-			img: require("./assets/cases/AsTheWindBlows/thumbnail_img.gif"),
+			img:
+				<Gif
+					srcWebm={require("./assets/cases/AsTheWindBlows/thumbnail_img.webm")}
+					srcMov={require("./assets/cases/AsTheWindBlows/thumbnail_img.mov")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
 				<>A Korok fan art game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy.</>
 			],
 			link: ["Watch\nDemo", "https://youtu.be/MUKqqoazBh4"],
-			body: ["challenge-solution", []],
+			body: ["gallery", [
+				// {
+				// 	title: "Skybox",
+				// 	heightId: 0,
+				// 	widthId: -1,
+				// 	wrap: false,
+				// 	autoplay: true,
+				// 	zoomable: true,
+				// 	imgs: [
+				// 		<Img
+				// 			srcWebp={require("./assets/cases/AsTheWindBlows/.webp")}
+				// 			srcPng={require("./assets/cases/AsTheWindBlows/.png")}
+				// 			alt=""
+				// 		/>,
+				// 	]
+				// },
+			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectAsTheWindBlows />,
@@ -176,7 +196,11 @@ export const cases = {
 				"Agile team, seamless collaboration with PM, EM and developers.",
 				"Iterated rapidly based on weekly communicated with the clients.",
 			],
-			img: require("./assets/cases/ALUM/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/ALUM/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/ALUM/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -192,82 +216,118 @@ export const cases = {
 							<P>Another challenge was the tedious and error-prone process for ALUM admins to manual manage applications, pair mentors and mentees, and keep track of feedback. To tackle this, we created a neat admin portal. It allowed admins to access organized information about members and sessions, and streamlined the reviewing and pairing process.</P>
 							<P>Keeping in mind the time constraint, we upheld versioning and scalability. We acknowledged that perfection couldn't be achieved at once, so we brainstormed, refined, implemented quickly, and iterated frequently. We planted seeds of potentially useful features in the app, which would be tested and harvested in the upcoming mentorship season.</P>
 						</ExpandablePs>
-						<Img
-							src={require("./assets/cases/ALUM/app_icon_iterations.png")}
+						<Image
 							sizeId={0}
-							alt="iterations of the app icon based on ALUM logo"
 							caption="iterations of the app icon"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/app_icon_iterations.webp")}
+								srcPng={require("./assets/cases/ALUM/app_icon_iterations.png")}
+								alt="iterations of the app icon based on ALUM logo"
+							/>
+						</Image>
 					</>],
 				],
 				[	// Solution
 					["Neat Flowcharts As Bones", <>
 						<P>Learning from past experience, I required our design team to be clear about the app's high-level structure and the purpose of each feature before diving into specific design details.</P>
 						<P>We introduced a new method of creating userflow diagrams that allowed us to view the interface at different levels of abstraction. We began by organizing user tasks into sections at an abstract level to structure the skeleton of the interface. From there, we fleshed out specific UI elements that aligned with each section's purpose. This process led us to identify reusable components and gain a thorough understanding of the interface before creating any sketches or prototypes.</P>
-						<Img
-							src={require("./assets/cases/ALUM/userflow_example.png")}
+						<Image
 							sizeId={4}
-							alt="userflow of the home tab to showcase how our new method can help us adhere to the high-level goals"
 							caption="example of our multi-level userflow based on high-level user goals"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/userflow_example.webp")}
+								srcPng={require("./assets/cases/ALUM/userflow_example.png")}
+								alt="userflow of the home tab to showcase how our new method can help us adhere to the high-level goals"
+							/>
+						</Image>
 						<P>We designed a comprehensive push notification system to guide users before, during, and after mentorship meetings. To make it easier for internal communication, I created a notification timeline that visualized timing of each notification message.</P>
-						<Img
-							src={require("./assets/cases/ALUM/notifications_timeline.png")}
+						<Image
 							sizeId={5}
-							alt="notifications timeline, including notifications at these key timepoints: schedule meeting, upcoming session alert, post-session reflection, cancel and reschedule meeting"
 							caption="notification timelines that I created for internal communication"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/notifications_timeline.webp")}
+								srcPng={require("./assets/cases/ALUM/notifications_timeline.png")}
+								alt="notifications timeline, including notifications at these key timepoints: schedule meeting, upcoming session alert, post-session reflection, cancel and reschedule meeting"
+							/>
+						</Image>
 					</>],
 					["Frequent Iterations As Flesh", <>
 						<P>We practiced an agile-style versioning and upheld scalability. The minimum viable product (MVP) that had been implemented covered the most basic functionalities, such as scheduling one meeting with one mentor. The next version will introduce a home tab with supplemental features, such as sessions dashboard and action items.</P>
-						<Img
-							src={require("./assets/cases/ALUM/versioning_example.png")}
+						<Image
 							sizeId={0}
-							alt="MVP versus Version 2 design for sessions display, to showcase our versioning"
 							caption="example that we progressively completed and refined features via versioning"
 							zoomable={false}
-						/>
-						<Img
-							src={require("./assets/cases/ALUM/modularization_example.png")}
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/versioning_example.webp")}
+								srcPng={require("./assets/cases/ALUM/versioning_example.png")}
+								alt="MVP versus Version 2 design for sessions display, to showcase our versioning"
+							/>
+						</Image>
+						<Image
 							sizeId={4}
-							alt="different states of two home sections: upcoming sessions and last session, to showcase our modular design for scalability"
 							caption="example of our modular design, which helped ensure scalability"
 							zoomable={false}
-						/>
-						<Img
-							src={require("./assets/cases/ALUM/component_composition.png")}
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/modularization_example.webp")}
+								srcPng={require("./assets/cases/ALUM/modularization_example.png")}
+								alt="different states of two home sections: upcoming sessions and last session, to showcase our modular design for scalability"
+							/>
+						</Image>
+						<Image
 							sizeId={0}
-							alt="the searching tag UI block is composed of basic components such as search bar, list of tags, list of options"
 							caption="example of composing a complex UI element using basic reusable components"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/component_composition.webp")}
+								srcPng={require("./assets/cases/ALUM/component_composition.png")}
+								alt="the searching tag UI block is composed of basic components such as search bar, list of tags, list of options"
+							/>
+						</Image>
 						<P>We brainstormed even more ideas to enhance engagement, such as a goals tab to track mentee's progress and facilitate mentorship meetings, and an iOS widget to further improve accessibility. While these ideas were simplified or postponed in the current version, they can be revisited in future updates.</P>
-						<Img
-							src={require("./assets/cases/ALUM/goals_iterations.png")}
+						<Image
 							sizeId={4}
-							alt="iterations of the goals section: we have considered custom tags, deadlines, pining, etc., but we eventually simplified to an action iten list associated with each session to pilot in MVP"
 							caption="To assist mentees in goal tracking, we explored various ideas. But considering time constraints and trade-offs with other features, we decided to simplify and pilot an action item list associated with each session in the MVP."
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/goals_iterations.webp")}
+								srcPng={require("./assets/cases/ALUM/goals_iterations.png")}
+								alt="iterations of the goals section: we have considered custom tags, deadlines, pining, etc., but we eventually simplified to an action iten list associated with each session to pilot in MVP"
+							/>
+						</Image>
 					</>],
 					["Vital Branding As Blood", <>
 						<P>At first, we strictly followed ALUM's existing branding, but the app turned out dull and unengaging with the provided colors and fonts. Recognizing the importance of visual appeal in user engagement, we discussed this concern with the clients and received their support. As a result, we revitalized the branding, adopting a bolder and more modern style.</P>
-						<Img
-							src={require("./assets/cases/ALUM/branding_evolution.png")}
+						<Image
 							sizeId={4}
-							alt="the change of branding: from strictly following the styleguide provided by ALUM, to exploring different colors and typographies, till finalizing a vital style to enhance visual appeal and user experience"
 							caption="Recognizing the importance of visual appeal in user engagement, we revitalized the branding."
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ALUM/branding_evolution.webp")}
+								srcPng={require("./assets/cases/ALUM/branding_evolution.png")}
+								alt="the change of branding: from strictly following the styleguide provided by ALUM, to exploring different colors and typographies, till finalizing a vital style to enhance visual appeal and user experience"
+							/>
+						</Image>
 					</>],
 				],
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/ALUM/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/ALUM/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/ALUM/thumbnail_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectALUM />,
@@ -289,7 +349,11 @@ export const cases = {
 				"Co-founded Cheese Club, addressing post-COVID return-to-school challenges with socialization events.",
 				"Self-taught Webflow, designed and developed a responsive home site with micro-animations.",
 			],
-			img: require("./assets/cases/CheeseClub/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CheeseClub/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/CheeseClub/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -300,59 +364,87 @@ export const cases = {
 				["Branding", <>
 					<P>We are a club about friendship, sharing, and fun, offering a gentle and warm space for socialization and destressing. To convey this message in the branding, I selected colors and typographies that balance between playfulness and comfort, creating a striking yet welcoming vibe.</P>
 					<P>Inspired from Alla Kholmatova's book <A href="https://www.craftui.com/">Design Systems</A>, I believe naming of elements is also part of the branding, and good names can inform designers when and how to use the elements. Therefore, when naming the colors of Cheese Club, instead of using generic labels like "primary yellow" and "secondary brown", I chose names that are not only descriptive, but also evoke emotions and align with the brand personality. "The Cheese" is obviously the core color for Cheese Club. "The Coffee", a side dish, serve as a complement to "The Cheese". Both "Elegant Gray" and "Wild Magenta" are accent, but "Elegant Gray" is subtle and slightly more formal, while "Wild Magenta" is loud and meant to be used for highlights.</P>
-					<Img
-						src={require("./assets/cases/CheeseClub/branding_colors.png")}
+					<Image
 						sizeId={0}
-						alt="color branding guidlines"
 						caption="brand colors, with carefully selected names"
 						zoomable={false}
-					/>
+					>
+						<Img
+							srcWebp={require("./assets/cases/CheeseClub/branding_colors.webp")}
+							srcPng={require("./assets/cases/CheeseClub/branding_colors.png")}
+							alt="color branding guidlines"
+						/>
+					</Image>
 					<P>Each member uses their unique superpower to contribute towards the collective goal of fostering socialization and bonding, and my strength lies in design. By the way, upon my suggestion, we all gave ourselves a cheese name, like secret agents. My cheese name is Mozzarella :></P>
-					<Img
-						src={require("./assets/cases/CheeseClub/wrappers.png")}
+					<Image
 						sizeId={0}
-						alt="wrapper patterns"
 						caption="wrapper patterns I designed"
 						zoomable={false}
-					/>
+					>
+						<Img
+							srcWebp={require("./assets/cases/CheeseClub/wrappers.webp")}
+							srcPng={require("./assets/cases/CheeseClub/wrappers.png")}
+							alt="wrapper patterns"
+						/>
+					</Image>
 				</>],
 				["Responsive Design", <>
 					<P>Webflow made building responsive websites very efficient. With my previous fontend practice and familaity with the Figma auto layout system, I quickly picked up Webflow. Starting with sketching multiple ideas, I then crafted a comprehensive prototype using Figma. Once these plannings were completed, the implementation phase progressed smoothly, and I developed the Cheese Club website within a weekend using Webflow.</P>
-					<Img
-						src={require("./assets/cases/CheeseClub/website_home.png")}
+					<Image
 						sizeId={0}
-						alt="website home page"
 						caption="home page of the Cheese Club website I made"
 						zoomable={false}
-					/>
-					<Img
-						src={require("./assets/cases/CheeseClub/website_about.png")}
+					>
+						<Img
+							srcWebp={require("./assets/cases/CheeseClub/website_home.webp")}
+							srcPng={require("./assets/cases/CheeseClub/website_home.png")}
+							alt="website home page"
+						/>
+					</Image>
+					<Image
 						sizeId={0}
-						alt="website about page"
 						caption="about page"
 						zoomable={false}
-					/>
-					<Img
-						src={require("./assets/cases/CheeseClub/website_events.png")}
+					>
+						<Img
+							srcWebp={require("./assets/cases/CheeseClub/website_about.webp")}
+							srcPng={require("./assets/cases/CheeseClub/website_about.png")}
+							alt="website about page"
+						/>
+					</Image>
+					<Image
 						sizeId={0}
-						alt="website events page"
 						caption="events page"
 						zoomable={false}
-					/>
-					<Img
-						src={require("./assets/cases/CheeseClub/website_individual_event.png")}
+					>
+						<Img
+							srcWebp={require("./assets/cases/CheeseClub/website_events.webp")}
+							srcPng={require("./assets/cases/CheeseClub/website_events.png")}
+							alt="website events page"
+						/>
+					</Image>
+					<Image
 						sizeId={0}
-						alt="website individual event page"
 						caption="individual event page"
 						zoomable={false}
-					/>
-					<Img
-						src={require("./assets/cases/CheeseClub/website_cheese_roll.gif")}
+					>
+						<Img
+							srcWebp={require("./assets/cases/CheeseClub/website_individual_event.webp")}
+							srcPng={require("./assets/cases/CheeseClub/website_individual_event.png")}
+							alt="website individual event page"
+						/>
+					</Image>
+					<Image
 						sizeId={0}
 						alt="prototype of a fancy navigation bar animation: cheese rolling from bottom to top of the screen"
 						caption="A fancy animation of the navigation bar during brainstorming, abandoned due to time constraint."
 						zoomable={false}
-					/>
+					>
+						<Gif
+							srcWebm={require("./assets/cases/CheeseClub/website_cheese_roll.webm")}
+							srcMov={require("./assets/cases/CheeseClub/website_cheese_roll.mov")}
+						/>
+					</Image>
 				</>],
 			]],
 			evidence: [],
@@ -378,7 +470,11 @@ export const cases = {
 			brief: [
 				"Led a 4-person team, self-taught ReactJS to design and develop a database website that assists analysis of human behavior and guides gesture design in AR settings.",
 			],
-			img: require("./assets/cases/CreativityLab/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CreativityLab/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/CreativityLab/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -387,7 +483,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectCreativityLab />,
@@ -409,7 +505,11 @@ export const cases = {
 				"Crafted social media posts, flyers, and merchandise, attracting 300+ new followers.",
 				"Co-established TSE design system, streamlined design tokens and atomic components.",
 			],
-			img: require("./assets/cases/TSE/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/TSE/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/TSE/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["In A Nutshell",
@@ -425,14 +525,46 @@ export const cases = {
 					autoplay: true,
 					zoomable: false,
 					imgs: [
-						[require("./assets/cases/TSE/instagram_FA22_recruitment_application_open.png"), "fall 2022 recruitment instagram graphic when application opens"],
-						[require("./assets/cases/TSE/collection_FA22_recruitment.png"), "fall 2022 recruitment materials"],
-						[require("./assets/cases/TSE/instagram_FA22_recruitment_application_closing.png"), "fall 2022 recruitment instagram graphic when application is closing"],
-						[require("./assets/cases/TSE/flyer_FA23_recruitment.png"), "fall 2023 recruitment flyer"],
-						[require("./assets/cases/TSE/flyer_intern_panel.png"), "intern panel flyer"],
-						[require("./assets/cases/TSE/instagram_social_events.png"), "social events showcase instagram post"],
-						[require("./assets/cases/TSE/instagram_project_showcase.png"), "project showcase instagram post"],
-						[require("./assets/cases/TSE/instagram_member_highlight.png"), "member highlight instagram post"],
+						<Img
+							srcWebp={require("./assets/cases/TSE/instagram_FA22_recruitment_application_open.webp")}
+							srcPng={require("./assets/cases/TSE/instagram_FA22_recruitment_application_open.png")}
+							alt="fall 2022 recruitment instagram graphic when application opens"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/collection_FA22_recruitment.webp")}
+							srcPng={require("./assets/cases/TSE/collection_FA22_recruitment.png")}
+							alt="fall 2022 recruitment materials"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/instagram_FA22_recruitment_application_closing.webp")}
+							srcPng={require("./assets/cases/TSE/instagram_FA22_recruitment_application_closing.png")}
+							alt="fall 2022 recruitment instagram graphic when application is closing"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/flyer_FA23_recruitment.webp")}
+							srcPng={require("./assets/cases/TSE/flyer_FA23_recruitment.png")}
+							alt="fall 2023 recruitment flyer"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/flyer_intern_panel.webp")}
+							srcPng={require("./assets/cases/TSE/flyer_intern_panel.png")}
+							alt="intern panel flyer"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/instagram_social_events.webp")}
+							srcPng={require("./assets/cases/TSE/instagram_social_events.png")}
+							alt="social events showcase instagram post"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/instagram_project_showcase.webp")}
+							srcPng={require("./assets/cases/TSE/instagram_project_showcase.png")}
+							alt="project showcase instagram post"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/instagram_member_highlight.webp")}
+							srcPng={require("./assets/cases/TSE/instagram_member_highlight.png")}
+							alt="member highlight instagram post"
+						/>,
 					]
 				},
 				{
@@ -443,11 +575,31 @@ export const cases = {
 					autoplay: true,
 					zoomable: true,
 					imgs: [
-						[require("./assets/cases/TSE/design_system_card.png"), "TSE design system: card"],
-						[require("./assets/cases/TSE/design_system_color.png"), "TSE design system: color"],
-						[require("./assets/cases/TSE/design_system_input.png"), "TSE design system: input"],
-						[require("./assets/cases/TSE/design_system_modal1.png"), "TSE design system: modal 1"],
-						[require("./assets/cases/TSE/design_system_modal2.png"), "TSE design system: modal 2"],
+						<Img
+							srcWebp={require("./assets/cases/TSE/design_system_card.webp")}
+							srcPng={require("./assets/cases/TSE/design_system_card.png")}
+							alt="TSE design system: card"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/design_system_color.webp")}
+							srcPng={require("./assets/cases/TSE/design_system_color.png")}
+							alt="TSE design system: color"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/design_system_input.webp")}
+							srcPng={require("./assets/cases/TSE/design_system_input.png")}
+							alt="TSE design system: input"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/design_system_modal1.webp")}
+							srcPng={require("./assets/cases/TSE/design_system_modal1.png")}
+							alt="TSE design system: modal 1"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/design_system_modal2.webp")}
+							srcPng={require("./assets/cases/TSE/design_system_modal2.png")}
+							alt="TSE design system: modal 2"
+						/>,
 					]
 				},
 				{
@@ -458,8 +610,16 @@ export const cases = {
 					autoplay: false,
 					zoomable: false,
 					imgs: [
-						[require("./assets/cases/TSE/merch_shirt.png"), "shirt merchandise"],
-						[require("./assets/cases/TSE/merch_sticker_variants.png"), "sticker variants"],
+						<Img
+							srcWebp={require("./assets/cases/TSE/merch_shirt.webp")}
+							srcPng={require("./assets/cases/TSE/merch_shirt.png")}
+							alt="shirt merchandise"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/TSE/merch_sticker_variants.webp")}
+							srcPng={require("./assets/cases/TSE/merch_sticker_variants.png")}
+							alt="sticker variants"
+						/>,
 					]
 				},
 				{
@@ -469,7 +629,11 @@ export const cases = {
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/TSE/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/TSE/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/TSE/thumbnail_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectTSE />,
@@ -491,7 +655,11 @@ export const cases = {
 				"Led the website redesign, preparing for app launch.",
 				"Conducted user researches to inform design decisions throughout the process.",
 			],
-			img: require("./assets/cases/CharmLife/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CharmLife/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/CharmLife/thumbnail_img.png")}
+				/>,
 		},
 		contentNAH: {
 			tldr: ["TL;DR",
@@ -500,7 +668,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectCharmLife />,
@@ -521,7 +689,11 @@ export const cases = {
 			brief: [
 				"Designed and delivered an Android app to facilitate connections between farmers and truckers in Bhutan, increasing farmers' access to markets and lowering transport costs.",
 			],
-			img: require("./assets/cases/LAK/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/LAK/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/LAK/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -530,7 +702,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectLAK />,
@@ -551,7 +723,11 @@ export const cases = {
 			brief: [
 				"Designed a volunteer hub to coordinate Make-A-Wish's diverse volunteer base, optimizing the wish-granting process to children with critical illnesses.",
 			],
-			img: require("./assets/cases/MAW/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/MAW/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/MAW/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -560,7 +736,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectMAW />,
@@ -583,7 +759,11 @@ export const cases = {
 				"Redesigned website, enhanced credibility, attracted a seed funding.",
 				"Produced social media posts 3x/week, increased likes by 50%.",
 			],
-			img: require("./assets/cases/MercuryAlert/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/MercuryAlert/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/MercuryAlert/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -593,7 +773,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectMercuryAlert />,
@@ -612,14 +792,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <Object3DCG />,
@@ -638,14 +818,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <Object2022Art />,
@@ -666,7 +846,11 @@ export const cases = {
 			brief: [
 				"Branded and prototyped for 4 digital products in 6 weeks, enabled a successful debut of the company's first virtual concert with 300k audience.",
 			],
-			img: require("./assets/cases/Bitsrealm/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/Bitsrealm/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/Bitsrealm/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -683,58 +867,78 @@ export const cases = {
 							<li>An control center for the artist during performance,</li>
 							<li>A mobile end interface for audience without VR device.</li>
 						</ol></P>
-						<Img
-							src={require("./assets/cases/Bitsrealm/four_websites_relationship.png")}
+						<Image
 							sizeId={1}
-							alt="4 website relationship"
 							caption="relationship between the 4 websites I designed for the virtual concert"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/Bitsrealm/four_websites_relationship.webp")}
+								srcPng={require("./assets/cases/Bitsrealm/four_websites_relationship.png")}
+								alt="4 website relationship"
+							/>
+						</Image>
 					</>],
 				],
 				[	// Solution
 					["Branding", <>
 						<P>For Bitsrealm whose ambition is in the metaverse, I aimed for the branding to convey a futuristic vibe. Therefore, I selected a color palette with dark gray as background and a with striking neon green as highlight. To add visual interest and prevent the background from feeling overly rigid, I incorporated a subtle glassmorphism texture. As requested by my supervisor, I maintained a minimalist style for both the colors and the typography.</P>
-						<Img
-							src={require("./assets/cases/Bitsrealm/branding.png")}
+						<Image
 							sizeId={0}
-							alt="branding guidlines including colors, typography, icons"
 							caption="the futuristic branding for Bitsrealm whose ambition is in the metaverse"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/Bitsrealm/branding.webp")}
+								srcPng={require("./assets/cases/Bitsrealm/branding.png")}
+								alt="branding guidlines including colors, typography, icons"
+							/>
+						</Image>
 						<P>In the following, I will elaborate on 3 features that I'm proud of. I'll begin with the navigation bar on the main company website, which promotes the virtual concert.</P>
 					</>],
 					["Main Website: Navigation", <>
 						<P>The navigation bar design for the main website prioritizes simplicity, precision, and efficiency, aiming to draw minimal attention compared to the page content.</P>
 						<P>The desktop version follows a conventional layout with the logo on the left and tabs on the right. All tab labels are kept concise, enabling users to quickly understand where they lead to. The "login" button stands out visually since it's an action rather than a webpage link.</P>
-						<Img
-							src={require("./assets/cases/Bitsrealm/navbar_desktop.png")}
+						<Image
 							sizeId={3}
-							alt="a detailed documentation of the desktop navigation bar and animation effects upon interaction"
 							caption="a detailed documentation I created for the desktop navigation bar, providing unambiguous guidance to devs"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/Bitsrealm/navbar_desktop.webp")}
+								srcPng={require("./assets/cases/Bitsrealm/navbar_desktop.png")}
+								alt="a detailed documentation of the desktop navigation bar and animation effects upon interaction"
+							/>
+						</Image>
 						<P>For the mobile version, I chose a hamburger menu instead of a bottom navigation bar to avoid cluttering with search engine elements or Android navigation buttons. While this may slightly impact discoverability, the three lines icon is widely recognized as the menu symbol among our tech-savvy target audience.</P>
 						<P>I maintained consistency in the highlight style for indicating the current page, but increased the weight to enhance visibility.</P>
 						<P>Secondary tabs were positioned below the header bar, featuring distinct visual layouts for two types of functions: "categorical" tabs for specific genres, and "navigational" tabs for different sections within a page. I carefully crafted these mobile navigation elements with scalability in mind.</P>
-						<Img
-							src={require("./assets/cases/Bitsrealm/navbar_mobile.png")}
+						<Image
 							sizeId={0}
-							alt="iterations of mobile navigation elements, from low-fidelity brainstorming to the final high-fidelity prototype"
 							caption="iteration process of mobile navigation"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/Bitsrealm/navbar_mobile.webp")}
+								srcPng={require("./assets/cases/Bitsrealm/navbar_mobile.png")}
+								alt="iterations of mobile navigation elements, from low-fidelity brainstorming to the final high-fidelity prototype"
+							/>
+						</Image>
 					</>],
 					["Ticketing Site: Ticket Card", <>
 						<P>The ticketing site would facilitate the audience in booking tickets for the virtual concert. Users could select their desired ticket type (e.g. VIP ticket) and proceed to confirm and make payment.</P>
 						<P>With usability in mind, I created two ticket card layouts to suit different scenarios: one focused on clarity and was used for ticket selection, while the other aimed for visual appeal and appeared on confirmation and post-purchase pages. In order to adhere to established conventions, I drew inspiration from existing event websites and flight ticket apps during the design process.</P>
-						<Img
-							src={require("./assets/cases/Bitsrealm/tickets_responsive_flow.png")}
+						<Image
 							sizeId={0}
-							alt="ticketing flow"
 							caption="ticketing flow showing the two layouts of ticket cards used in different cases"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/Bitsrealm/tickets_responsive_flow.webp")}
+								srcPng={require("./assets/cases/Bitsrealm/tickets_responsive_flow.png")}
+								alt="ticketing flow"
+							/>
+						</Image>
 						<P>Here is a prototype of the ticketing site, where you can explore upcoming virtual concerts, learn about the artists, and book tickets:</P>
 						<Prototype
 							src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D411%253A1897%26type%3Ddesign%26node-id%3D411-3294%26viewport%3D227%252C-123%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D411%253A3294%26mode%3Ddesign%26hide-ui%3D1"
@@ -752,13 +956,17 @@ export const cases = {
 						<P>To accommodate audience without VR devices, a mobile interface was created to allow them to enjoy and engage with the virtual concert on their phones.</P>
 						<P>I was really excited for the chance to design a game-like interface in landscape orientation, which presented unique challenges compared to traditional mobile app design. I did plenty of research and took into consideration factors such as thumb zones, bimanual interaction, and physical ergonomics of touch screen buttons during my design. The screen was divided into multiple areas based on thumb zones, and functions were allocated based on expected frequency of usage and potential simultaneous use.</P>
 						<P>Beyond designing on Figma using a laptop, I tested the interface on my own phone to ensure accurate and comfortable tapping experience.</P>
-						<Img
-							src={require("./assets/cases/Bitsrealm/function_thumb_zone_overlapping.png")}
+						<Image
 							sizeId={3}
-							alt="diagram showing the overlapping of important functions and easy-to-reach thumb zones"
 							caption="As seen in the mapping between the locations of interactable elements and thumb zones, the most crucial functions are also the easiest to reach."
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/Bitsrealm/function_thumb_zone_overlapping.webp")}
+								srcPng={require("./assets/cases/Bitsrealm/function_thumb_zone_overlapping.png")}
+								alt="diagram showing the overlapping of important functions and easy-to-reach thumb zones"
+							/>
+						</Image>
 						<P>Please play with the prototypes and see it for yourself!</P>
 						<Prototype
 							src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D562%253A7532%26type%3Ddesign%26node-id%3D562-9601%26viewport%3D342%252C226%252C0.05%26scaling%3Dcontain%26starting-point-node-id%3D562%253A9601%26mode%3Ddesign%26hide-ui%3D1"
@@ -782,7 +990,11 @@ export const cases = {
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/Bitsrealm/cover_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/Bitsrealm/cover_img.webp")}
+					srcPng={require("./assets/cases/Bitsrealm/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectBitsrealm />,
@@ -804,7 +1016,11 @@ export const cases = {
 				"Redesigned the dispatch system for Red Cross Tijuana.",
 				"Prioritized usability and information hierarchy, optimizing efficiency of limited EMS resources, bringing reliable health care to millions of citizens.",
 			],
-			img: require("./assets/cases/CruzRoja/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CruzRoja/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/CruzRoja/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -825,13 +1041,17 @@ export const cases = {
 							<li>Strengthen the integration between menus and the map.</li>
 						</ol></P>
 						<ExpandablePs prompt="View Full Features List" peekHeight="360px">
-							<Img
-								src={require("./assets/cases/CruzRoja/old_interface_feature_table.png")}
+							<Image
 								sizeId={0}
-								alt="a detailed table of features to keep, add, or remove on the interface"
 								caption="the list of all features and information to keep, add, and remove, based on the old interface"
 								zoomable={false}
-							/>
+							>
+								<Img
+									srcWebp={require("./assets/cases/CruzRoja/old_interface_feature_table.webp")}
+									srcPng={require("./assets/cases/CruzRoja/old_interface_feature_table.png")}
+									alt="a detailed table of features to keep, add, or remove on the interface"
+								/>
+							</Image>
 						</ExpandablePs>
 					</>],
 				],
@@ -840,32 +1060,44 @@ export const cases = {
 						<P>In the old design, the ambulances menu was long and cluttered, making it difficult for users to find what they needed.</P>
 						<P>Two solutions were considered: using auto-collapse accordions to limit expanded sections, or grouping elements into packs under multiple tabs. The second option was chosen to reduce interaction costs.</P>
 						<P>The ambulances menu was divided into two tabs: "ambulances" for frequently used ambulance states, and a "settings" tab for less commonly used filters. Ambulance states were simplified, condensed from over 10 states into 6.</P>
-						<Img
-							src={require("./assets/cases/CruzRoja/ambulances_menu_iterations.png")}
+						<Image
 							sizeId={4}
-							alt="ambulances menu iterations"
 							caption="ambulances menu iterations"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/CruzRoja/ambulances_menu_iterations.webp")}
+								srcPng={require("./assets/cases/CruzRoja/ambulances_menu_iterations.png")}
+								alt="ambulances menu iterations"
+							/>
+						</Image>
 						<P>We also designed some additional features to aid dispatchers in selecting ambulances, including a search bar, a filter for ambulance capabilities, and auto-ordering based on relevance, distance, and alphabetical order.</P>
-						<Img
-							src={require("./assets/cases/CruzRoja/ambulances_menu_semiautomation.png")}
+						<Image
 							sizeId={2}
-							alt="ambulances menu with search, filter, and auto-ordering"
 							caption="additional features to aid ambulance selection: search, filter, auto-ordering"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/CruzRoja/ambulances_menu_semiautomation.webp")}
+								srcPng={require("./assets/cases/CruzRoja/ambulances_menu_semiautomation.png")}
+								alt="ambulances menu with search, filter, and auto-ordering"
+							/>
+						</Image>
 					</>],
 					["Organize Dispatch Menu", <>
 						<P>The old dispatch menu was messy and impractical, but it held valuable ideas that could lead to useful functionalities.</P>
 						<P>We improved it by displaying dispatch details clearly, simplifying editing, and enabling timely instructions to EMTs via SNS messages.</P>
-						<Img
-							src={require("./assets/cases/CruzRoja/dispatch_menu_iterations.png")}
+						<Image
 							sizeId={0}
-							alt="dispatch menu iterations"
 							caption="Just like the river spirit in Spirited Away, our dispatch menu needed a deep clean."
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/CruzRoja/dispatch_menu_iterations.webp")}
+								srcPng={require("./assets/cases/CruzRoja/dispatch_menu_iterations.png")}
+								alt="dispatch menu iterations"
+							/>
+						</Image>
 						<P>Please play with the prototypes and see it for yourself!</P>
 						<Prototype
 							src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D0%253A1%26type%3Ddesign%26node-id%3D27-1500%26viewport%3D-16%252C106%252C0.13%26scaling%3Dscale-down%26starting-point-node-id%3D27%253A1500%26mode%3Ddesign%26hide-ui%3D1"
@@ -894,13 +1126,17 @@ export const cases = {
 						<P>The old interface lacked communication between the map and menus, which reduced efficiency.</P>
 						<P>To address this, we established a more direct mapping between menus and the map. Key information, such as ambulance names and availability, was made visible on the map surface. Key interactions, such as selecting and dispatching ambulances, were made possible directly on the map.</P>
 						<P>We also introduced waypoint pins and arrow routes, to provide additional context to an ambulance when it is selected from either the map or one of the menus. Again, all these improvements aimed to improve usability, efficiency, and provide a comprehensive view for dispatchers.</P>
-						<Img
-							src={require("./assets/cases/CruzRoja/map_popup_iterations.png")}
+						<Image
 							sizeId={0}
-							alt="map popup iterations"
 							caption="map popup before and after redesign"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/CruzRoja/map_popup_iterations.webp")}
+								srcPng={require("./assets/cases/CruzRoja/map_popup_iterations.png")}
+								alt="map popup iterations"
+							/>
+						</Image>
 					</>],
 				],
 				[	// Reflection
@@ -912,7 +1148,11 @@ export const cases = {
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/CruzRoja/cover_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CruzRoja/cover_img.webp")}
+					srcPng={require("./assets/cases/CruzRoja/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectCruzRoja />,
@@ -934,7 +1174,11 @@ export const cases = {
 				"Redesigned the website of ACM to attract potential members, reaching 1000+ student.",
 				"Produced graphic design and illustrations for external marketing and a Cookie Clicker game.",
 			],
-			img: require("./assets/cases/ACM/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/ACM/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/ACM/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -953,25 +1197,33 @@ export const cases = {
 							<li>Poorly worded buttons led to confusion as they set wrong expectations.</li>
 							<li>On a positive note, the aesthetic style of the old website was highly appreciated.</li>
 						</ul></P>
-						<Img
-							src={require("./assets/cases/ACM/feedback_wordcloud.png")}
+						<Image
 							sizeId={1}
-							alt="wordcloud with interview feedback"
 							caption="feedback from the initial user research"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ACM/feedback_wordcloud.webp")}
+								srcPng={require("./assets/cases/ACM/feedback_wordcloud.png")}
+								alt="wordcloud with interview feedback"
+							/>
+						</Image>
 						<P>Based on these feedback, we established key principles for the redesign:<ul>
 							<li>Enhance website content with specific and descriptive information.</li>
 							<li>Refine the buttons and restructure the website for an intuitive user flow.</li>
 							<li>Preserve the widely appreciated rainbow + white style.</li>
 						</ul></P>
-						<Img
-							src={require("./assets/cases/ACM/userflow.png")}
+						<Image
 							sizeId={4}
-							alt="new userflow diagram"
 							caption="new userflow that we planned based on user feedback"
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ACM/userflow.webp")}
+								srcPng={require("./assets/cases/ACM/userflow.png")}
+								alt="new userflow diagram"
+							/>
+						</Image>
 					</>],
 				],
 				[	// Solution
@@ -982,24 +1234,32 @@ export const cases = {
 						<P>In the old version of the website, ACM's sub-communities, such as AI, Hack, and Design, were presented merely as names without any additional context. Clicking on these names would redirect users to Discord channels, which our interviewees found unexpected and counterintuitive.</P>
 						<P>To address this issue, we introduced a "communities" tab. By using the plural term "communities", we prevented confusion with the existing "about us" page.</P>
 						<P>After gathering information about each sub-community, we organized them into an accordion list on the "communities" page. However, we noticed that the plain white background created a slight ambiguity in distinguishing one section from another. As a solution, we added a subtle detail to the design: By introducing a minimalistic color bar next to each section, we achieved clear differentiation between the sub-community sections, while maintaining a clean and polished style.</P>
-						<Img
-							src={require("./assets/cases/ACM/prototypes_communities.png")}
+						<Image
 							sizeId={4}
-							alt="low- to high-fidelity prototypes for the communities page"
 							caption=""
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ACM/prototypes_communities.webp")}
+								srcPng={require("./assets/cases/ACM/prototypes_communities.png")}
+								alt="low- to high-fidelity prototypes for the communities page"
+							/>
+						</Image>
 					</>],
 					["About Us", <>
 						<P>ACM had long recognized the importance of introducing its board members to website visitors. Our interviewees also expressed the desire to emphasize with real member faces on our website.</P>
 						<P>To effectively present the board members, we designed compact profile cards that summarized each member's name, title, and contact information. Additionally, considering the large size of ACM's board, we provided a filter functionality, allowing users to search for members from specific sub-communities. For the filter design, we decided to use rounded chips, which conveyed a youthful and approachable vibe, appealing to the target audience of ACM who were college students especially freshmen.</P>
-						<Img
-							src={require("./assets/cases/ACM/prototypes_about.png")}
+						<Image
 							sizeId={0}
-							alt="low- to high-fidelity prototypes for the about page"
 							caption=""
 							zoomable={false}
-						/>
+						>
+							<Img
+								srcWebp={require("./assets/cases/ACM/prototypes_about.webp")}
+								srcPng={require("./assets/cases/ACM/prototypes_about.png")}
+								alt="low- to high-fidelity prototypes for the about page"
+							/>
+						</Image>
 					</>],
 					["Communication With Devs", <>
 						<P>We held regular bi-weekly meetings with the development team and worked together to implement our design. These meetings were very helpful, both in terms of gaining valuable feedback, and enhancing our ability to effectively communicate design decisions.</P>
@@ -1020,16 +1280,71 @@ export const cases = {
 								"marginTop": "0",
 							}}
 							imgList={[
-								[require("./assets/cases/ACM/breadbaker_croissant.png"), "bread baker game illustration croissant cat"],
-								[require("./assets/cases/ACM/breadbaker_bun.png"), "bread baker game illustration bun cat"],
-								[require("./assets/cases/ACM/breadbaker_manager1.png"), "bread baker game illustration manager 1"],
-								[require("./assets/cases/ACM/breadbaker_manager2.png"), "bread baker game illustration manager 2"],
-								[require("./assets/cases/ACM/breadbaker_bagel.png"), "bread baker game illustration bagel cat"],
-								[require("./assets/cases/ACM/breadbaker_donut.png"), "bread baker game illustration donut cat"],
-								[require("./assets/cases/ACM/breadbaker_manager3.png"), "bread baker game illustration manager 3"],
-								[require("./assets/cases/ACM/breadbaker_muffin.png"), "bread baker game illustration muffin cat"],
-								[require("./assets/cases/ACM/breadbaker_pretzel.png"), "bread baker game illustration pretzel cat"],
-								[require("./assets/cases/ACM/breadbaker_manager4.png"), "bread baker game illustration manager 4"],
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_croissant.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_croissant.png")}
+									alt="bread baker game illustration croissant cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_bun.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_bun.png")}
+									alt="bread baker game illustration bun cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_small_round_breads.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_small_round_breads.png")}
+									alt="bread baker game illustration bun small round bread cats"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_manager1.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_manager1.png")}
+									alt="bread baker game illustration manager 1"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_manager2.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_manager2.png")}
+									alt="bread baker game illustration manager 2"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_bagel.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_bagel.png")}
+									alt="bread baker game illustration bagel cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_donut.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_donut.png")}
+									alt="bread baker game illustration donut cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_sandwich.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_sandwich.png")}
+									alt="bread baker game illustration sandwich cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_manager3.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_manager3.png")}
+									alt="bread baker game illustration manager 3"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_muffin.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_muffin.png")}
+									alt="bread baker game illustration muffin cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_pretzel.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_pretzel.png")}
+									alt="bread baker game illustration pretzel cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_toast.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_toast.png")}
+									alt="bread baker game illustration toast cat"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/ACM/breadbaker_manager4.webp")}
+									srcPng={require("./assets/cases/ACM/breadbaker_manager4.png")}
+									alt="bread baker game illustration manager 4"
+								/>,
 							]}
 						/>
 					],
@@ -1037,7 +1352,11 @@ export const cases = {
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/ACM/cover_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/ACM/cover_img.webp")}
+					srcPng={require("./assets/cases/ACM/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectACM />,
@@ -1058,7 +1377,11 @@ export const cases = {
 			brief: [
 				"Designed and prototyped an e-commerce fulfillment dashboard, featuring data visualization, message inbox, and comprehensive tracking of products, partners, and payments.",
 			],
-			img: require("./assets/cases/Atlas/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/Atlas/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/Atlas/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -1073,7 +1396,11 @@ export const cases = {
 					autoplay: false,
 					zoomable: false,
 					imgs: [
-						[require("./assets/cases/Atlas/branding_process.png"), "branding process"],
+						<Img
+							srcWebp={require("./assets/cases/Atlas/branding_process.webp")}
+							srcPng={require("./assets/cases/Atlas/branding_process.png")}
+							alt="branding process"
+						/>,
 					]
 				},
 				{
@@ -1084,14 +1411,46 @@ export const cases = {
 					autoplay: true,
 					zoomable: true,
 					imgs: [
-						[require("./assets/cases/Atlas/workflow_mindmap.png"), "workflow mindmap"],
-						[require("./assets/cases/Atlas/main_sketch.png"), "main tab sketch"],
-						[require("./assets/cases/Atlas/tracking_orders_sketch.png"), "orders tab sketch"],
-						[require("./assets/cases/Atlas/products_sketch.png"), "products tab sketch"],
-						[require("./assets/cases/Atlas/payment_sketch.png"), "payment tab sketch"],
-						[require("./assets/cases/Atlas/help_sketch.png"), "help tab sketch"],
-						[require("./assets/cases/Atlas/inbox_sketch1.png"), "inbox tab sketch 1"],
-						[require("./assets/cases/Atlas/inbox_sketch2.png"), "inbox tab sketch 2"],
+						<Img
+							srcWebp={require("./assets/cases/Atlas/workflow_mindmap.webp")}
+							srcPng={require("./assets/cases/Atlas/workflow_mindmap.png")}
+							alt="workflow mindmap"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/main_sketch.webp")}
+							srcPng={require("./assets/cases/Atlas/main_sketch.png")}
+							alt="main tab sketch"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/tracking_orders_sketch.webp")}
+							srcPng={require("./assets/cases/Atlas/tracking_orders_sketch.png")}
+							alt="orders tab sketch"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/products_sketch.webp")}
+							srcPng={require("./assets/cases/Atlas/products_sketch.png")}
+							alt="products tab sketch"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/payment_sketch.webp")}
+							srcPng={require("./assets/cases/Atlas/payment_sketch.png")}
+							alt="payment tab sketch"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/help_sketch.webp")}
+							srcPng={require("./assets/cases/Atlas/help_sketch.png")}
+							alt="help tab sketch"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/inbox_sketch1.webp")}
+							srcPng={require("./assets/cases/Atlas/inbox_sketch1.png")}
+							alt="inbox tab sketch 1"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/inbox_sketch2.webp")}
+							srcPng={require("./assets/cases/Atlas/inbox_sketch2.png")}
+							alt="inbox tab sketch 2"
+						/>,
 					]
 				},
 				{
@@ -1102,21 +1461,61 @@ export const cases = {
 					autoplay: true,
 					zoomable: true,
 					imgs: [
-						[require("./assets/cases/Atlas/main_1.png"), "main tab high-fidelity"],
-						[require("./assets/cases/Atlas/tracking_orders_1.png"), "orders tab high-fidelity 1"],
-						[require("./assets/cases/Atlas/tracking_orders_2.png"), "orders tab high-fidelity 2"],
-						[require("./assets/cases/Atlas/tracking_orders_3.png"), "orders tab high-fidelity 3"],
-						[require("./assets/cases/Atlas/products_1.png"), "products tab high-fidelity"],
-						[require("./assets/cases/Atlas/partners_1.png"), "partners tab high-fidelity"],
-						[require("./assets/cases/Atlas/payment_1.png"), "payment tab high-fidelity"],
-						[require("./assets/cases/Atlas/help_1.png"), "help tab high-fidelity"],
-						[require("./assets/cases/Atlas/inbox_1.png"), "inbox tab high-fidelity"],
+						<Img
+							srcWebp={require("./assets/cases/Atlas/main_1.webp")}
+							srcPng={require("./assets/cases/Atlas/main_1.png")}
+							alt="main tab high-fidelity"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/tracking_orders_1.webp")}
+							srcPng={require("./assets/cases/Atlas/tracking_orders_1.png")}
+							alt="orders tab high-fidelity 1"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/tracking_orders_2.webp")}
+							srcPng={require("./assets/cases/Atlas/tracking_orders_2.png")}
+							alt="orders tab high-fidelity 2"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/tracking_orders_3.webp")}
+							srcPng={require("./assets/cases/Atlas/tracking_orders_3.png")}
+							alt="orders tab high-fidelity 3"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/products_1.webp")}
+							srcPng={require("./assets/cases/Atlas/products_1.png")}
+							alt="products tab high-fidelity"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/partners_1.webp")}
+							srcPng={require("./assets/cases/Atlas/partners_1.png")}
+							alt="partners tab high-fidelity"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/payment_1.webp")}
+							srcPng={require("./assets/cases/Atlas/payment_1.png")}
+							alt="payment tab high-fidelity"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/help_1.webp")}
+							srcPng={require("./assets/cases/Atlas/help_1.png")}
+							alt="help tab high-fidelity"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Atlas/inbox_1.webp")}
+							srcPng={require("./assets/cases/Atlas/inbox_1.png")}
+							alt="inbox tab high-fidelity"
+						/>,
 					]
 				},
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/Atlas/cover_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/Atlas/cover_img.webp")}
+					srcPng={require("./assets/cases/Atlas/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectAtlas />,
@@ -1138,7 +1537,11 @@ export const cases = {
 				"Analyzed findings from patient research, therapist input, and literature review.",
 				"Conceptualized a haptics tamagotchi therapy putty, to motivate post-sroke recovery exercise.",
 			],
-			img: require("./assets/cases/RehaBuddy/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/RehaBuddy/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/RehaBuddy/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -1149,13 +1552,17 @@ export const cases = {
 				["Problem", <>
 					<P>Stroke occurs when blood supply to a part of the brain is interrupted, resulting in weakness and numbness in limbs, particularly among seniors. For upper-limb recovery, patients engage in exercises for months or even years. However, pain, boredom, and post-stroke depression can all impact adherence, despite the knowledge that recovery exercises are necessary.</P>
 					<P>While these exercises cannot be avoided, maybe we can enhance motivation with a device that detects recovery progress and provides encouraging feedback? This led me to conceptualize RehaBuddy, a haptics and musical therapy putty.</P>
-					<Img
-						src={require("./assets/cases/RehaBuddy/storyboard2.png")}
+					<Image
 						sizeId={1}
-						alt="storyboard"
 						caption="A bit of additional motivation might help stroke patients in persevering through their recovery journey."
 						zoomable={false}
-					/>
+					>
+						<Img
+							srcWebp={require("./assets/cases/RehaBuddy/storyboard2.webp")}
+							srcPng={require("./assets/cases/RehaBuddy/storyboard2.png")}
+							alt="storyboard"
+						/>
+					</Image>
 				</>],
 				["Research", <>
 					<P>
@@ -1164,13 +1571,17 @@ export const cases = {
 						<li>Responsive technologies are often costly and rely on laptops, which are unportable and pose difficulties for many elderly individuals to adapt to.</li>
 						<li>Recovery curriculums, though fun and affordable, require therapist supervision, which reduces accessibility especially for patients that have moved out of hospital and started at-home recovery.</li></ul>
 					</P>
-					<Img
-						src={require("./assets/cases/RehaBuddy/storyboard1.png")}
+					<Image
 						sizeId={1}
-						alt="a storyboard early on"
 						caption="One of the earlier ideas was to integrate music instrument with some rehabilitation gadget."
 						zoomable={false}
-					/>
+					>
+						<Img
+							srcWebp={require("./assets/cases/RehaBuddy/storyboard1.webp")}
+							srcPng={require("./assets/cases/RehaBuddy/storyboard1.png")}
+							alt="a storyboard early on"
+						/>
+					</Image>
 					<P>
 						Therefore, my objective was to find a solution that:
 						<ul><li>Offers greater affordability.</li>
@@ -1180,24 +1591,32 @@ export const cases = {
 					<P>
 						Besides, I took my mentor's advice to read the works of <A href="https://neuroscience.stanford.edu/people/caitlyn-seim">Professor Caitlyn Seim</A> from Stanford University, which greatly inspired me.
 					</P>
-					<Img
-						src={require("./assets/cases/RehaBuddy/sketch1.png")}
+					<Image
 						sizeId={3}
-						alt="brainstorming sketches"
 						caption="a piece of sketch from the brainstorming stage"
 						zoomable={false}
-					/>
+					>
+						<Img
+							srcWebp={require("./assets/cases/RehaBuddy/sketch1.webp")}
+							srcPng={require("./assets/cases/RehaBuddy/sketch1.png")}
+							alt="brainstorming sketches"
+						/>
+					</Image>
 				</>],
 				["Design", <>
 					<P>My proposed solution is RehaBuddy, a handheld device for performing recovery exercises. Equipped with built-in sensors, RehaBuddy detects user movement. When you squeeze its surface or practice shoulder and elbow movements, the device's touch sensors and gyroscope recognize your exercises. To celebrate your progress, RehaBuddy emits enjoyable sounds and provides vibration feedback.</P>
 					<P>As a motivation strategy, RehaBuddy operates similarly to a tamagotchi pet. Regular and proper practice with RehaBuddy leads to its growth and enhanced feedback. However, if you neglect practice for too long, the pet might "become sad", resulting in reduced feedback. In other words, the feedback level declines, and you will need to start over if you pause for an extended period of time.</P>
-					<Img
-						src={require("./assets/cases/RehaBuddy/sketch2.png")}
+					<Image
 						sizeId={0}
-						alt="concept sketches"
 						caption="a draft of the RehaBuddy concept"
 						zoomable={false}
-					/>
+					>
+						<Img
+							srcWebp={require("./assets/cases/RehaBuddy/sketch2.webp")}
+							srcPng={require("./assets/cases/RehaBuddy/sketch2.png")}
+							alt="concept sketches"
+						/>
+					</Image>
 					<ExpandablePs prompt="Read More Design Details">
 						<P>The feedback provided by RehaBuddy is diverse. Based on research indicating that unpredictability contributes to motivation, RehaBuddy incorporates unpredictable changes into its feedback mechanism.</P>
 						<P>Unlike a traditional tamagotchi, you cannot see a visual representation of your digital pet. However, as mentioned earlier, you can hear and feel it during your recovery exercises.</P>
@@ -1207,13 +1626,17 @@ export const cases = {
 				</>],
 				["About \"Motivation\"", <>
 					<P>In order to further evaluate the feasibility of RehaBuddy, I conducted interviews with therapists and stroke patients. One crucial point emphasized by the therapists was the potential risks associated with the concept of "motivation" in the field of stroke recovery. There are instances where stroke patients are unable to achieve certain physical goals, despite their strong desire to do so. Therefore, it is important to avoid making hasty judgments about the patient's motivation or labeling them as unmotivated, as such actions can have detrimental effects. This valuable insight provided me with a new perspective, based on which I refined the target user group of RehaBuddy to focus on individuals who have already been discharged from the hospital and have started home-based recovery, yet struggle to persevere. My product aims to serve as an external source of motivation when giving up seems tempting, and persistence becomes challenging.</P>
-					<Img
-						src={require("./assets/cases/RehaBuddy/sketch3.png")}
+					<Image
 						sizeId={3}
-						alt="potential implementation sketches"
 						caption="some of my naive ideas of potential implementation"
 						zoomable={false}
-					/>
+					>
+						<Img
+							srcWebp={require("./assets/cases/RehaBuddy/sketch3.webp")}
+							srcPng={require("./assets/cases/RehaBuddy/sketch3.png")}
+							alt="potential implementation sketches"
+						/>
+					</Image>
 				</>],
 				["Reflection", <>
 					<P>RehaBuddy was only a conceptual design based on theoretical knowledge from interviews and literature reviews. A number of challenges remain to be addressed before it can be realized, including:
@@ -1224,7 +1647,11 @@ export const cases = {
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/RehaBuddy/cover_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/RehaBuddy/cover_img.webp")}
+					srcPng={require("./assets/cases/RehaBuddy/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectRehaBuddy />,
@@ -1245,7 +1672,11 @@ export const cases = {
 			brief: [
 				"Led the design of a menstrual care bag, promoting health and wellness of women in Pune, India.",
 			],
-			img: require("./assets/cases/PadPal/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/PadPal/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/PadPal/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -1254,7 +1685,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectPadPal />,
@@ -1273,7 +1704,11 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/GroupReads/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/GroupReads/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/GroupReads/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -1282,7 +1717,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectGroupReads />,
@@ -1301,14 +1736,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <Object2021Art />,
@@ -1329,7 +1764,11 @@ export const cases = {
 			brief: [
 				"Proposed a buy-1-give-1 model to help small restaurants and homeless individuals survive the outbreak of Covid-19. Collaborated with a multi-disciplinary, multi-generational team to develop the solution.",
 			],
-			img: require("./assets/cases/ThriveSD/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/ThriveSD/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/ThriveSD/thumbnail_img.png")}
+				/>,
 		},
 		contentNAH: {
 			tldr: ["TL;DR",
@@ -1338,7 +1777,7 @@ export const cases = {
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectThriveSD />,
@@ -1359,7 +1798,11 @@ export const cases = {
 			brief: [
 				"Illustrated for popular science articles on neuroscience and cognitive science, engaging 500k online readers.",
 			],
-			img: require("./assets/cases/Neureality/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/Neureality/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/Neureality/thumbnail_img.png")}
+				/>,
 		},
 		content: {
 			tldr: ["TL;DR",
@@ -1375,12 +1818,36 @@ export const cases = {
 					autoplay: false,
 					zoomable: true,
 					imgs: [
-						[require("./assets/cases/Neureality/rat_1_crystal_skull.jpeg"), "crystal skull rat"],
-						[require("./assets/cases/Neureality/rat_2_tetrode_recording.jpeg"), "tetrode recording rat"],
-						[require("./assets/cases/Neureality/the_blind_man_and_the_elephants.jpeg"), "the blind man and the elephants"],
-						[require("./assets/cases/Neureality/eeg_1.png"), "EEG illustration 1"],
-						[require("./assets/cases/Neureality/eeg_2.png"), "EEG illustration 2"],
-						[require("./assets/cases/Neureality/sacculina_carcini.png"), "sacculina carcini in crab"],
+						<Img
+							srcWebp={require("./assets/cases/Neureality/rat_1_crystal_skull.webp")}
+							srcJpeg={require("./assets/cases/Neureality/rat_1_crystal_skull.jpeg")}
+							alt="crystal skull rat"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/rat_2_tetrode_recording.webp")}
+							srcJpeg={require("./assets/cases/Neureality/rat_2_tetrode_recording.jpeg")}
+							alt="tetrode recording rat"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/the_blind_man_and_the_elephants.webp")}
+							srcJpeg={require("./assets/cases/Neureality/the_blind_man_and_the_elephants.jpeg")}
+							alt="the blind man and the elephants"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/eeg_1.webp")}
+							srcPng={require("./assets/cases/Neureality/eeg_1.png")}
+							alt="EEG illustration 1"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/eeg_2.webp")}
+							srcPng={require("./assets/cases/Neureality/eeg_2.png")}
+							alt="EEG illustration 2"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/sacculina_carcini.webp")}
+							srcPng={require("./assets/cases/Neureality/sacculina_carcini.png")}
+							alt="sacculina carcini in crab"
+						/>,
 					]
 				},
 				{
@@ -1392,14 +1859,46 @@ export const cases = {
 					autoplay: true,
 					zoomable: false,
 					imgs: [
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_1_1.png"), "comic character design sketches"],
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_1_2.png"), "comic character design sketches"],
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_2.png"), "comic illustration style variants"],
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_3_1.png"), "comic character design variants 1"],
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_3_2.png"), "comic character design variants 2"],
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_3_3.png"), "comic character design variants 3"],
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_4.png"), "Tachie of the finalized character design"],
-						[require("./assets/cases/Neureality/loneliness_comic_character_design_5.jpeg"), "illustration to communicate the intended vibe of the character"],
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_1_1.webp")}
+							srcPng={require("./assets/cases/Neureality/loneliness_comic_character_design_1_1.png")}
+							alt="comic character design sketches"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_1_2.webp")}
+							srcPng={require("./assets/cases/Neureality/loneliness_comic_character_design_1_2.png")}
+							alt="comic character design sketches"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_2.webp")}
+							srcPng={require("./assets/cases/Neureality/loneliness_comic_character_design_2.png")}
+							alt="comic illustration style variants"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_3_1.webp")}
+							srcPng={require("./assets/cases/Neureality/loneliness_comic_character_design_3_1.png")}
+							alt="comic character design variants 1"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_3_2.webp")}
+							srcPng={require("./assets/cases/Neureality/loneliness_comic_character_design_3_2.png")}
+							alt="comic character design variants 2"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_3_3.webp")}
+							srcPng={require("./assets/cases/Neureality/loneliness_comic_character_design_3_3.png")}
+							alt="comic character design variants 3"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_4.webp")}
+							srcPng={require("./assets/cases/Neureality/loneliness_comic_character_design_4.png")}
+							alt="Tachie of the finalized character design"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/Neureality/loneliness_comic_character_design_5.webp")}
+							srcJpeg={require("./assets/cases/Neureality/loneliness_comic_character_design_5.jpeg")}
+							alt="illustration to communicate the intended vibe of the character"
+						/>,
 					]
 				},
 			]],
@@ -1424,14 +1923,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectCellInTheSpace />,
@@ -1450,14 +1949,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <Object2020Art />,
@@ -1476,14 +1975,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectGaokaoFighting />,
@@ -1502,14 +2001,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <Object2DCG />,
@@ -1528,14 +2027,14 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		content: {
 			tldr: null,
 			body: ["challenge-solution", []],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/_case/_img.png"),
+			//img: require("./assets/cases/_case/_img.png"),
 		},
 		theme: {
 			object: <ObjectKaonashiRobot />,
@@ -1557,7 +2056,11 @@ export const cases = {
 				"Led a team of 4, designed the mascot for Chinese Union.",
 				"Iterated design according to bi-weekly discussion with executive board.",
 			],
-			img: require("./assets/cases/CU/thumbnail_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CU/thumbnail_img.webp")}
+					srcPng={require("./assets/cases/CU/thumbnail_img.png")}
+				/>,
 		},
 		contentNAH: {
 			tldr: ["TL;DR",
@@ -1572,9 +2075,21 @@ export const cases = {
 					autoplay: false,
 					zoomable: false,
 					imgs: [
-						[require("./assets/cases/CU/mascot_draft_to_final.gif"), "mascot process from sketch to final turnarounds"],
-						[require("./assets/cases/CU/mascot_coloring.gif"), "mascot coloring trials"],
-						[require("./assets/cases/CU/mascot_drafts.png"), "mascot initial pencil sketches"],
+						<Gif
+							srcWebm={require("./assets/cases/CU/mascot_draft_to_final.webm")}
+							srcMov={require("./assets/cases/CU/mascot_draft_to_final.mov")}
+							alt="mascot process from sketch to final turnarounds"
+						/>,
+						<Gif
+							srcWebm={require("./assets/cases/CU/mascot_coloring.webm")}
+							srcMov={require("./assets/cases/CU/mascot_coloring.mov")}
+							alt="mascot coloring trials"
+						/>,
+						<Img
+							srcWebp={require("./assets/cases/CU/mascot_drafts.webp")}
+							srcPng={require("./assets/cases/CU/mascot_drafts.png")}
+							alt="mascot initial pencil sketches"
+						/>
 					]
 				},
 				{
@@ -1585,13 +2100,21 @@ export const cases = {
 					autoplay: false,
 					zoomable: false,
 					imgs: [
-						[require("./assets/cases/CU/poster_earthday.png"), "Earth Day poster"],
+						<Img
+							srcWebp={require("./assets/cases/CU/poster_earthday.webp")}
+							srcPng={require("./assets/cases/CU/poster_earthday.png")}
+							alt="Earth Day poster"
+						/>,
 					]
 				},
 			]],
 			evidence: [],
 			credits: [],
-			img: require("./assets/cases/CU/cover_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CU/cover_img.webp")}
+					srcPng={require("./assets/cases/CU/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectCU />,

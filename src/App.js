@@ -8,7 +8,8 @@ import './_style.scss';
 /* Foreign Components */
 import Home from './Home.js';
 import CaseSteamer from './Case.js';
-import PNFLight from "./assets/basic/404/img_light.png";	import PNFDark from "./assets/basic/404/img_dark.png";
+import { Img } from "./components.js";
+import PNFWebpLight from "./assets/basic/404/img_light.webp";	import PNFWebpDark from "./assets/basic/404/img_dark.webp";	import PNFPngLight from "./assets/basic/404/img_light.png";	import PNFPngDark from "./assets/basic/404/img_dark.png";
 
 /* Libraries */
 import { isSafari, isIE } from "react-device-detect";
@@ -211,9 +212,10 @@ export function PageNotFound () {
 					<span className={"pnf-hint-dot " + (dot3Shown==true ? "shown" : "")}>.</span>
 				</div>
 			</div>
-			<img
+			<Img
 				className="pnf-img"
-				src={currMode.mode==true ? PNFLight : PNFDark}
+				srcWebp={currMode.mode==true ? PNFWebpLight : PNFWebpDark}
+				srcPng={currMode.mode==true ? PNFPngLight : PNFPngDark}
 				alt=""
 			/>
 		</div>

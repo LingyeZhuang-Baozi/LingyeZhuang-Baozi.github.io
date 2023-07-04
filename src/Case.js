@@ -5,10 +5,10 @@ import { useParams, useLocation } from "react-router-dom";
 import './Case.scss';
 
 /* Foreign Components */
-import { btns, images } from './assets.js';
+import { btns, /*images*/ } from './assets.js';
 import { cases, casesNames, bioStructure } from './cases.js';
 import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
-import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img, ImgGallery, ScrollableMobile, ScrollableDesktop } from "./components.js";
+import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, ImgGallery, ScrollableMobile, ScrollableDesktop } from "./components.js";
 
 /* Important Assets */
 import { ReactComponent as OpenExternal } from "./assets/basic/hintblobs/open_external.svg";
@@ -156,11 +156,7 @@ function Header ({singleLinePrompt}) {
 	/* Render */
 	return (
 		<div className="case-header">
-			<img
-				className="case-header-img"
-				src={caseContent.content.img}
-				alt=""
-			/>
+			{caseContent.content.img ? caseContent.content.img : null}
 			<div className="case-header-title">{caseContent.title}</div>
 			<div className="case-header-bio-container">
 				<div className="case-header-bio">
