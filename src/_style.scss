@@ -53,11 +53,32 @@
 	$time-inf: 100000ms;
 
 	/* Font family */
-	@font-face { font-family: "DelaGothicOne"; src: url("./assets/basic/fonts/DelaGothicOne.ttf"); }
-	@font-face { font-family: "SukhumvitSet"; src: url("./assets/basic/fonts/SukhumvitSet-Text.ttf"); }
-	@font-face { font-family: "SukhumvitSet-Light"; src: url("./assets/basic/fonts/SukhumvitSet-Light.ttf"); }
-	@font-face { font-family: "SukhumvitSet-Bold"; src: url("./assets/basic/fonts/SukhumvitSet-Bold.ttf"); }
-	@font-face { font-family: "EmojiOneBW"; src: url("./assets/basic/fonts/EmojiOneBW.otf"); }
+	//@font-face { font-family: "DelaGothicOne"; src: url("./assets/basic/fonts/DelaGothicOne.ttf"); }
+	@font-face { font-family: "DelaGothicOne"; src:
+		local("DelaGothicOne"),
+		url("./assets/basic/fonts/DelaGothicOne.woff2") format("woff2"),
+		url("./assets/basic/fonts/DelaGothicOne.woff") format("woff"),
+		url("./assets/basic/fonts/DelaGothicOne.ttf") format("opentype"); }
+	@font-face { font-family: "SukhumvitSet"; src:
+		local("SukhumvitSet-Text"),
+		url("./assets/basic/fonts/SukhumvitSet-Text.woff2") format("woff2"),
+		url("./assets/basic/fonts/SukhumvitSet-Text.woff") format("woff"),
+		url("./assets/basic/fonts/SukhumvitSet-Text.ttf") format("opentype"); }
+	@font-face { font-family: "SukhumvitSet-Light"; src:
+		local("SukhumvitSet-Light"),
+		url("./assets/basic/fonts/SukhumvitSet-Light.woff2") format("woff2"),
+		url("./assets/basic/fonts/SukhumvitSet-Light.woff") format("woff"),
+		url("./assets/basic/fonts/SukhumvitSet-Light.ttf") format("opentype"); }
+	@font-face { font-family: "SukhumvitSet-Bold"; src:
+		local("SukhumvitSet-Bold"),
+		url("./assets/basic/fonts/SukhumvitSet-Bold.woff2") format("woff2"),
+		url("./assets/basic/fonts/SukhumvitSet-Bold.woff") format("woff"),
+		url("./assets/basic/fonts/SukhumvitSet-Bold.ttf") format("opentype"); }
+	@font-face { font-family: "EmojiOneBW"; src:
+		local("EmojiOneBW"),
+		url("./assets/basic/fonts/EmojiOneBW.woff2") format("woff2"),
+		url("./assets/basic/fonts/EmojiOneBW.woff") format("woff"),
+		url("./assets/basic/fonts/EmojiOneBW.otf") format("opentype"); }
 	$font-serif: "DelaGothicOne", Georgia, Times, "Times New Roman", serif;
 	$font-sans-serif: "SukhumvitSet-Text", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	$font-sans-serif-light: "SukhumvitSet-Light", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
