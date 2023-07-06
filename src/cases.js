@@ -26,6 +26,7 @@
  *				color?: [<color-bg-light>(str), <color-title-light>(str), <color-bg-dark>(str), <color-title-dark>(str)],
  *				template?: <template-id | 0, 1, 2>(int),
  *			},
+ *			guarded: (bool),
  *			next: <next_case_id>(str),
  *		},
  *		... : {...}
@@ -180,6 +181,7 @@ export const cases = {
 			color: ["#F7EEE5", "#004750", "#253745", "#B7D3DE"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -334,6 +336,7 @@ export const cases = {
 			color: ["#EBF0FF", "#463EC7", "#302D5D", "#BBCBFF"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -456,6 +459,7 @@ export const cases = {
 			color: ["#FFEDD5", "#7C0F31", "#641F15", "#FBC477"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -490,6 +494,7 @@ export const cases = {
 			color: ["#DCF7FF", "#00455D", "#00455D", "#8EE2FF"],
 			template: 0,
 		},
+		guarded: true,
 		next: "",
 	},
 
@@ -640,6 +645,7 @@ export const cases = {
 			color: ["#FCF6E5", "#0C2B35", "#0C2B35", "#DEBB01"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -675,6 +681,7 @@ export const cases = {
 			color: ["#FFEAE9", "#532C00", "#323337", "#FFB6B5"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -709,6 +716,7 @@ export const cases = {
 			color: ["#FFEAE9", "#900C08", "#900C08", "#FFB6B4"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -743,6 +751,7 @@ export const cases = {
 			color: ["#E6F2FF", "#003E83", "#003E83", "#ACD3FF"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -780,6 +789,7 @@ export const cases = {
 			color: ["#E0F5FF", "#054260", "#004465", "#A3D7FF"],
 			template: 0,
 		},
+		guarded: true,
 		next: "",
 	},
 
@@ -806,6 +816,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -832,6 +843,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1001,6 +1013,7 @@ export const cases = {
 			color: ["#D9FFDD", "#333333", "#333333", "#95F19E"],
 			template: 0,
 		},
+		guarded: true,
 		next: "",
 	},
 
@@ -1159,6 +1172,7 @@ export const cases = {
 			color: ["#EBF1F7", "#003B92", "#323334", "#B1D0FF"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1363,6 +1377,7 @@ export const cases = {
 			color: ["#CDFFFF", "#003F7F", "#003F7F", "#7EEDED"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1522,6 +1537,7 @@ export const cases = {
 			color: ["#EEEEFC", "#28305F", "#333238", "#C1C9F8"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1658,6 +1674,7 @@ export const cases = {
 			color: ["#FFEED0", "#00484B", "#303337", "#78EFF3"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1692,6 +1709,7 @@ export const cases = {
 			color: ["#FFECDB", "#8C0F00", "#572A00", "#FFB8AF"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1724,6 +1742,7 @@ export const cases = {
 			color: ["#F8ECF0", "#09444D", "#09444D", "#EEBFB5"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1750,6 +1769,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1784,6 +1804,7 @@ export const cases = {
 			color: ["#FFEAEA", "#183E3E", "#AA0000", "#B1D7D7"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1911,6 +1932,7 @@ export const cases = {
 			color: ["#CEFFFD", "#333331", "#333331", "#87EAE5"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1937,6 +1959,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1963,6 +1986,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -1989,6 +2013,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -2015,6 +2040,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -2041,6 +2067,7 @@ export const cases = {
 			//color: ["#???", "#???", "#???", "#???"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 
@@ -2121,6 +2148,7 @@ export const cases = {
 			color: ["#FFEAE9", "#791611", "#791611", "#FFB7B3"],
 			template: 0,
 		},
+		guarded: false,
 		next: "",
 	},
 

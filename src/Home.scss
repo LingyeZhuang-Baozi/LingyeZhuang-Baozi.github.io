@@ -374,7 +374,7 @@
 	.home-hero-mypic {
 		opacity: 1;
 		position: absolute;
-		width: 120%;
+		width: 120% !important;
 		transform: translate(-45%,-40%);
 		left: 50%;
 		top: 50%;
@@ -817,7 +817,7 @@
 	}
 
 	@keyframes home-case-img-container-active {
-		0% { overflow: hidden;; }
+		0% { overflow: hidden; }
 		99.999% { overflow: visible; }
 		100% { overflow: visible; }
 	}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, createContext, useContext } from 'react';
+import React, { useState, useEffect, useReducer, createContext, useContext, useRef } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 //import { HashLink } from 'react-router-hash-link';
 
@@ -33,6 +33,10 @@ export default function CaseSteamer () {
 		else { return false; }
 	}
 
+	/* Guard */
+	const [guarded, setGuarded] = useState(cases[caseId].guarded);
+	const guardOff = () => { setGuarded(false); }
+
 	/* Restore Scroll */	// TODO: better solution! key didn't work??
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -45,14 +49,97 @@ export default function CaseSteamer () {
 	}, []);
 
 	/* Render */
-	return (
-		<>{URLValidator() == false ?
-			<PageNotFound />
-		:
+	if (URLValidator() == false) {
+		return ( <PageNotFound /> );
+	} else if (guarded == true) {
+		return ( <CaseGuard guardOff={guardOff} /> );
+	} else {
+		return (
 			<caseIdContext.Provider value={caseId}>
 				<Case />
 			</caseIdContext.Provider>
-		}</>
+		);
+	}
+}
+
+function CaseGuard ({guardOff}) {
+
+	/* Handle Input */
+	const [approved, setApproved] = useState(false);
+	const [knockAttempt, setKnockAttempt] = useState("");
+	const observeInput = (e) => {
+		setKnockAttempt(e.target.value.toLowerCase());
+	}
+	useEffect(() => {
+		if (knockAttempt == "dumpling") {	// Yes, you found it 😂 Thank you for all the efforts. Go ahead and use this to view my hidden cases. You deserve it.
+			setApproved(true);
+			setTimeout(() => {
+				guardOff();
+			}, 550); // $time-l 540ms with a bit of extra
+		}
+	}, [knockAttempt]);
+
+	/* Maintain Focus */
+	const inputRef = useRef(null);
+	const toFocus = () => { inputRef.current.focus(); }
+	useEffect(() => { toFocus(); }, []);	// auto focus
+
+	/* Render */
+	const underlines = [];
+	for (let i = 0; i < 8; i++) {
+		underlines.push(
+			<div className={
+				"case-guard-input-underline " +
+				(i === knockAttempt.length ? "curr" : "")
+			}></div>
+		);
+	}
+	return (
+		<div className="case-guard-container">
+			<div className="case-control">
+				<div className="control-leftgroup">
+					<Logo
+						linkTo="/"
+						hintblob={btns.case.control.gohome.hintblob}
+					/>
+				</div>
+			</div>
+			<div className={
+				"case-guard " +
+				(knockAttempt == "" ? "empty" : "") + " " +
+				(approved ? "approved" : "")
+			}>
+				<input
+					ref={inputRef}
+					className="case-guard-input-back"
+					name="case-guard-input"
+					type="text"
+					autocomplete="off"
+					maxLength="8"
+					value={knockAttempt}
+					onChange={observeInput}
+					onBlur={toFocus}
+				/>
+				<div className="case-guard-input-underlines">
+					{underlines}
+				</div>
+				<div className="case-guard-input-front">
+					{knockAttempt == "" ?
+						<>{
+							"password".split('').map((char, idx) =>
+								<span key={idx}>{char}</span>
+							)
+						}</>
+					:
+						<>{
+							knockAttempt.split('').map((char, idx) =>
+								<span key={idx}>{char}</span>
+							)
+						}</>
+					}
+				</div>
+			</div>
+		</div>
 	);
 }
 

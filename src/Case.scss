@@ -47,6 +47,15 @@
 
 
 
+	/* Case */
+
+	%case {
+		display: flex;
+		flex-direction: column;
+		padding: $case-padding 0;
+		overflow: hidden;
+	}
+
 	.case-control {
 		@extend %control;
 		position: fixed;
@@ -56,17 +65,6 @@
 		div {
 			pointer-events: auto;
 		}
-	}
-
-
-
-	/* Case */
-
-	%case {
-		display: flex;
-		flex-direction: column;
-		padding: $case-padding 0;
-		overflow: hidden;
 	}
 
 	/* Header */
@@ -336,6 +334,104 @@
 		flex-direction: column;
 		align-items: flex-start;
 		gap: $case-body-section-paragraph-gap;
+	}
+
+
+
+	/* Guard */
+	$case-guard-top: $spacing-10;
+	$case-guard-input-char-num: 8;
+	$case-guard-input-char-width: $spacing-8;
+	$case-guard-input-char-gap: $spacing-5;
+	$case-guard-width: $case-guard-input-char-num * $case-guard-input-char-width + ($case-guard-input-char-num - 1) * $case-guard-input-char-gap;
+	$case-guard-input-color: $color-xihongshi;
+	$case-guard-approved-input-color: $color-lvsongshi;
+	$case-guard-placeholder-color-light: $color-gray5-E3;
+	$case-guard-placeholder-color-dark: $color-gray2-66;
+	$case-guard-underline-height: $border-width-xl;
+	$case-guard-underline-color-light: $color-lanlv;
+	$case-guard-underline-color-dark: $color-gray1-33;
+	$case-guard-underline-curr-blink-time: $time-sec linear $time-sec infinite;
+
+	.case-guard-container {
+		width: 100%;
+	}
+
+	.case-guard {
+		display: block;
+		position: relative;
+		width: $case-guard-width;
+		margin: $case-guard-top auto 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		@extend %text-display;
+		text-transform: uppercase;
+	}
+
+	.case-guard-input-back {
+		width: $case-guard-width;
+		opacity: 0;
+		caret-color: transparent;
+	}
+
+	.case-guard-input-front {
+		position: absolute;
+		transform: translateY(-50%);
+		top: 50%;
+		left: 0;
+		align-self: stretch;
+		display: flex;
+		flex-direction: row;
+		gap: $case-guard-input-char-gap;
+		color: $case-guard-input-color !important;
+		pointer-events: none;
+	}
+
+	.case-guard-input-front span {
+		width: $case-guard-input-char-width;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.mode-light .case-guard.empty .case-guard-input-front { color: $case-guard-placeholder-color-light !important; }
+	.mode-dark .case-guard.empty .case-guard-input-front { color: $case-guard-placeholder-color-dark !important; }
+
+	.case-guard.approved .case-guard-input-front {
+		color: $case-guard-approved-input-color !important;
+	}
+
+	.case-guard-input-underlines {
+		position: absolute;
+		bottom: -1 * $case-guard-underline-height;
+		left: 0;
+		align-self: stretch;
+		display: flex;
+		flex-direction: row;
+		gap: $case-guard-input-char-gap;
+		pointer-events: none;
+	}
+
+	.case-guard-input-underline {
+		content: "";
+		width: $case-guard-input-char-width;
+		height: $case-guard-underline-height;
+		border-radius: $radius-inf;
+	}
+
+	.mode-light .case-guard-input-underline { background-color: $case-guard-underline-color-light; }
+	.mode-dark .case-guard-input-underline { background-color: $case-guard-underline-color-dark; }
+
+	@keyframes case-guard-underline-blink {
+		0% { opacity: 0; }
+		49.999% { opacity: 0; }
+		50% { opacity: 1; }
+		100% { opacity: 1; }
+	}
+	.case-guard-input-underline.curr {
+		animation: case-guard-underline-blink $case-guard-underline-curr-blink-time;
 	}
 
 
