@@ -344,6 +344,7 @@
 	$case-guard-input-char-width: $spacing-8;
 	$case-guard-input-char-gap: $spacing-5;
 	$case-guard-width: $case-guard-input-char-num * $case-guard-input-char-width + ($case-guard-input-char-num - 1) * $case-guard-input-char-gap;
+	$case-guard-height: 116px;
 	$case-guard-input-color: $color-xihongshi;
 	$case-guard-approved-input-color: $color-lvsongshi;
 	$case-guard-placeholder-color-light: $color-gray5-E3;
@@ -361,6 +362,7 @@
 		display: block;
 		position: relative;
 		width: $case-guard-width;
+		height: $case-guard-height;
 		margin: $case-guard-top auto 0;
 		display: flex;
 		flex-direction: row;
@@ -371,6 +373,7 @@
 
 	.case-guard-input-back {
 		width: $case-guard-width;
+		height: 100%;
 		opacity: 0;
 		caret-color: transparent;
 	}
@@ -390,6 +393,7 @@
 
 	.case-guard-input-front span {
 		width: $case-guard-input-char-width;
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

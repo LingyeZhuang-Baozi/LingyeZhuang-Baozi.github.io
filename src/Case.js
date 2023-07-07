@@ -88,10 +88,13 @@ function CaseGuard ({guardOff}) {
 	const underlines = [];
 	for (let i = 0; i < 8; i++) {
 		underlines.push(
-			<div className={
-				"case-guard-input-underline " +
-				(i === knockAttempt.length ? "curr" : "")
-			}></div>
+			<div
+				key={i}
+				className={
+					"case-guard-input-underline " +
+					(i === knockAttempt.length ? "curr" : "")
+				}
+			></div>
 		);
 	}
 	return (
@@ -114,7 +117,7 @@ function CaseGuard ({guardOff}) {
 					className="case-guard-input-back"
 					name="case-guard-input"
 					type="text"
-					autocomplete="off"
+					autoComplete="off"
 					maxLength="8"
 					value={knockAttempt}
 					onChange={observeInput}
