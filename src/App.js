@@ -17,6 +17,20 @@ import { isSafari, isIE } from "react-device-detect";
 
 
 
+/* Local Storage */
+const localStorageName = "lingye_juliet_zhuang_portfolio";
+const getLocalStorage = (idx) => {
+	return (localStorage.getItem(localStorageName)[idx] == "1" ? true : false);
+}
+const setLocalStorage = (idx, newValue) => {
+	const localStoragePrev = localStorage.getItem(localStorageName);
+	localStorage.setItem(localStorageName,
+		localStoragePrev.slice(0,idx) +
+		(newValue == true ? "1" : "0") +
+		localStoragePrev.slice(idx+1)
+	);
+}
+
 /* Mode Switch 1: Light-dark Mode */
 export const modeContext = createContext(null);
 export const dispatchModeContext = createContext(null);
@@ -24,8 +38,10 @@ function modeReducer (currState, modeAction) {
 	switch (modeAction.type) {
 		case "toggle": {
 			if (currState.changing==false) {
+				const newMode = !currState.mode;
+				setLocalStorage(0, newMode);
 				return ({
-					mode: !currState.mode,
+					mode: newMode,
 					changing: true,
 				});
 			} else {
@@ -50,10 +66,29 @@ export const dispatchLanguageContext = createContext(null);
 function languageReducer (currLanguage, languageAction) {
 	switch (languageAction.type) {
 		case "toggle": {
-			return (!currLanguage);
+			const newLanguage = !currLanguage;
+			setLocalStorage(1, newLanguage);
+			return (newLanguage);
 		}
 		default: {
 			console.error("Language switching error. Received languageAction:", languageAction);
+		}
+	}
+}
+
+/* Modal */
+//export const modalContext = createContext(null);
+export const dispatchModalContext = createContext(null);
+function modalReducer (currModal, modalAction) {
+	switch (modalAction.type) {
+		case "open": {
+			return ({state: true, content: modalAction.content});
+		}
+		case "close": {
+			return ({state: false, content: <></>});
+		}
+		default: {
+			console.error("Modal operation error. Received modalAction:", modalAction);
 		}
 	}
 }
@@ -65,6 +100,8 @@ function cursorTypeReducer (currCursorType, cursorTypeAction) {
 	switch (cursorTypeAction.type) {
 		case "default": { return ("default"); }
 		case "pointer": { return ("pointer"); }
+		case "zoom-in": { return ("zoom-in"); }
+		case "zoom-out": { return ("zoom-out"); }
 		case "progress": { return ("progress"); }
 		case "readmore": { return ("readmore"); }
 		case "none": { return ("none"); }
@@ -79,13 +116,22 @@ function cursorTypeReducer (currCursorType, cursorTypeAction) {
  */
 export default function App() {
 
+	/* Local Storage */
+	useEffect(() => {
+		if (localStorage && !localStorage.getItem(localStorageName)) {
+			localStorage.setItem(localStorageName, "11");
+				// [0] mode: 1 = true = light, 0 = false = dark
+				// [1] language: 1 = true = English, 0 = false = Chinese
+		}
+	}, []);
+
 	/* Mode Switch 1: Light-dark Mode */
 	/* TODO: Reference: https://blog.logrocket.com/dark-mode-react-in-depth-guide/ */
 	const [mode, dispatchMode] = useReducer(modeReducer, {
-		mode: true,	// true = light, false = dark
+		mode: localStorage && localStorage.getItem(localStorageName) ? getLocalStorage(0) : true,
 		changing: false,
 	});
-	useEffect (() => {
+	useEffect(() => {
 		if (mode.changing == true) {
 			setTimeout (() => {
 				dispatchMode({type: "changed"});
@@ -94,8 +140,29 @@ export default function App() {
 	}, [mode.changing]);
 
 	/* Mode Switch 2: Language */
-	const [language, dispatchLanguage] = useReducer(languageReducer, true);	// true = English, false = Chinese
+	const [language, dispatchLanguage] = useReducer(languageReducer,
+		localStorage && localStorage.getItem(localStorageName) ? getLocalStorage(1) : true,
+	);
 	useEffect(() => { document.documentElement.lang = (language==true ? "en" : "zh") }, [language]);
+
+	/* Modal */
+	const [modal, dispatchModal] = useReducer(modalReducer, {
+		state: false,	// true = on, false = off
+		content: <></>,
+	});
+	const closeModal = (e) => {
+		e.preventDefault();
+		dispatchModal({type: "close"});
+		dispatchCursorType({type: "default"});
+	}
+	const modalHoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "zoom-out"});
+	}
+	const modalHoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+	}
 
 	/* Cursor */
 	const [cursorType, dispatchCursorType] = useReducer(cursorTypeReducer, "default");
@@ -140,25 +207,45 @@ export default function App() {
 
 	/* Render */
 	return (
-		<div className={"groundfloor " +
-			"mode-" + (mode.mode==true ? "light" : "dark") + " " +
-			(mode.changing==true ? "mode-changing" : "") + " " +
-			"language-" + (language==true ? "en" : "cn") + " " +
-			(isSafari||isIE ? "missout-browser" : "")
-		}>
+		<div
+			className={"groundfloor " +
+				"mode-" + (mode.mode==true ? "light" : "dark") + " " +
+				(mode.changing==true ? "mode-changing" : "") + " " +
+				"language-" + (language==true ? "en" : "cn") + " " +
+				(modal.state==true ? "modal-on" : "") + " " +
+				(isSafari||isIE ? "missout-browser" : "")
+			}
+			onClick={(modal.state==true ? closeModal : null)}
+		>
 			<modeContext.Provider value={mode}>
 			<dispatchModeContext.Provider value={dispatchMode}>
 			<languageContext.Provider value={language}>
 			<dispatchLanguageContext.Provider value={dispatchLanguage}>
+			<dispatchModalContext.Provider value={dispatchModal}>
 			<cursorTypeContext.Provider value={cursorType}>
 			<dispatchCursorTypeContext.Provider value={dispatchCursorType}>
 				<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
 			</dispatchCursorTypeContext.Provider>
 			</cursorTypeContext.Provider>
+			</dispatchModalContext.Provider>
 			</dispatchLanguageContext.Provider>
 			</languageContext.Provider>
 			</dispatchModeContext.Provider>
 			</modeContext.Provider>
+
+			<div
+				className={
+					"modal-space " +
+					(modal.state==true ? "on" : "")
+				}
+				onMouseEnter={modalHoverStarts}
+				onMouseOver={modalHoverStarts}
+				onMouseLeave={modalHoverEnds}
+			>
+				<div className="modal">
+					{modal.content}
+				</div>
+			</div>
 
 			<div className="cursor-space-out"><div className="cursor-space-in">
 				<div

@@ -688,11 +688,11 @@ function ControlBar ({departed}) {
 						curr={currMode.mode}
 						updateHandler={modeUpdateHandler}
 					/>
-					{/*<ControlBarSwitch
+					<ControlBarSwitch
 						btnContent="language"
 						curr={currLanguage}
 						updateHandler={languageUpdateHandler}
-					/>*/}
+					/>
 					{departed == true ?
 						<ControlBarBtn
 							btnContent="totop"
@@ -985,7 +985,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 				} : {})}
 			>
 				<>
-					<div className="home-case-img-container">
+					<div className="home-case-img">
 						{caseContent.thumbnail.img ? caseContent.thumbnail.img : null}
 					</div>
 					<div className="home-case-text-container">

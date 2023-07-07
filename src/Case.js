@@ -7,7 +7,7 @@ import './Case.scss';
 /* Foreign Components */
 import { btns, /*images*/ } from './assets.js';
 import { cases, casesNames, bioStructure } from './cases.js';
-import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
+import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
 import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, ImgGallery, ScrollableMobile, ScrollableDesktop } from "./components.js";
 
 /* Important Assets */
@@ -246,7 +246,9 @@ function Header ({singleLinePrompt}) {
 	/* Render */
 	return (
 		<div className="case-header">
-			{caseContent.content.img ? caseContent.content.img : null}
+			<div className="case-header-img">
+				{caseContent.content.img ? caseContent.content.img : null}
+			</div>
 			<div className="case-header-title">{caseContent.title}</div>
 			<div className="case-header-bio-container">
 				<div className="case-header-bio">

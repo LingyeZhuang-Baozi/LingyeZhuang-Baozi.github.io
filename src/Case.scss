@@ -135,7 +135,7 @@
 		height: -1 * $object-bottom + $case-header-object-size / 2 - $case-header-bio-entry-gap;
 	}
 
-	%case .case-header .img {
+	%case .case-header-img {
 		z-index: -1;	//z-index: $z-bg;
 		width: $case-header-img-width;
 		max-width: $case-header-img-maxwidth;
@@ -461,7 +461,7 @@
 			flex-direction: row-reverse;
 		}
 
-		.case-header .img {
+		.case-header-img {
 			transform: $case-0-header-image-transform;
 			top: 50%;
 			right: 0;

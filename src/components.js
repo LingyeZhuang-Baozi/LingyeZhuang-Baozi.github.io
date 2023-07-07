@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 /* Foreign Components */
 import { btns } from './assets.js';
-import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchCursorTypeContext } from './App.js';
+import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchModalContext, dispatchCursorTypeContext } from './App.js';
 
 
 
@@ -608,14 +608,34 @@ export function Image ({children, caption="", sizeId=0, zoomable=true}) {	// chi
 		["auto", "100%"],
 	];
 
-	/* Zoom Handler */	// TODO: modal
+	/* Zoom Handler */
+	const dispatchModal = useContext(dispatchModalContext);
+	const zoom = (e) => {
+		e.preventDefault();
+		dispatchModal({type: "open", content:
+			<>{children}</>
+		});
+	}
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	const zoomableHoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "zoom-in"});
+	}
+	const zoomableHoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+	}
 
 	/* Render */
 	return (
 		<div className="image-container">
 			<div
-				className={"image " + (zoomable ? "zoomable" : "")}
+				className={"image " + (zoomable==true ? "zoomable" : "")}
 				style={{"--image-width": sizeMap[sizeId][0], "--image-height": sizeMap[sizeId][1]}}
+				onClick={(zoomable==true ? zoom : null)}
+				onMouseEnter={(zoomable==true ? zoomableHoverStarts : null)}
+				onMouseOver={(zoomable==true ? zoomableHoverStarts : null)}
+				onMouseLeave={(zoomable==true ? zoomableHoverEnds : null)}
 			>
 				{children}
 			</div>
@@ -668,7 +688,23 @@ export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, a
 
 function ImgGalleryStatic ({imgList, classList, styleList, zoomable}) {
 
-	/* Zoom Handler */	// TODO: modal
+	/* Zoom Handler */
+	const dispatchModal = useContext(dispatchModalContext);
+	const zoom = (e, idx) => {
+		e.preventDefault();
+		dispatchModal({type: "open", content:
+			<>{imgList[idx]}</>
+		});
+	}
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	const zoomableHoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "zoom-in"});
+	}
+	const zoomableHoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+	}
 
 	/* Render */
 	return (
@@ -687,6 +723,10 @@ function ImgGalleryStatic ({imgList, classList, styleList, zoomable}) {
 								<div
 									key={idx}
 									className={"gallery-image " + (zoomable==true ? "zoomable" : "")}
+									onClick={(zoomable==true ? ((e) => { zoom(e, idx); }) : null)}
+									onMouseEnter={(zoomable==true ? zoomableHoverStarts : null)}
+									onMouseOver={(zoomable==true ? zoomableHoverStarts : null)}
+									onMouseLeave={(zoomable==true ? zoomableHoverEnds : null)}
 								>
 									{img}
 								</div>
@@ -738,25 +778,39 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 		}		
 	}, [galleryWidth, viewportWidth]);
 
+	/* Zoom Handler */
+	const dispatchModal = useContext(dispatchModalContext);
+	const zoom = (e, idx) => {
+		e.preventDefault();
+		dispatchModal({type: "open", content:
+			<>{imgList[idx]}</>
+		});
+	}
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
 	/* Hover To Stop */
 	const [hoveringImg, setHoveringImg] = useState(false);
 	const hoverImgStarts = (e) => {
 		e.preventDefault();
 		setHoveringImg(true);
+		if (zoomable == true) {
+			dispatchCursorType({type: "zoom-in"});
+		}
 	}
 	const hoverImgEnds = (e) => {
 		e.preventDefault();
 		setHoveringImg(false);
+		if (zoomable == true) {
+			dispatchCursorType({type: "default"});
+		}
 	}
-
-	/* Zoom Handler */	// TODO: modal
 
 	/* Render */
 	return (
 		<div
 			className={
 				classList + " " +
-				"autoplay"//(autoplayOn ? "autoplay" : "static")
+				(autoplayOn ? "autoplay" : "static")
 			}
 			style={{
 				...styleList,
@@ -780,6 +834,7 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 									onMouseEnter={hoverImgStarts}
 									onMouseOver={hoverImgStarts}
 									onMouseLeave={hoverImgEnds}
+									onClick={(zoomable==true ? ((e) => { zoom(e, idx); }) : null)}
 								>
 									{cloneElement(
 										img,
@@ -798,12 +853,14 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 									key={numImgs + idx}
 									className={
 										"gallery-image " +
-										(zoomable ? "zoomable" : "")
+										(zoomable==true ? "zoomable" : "")
 									}
 									style={{"display": autoplayOn==true ? "flex" : "none"}}
 									onLoad={() => { confirmImgLoaded(numImgs + idx); }}
 									onMouseEnter={hoverImgStarts}
 									onMouseOver={hoverImgStarts}
+									onMouseLeave={hoverImgEnds}
+									onClick={(zoomable==true ? ((e) => { zoom(e, idx); }) : null)}
 								>
 									{cloneElement(
 										img,
