@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.2cef9f27.css",
-    "main.js": "/static/js/main.3a0ffc48.js",
+    "main.css": "/static/css/main.d995294c.css",
+    "main.js": "/static/js/main.148013d0.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
     "static/media/mascot_draft_to_final.mov": "/static/media/mascot_draft_to_final.303ad639a57383134b5b.mov",
     "static/media/instagram_social_events.png": "/static/media/instagram_social_events.8c734bcae0cdc224096f.png",
@@ -93,7 +93,7 @@
     "static/media/userflow_example.png": "/static/media/userflow_example.ebc20d1657a3c3450990.png",
     "static/media/ambulances_menu_iterations.png": "/static/media/ambulances_menu_iterations.73a7e658c17fcc276c39.png",
     "static/media/me-2.webp": "/static/media/me-2.10797e4363b45863ac0a.webp",
-    "static/media/design_system_card.png": "/static/media/design_system_card.c3fb9e60f72f71d74ae6.png",
+    "static/media/design_system_card.png": "/static/media/design_system_card.5ab0cde2ed26b918ada0.png",
     "static/media/navbar_desktop.png": "/static/media/navbar_desktop.d7c4ba72fc051f38529b.png",
     "static/media/me-1.jpg": "/static/media/me-1.92f8a82592706bbccdea.jpg",
     "static/media/the_blind_man_and_the_elephants.webp": "/static/media/the_blind_man_and_the_elephants.aaf38ce64ed3ca7518c9.webp",
@@ -162,7 +162,6 @@
     "static/media/img_light.png": "/static/media/img_light.61c4190c18b9f8039275.png",
     "static/media/userflow.webp": "/static/media/userflow.2255aedf713aa8e53383.webp",
     "static/media/products_sketch.png": "/static/media/products_sketch.765127b43ad0e9a1f284.png",
-    "static/media/design_system_card.webp": "/static/media/design_system_card.b64c82486f60c314d143.webp",
     "static/media/design_system_modal1.webp": "/static/media/design_system_modal1.b5eac17693dba9ba8ca3.webp",
     "static/media/breadbaker_manager3.webp": "/static/media/breadbaker_manager3.d4521a1be0282dda0652.webp",
     "static/media/breadbaker_manager1.webp": "/static/media/breadbaker_manager1.a51155f788e61bb68561.webp",
@@ -176,6 +175,7 @@
     "static/media/SukhumvitSet-Bold.ttf": "/static/media/SukhumvitSet-Bold.199b4d73dcf8e8dedd71.ttf",
     "static/media/sketch3.webp": "/static/media/sketch3.29520404ba8703965e28.webp",
     "static/media/navbar_mobile.webp": "/static/media/navbar_mobile.4d7e84005e5a7ea6f896.webp",
+    "static/media/design_system_card.webp": "/static/media/design_system_card.52a240fb1dc89396d254.webp",
     "static/media/main_sketch.png": "/static/media/main_sketch.8396415b54d9b86429f6.png",
     "static/media/payment_sketch.png": "/static/media/payment_sketch.39436e9b70c16d707012.png",
     "static/media/storyboard2.webp": "/static/media/storyboard2.193788d3c5f02c82547a.webp",
@@ -235,6 +235,7 @@
     "static/media/inbox_sketch1.webp": "/static/media/inbox_sketch1.54d7073e9118ca75d796.webp",
     "static/media/merch_shirt.webp": "/static/media/merch_shirt.ebe1781f9a72312a48e1.webp",
     "static/media/instagram.svg": "/static/media/instagram.8df43df869589074b0c34167260245dd.svg",
+    "static/media/read_more.svg": "/static/media/read_more.e9222959a907209e594f.svg",
     "static/media/scroll.svg": "/static/media/scroll.f887a369a8c6699a716bfcd07d4be663.svg",
     "static/media/email.svg": "/static/media/email.ac64fd1cf9d208732cd0564fd5eff298.svg",
     "static/media/resume.svg": "/static/media/resume.fe4c90767da5557084a2edc6bb5e1520.svg",
@@ -244,21 +245,21 @@
     "static/media/read_more_here.svg": "/static/media/read_more_here.d6a757090eb9c7c107df7b8122be630d.svg",
     "static/media/object.svg": "/static/media/object.fb480409a456d6bba1ec68c8e4cc380f.svg",
     "static/media/back_home.svg": "/static/media/back_home.12fceba0ac5360bcfa0b41dc11b0c819.svg",
+    "static/media/cursor_pointer.svg": "/static/media/cursor_pointer.bfab709af2dab8bf8613.svg",
     "index.html": "/index.html",
-    "static/media/cursor_progress.svg": "/static/media/cursor_progress.cb3ee5b0de08c25d0dc9.svg",
+    "static/media/cursor_progress.svg": "/static/media/cursor_progress.82c3bc50ca15339f1a6c.svg",
     "static/media/open_external.svg": "/static/media/open_external.65f90d0681ffe4b77a7859eb8526a663.svg",
-    "static/media/cursor_pointer.svg": "/static/media/cursor_pointer.a1d21311c6eb1d9a6521.svg",
-    "static/media/cursor_zoomin.svg": "/static/media/cursor_zoomin.a1d21311c6eb1d9a6521.svg",
-    "static/media/cursor_zoomout.svg": "/static/media/cursor_zoomout.a1d21311c6eb1d9a6521.svg",
+    "static/media/cursor_zoomin.svg": "/static/media/cursor_zoomin.d03ab59cd2d9ac36f79c.svg",
+    "static/media/cursor_zoomout.svg": "/static/media/cursor_zoomout.28a8665beae2d9af66d9.svg",
     "static/media/_anonymous.svg": "/static/media/_anonymous.6974f42b0e49eaf53a27d4bbb4c86208.svg",
+    "static/media/cursor_default.svg": "/static/media/cursor_default.790c9c290a50d5461564.svg",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
-    "static/media/cursor_default.svg": "/static/media/cursor_default.5ee881c6dbfb75d3f16f.svg",
-    "main.2cef9f27.css.map": "/static/css/main.2cef9f27.css.map",
-    "main.3a0ffc48.js.map": "/static/js/main.3a0ffc48.js.map",
+    "main.d995294c.css.map": "/static/css/main.d995294c.css.map",
+    "main.148013d0.js.map": "/static/js/main.148013d0.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2cef9f27.css",
-    "static/js/main.3a0ffc48.js"
+    "static/css/main.d995294c.css",
+    "static/js/main.148013d0.js"
   ]
 }
