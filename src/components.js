@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 /* Foreign Components */
 import { btns } from './assets.js';
-import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchModalContext, dispatchCursorTypeContext } from './App.js';
+import { modeContext, modalIsOnContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchModalContext, dispatchCursorTypeContext } from './App.js';
+
+/* Libraries */
+import { MTLModel, Tick } from "react-3d-viewer";
 
 
 
@@ -612,7 +615,8 @@ export function Image ({children, caption="", sizeId=0, zoomable=true}) {	// chi
 	const dispatchModal = useContext(dispatchModalContext);
 	const zoom = (e) => {
 		e.preventDefault();
-		dispatchModal({type: "open", content:
+		dispatchCursorType({type: "progress"});
+		dispatchModal({type: "openSingle", content:
 			<>{children}</>
 		});
 	}
@@ -688,15 +692,18 @@ export function ImgGallery ({imgList, heightId=(-1), widthId=(-1), wrap=false, a
 
 function ImgGalleryStatic ({imgList, classList, styleList, zoomable}) {
 
-	/* Zoom Handler */
+	/* Zoom Handler */	// TODO: last & next slide
 	const dispatchModal = useContext(dispatchModalContext);
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
 	const zoom = (e, idx) => {
 		e.preventDefault();
-		dispatchModal({type: "open", content:
-			<>{imgList[idx]}</>
+		dispatchCursorType({type: "progress"});
+		dispatchModal({
+			type: "openList",
+			content: imgList,
+			idx: idx,
 		});
 	}
-	const dispatchCursorType = useContext(dispatchCursorTypeContext);
 	const zoomableHoverStarts = (e) => {
 		e.preventDefault();
 		dispatchCursorType({type: "zoom-in"});
@@ -778,30 +785,42 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 		}		
 	}, [galleryWidth, viewportWidth]);
 
-	/* Zoom Handler */
+	/* Zoom Handler */	// TODO: last & next slide
 	const dispatchModal = useContext(dispatchModalContext);
 	const zoom = (e, idx) => {
 		e.preventDefault();
-		dispatchModal({type: "open", content:
-			<>{imgList[idx]}</>
+		dispatchCursorType({type: "progress"});
+		dispatchModal({
+			type: "openList",
+			content: imgList,
+			idx: idx,
 		});
 	}
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
 
+	/* Pause When Modal Is On */
+	const [autoplayPaused, setAutoplayPaused] = useState(false);
+	const modalIsOn = useContext(modalIsOnContext);
+	useEffect(() => {
+		if (modalIsOn == true) { setAutoplayPaused(true); }
+		else { setAutoplayPaused(false); }
+	}, [modalIsOn]);
+
 	/* Hover To Stop */
-	const [hoveringImg, setHoveringImg] = useState(false);
 	const hoverImgStarts = (e) => {
 		e.preventDefault();
-		setHoveringImg(true);
+		setAutoplayPaused(true);
 		if (zoomable == true) {
 			dispatchCursorType({type: "zoom-in"});
 		}
 	}
 	const hoverImgEnds = (e) => {
 		e.preventDefault();
-		setHoveringImg(false);
-		if (zoomable == true) {
-			dispatchCursorType({type: "default"});
+		if (modalIsOn == false) {
+			setAutoplayPaused(false);
+			if (zoomable == true) {
+				dispatchCursorType({type: "default"});
+			}
 		}
 	}
 
@@ -820,7 +839,7 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 			<div className="gallery-container-in">
 				<div
 					ref={galleryRef}
-					className={"gallery " + (hoveringImg ? "wait" : "")}
+					className={"gallery " + (autoplayPaused ? "wait" : "")}
 					onMouseLeave={hoverImgEnds}
 				>
 					{imgList.map((img, idx) => {	// img: <Img> or <Gif>
@@ -1016,6 +1035,29 @@ export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, 
 				<div className="image-caption">{caption}</div>
 			: null }
 		</div>
+	);
+}
+
+
+
+export function Model ({src, mtl, texturePath, caption="", autoRotate=true}) {
+
+	// /* Auto Rotate */
+	// useEffect(() => {
+	// 	// Anything in here is fired on component mount.
+	// 	return () => {
+	// 		// Anything in here is fired on component unmount.
+	// 	}
+	// }, [])
+
+	/* Render */
+	return (
+		<MTLModel
+			src={src}
+			mtl={mtl}
+			texPath={texturePath}
+			enableZoom={false}
+		/>
 	);
 }
 

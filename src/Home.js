@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useReducer, createContext, useContext, createRef, useRef } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 //import { HashLink } from 'react-router-hash-link';
 
 import './Home.scss';
@@ -7,7 +7,7 @@ import './Home.scss';
 /* Foreign Components */
 import { btns, /*images*/ } from './assets.js';
 import { cases, casesNames, casesGoats, casesByCategory, casesByTimeline } from './cases.js';
-import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext } from './App.js';
+import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext, isScrollingContext } from './App.js';
 import { ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img } from "./components.js";
 
 /* Important Assets */
@@ -126,6 +126,12 @@ function sortByReducer (currState, sortByAction) {
 
 
 export default function Home () {
+
+	/* Restore Scroll */
+	const location = useLocation();
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [location.pathname]);
 
 	/* Sort-By Mode and Secondary Sections */
 	// Sort-By Hook
@@ -900,6 +906,36 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 		modTop: ("-" + (controlBarHeight - 0) + "px"),
 	});
 
+	/* Click To Open Case */
+	const [hoveringCase, setHoveringCase] = useState(false);
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	const isScrolling = useContext(isScrollingContext);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		if (caseContent.content) {
+			if (isScrolling == true) {
+				dispatchCursorType({type: "pointer"});
+			} else {
+				dispatchCursorType({type: "readmore"});
+			}
+		} else {
+			dispatchCursorType({type: "default"});
+		}
+		setHoveringCase(true);
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+		setHoveringCase(false);
+	}
+	const navigate = useNavigate();
+	const clickOpenCase = (e) => {
+		e.preventDefault();
+		if (caseContent.content) {
+			navigate("/case-" + caseId);
+		}
+	}
+
 	/* Styling Helper */
 	const [inViewStage, setInViewStage] = useState(0);	// 0 = off bench, 1 = on bench before ever activated, 2 = active, 3 = on banch after activated
 	useEffect(() => {
@@ -938,7 +974,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 			}
 		}
 		setInViewStageClass(classList);
-	}, [inViewStage]);
+	}, [inViewStage]);	
 
 	/* Pause Gif When Inactive */
 	useEffect(() => {
@@ -958,21 +994,15 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 		}
 	}, [inViewStage]);
 
-	/* Double Click As Alternative To Open Case */
-	const navigate = useNavigate();
-	const doubleClickOpenCase = (e) => {
-		e.preventDefault();
-		if (caseContent.content) {
-			navigate("/case-" + caseId);
-		}
-	}
-
 	/* Render */
 	return (
 		<div
 			ref={(el) => { caseActiveRef(el); caseBenchRef(el); }}
 			id={ID}
-			//onDoubleClick={doubleClickOpenCase}	// TODO
+			onClick={clickOpenCase}
+			onMouseEnter={hoverStarts}
+			onMouseOver={hoverStarts}
+			onMouseLeave={hoverEnds}
 		>
 			<HomeSection
 				homeSectionId={caseId}
@@ -1014,6 +1044,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 						<CaseObject
 							caseId={caseId}
 							caseIsActive={inViewStage===2}
+							hoveringCase={hoveringCase}
 						/>
 					: null }
 				</>
@@ -1022,7 +1053,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 	);
 }
 
-function CaseObject ({caseId, caseIsActive}) {
+function CaseObject ({caseId, caseIsActive, hoveringCase}) {
 
 	const caseObject = cases[caseId].theme.object;
 
@@ -1031,77 +1062,36 @@ function CaseObject ({caseId, caseIsActive}) {
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
 
 	/* Click-me Hint */
-	const [hovering, setHovering] = useState(false);
-	const [activeStage, setActiveStage] = useState(0);	// 0 = case is not active, 1 = case is just activated and object has not been hovered yet, 2 = case is active and object has been hovered at least once
-	useEffect(() => {
-		if (caseIsActive == true) {
-			if (activeStage === 0) {
-				setActiveStage(1);
-			}
-		} else {
-			setActiveStage(0);
-		}
-	}, [caseIsActive]);
-	const hoverStarts = (e) => {
-		e.preventDefault();
-		dispatchCursorType({type: "readmore"});
-		setHovering(true);
-		if (activeStage === 1) {
-			setActiveStage(2);
-		}
-	}
-	const hoverEnds = (e) => {
-		e.preventDefault();
-		dispatchCursorType({type: "default"});
-		setHovering(false);
-	}
-
-	const hintblobSrcSwitch = btns.home.cases.clickme;
+	const hintblobSrc = btns.home.cases.clickme;
 	const [hintblobShown, setHintblobShown] = useState(false);
-	const [hintblobSrcIdx, setHintblobSrcIdx] = useState(0);
 	useEffect(() => {
-		if (hovering == false) {
-			if (activeStage > 0) {
-				setHintblobShown(true);
-				if (activeStage === 1) { setHintblobSrcIdx(1); }
-				else { setHintblobSrcIdx(0); }
-			} else {
-				setHintblobShown(false);
-			}
+		if (caseIsActive==true && cursorType != "readmore") {	// avoid overlapping with the cursor blob
+			setHintblobShown(true);
+		} else {
+			setHintblobShown(false);
 		}
-	}, [hovering, activeStage]);
+	}, [caseIsActive, cursorType]);
 
 	/* Render */
 	return (
-		<Link
-			to={"/case-" + caseId}
-			className="home-case-object-container-out ghost"
-			onMouseEnter={hoverStarts}
-			onMouseOver={hoverStarts}
-			onMouseLeave={hoverEnds}
-		>
+		<div className="home-case-object-container-out ghost">
 			<div className="home-case-object-positioner">
 				<div className="home-case-object-rotater">
 					<div className="home-case-object-container-in">
-						{hovering ? caseObject : <AnonymousObject />}
+						{hoveringCase==true ? caseObject : <AnonymousObject />}
 					</div>
 				</div>
-				{cursorType != "readmore" ?	// avoid overlapping with the cursor blob
-					<img
-						className={
-							"home-case-object-hintblob " +
-							(hintblobShown==true ? "hintblob-shown" : "")// + " " +
-							//(cursorType=="readmore" ? "fade" : "")	// TODO: not working, fix this
-						}
-						//src={hintblobSrcSwitch[hintblobSrcIdx].blob}
-						src={hintblobSrcSwitch.blob}
-						//style={{"--hintblob-right": hintblobSrcSwitch[hintblobSrcIdx].right+"px", "--hintblob-top": hintblobSrcSwitch[hintblobSrcIdx].top+"px"}}
-						style={{"--hintblob-right": hintblobSrcSwitch.right+"px", "--hintblob-top": hintblobSrcSwitch.top+"px"}}
-						alt=""
-					/>
-				: null }
+				<img
+					className={
+						"home-case-object-hintblob " +
+						(hintblobShown==true ? "hintblob-shown" : "")// + " " +
+					}
+					src={hintblobSrc.blob}
+					style={{"--hintblob-right": hintblobSrc.right+"px", "--hintblob-top": hintblobSrc.top+"px"}}
+					alt=""
+				/>
 			</div>
-		</Link>
+		</div>
 	);
 }
 

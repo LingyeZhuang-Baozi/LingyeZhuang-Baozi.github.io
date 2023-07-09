@@ -35,13 +35,13 @@
 	/* Section */
 
 	$home-section-radius: $radius-l;
+	$home-section-transition-in-delay: $time-m;
+	$home-section-transition-in: $time-l ease $home-section-transition-in-delay;
 	$home-section-bg-update-time: $time-sec;
 	$home-section-bgcolor-light: $color-gray6-F0;
 	$home-section-bgcolor-dark: $color-gray1-33;
 	$home-section-bgcolor-active-light: var(--theme-bgcolor-light, $home-section-bgcolor-light);
 	$home-section-bgcolor-active-dark: $home-section-bgcolor-dark;//var(--theme-bgcolor-dark, $home-section-bgcolor-dark)
-	$home-section-transition-in-delay: $time-m;
-	$home-section-transition-in: $time-l ease $home-section-transition-in-delay;
 	$home-section-bgcolor-transition-in: background-color $home-section-transition-in;
 	$home-section-bgcolor-transition-out: $transition-bgcolor-out;
 	$home-section-color-transition-in: color $home-section-transition-in;
@@ -553,7 +553,6 @@
 
 	/* Cases */
 
-	$home-cases-padding-Y: $spacing-7;
 	$home-cases-gap: $spacing-7;
 	$home-cases-section-title-indent: $spacing-5;
 	$home-cases-section-title-color-light: $color-lanlv;
@@ -681,7 +680,8 @@
 		align-self: stretch;
 		display: flex;
 		flex-direction: column;
-		//gap: $home-cases-gap;
+		padding: 0 $home-padding-X;
+		gap: $home-cases-gap;
 	}
 
 	/* Case Card */
@@ -711,7 +711,7 @@
 		$home-case-img-active-brightness: 1;
 		$home-case-img-active-contrast: 1;
 		$home-case-img-active-opacity: 1;
-	$home-case-img-active-transition-in-delay: $time-l;
+	$home-case-img-active-transition-in-delay: $time-s;
 	$home-case-img-active-transition-in-time: $time-l ease $home-case-img-active-transition-in-delay;
 	$home-case-img-active-transition-out-time: $time-l ease;
 	$home-case-img-active-transition-in:
@@ -755,10 +755,6 @@
 		z-index: 2;
 	}
 
-	.home-case .home-section-bg-canvas {
-		padding: ($home-cases-gap / 2) $home-padding-X;
-	}
-
 	.home-case .home-section-bg-clipper {
 		width: calc(100% - 2 * $home-padding-X);
 		height: calc(100% - $home-cases-gap);
@@ -783,7 +779,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
-		padding: 0 ($home-padding-X + $home-text-margin-right - $home-case-text-padding-X) 0 $home-padding-X;
+		padding-right: $home-text-margin-right - $home-case-text-padding-X;
 		gap: $home-case-gap;
 		flex-wrap: wrap;
 		height: 100%;
@@ -793,7 +789,7 @@
 		align-self: stretch;
 		flex-shrink: 0;
 		width: $home-case-img-width;
-		margin: ($home-cases-gap / 2) (-1 * $home-case-text-padding-X) ($home-cases-gap / 2) 0;
+		margin-right: -1 * $home-case-text-padding-X;
 		position: relative;
 		overflow: hidden;
 		@include unselectable;
@@ -845,7 +841,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		margin: ($home-cases-gap / 2) 0;
 		padding: $home-case-text-padding-T $home-case-text-padding-X $home-case-text-padding-B;
 		gap: $home-case-text-gap;
 		z-index: 1;
@@ -937,7 +932,7 @@
 		display: inline-block;
 	}
 
-	.home-case-object-container-out:hover .home-case-object-container-in {
+	.home-case:hover .home-case-object-container-in {
 		transform: translateY(-1 * $home-case-object-hover-displace);
 		@include transition($transition: $object-hover-transition-in-bounce);
 	}
@@ -974,19 +969,19 @@
 		.object-stroke-2 { stroke: $home-object-active-fill-2-dark; }
 	}
 
-	.home-case-object-container-out:hover .home-case-object-container-in .object {
+	.home-case:hover .home-case-object-container-in .object {
 		.object-fill-1 { @include transition($transition: $object-fill-transition-in); }
 		.object-stroke-1 { @include transition($transition: $object-fill-transition-in); }
 		.object-fill-2 { @include transition($transition: $object-fill-transition-in); }
 		.object-stroke-2 { @include transition($transition: $object-fill-transition-in); }
 	}
-	.mode-light .home-case-object-container-out:hover .home-case-object-container-in .object {
+	.mode-light .home-case:hover .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-object-active-fill-1-light; }
 		.object-stroke-1 { stroke: $home-object-active-fill-1-light; }
 		.object-fill-2 { fill: $home-object-active-fill-2-light; }
 		.object-stroke-2 { stroke: $home-object-active-fill-2-light; }
 	}
-	.mode-dark .home-case-object-container-out:hover .home-case-object-container-in .object {
+	.mode-dark .home-case:hover .home-case-object-container-in .object {
 		.object-fill-1 { fill: $home-object-active-fill-1-dark; }
 		.object-stroke-1 { stroke: $home-object-active-fill-1-dark; }
 		.object-fill-2 { fill: $home-object-active-fill-2-dark; }
@@ -1008,7 +1003,7 @@
 		}
 	}
 
-	.home-case-object-container-out:hover .home-case-object-hintblob {
+	.home-case:hover .home-case-object-hintblob {
 		//transform: translateY(-100%) scale($home-case-objects-hintblob-hover-scale);
 		@include transition($transition: $home-case-objects-hintblob-hover-transition-in);
 	}

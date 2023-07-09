@@ -570,6 +570,7 @@
 
 	a {
 		text-decoration: none;
+		color:inherit;
 		display: inline-block;
 		cursor: none;
 
@@ -615,11 +616,14 @@
 	.mode-dark %world { background-color: $color-bg-dark; }
 
 	/* Cursor customization */
+	$cursor-width: $spacing-8;
+	$cursor-height: $spacing-8;
 	$cursor-default: url("./assets/basic/cursors/cursor_default.svg");
 	$cursor-pointer: url("./assets/basic/cursors/cursor_pointer.svg");
 	$cursor-zoom-in: url("./assets/basic/cursors/cursor_zoomin.svg");
 	$cursor-zoom-out: url("./assets/basic/cursors/cursor_zoomout.svg");
 	$cursor-progress: url("./assets/basic/cursors/cursor_progress.svg");
+	$cursor-readmore: url("./assets/basic/cursors/read_more.svg");
 
 	.cursor-space-out {
 		z-index: $z-top;
@@ -651,9 +655,13 @@
 		background-color: $color-xihongshi;
 	}
 
-	@mixin cursor-shape($cursor-type: $cursor-default) {
-		-webkit-mask-image: $cursor-type;
-		mask-image: $cursor-type;
+	@mixin cursor-shape($img: $cursor-default, $width: $cursor-width, $height: $cursor-height) {
+		content: "";
+		background-image: $img;
+		width: $width;
+		height: $height;
+		background-size: $width $height;
+		background-color: transparent;
 	}
 
 	.cursor-none {
@@ -661,23 +669,12 @@
 		cursor: auto;
 	}
 
-	.cursor-default { @include cursor-shape($cursor-type: $cursor-default); }
-	.cursor-pointer { @include cursor-shape($cursor-type: $cursor-pointer); }
-	.cursor-zoom-in { @include cursor-shape($cursor-type: $cursor-zoom-in); }
-	.cursor-zoom-out { @include cursor-shape($cursor-type: $cursor-zoom-out); }
-	.cursor-progress { @include cursor-shape($cursor-type: $cursor-progress); }
-
-	.cursor-readmore {
-		content: "";
-		background-image: url("./assets/basic/cursors/read_more.png");
-		width: 104px;
-		height: 80px;
-		background-size: 104px 80px;
-		background-color: transparent;
-	}
-
-	.cursor_zoomin { cursor: zoom-in; }
-	.cursor_zoomout { cursor: zoom-out; }
+	.cursor-default { @include cursor-shape($img: $cursor-default); }
+	.cursor-pointer { @include cursor-shape($img: $cursor-pointer); }
+	.cursor-zoom-in { @include cursor-shape($img: $cursor-zoom-in); }
+	.cursor-zoom-out { @include cursor-shape($img: $cursor-zoom-out); }
+	.cursor-progress { @include cursor-shape($img: $cursor-progress); }
+	.cursor-readmore { @include cursor-shape($img: $cursor-readmore, $width: 104px, $height: 80px); }
 
 	/* Mode Changing Helper */	//TODO!!!
 
@@ -802,6 +799,13 @@
 	$modal-space-bgcolor: $color-bg-dark;
 	$modal-space-opacity: 80%;
 	$modal-space-backdrop: blur(4px);
+	$modal-content-padding-X: $spacing-8;
+	$modal-content-padding-Y: 0;
+	$modal-btn-padding: 0;	// + 24px in icon img
+	$modal-btn-color-rest: $color-gray3-99;
+	$modal-btn-color-active: $color-white;
+	$modal-btn-transition-in: fill $time-xs ease;
+	$modal-btn-transition-out: fill $time-s ease;
 
 	.modal-space {
 		pointer-events: auto;
@@ -813,6 +817,10 @@
 		top: 0;
 		background-color: rgba($modal-space-bgcolor, $modal-space-opacity);
 		backdrop-filter: $modal-space-backdrop;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 		visibility: hidden;
 
 		&.on {
@@ -822,13 +830,49 @@
 
 	.modal {
 		position: relative;
+		align-self: stretch;
+		flex: 1 0 0;
+	}
+
+	.modal-content-container-out {
+		position: absolute;
+		top: $modal-content-padding-Y;
+		bottom: $modal-content-padding-Y;
+		left: $modal-content-padding-X;
+		right: $modal-content-padding-X;
+	}
+
+	.modal-content-container-in {
+		position: relative;
 		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		overflow: scroll;
+		//overflow: scroll;	// TODO
+	}
+
+	.modal-btn {
+		position: absolute;
+		height: 100%;
+		top: 0; bottom: 0;
+		@include unselectable;
+		display: inline-flex;
+		align-items: center;
+
+		&.modal-btn-prev { left: $modal-btn-padding; }
+		&.modal-btn-next { right: $modal-btn-padding; }
+
+		.modal-btn-icon {
+			fill: $modal-btn-color-rest;
+			@include transition($transition: $modal-btn-transition-out);
+		}
+
+		&:hover .modal-btn-icon {
+			fill: $modal-btn-color-active;
+			@include transition($transition: $modal-btn-transition-in);
+		}
 	}
 
 	/* Image */

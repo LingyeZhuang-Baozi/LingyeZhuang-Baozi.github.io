@@ -23,7 +23,6 @@ export default function CaseSteamer () {
 	// Redirection is handled by PageNotFound.
 	const params = useParams();
 	const [URLtype, caseId] = params.caseId.split("-");	// standard format of a case URL must be: "case-<caseId>"
-	const location = useLocation();
 	const URLValidator = () => {
 		if (
 			URLtype=="case"
@@ -37,7 +36,8 @@ export default function CaseSteamer () {
 	const [guarded, setGuarded] = useState(cases[caseId].guarded);
 	const guardOff = () => { setGuarded(false); }
 
-	/* Restore Scroll */	// TODO: better solution! key didn't work??
+	/* Restore Scroll */
+	const location = useLocation();
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [location.pathname]);

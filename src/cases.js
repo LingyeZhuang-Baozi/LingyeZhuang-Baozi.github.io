@@ -33,7 +33,7 @@
  *	}
  */
 
-import { A, Emoji, P, ExpandablePs, Img, Gif, Image, ImgGallery, Prototype } from "./components.js";
+import { A, Emoji, P, ExpandablePs, Img, Gif, Image, ImgGallery, Prototype, Model } from "./components.js";
 import { isSafari, isIE } from "react-device-detect";
 
 /* Assets */
@@ -169,6 +169,21 @@ export const cases = {
 				// 			srcPng={require("./assets/cases/AsTheWindBlows/.png")}
 				// 			alt=""
 				// 		/>,
+				// 	]
+				// },
+				// {
+				// 	title: "Map Model",
+				// 	heightId: -1,
+				// 	widthId: 0,
+				// 	wrap: false,
+				// 	autoplay: false,
+				// 	zoomable: false,
+				// 	imgs: [
+				// 		<Model
+				// 			src="./assets/cases/AsTheWindBlows/map/map.obj"
+				// 			mtl="./assets/cases/AsTheWindBlows/map/map.mtl"
+				// 			texturePath="./assets/cases/AsTheWindBlows/map/"
+				// 		/>
 				// 	]
 				// },
 			]],

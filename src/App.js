@@ -1,11 +1,12 @@
 /*** Portfolio Version 3.0 ***/
 
 import React, { useState, useEffect, useReducer, createContext, useContext } from 'react';
-import { createHashRouter, RouterProvider, useLocation, redirect, /*TODO: ScrollRestoration*/ } from "react-router-dom";
+import { createHashRouter, RouterProvider, redirect, /*TODO: ScrollRestoration*/ } from "react-router-dom";
 
 import './_style.scss';
 
 /* Foreign Components */
+import { btns, /*images*/ } from './assets.js';
 import Home from './Home.js';
 import CaseSteamer from './Case.js';
 import { Img } from "./components.js";
@@ -77,15 +78,48 @@ function languageReducer (currLanguage, languageAction) {
 }
 
 /* Modal */
-//export const modalContext = createContext(null);
+export const modalIsOnContext = createContext(null);
 export const dispatchModalContext = createContext(null);
 function modalReducer (currModal, modalAction) {
 	switch (modalAction.type) {
-		case "open": {
-			return ({state: true, content: modalAction.content});
+		case "openSingle": {
+			return ({
+				...currModal,
+				state: 1,
+				content: modalAction.content,
+			});
+		}
+		case "openList": {
+			return ({
+				state: 2,
+				contentList: modalAction.content,
+				contentListIdx: modalAction.idx,
+				content: modalAction.content[modalAction.idx],
+			});
+		}
+		case "listToPrev": {
+			const newIdx = currModal.contentListIdx > 0 ? currModal.contentListIdx - 1 : currModal.contentList.length - 1;
+			return ({
+				...currModal,
+				contentListIdx: newIdx,
+				content: currModal.contentList[newIdx],
+			});
+		}
+		case "listToNext": {
+			const newIdx = currModal.contentListIdx < currModal.contentList.length - 1 ? currModal.contentListIdx + 1 : 0;
+			return ({
+				...currModal,
+				contentListIdx: newIdx,
+				content: currModal.contentList[newIdx],
+			});
 		}
 		case "close": {
-			return ({state: false, content: <></>});
+			return ({
+				state: 0,
+				content: <></>,
+				contentList: [],
+				contentListIdx: -1,
+			});
 		}
 		default: {
 			console.error("Modal operation error. Received modalAction:", modalAction);
@@ -108,6 +142,9 @@ function cursorTypeReducer (currCursorType, cursorTypeAction) {
 		default: { return ("default"); }
 	}
 }
+
+/* Scrolling Observer */
+export const isScrollingContext = createContext(null);
 
 
 
@@ -147,8 +184,10 @@ export default function App() {
 
 	/* Modal */
 	const [modal, dispatchModal] = useReducer(modalReducer, {
-		state: false,	// true = on, false = off
+		state: 0,	// 0 = off, 1 = single content, 2 = list
 		content: <></>,
+		contentList: [],
+		contentListIdx: -1,
 	});
 	const closeModal = (e) => {
 		e.preventDefault();
@@ -163,20 +202,52 @@ export default function App() {
 		e.preventDefault();
 		dispatchCursorType({type: "default"});
 	}
+	// List
+	const modalBtns = btns.app.modal;
+	const modalListBtnHoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "pointer"});
+	}
+	const modalListBtnHoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "zoom-out"});
+	}
+	const modalListToPrev = (e) => {
+		e.preventDefault();
+		dispatchModal({type: "listToPrev"});
+	}
+	const modalListToNext = (e) => {
+		e.preventDefault();
+		dispatchModal({type: "listToNext"});
+	}
 
 	/* Cursor */
+	const [cursorPos, setCursorPos] = useState({x: -1000, y: -1000});	// hide cursor on load
 	const [cursorType, dispatchCursorType] = useReducer(cursorTypeReducer, "default");
-	const [cursorPos, setCursorPos] = useState({});
 	useEffect(() => {
 		const cursorMoveHandler = (e) => {
 			setCursorPos({ x: e.clientX, y: e.clientY });
 		};
 		window.addEventListener("mousemove", cursorMoveHandler);
 		return () => {
-			window.removeEventListener(
-				"mousemove",
-				cursorMoveHandler
-			);
+			window.removeEventListener("mousemove", cursorMoveHandler);
+		};
+	}, []);
+
+	/* Scrolling Observer */
+	const [isScrolling, setIsScrolling] = useState(false);
+	var timer = null;
+	useEffect(() => {
+		const scrollHandler = (e) => {
+			if (timer !== null) { clearTimeout(timer); }
+			setIsScrolling(true);
+			timer = setTimeout(() => {
+				setIsScrolling(false);
+			}, 135);	// $time-s 135ms
+		};
+		window.addEventListener("scroll", scrollHandler);
+		return () => {
+			window.removeEventListener("scroll", scrollHandler);
 		};
 	}, []);
 
@@ -212,22 +283,25 @@ export default function App() {
 				"mode-" + (mode.mode==true ? "light" : "dark") + " " +
 				(mode.changing==true ? "mode-changing" : "") + " " +
 				"language-" + (language==true ? "en" : "cn") + " " +
-				(modal.state==true ? "modal-on" : "") + " " +
+				(modal.state>0 ? "modal-on" : "") + " " +
 				(isSafari||isIE ? "missout-browser" : "")
 			}
-			onClick={(modal.state==true ? closeModal : null)}
 		>
 			<modeContext.Provider value={mode}>
 			<dispatchModeContext.Provider value={dispatchMode}>
 			<languageContext.Provider value={language}>
 			<dispatchLanguageContext.Provider value={dispatchLanguage}>
+			<modalIsOnContext.Provider value={modal.state>0}>
 			<dispatchModalContext.Provider value={dispatchModal}>
 			<cursorTypeContext.Provider value={cursorType}>
 			<dispatchCursorTypeContext.Provider value={dispatchCursorType}>
+			<isScrollingContext.Provider value={isScrolling}>
 				<RouterProvider router={router} /*fallbackElement={<BigSpinner />}*/ />
+			</isScrollingContext.Provider>
 			</dispatchCursorTypeContext.Provider>
 			</cursorTypeContext.Provider>
 			</dispatchModalContext.Provider>
+			</modalIsOnContext.Provider>
 			</dispatchLanguageContext.Provider>
 			</languageContext.Provider>
 			</dispatchModeContext.Provider>
@@ -236,15 +310,38 @@ export default function App() {
 			<div
 				className={
 					"modal-space " +
-					(modal.state==true ? "on" : "")
+					(modal.state>0 ? "on" : "")
 				}
-				onMouseEnter={modalHoverStarts}
-				onMouseOver={modalHoverStarts}
-				onMouseLeave={modalHoverEnds}
 			>
-				<div className="modal">
-					{modal.content}
+				<div
+					className="modal"
+					onClick={closeModal}
+					onMouseEnter={modalHoverStarts}
+					onMouseOver={modalHoverStarts}
+					onMouseLeave={modalHoverEnds}
+				>
+					<div className="modal-content-container-out"><div className="modal-content-container-in">
+						{modal.content}
+					</div></div>
 				</div>
+				{modal.state === 2 ?
+					<div
+						className="modal-btn modal-btn-prev"
+						onClick={modalListToPrev}
+						onMouseEnter={modalListBtnHoverStarts}
+						onMouseOver={modalListBtnHoverStarts}
+						onMouseLeave={modalListBtnHoverEnds}
+					>{modalBtns.prev}</div>
+				: null }
+				{modal.state === 2 ?
+					<div
+						className="modal-btn modal-btn-next"
+						onClick={modalListToNext}
+						onMouseEnter={modalListBtnHoverStarts}
+						onMouseOver={modalListBtnHoverStarts}
+						onMouseLeave={modalListBtnHoverEnds}
+					>{modalBtns.next}</div>
+				: null }
 			</div>
 
 			<div className="cursor-space-out"><div className="cursor-space-in">
@@ -260,6 +357,8 @@ export default function App() {
 		</div>
 	);
 }
+
+
 
 export function PageNotFound () {
 
