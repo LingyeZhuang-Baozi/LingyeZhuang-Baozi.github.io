@@ -1,12 +1,16 @@
-import React, { useState , useEffect, useContext, useRef, cloneElement } from 'react';
+import React, { useState , useEffect, useContext, useRef, cloneElement, Suspense } from 'react';
 import { Link } from "react-router-dom";
 
 /* Foreign Components */
 import { btns } from './assets.js';
 import { modeContext, modalIsOnContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchModalContext, dispatchCursorTypeContext } from './App.js';
+//import { MapGLTF } from "./assets/cases/AsTheWindBlows/MapGLTF.js";
 
 /* Libraries */
-import { MTLModel, Tick } from "react-3d-viewer";
+import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
+import { OrbitControls, useAnimations } from "@react-three/drei";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 
 
@@ -1040,24 +1044,104 @@ export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, 
 
 
 
-export function Model ({src, mtl, texturePath, caption="", autoRotate=true}) {
+export function Model ({src, caption="", sizeId=0, cameraPos, cameraFov, autoRotate, rotatable, zoomable, zoomMin, zoomMax, dampingId, animation}) {
 
-	// /* Auto Rotate */
-	// useEffect(() => {
-	// 	// Anything in here is fired on component mount.
-	// 	return () => {
-	// 		// Anything in here is fired on component unmount.
-	// 	}
-	// }, [])
+	/* Standardize Size */
+	const sizeMap = [
+		["100%", "auto"],
+		["75%", "auto"],
+		["150%", "auto"],
+		["auto", "100%"],
+	];
 
 	/* Render */
 	return (
-		<MTLModel
-			src={src}
-			mtl={mtl}
-			texPath={texturePath}
-			enableZoom={false}
-		/>
+		<div className="image-container">
+			<div
+				className="model"
+				style={{"--model-width": sizeMap[sizeId][0], "--model-height": sizeMap[sizeId][1]}}
+			>
+			{/*<Suspense fallback={<>thumbnail image TODO</>}>*/}
+				<Canvas>
+					<ModelMesh
+						url={src}
+						cameraPos={cameraPos}
+						cameraFov={cameraFov}
+						autoRotate={autoRotate}
+						rotatable={rotatable}
+						zoomable={zoomable}
+						zoomMin={zoomMin}
+						zoomMax={zoomMax}
+						dampingId={dampingId}
+						animation={animation}
+					/>
+				</Canvas>
+			{/*</Suspense>*/}
+			</div>
+			{caption != "" ?
+				<div className="image-caption">{caption}</div>
+			: null }
+		</div>
+	);
+}
+
+function ModelMesh ({url, cameraPos=[0,0,0], cameraFov=30, autoRotate=true, rotatable=true, zoomable=true, zoomMin=0, zoomMax=Infinity, dampingId=0, animation=""}) {
+
+	/* Load File */
+	const gltf = useLoader(GLTFLoader, url, (loader) => {
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath("/draco-gltf/");
+		loader.setDRACOLoader(dracoLoader);
+	});
+
+	/* Controls */
+	const controlsRef = useRef();
+	useFrame((state) => {
+		controlsRef.current.update();
+	});
+
+	/* Standardize Damping */
+	const dampingMap = [0.05, 0.02, 0.1];
+
+	/* Camera */
+	const {camera} = useThree();
+	useEffect(() => {
+		camera.fov = cameraFov;
+		camera.position.set(cameraPos[0],cameraPos[1],cameraPos[2]);
+		camera.lookAt(0, 0, 0);
+		camera.updateProjectionMatrix();
+	}, []);
+
+	/* Animation */
+	const {actions, names: actionNames} = useAnimations(gltf.animations, gltf.scene);
+	useEffect(() => {
+		if (animation != "" && actionNames.length > 0) {
+			if (actions[animation]) { actions[animation].play(); }
+			// TODO: switch animation
+		}
+	}, []);
+
+	/* Render */
+	return (
+		<>
+			<OrbitControls
+				ref={controlsRef}
+				autoRotate={autoRotate}
+					autoRotateSpeed={1.5}
+				enableRotate={rotatable}
+				enableZoom={zoomable}
+					zoomSpeed={0.65}
+					minDistance={zoomMin}
+					maxDistance={zoomMax}
+				enableDamping={true}
+					dampingFactor={dampingMap[dampingId]}
+			/>
+			<ambientLight />
+			<primitive
+				object={gltf.scene}
+				dispose={null}
+			/>
+		</>
 	);
 }
 

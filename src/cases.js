@@ -155,41 +155,57 @@ export const cases = {
 				<>A Korok fan art game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy.</>
 			],
 			link: ["Watch\nDemo", "https://youtu.be/MUKqqoazBh4"],
-			body: ["gallery", [
-				// {
-				// 	title: "Skybox",
-				// 	heightId: 0,
-				// 	widthId: -1,
-				// 	wrap: false,
-				// 	autoplay: true,
-				// 	zoomable: true,
-				// 	imgs: [
-				// 		<Img
-				// 			srcWebp={require("./assets/cases/AsTheWindBlows/.webp")}
-				// 			srcPng={require("./assets/cases/AsTheWindBlows/.png")}
-				// 			alt=""
-				// 		/>,
-				// 	]
-				// },
-				// {
-				// 	title: "Map Model",
-				// 	heightId: -1,
-				// 	widthId: 0,
-				// 	wrap: false,
-				// 	autoplay: false,
-				// 	zoomable: false,
-				// 	imgs: [
-				// 		<Model
-				// 			src="./assets/cases/AsTheWindBlows/map/map.obj"
-				// 			mtl="./assets/cases/AsTheWindBlows/map/map.mtl"
-				// 			texturePath="./assets/cases/AsTheWindBlows/map/"
-				// 		/>
-				// 	]
-				// },
+			body: ["freeform", [
+				["Skybox", <>
+					<Model
+						src="/cases/AsTheWindBlows/skybox.gltf"
+						caption="skybox with traditional mountains and clouds patterns, and a texture of xuan paper"
+						sizeId={2}
+						cameraPos={[-5,-1,0]}
+						cameraFov={60}
+						autoRotate={true}
+						rotatable={true}
+						zoomable={false}
+						dampingId={1}
+					/>
+				</>],
+				["Map Model", <>
+					<Model
+						src="/cases/AsTheWindBlows/map.gltf"
+						caption="map model with traditional colors and painting texture"
+						sizeId={2}
+						cameraPos={[0,-10,20]}
+						autoRotate={true}
+						rotatable={true}
+						zoomable={true}
+						zoomMin={10}
+						zoomMax={75}
+						dampingId={1}
+					/>
+				</>],
+				["Character Model", <>
+					<Model
+						src="/cases/AsTheWindBlows/korok.gltf"
+						caption="character model, inspired by Koroks from The Legend of Zelda"
+						sizeId={1}
+						cameraPos={[12,2,-6]}
+						cameraFov={12}
+						autoRotate={false}
+						rotatable={true}
+						zoomable={true}
+						zoomMin={6}
+						zoomMax={24}
+						animation="stand"
+					/>
+				</>],
 			]],
 			evidence: [],
 			credits: [],
-			//img: require("./assets/cases/_case/_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/AsTheWindBlows/cover_img.webp")}
+					srcPng={require("./assets/cases/AsTheWindBlows/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectAsTheWindBlows />,

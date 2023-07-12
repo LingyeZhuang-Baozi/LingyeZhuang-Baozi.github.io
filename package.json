@@ -14,6 +14,7 @@
     "gh-pages": "^4.0.0",
     "html-react-parser": "^3.0.4",
     "react": "^18.2.0",
+    "react-3d-viewer": "^1.0.12",
     "react-device-detect": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-image-magnifiers": "^1.4.0",

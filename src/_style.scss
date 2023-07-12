@@ -904,6 +904,7 @@
 
 	.image-container {
 		align-self: stretch;
+		width: 100%;
 		margin: $image-reel auto;
 		display: flex;
 		flex-direction: column;
@@ -1134,7 +1135,7 @@
 		}
 	}
 
-	/* prototype */
+	/* Prototype */
 	$prototype-minwidth: 400px;
 	$prototype-maxheight: calc(100vh - $spacing-8);
 
@@ -1193,6 +1194,26 @@
 	.prototype-container-out.ratio-2-1 {
 		.prototype-container-mid { max-width: calc($prototype-maxheight / 2); }
 		.prototype-container-in { padding-top: 200%; }
+	}
+
+	/* Model */
+	$modal-padding: $spacing-7;
+	$model-min-width: 400px;
+	$model-max-width: calc(100vw - 2 * $modal-padding);
+	$model-min-height: 400px;
+	$model-max-height: calc(100vh - 2 * $modal-padding);
+
+	.model {
+		width: var(--model-width, 100%);
+		height: var(--model-height, auto);
+
+		div {
+			display: block;
+			min-width: $model-min-width;
+			max-width: $model-max-width;
+			min-height: $model-min-height;
+			max-height: $model-max-height;
+		}
 	}
 
 	/* Hint Blob */
