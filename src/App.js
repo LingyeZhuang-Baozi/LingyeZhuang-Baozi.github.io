@@ -134,8 +134,8 @@ function cursorTypeReducer (currCursorType, cursorTypeAction) {
 	switch (cursorTypeAction.type) {
 		case "default": { return ("default"); }
 		case "pointer": { return ("pointer"); }
-		case "zoom-in": { return ("zoom-in"); }
-		case "zoom-out": { return ("zoom-out"); }
+		case "zoomin": { return ("zoomin"); }
+		case "zoomout": { return ("zoomout"); }
 		case "grab": { return ("grab"); }
 		case "grabbing": { return ("grabbing"); }
 		case "progress": { return ("progress"); }
@@ -198,7 +198,7 @@ export default function App() {
 	}
 	const modalHoverStarts = (e) => {
 		e.preventDefault();
-		dispatchCursorType({type: "zoom-out"});
+		dispatchCursorType({type: "zoomout"});
 	}
 	const modalHoverEnds = (e) => {
 		e.preventDefault();
@@ -212,7 +212,7 @@ export default function App() {
 	}
 	const modalListBtnHoverEnds = (e) => {
 		e.preventDefault();
-		dispatchCursorType({type: "zoom-out"});
+		dispatchCursorType({type: "zoomout"});
 	}
 	const modalListToPrev = (e) => {
 		e.preventDefault();
@@ -286,6 +286,7 @@ export default function App() {
 				"mode-" + (mode.mode==true ? "light" : "dark") + " " +
 				(mode.changing==true ? "mode-changing" : "") + " " +
 				"language-" + (language==true ? "en" : "cn") + " " +
+				"cursor-" + cursorType + " " +
 				(modal.state>0 ? "modal-on" : "") + " " +
 				(isSafari||isIE ? "missout-browser" : "")
 			}
@@ -347,7 +348,7 @@ export default function App() {
 				: null }
 			</div>
 
-			<div className="cursor-space-out"><div className="cursor-space-in">
+			{/*<div className="cursor-space-out"><div className="cursor-space-in">
 				<div
 					className="cursor-position"
 					style={{"--cursorX": cursorPos.x+"px", "--cursorY": cursorPos.y+"px"}}
@@ -358,7 +359,7 @@ export default function App() {
 						: null}
 					</div>
 				</div>
-			</div></div>
+			</div></div>*/}
 		</div>
 	);
 }

@@ -273,8 +273,8 @@ iframe { border: none; }
 /* cursor customize. */
 
 .cursor_pointer { cursor: pointer; }
-.cursor_zoomin { cursor: zoom-in; }
-.cursor_zoomout { cursor: zoom-out; }
+.cursor_zoomin { cursor: zoomin; }
+.cursor_zoomout { cursor: zoomout; }
 
 .cursor_readmore_1 { cursor: url("./assets/basic/read_more_1_cursor.svg") 50 116, pointer; } /* set as 1 pixel less for Safari */
 .cursor_readmore_2 { cursor: url("./assets/basic/read_more_2_cursor.svg") 79 32, pointer; }

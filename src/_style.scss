@@ -19,7 +19,7 @@
 			all: unset;
 		}
 		overflow-x: hidden;
-		cursor: none;
+		//cursor: crosshair;	//cursor: none;	// TODO: improve cursor performance
 		transform-style: preserve-3d;
 	}
 
@@ -572,7 +572,7 @@
 		text-decoration: none;
 		color:inherit;
 		display: inline-block;
-		cursor: none;
+		//cursor: crosshair;	//cursor: none;	// TODO: improve cursor performance
 
 		&:not(.ghost) {
 			position: relative;
@@ -616,6 +616,26 @@
 	.mode-dark %world { background-color: $color-bg-dark; }
 
 	/* Cursor */
+	$cursor-default: url("./assets/basic/cursors/cursor_default.svg") 40 40;
+	$cursor-pointer: url("./assets/basic/cursors/cursor_pointer.svg") 40 40;
+	$cursor-zoomin: url("./assets/basic/cursors/cursor_zoomin.svg") 40 40;
+	$cursor-zoomout: url("./assets/basic/cursors/cursor_zoomout.svg") 40 40;
+	$cursor-grab: url("./assets/basic/cursors/cursor_grab.svg") 40 40;
+	$cursor-grabbing: url("./assets/basic/cursors/cursor_grabbing.svg") 40 40;
+	$cursor-progress: url("./assets/basic/cursors/cursor_progress.svg") 40 40;
+	$cursor-readmore: url("./assets/basic/cursors/cursor_readmore.svg") 52 40;
+
+	body {
+		&:has(.cursor-default) { cursor: $cursor-default, default; }
+		&:has(.cursor-pointer) { cursor: $cursor-pointer, pointer; }
+		&:has(.cursor-zoomin) { cursor: $cursor-zoomin, zoom-in; }
+		&:has(.cursor-zoomout) { cursor: $cursor-zoomout, zoom-out; }
+		&:has(.cursor-grab) { cursor: $cursor-grab, grab; }
+		&:has(.cursor-grabbing) { cursor: $cursor-grabbing, grabbing; }
+		&:has(.cursor-progress) { cursor: $cursor-progress, wait; }
+		&:has(.cursor-readmore) { cursor: $cursor-readmore, pointer; }
+		&:has(.cursor-none) { cursor: auto; }
+	}
 
 	.cursor-space-out {
 		z-index: $z-top;

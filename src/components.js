@@ -626,7 +626,7 @@ export function Image ({children, caption="", sizeId=0, zoomable=true}) {	// chi
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
 	const zoomableHoverStarts = (e) => {
 		e.preventDefault();
-		dispatchCursorType({type: "zoom-in"});
+		dispatchCursorType({type: "zoomin"});
 	}
 	const zoomableHoverEnds = (e) => {
 		e.preventDefault();
@@ -709,7 +709,7 @@ function ImgGalleryStatic ({imgList, classList, styleList, zoomable}) {
 	}
 	const zoomableHoverStarts = (e) => {
 		e.preventDefault();
-		dispatchCursorType({type: "zoom-in"});
+		dispatchCursorType({type: "zoomin"});
 	}
 	const zoomableHoverEnds = (e) => {
 		e.preventDefault();
@@ -814,7 +814,7 @@ function ImgGalleryAutoplay ({imgList, classList, styleList, zoomable}) {
 		e.preventDefault();
 		setAutoplayPaused(true);
 		if (zoomable == true) {
-			dispatchCursorType({type: "zoom-in"});
+			dispatchCursorType({type: "zoomin"});
 		}
 	}
 	const hoverImgEnds = (e) => {
