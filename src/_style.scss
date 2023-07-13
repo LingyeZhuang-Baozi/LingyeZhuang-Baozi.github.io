@@ -622,6 +622,8 @@
 	$cursor-pointer: url("./assets/basic/cursors/cursor_pointer.svg");
 	$cursor-zoom-in: url("./assets/basic/cursors/cursor_zoomin.svg");
 	$cursor-zoom-out: url("./assets/basic/cursors/cursor_zoomout.svg");
+	$cursor-grab: url("./assets/basic/cursors/cursor_grab.svg");
+	$cursor-grabbing: url("./assets/basic/cursors/cursor_grabbing.svg");
 	$cursor-progress: url("./assets/basic/cursors/cursor_progress.svg");
 	$cursor-readmore: url("./assets/basic/cursors/read_more.svg");
 
@@ -673,6 +675,8 @@
 	.cursor-pointer { @include cursor-shape($img: $cursor-pointer); }
 	.cursor-zoom-in { @include cursor-shape($img: $cursor-zoom-in); }
 	.cursor-zoom-out { @include cursor-shape($img: $cursor-zoom-out); }
+	.cursor-grab { @include cursor-shape($img: $cursor-grab); }
+	.cursor-grabbing { @include cursor-shape($img: $cursor-grabbing); }
 	.cursor-progress { @include cursor-shape($img: $cursor-progress); }
 	.cursor-readmore { @include cursor-shape($img: $cursor-readmore, $width: 104px, $height: 80px); }
 

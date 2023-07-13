@@ -136,6 +136,8 @@ function cursorTypeReducer (currCursorType, cursorTypeAction) {
 		case "pointer": { return ("pointer"); }
 		case "zoom-in": { return ("zoom-in"); }
 		case "zoom-out": { return ("zoom-out"); }
+		case "grab": { return ("grab"); }
+		case "grabbing": { return ("grabbing"); }
 		case "progress": { return ("progress"); }
 		case "readmore": { return ("readmore"); }
 		case "none": { return ("none"); }

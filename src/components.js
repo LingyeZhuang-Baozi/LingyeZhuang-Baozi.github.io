@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 /* Foreign Components */
 import { btns } from './assets.js';
 import { modeContext, modalIsOnContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchModalContext, dispatchCursorTypeContext } from './App.js';
-//import { MapGLTF } from "./assets/cases/AsTheWindBlows/MapGLTF.js";
 
 /* Libraries */
 import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
@@ -1044,25 +1043,61 @@ export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, 
 
 
 
-export function Model ({src, caption="", sizeId=0, cameraPos, cameraFov, autoRotate, rotatable, zoomable, zoomMin, zoomMax, dampingId, animation}) {
+export function Model ({src, caption="", widthId=0, heightId=0, cameraPos, cameraFov, autoRotate, rotatable, zoomable, zoomMin, zoomMax, dampingId, animation}) {
 
 	/* Standardize Size */
-	const sizeMap = [
-		["100%", "auto"],
-		["75%", "auto"],
-		["150%", "auto"],
-		["auto", "100%"],
-	];
+	const widthMap = ["100%", "75%", "150%", "auto"];
+	const heightMap = ["auto", "640px", "800px", "240px"];
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+	const [cursorOverRotatableCanvas, setCursorOverRotatableCanvas] = useState(false);
+	const [cursorDownOnRotatableCanvas, setCursorDownOnRotatableCanvas] = useState(false);
+	const cursorOver = () => {
+		if (rotatable && rotatable == true) {
+			setCursorOverRotatableCanvas(true);
+		}
+	}
+	const cursorOut = () => {
+		setCursorOverRotatableCanvas(false);
+		setCursorDownOnRotatableCanvas(false);
+	}
+	const cursorDown = () => {
+		if (rotatable && rotatable == true) {
+			setCursorDownOnRotatableCanvas(true);
+		}
+	}
+	const cursorUp = () => {
+		setCursorDownOnRotatableCanvas(false);
+	}
+	useEffect(() => {
+		if (cursorOverRotatableCanvas == true) {
+			if (cursorDownOnRotatableCanvas == true) {
+				dispatchCursorType({type: "grabbing"});
+			} else {
+				dispatchCursorType({type: "grab"});
+			}
+		} else {
+			dispatchCursorType({type: "default"});
+		}
+	}, [cursorOverRotatableCanvas, cursorDownOnRotatableCanvas]);
 
 	/* Render */
 	return (
 		<div className="image-container">
 			<div
 				className="model"
-				style={{"--model-width": sizeMap[sizeId][0], "--model-height": sizeMap[sizeId][1]}}
+				style={{"--model-width": widthMap[widthId], "--model-height": heightMap[heightId]}}
 			>
 			{/*<Suspense fallback={<>thumbnail image TODO</>}>*/}
-				<Canvas>
+				<Canvas
+					onPointerEnter={cursorOver}
+					onPointerOver={cursorOver}
+					onPointerLeave={cursorOut}
+					onPointerOut={cursorOut}
+					onPointerDown={cursorDown}
+					onPointerUp={cursorUp}
+				>
 					<ModelMesh
 						url={src}
 						cameraPos={cameraPos}
@@ -1129,6 +1164,7 @@ function ModelMesh ({url, cameraPos=[0,0,0], cameraFov=30, autoRotate=true, rota
 				autoRotate={autoRotate}
 					autoRotateSpeed={1.5}
 				enableRotate={rotatable}
+				enablePan={false}
 				enableZoom={zoomable}
 					zoomSpeed={0.65}
 					minDistance={zoomMin}
@@ -1140,6 +1176,11 @@ function ModelMesh ({url, cameraPos=[0,0,0], cameraFov=30, autoRotate=true, rota
 			<primitive
 				object={gltf.scene}
 				dispose={null}
+				// onPointerDown={(e) => console.log("down")}
+				// onPointerOver={(e) => console.log("over")}
+				// onPointerOut={(e) => console.log("out")}
+				// onPointerEnter={(e) => console.log("enter")}
+				// onPointerLeave={(e) => console.log("leave")}
 			/>
 		</>
 	);

@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://www.zhuanglingye.com",
   "dependencies": {
+    "@react-three/drei": "^9.78.2",
+    "@react-three/fiber": "^8.13.4",
     "@splinetool/react-spline": "^2.2.3",
     "@splinetool/runtime": "^0.9.117",
     "@testing-library/jest-dom": "^5.16.5",
@@ -32,6 +34,7 @@
     "react-viewport-list": "^5.4.1",
     "sass": "^1.63.3",
     "source-map-explorer": "^2.5.3",
+    "three": "^0.154.0",
     "use-is-in-viewport": "^1.0.9",
     "web-vitals": "^2.1.4"
   },

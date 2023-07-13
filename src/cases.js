@@ -151,29 +151,65 @@ export const cases = {
 				/>,
 		},
 		content: {
-			tldr: ["TL;DR",
+			tldr: ["Overview",
 				<>A Korok fan art game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy.</>
 			],
 			link: ["Watch\nDemo", "https://youtu.be/MUKqqoazBh4"],
 			body: ["freeform", [
-				["Skybox", <>
+				["Character Model", <>
 					<Model
-						src="/cases/AsTheWindBlows/skybox.gltf"
-						caption="skybox with traditional mountains and clouds patterns, and a texture of xuan paper"
-						sizeId={2}
-						cameraPos={[-5,-1,0]}
-						cameraFov={60}
-						autoRotate={true}
+						src="/cases/AsTheWindBlows/korok.gltf"
+						caption="character model and animations I created, inspired by Koroks from The Legend of Zelda"
+						widthId={1}
+						heightId={1}
+						cameraPos={[15,2,0]}
+						cameraFov={10}
+						autoRotate={false}
 						rotatable={true}
-						zoomable={false}
-						dampingId={1}
+						zoomable={true}
+						zoomMin={6}
+						zoomMax={24}
+						animation="all"
 					/>
+					<Image
+						sizeId={3}
+						caption="Players can customize their Koroks. I standardized the grayscale of the color options to ensure that all combinations look nice and cohesive."
+						zoomable={false}
+					>
+						<Img
+							srcWebp={require("./assets/cases/AsTheWindBlows/profile.webp")}
+							srcPng={require("./assets/cases/AsTheWindBlows/profile.png")}
+							alt="profile picture and colors of the 4 types of koroks"
+						/>
+					</Image>
+					<Image
+						sizeId={0}
+						caption="One of the special attacks was a freeze skill, and the affected targets would transform into funny sketchy icebergs."
+						zoomable={false}
+					>
+						<Img
+							srcWebp={require("./assets/cases/AsTheWindBlows/frozen.webp")}
+							srcPng={require("./assets/cases/AsTheWindBlows/frozen.png")}
+							alt="models for the frozen state of each korok"
+						/>
+					</Image>
 				</>],
 				["Map Model", <>
+					<Image
+						sizeId={0}
+						zoomable={false}
+					>
+						<Img
+							srcWebp={require("./assets/cases/AsTheWindBlows/map_process.webp")}
+							srcPng={require("./assets/cases/AsTheWindBlows/map_process.png")}
+							alt="step by step process finalizing the map layout and style"
+						/>
+					</Image>
 					<Model
 						src="/cases/AsTheWindBlows/map.gltf"
 						caption="map model with traditional colors and painting texture"
-						sizeId={2}
+						widthId={2}
+						heightId={0}
 						cameraPos={[0,-10,20]}
 						autoRotate={true}
 						rotatable={true}
@@ -183,20 +219,72 @@ export const cases = {
 						dampingId={1}
 					/>
 				</>],
-				["Character Model", <>
+				["Skybox", <>
+					<Image
+						sizeId={0}
+						caption="I drew the unfolded skybox using Figma according to perspective grids. The skybox was stylized with traditional mountains and clouds patterns, and a texture of xuan paper."
+						zoomable={false}
+					>
+						<Img
+							srcWebp={require("./assets/cases/AsTheWindBlows/skybox_flat.webp")}
+							srcPng={require("./assets/cases/AsTheWindBlows/skybox_flat.png")}
+							alt="skybox unfolded"
+						/>
+					</Image>
 					<Model
-						src="/cases/AsTheWindBlows/korok.gltf"
-						caption="character model, inspired by Koroks from The Legend of Zelda"
-						sizeId={1}
-						cameraPos={[12,2,-6]}
-						cameraFov={12}
-						autoRotate={false}
+						src="/cases/AsTheWindBlows/skybox.gltf"
+						caption="skybox rendered in 3D"
+						widthId={2}
+						heightId={0}
+						cameraPos={[-5,-1,0]}
+						cameraFov={60}
+						autoRotate={true}
 						rotatable={true}
-						zoomable={true}
-						zoomMin={6}
-						zoomMax={24}
-						animation="stand"
+						zoomable={false}
+						dampingId={1}
 					/>
+				</>],
+				["GUI And More", <>
+					<ImgGallery
+							heightId={3}
+							widthId={-1}
+							wrap={false}
+							autoplay={true}
+							zoomable={false}
+							style={{
+								"position": "absolute",
+								"transform": "translateX(-50%)",
+								"left": "50%",
+								"marginTop": "0",
+							}}
+							imgList={[
+								<Img
+									srcWebp={require("./assets/cases/AsTheWindBlows/gui_cover.webp")}
+									srcPng={require("./assets/cases/AsTheWindBlows/gui_cover.png")}
+									alt="GUI starting screen"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/AsTheWindBlows/gui_lobby.webp")}
+									srcPng={require("./assets/cases/AsTheWindBlows/gui_lobby.png")}
+									alt="GUI lobby"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/AsTheWindBlows/gui_ingame.webp")}
+									srcPng={require("./assets/cases/AsTheWindBlows/gui_ingame.png")}
+									alt="GUI in game"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/AsTheWindBlows/invitation.webp")}
+									srcPng={require("./assets/cases/AsTheWindBlows/invitation.png")}
+									alt="invitation flyer"
+								/>,
+								<Img
+									srcWebp={require("./assets/cases/AsTheWindBlows/meme.webp")}
+									srcPng={require("./assets/cases/AsTheWindBlows/meme.png")}
+									alt="meme image to advertise the game"
+								/>,
+							]}
+						/>
 				</>],
 			]],
 			evidence: [],
@@ -1430,7 +1518,7 @@ export const cases = {
 				/>,
 		},
 		content: {
-			tldr: ["TL;DR",
+			tldr: ["Overview",
 				<>Following to Atlas's requirements, I designed and prototyped a full dashboard for e-commerce fullfillers. It featured data visualization panels, a message inbox, and comprehensive tracking of products, partners, and payments. This project sparked my love for fast-paced work environment and laid the foundation for my future journey in multiple startups.</>
 			],
 			body: ["gallery", [
