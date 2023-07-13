@@ -1157,6 +1157,7 @@ function ModelMesh ({url, cameraPos=[0,0,0], cameraFov=30, autoRotate=true, rota
 	}, []);
 
 	/* Render */
+	const currMode = useContext(modeContext);	// dim model in dark mode
 	return (
 		<>
 			<OrbitControls
@@ -1172,7 +1173,7 @@ function ModelMesh ({url, cameraPos=[0,0,0], cameraFov=30, autoRotate=true, rota
 				enableDamping={true}
 					dampingFactor={dampingMap[dampingId]}
 			/>
-			<ambientLight />
+			<ambientLight intensity={currMode.mode==true ? 1 : 0.5} />
 			<primitive
 				object={gltf.scene}
 				dispose={null}

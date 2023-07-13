@@ -226,6 +226,7 @@ export default function App() {
 	/* Cursor */
 	const [cursorPos, setCursorPos] = useState({x: -1000, y: -1000});	// hide cursor on load
 	const [cursorType, dispatchCursorType] = useReducer(cursorTypeReducer, "default");
+	const cursorShapes = btns.app.cursor;
 	useEffect(() => {
 		const cursorMoveHandler = (e) => {
 			setCursorPos({ x: e.clientX, y: e.clientY });
@@ -352,7 +353,9 @@ export default function App() {
 					style={{"--cursorX": cursorPos.x+"px", "--cursorY": cursorPos.y+"px"}}
 				>
 					<div className="cursor">
-						<div className={"cursor-shape cursor-" + cursorType}></div>
+						{cursorType != "none" ?
+							cursorShapes[cursorType]
+						: null}
 					</div>
 				</div>
 			</div></div>
