@@ -104,19 +104,6 @@ function sortByReducer (currState, sortByAction) {
 			newState.secondary[currState.mode==true ? 0 : 1].observer[sortByAction.sectionIdx] = sortByAction.sectionInViewState;
 			return newState;
 		}
-		// case "reset": {
-		// 	return ({
-		// 		...currState,
-		// 		mode: false,
-		// 		secondary: [0,0],
-		// 	});
-		// }
-		// case "resetSecondary": {
-		// 	return ({
-		// 		...currState,
-		// 		secondary: [0,0],
-		// 	});
-		// }
 		default: {
 			console.error("Error in sort-by mode toggle. Received sortByAction:", sortByAction);
 		}
@@ -268,11 +255,12 @@ export default function Home () {
 
 
 /* Home Section Styler Wrapper Components */
+
 function HomeSection ({children, homeSectionId, className, style}) {
 
 	/* Render */
 	return (
-		<div className={className} style={style}>
+		<div className={className} style={style} id={homeSectionId}>
 			<div className="home-section-bg-canvas">
 				<div className="home-section-bg-container">
 					<div className="home-section-bg"></div>
@@ -301,19 +289,21 @@ function HomeSectionFancy ({children, homeSectionId, className, style}) {
 	} else {
 		return (
 			<div className={"home-section-fancy " + className} style={style}>
-				<svg xmlns="http://www.w3.org/2000/svg" className="home-section-bg-canvas">
-					<defs><clipPath id={"home-section-bg-clipper-"+homeSectionId}>
-						<rect className="home-section-bg-clipper" />
-					</clipPath></defs>
-					<foreignObject
+				<div className="home-section-bg-canvas">
+					<div
 						className="home-section-bg-container"
-						clipPath={"url(#home-section-bg-clipper-"+homeSectionId+")"}
+						style={{"clipPath": "url(#home-section-bg-clipper-"+homeSectionId+")"}}
 						width="100%" height="100%"
 					>
+						<svg className="home-section-bg-clipper-container">
+							<defs><clipPath id={"home-section-bg-clipper-"+homeSectionId}>
+								<rect className="home-section-bg-clipper" />
+							</clipPath></defs>
+						</svg>
 						<div className="home-section-bg"></div>
 						{children[1]	/* clipped in bg */}
-					</foreignObject>
-				</svg>
+					</div>
+				</div>
 				<div className="home-section-fg-container">
 					{children[0]	/* floating in fg */}
 				</div>
