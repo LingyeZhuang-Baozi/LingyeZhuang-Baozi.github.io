@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d6702c04.css",
-    "main.js": "/static/js/main.2d98f7bc.js",
+    "main.css": "/static/css/main.fd7e8144.css",
+    "main.js": "/static/js/main.bd17e992.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
     "static/media/mascot_draft_to_final.mov": "/static/media/mascot_draft_to_final.303ad639a57383134b5b.mov",
     "static/media/instagram_social_events.png": "/static/media/instagram_social_events.8c734bcae0cdc224096f.png",
@@ -44,7 +44,7 @@
     "static/media/prototypes_about.png": "/static/media/prototypes_about.0fbf73a65f72d9cc5e0d.png",
     "static/media/prototypes_communities.png": "/static/media/prototypes_communities.67addcbb0d28c3d85054.png",
     "static/media/breadbaker_small_round_breads.png": "/static/media/breadbaker_small_round_breads.463b5b7bf08461d1b996.png",
-    "static/media/map_process.png": "/static/media/map_process.dfc68407f307212160d0.png",
+    "static/media/map_process.png": "/static/media/map_process.71a0916f9f4361f0a472.png",
     "static/media/mascot_coloring.mov": "/static/media/mascot_coloring.c1b54bf50403bcf86085.mov",
     "static/media/website_individual_event.png": "/static/media/website_individual_event.e6687f570b7e444b2b29.png",
     "static/media/mascot_draft_to_final.webm": "/static/media/mascot_draft_to_final.ef427cd078a8ade349dc.webm",
@@ -176,7 +176,7 @@
     "static/media/products_sketch.png": "/static/media/products_sketch.765127b43ad0e9a1f284.png",
     "static/media/meme.webp": "/static/media/meme.94da3241c397e0207352.webp",
     "static/media/design_system_modal1.webp": "/static/media/design_system_modal1.b5eac17693dba9ba8ca3.webp",
-    "static/media/map_process.webp": "/static/media/map_process.f93043901c6b62e2a55f.webp",
+    "static/media/map_process.webp": "/static/media/map_process.b3a0c805ac1a8331f3f2.webp",
     "static/media/breadbaker_manager3.webp": "/static/media/breadbaker_manager3.d4521a1be0282dda0652.webp",
     "static/media/breadbaker_manager1.webp": "/static/media/breadbaker_manager1.a51155f788e61bb68561.webp",
     "static/media/breadbaker_manager2.webp": "/static/media/breadbaker_manager2.42d45d1b9666d13ef566.webp",
@@ -274,12 +274,12 @@
     "static/media/cursor_default.svg": "/static/media/cursor_default.790c9c290a50d5461564.svg",
     "index.html": "/index.html",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
-    "main.d6702c04.css.map": "/static/css/main.d6702c04.css.map",
-    "main.2d98f7bc.js.map": "/static/js/main.2d98f7bc.js.map",
+    "main.fd7e8144.css.map": "/static/css/main.fd7e8144.css.map",
+    "main.bd17e992.js.map": "/static/js/main.bd17e992.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d6702c04.css",
-    "static/js/main.2d98f7bc.js"
+    "static/css/main.fd7e8144.css",
+    "static/js/main.bd17e992.js"
   ]
 }
