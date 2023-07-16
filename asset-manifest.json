@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.fd7e8144.css",
-    "main.js": "/static/js/main.9b36157c.js",
+    "main.js": "/static/js/main.79cfd377.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
     "static/media/DelaGothicOne.ttf": "/static/media/DelaGothicOne.401851edd0d782de8f11.ttf",
     "static/media/demo_upload.mov": "/static/media/demo_upload.e610cfb31fdf3eec88ce.mov",
@@ -34,7 +34,7 @@
     "static/media/website_about.png": "/static/media/website_about.78de925b584363e9d841.png",
     "static/media/demo_annotation_view.webm": "/static/media/demo_annotation_view.4f5412649c3da53fef68.webm",
     "static/media/tickets_responsive_flow.png": "/static/media/tickets_responsive_flow.a643a4c5bc9a249a2bd2.png",
-    "static/media/modality_challenge.png": "/static/media/modality_challenge.21ef2701f6c96665064b.png",
+    "static/media/modality_challenge.png": "/static/media/modality_challenge.d143fac615dbb1e34f23.png",
     "static/media/notifications_timeline.webp": "/static/media/notifications_timeline.ebcdf12d41017f207981.webp",
     "static/media/sacculina_carcini.png": "/static/media/sacculina_carcini.4d0153fb868dee4564f1.png",
     "static/media/prototypes_communities.png": "/static/media/prototypes_communities.a471373d9c93123e9a19.png",
@@ -153,7 +153,7 @@
     "static/media/sketch2.webp": "/static/media/sketch2.da1d87d689c65aa46302.webp",
     "static/media/breadbaker_muffin.png": "/static/media/breadbaker_muffin.61e1c237f653955bff82.png",
     "static/media/breadbaker_manager1.png": "/static/media/breadbaker_manager1.a83736c12a09edde49c1.png",
-    "static/media/modality_challenge.webp": "/static/media/modality_challenge.939ecad8669d89e7d257.webp",
+    "static/media/modality_challenge.webp": "/static/media/modality_challenge.3d938d80162ed5e138a7.webp",
     "static/media/sacculina_carcini.webp": "/static/media/sacculina_carcini.f8b9ceeffcb119fa7922.webp",
     "static/media/website_individual_event.webp": "/static/media/website_individual_event.6b74eed23725e2e55e1d.webp",
     "static/media/design_system_input.webp": "/static/media/design_system_input.600c7f204a495d7f16fc.webp",
@@ -293,11 +293,11 @@
     "index.html": "/index.html",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
     "main.fd7e8144.css.map": "/static/css/main.fd7e8144.css.map",
-    "main.9b36157c.js.map": "/static/js/main.9b36157c.js.map",
+    "main.79cfd377.js.map": "/static/js/main.79cfd377.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fd7e8144.css",
-    "static/js/main.9b36157c.js"
+    "static/js/main.79cfd377.js"
   ]
 }
