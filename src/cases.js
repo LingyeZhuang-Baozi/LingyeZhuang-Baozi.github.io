@@ -74,7 +74,7 @@ export const casesGoats = ["CreativityLab", "AsTheWindBlows", "ALUM"];
 
 export const casesByCategory = [
 	[	"UX/UI",
-		["ALUM", "Bitsrealm", "CruzRoja", "MercuryAlert", "LAK", "MAW", "ACM", "Atlas", "CharmLife", /*"GroupReads",*/],
+		["ALUM", "Bitsrealm", "CruzRoja", "ACM", "CharmLife", "MercuryAlert", "LAK", "MAW", "Atlas", /*"GroupReads",*/],
 	],
 	[	"Frontend",
 		["CheeseClub", "CreativityLab",],
@@ -945,7 +945,7 @@ export const cases = {
 					srcPng={require("./assets/cases/LAK/thumbnail_img.png")}
 				/>,
 		},
-		content: {
+		contentTODO: {
 			tldr: ["TL;DR",
 				<>My team partnered with Firstmile Bhutan to address the challenges of good transportation faced by Bhutanese farmers. We developed an Android app to connect farmers with truckers, ensuring efficient and reliable good transportation. The user journey involves farmers posting job requests, truckers signing up for suitable jobs, and farmers tracking the progress and rating the truckers. Our app enables crowd-sourcing for good transportation, maximizing value for truckers and fostering a connected agricultural community.</>
 			],
@@ -980,7 +980,7 @@ export const cases = {
 					srcPng={require("./assets/cases/MAW/thumbnail_img.png")}
 				/>,
 		},
-		content: {
+		contentTODO: {
 			tldr: ["TL;DR",
 				<>Make-A-Wish needed an efficient solution to coordinate their large and diverse volunteer base. So my team developed a volunteer hub webtool to fulfill their needs and simplify the wish-granting process for children with critical illnesses. Admin members can use the webtool to post events, manage volunteers, and organize documents. Volunteers can easily sign up for events, and access documents and resources.</>
 			],
@@ -1017,7 +1017,7 @@ export const cases = {
 					srcPng={require("./assets/cases/MercuryAlert/thumbnail_img.png")}
 				/>,
 		},
-		content: {
+		contentTODO: {
 			tldr: ["TL;DR",
 				<>As the sole designer on the team, I was in charge of everything design-relevant, and attracted a seed funding for Mercury Alert. Contributions included:<ul><li>Product website rebrand and redesign, enhancing usability and credibility.</li><li>Graphic design for Instagram and Facebook posts, 3x/week, increased likes by 50%.</li><li>Sponsorship decks, business card, trifold, questionnaires. Templates I designed are still in use to date.</li></ul></>
 			],
@@ -1641,7 +1641,7 @@ export const cases = {
 					srcPng={require("./assets/cases/Atlas/thumbnail_img.png")}
 				/>,
 		},
-		content: {
+		contentNAH: {
 			tldr: ["Overview",
 				<>Following to Atlas's requirements, I designed and prototyped a full dashboard for e-commerce fullfillers. It featured data visualization panels, a message inbox, and comprehensive tracking of products, partners, and payments. This project sparked my love for fast-paced work environment and laid the foundation for my future journey in multiple startups.</>
 			],
