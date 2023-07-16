@@ -159,7 +159,7 @@ export const cases = {
 				["Character Model", <>
 					<Model
 						src="/cases/AsTheWindBlows/korok.gltf"
-						caption="character model and animations I created, inspired by Koroks from The Legend of Zelda"
+						caption={<>Character model and animations I created in Blender, inspired by Koroks from The Legend of Zelda.<br/>Drag to rotate and see the cel shading.</>}
 						widthId={1}
 						heightId={1}
 						cameraPos={[15,2,0]}
@@ -173,7 +173,7 @@ export const cases = {
 					/>
 					<Image
 						sizeId={3}
-						caption="Players can customize their Koroks. I standardized the grayscale of the color options to ensure that all combinations look nice and cohesive."
+						caption={<>Players can customize their Koroks.<br/>I standardized the grayscale of the color options to ensure that all combinations look nice and cohesive.</>}
 						zoomable={false}
 					>
 						<Img
@@ -222,7 +222,7 @@ export const cases = {
 				["Skybox", <>
 					<Image
 						sizeId={0}
-						caption="I drew the unfolded skybox using Figma according to perspective grids. The skybox was stylized with traditional mountains and clouds patterns, and a texture of xuan paper."
+						caption={<>I drew the unfolded skybox using Figma according to perspective grids.<br/>The skybox was stylized with traditional mountains and clouds patterns, and a texture of xuan paper.</>}
 						zoomable={false}
 					>
 						<Img
@@ -603,10 +603,133 @@ export const cases = {
 			tldr: ["TL;DR",
 				<>I led a 4-person team to design and develop a database website using Figma and ReactJS. The objective was to assist analysis of human behavior and guide gesture design in AR settings. Our website enables researchers to upload images capturing human behaviors, and label them with an encoding system we devised based on observation and collection of 2500 photos. Gesture designers can leverage our database to explore real-world human behaviors and occupancy of modalities across different scenarios.</>
 			],
-			body: ["challenge-solution", []],
+			body: ["challenge-solution", [
+				[	// Challenge
+					["", <>
+						<P>As mixed reality becomes more integrated into our daily lives, gesture interaction with AR devices is essential. However, the availability of body parts for gesture input varies depending on our activities, and there is no guarantee that any particular modality will always be available.</P>
+						<Image
+							sizeId={0}
+							caption="modalities for gesture input vary depending on daily activities"
+							zoomable={false}
+						>
+							<Img
+								srcWebp={require("./assets/cases/CreativityLab/modality_challenge.webp")}
+								srcPng={require("./assets/cases/CreativityLab/modality_challenge.png")}
+								alt="examples showing that a different set of modalities occupied during different daily activities"
+							/>
+						</Image>
+						<P>To tackle this challenge, we focused on improving gesture transferability across different contexts and modalities. Our project consisted of 3 steps:<ol>
+							<li>Gathering images of individuals engaged in diverse daily activities,</li>
+							<li>Analyzing the images and creating a framework to categorize activity scenarios,</li>
+							<li>Developing a database website where gesture designers can filter and explore scenarios of interest.</li>
+							</ol>We designed the database website using Figma and implemented it in ReactJS. Our goal was to assist analysis of human behavior, and guide the design of intuitive and adaptable gestures for AR interfaces.
+						</P>
+					</>],
+				],
+				[	// Solution
+					["Framework And Image Coding", <>
+						<P>To categorize availability of modalities during daily activities and assist AR gesture design, we captured 1579 photos at 50 locations and observed the modality occupancy patterns in them. Using this data, we started developing a framework to categorize daily activities based on aspects that impact gesture design. Our reference for identifying these aspects was the paper <A href="https://doi.org/10.1145/3503537" wrappable={true}>Iteratively Designing Gesture Vocabularies</A> by Professor Haijun Xia, the head of our research lab.</P>
+						<Image
+							sizeId={0}
+							alt="demo: label images under the preset framework and upload"
+							caption="upload and label images"
+							zoomable={false}
+						>
+							<Gif
+								srcWebm={require("./assets/cases/CreativityLab/demo_upload.webm")}
+								srcMov={require("./assets/cases/CreativityLab/demo_upload.mov")}
+							/>
+						</Image>
+						<Image
+							sizeId={0}
+							alt="demo: drag and drop to upload images"
+							caption="drag and drop to upload"
+							zoomable={false}
+						>
+							<Gif
+								srcWebm={require("./assets/cases/CreativityLab/demo_drag_drop.webm")}
+								srcMov={require("./assets/cases/CreativityLab/demo_drag_drop.mov")}
+							/>
+						</Image>
+						<Image
+							sizeId={0}
+							alt="demo: add annotation during image labeling"
+							caption="draw annotation on image to indicate the person of interest"
+							zoomable={false}
+						>
+							<Gif
+								srcWebm={require("./assets/cases/CreativityLab/demo_annotation_add.webm")}
+								srcMov={require("./assets/cases/CreativityLab/demo_annotation_add.mov")}
+							/>
+						</Image>
+						<Image
+							sizeId={0}
+							alt="demo: view annotation in the exploration gallery"
+							caption="view uploaded images with labels and annotations in gallery"
+							zoomable={false}
+						>
+							<Gif
+								srcWebm={require("./assets/cases/CreativityLab/demo_annotation_view.webm")}
+								srcMov={require("./assets/cases/CreativityLab/demo_annotation_view.mov")}
+							/>
+						</Image>
+					</>],
+					["Search Facet", <>
+						<P></P>
+						<Image
+							sizeId={3}
+							caption="facet key features"
+							zoomable={false}
+						>
+							<Img
+								srcWebp={require("./assets/cases/CreativityLab/facet_states.webp")}
+								srcPng={require("./assets/cases/CreativityLab/facet_states.png")}
+								alt="facet key features: search, reorder filters, select modalities"
+							/>
+						</Image>
+						<Image
+							sizeId={4}
+							caption="comparative analysis of different designs of the modality selector"
+							zoomable={false}
+						>
+							<Img
+								srcWebp={require("./assets/cases/CreativityLab/modality_selector_compare.webp")}
+								srcPng={require("./assets/cases/CreativityLab/modality_selector_compare.png")}
+								alt="pros and cons table comparing 3 designs of the modality selector"
+							/>
+						</Image>
+						<Image
+							sizeId={0}
+							alt="demo: applying filters in the facet and their effects on the gallery"
+							caption="add filters from the facet to narrow search range in the gallery"
+							zoomable={false}
+						>
+							<Gif
+								srcWebm={require("./assets/cases/CreativityLab/demo_filters.webm")}
+								srcMov={require("./assets/cases/CreativityLab/demo_filters.mov")}
+							/>
+						</Image>
+						<Image
+							sizeId={0}
+							alt="demo: search bar interaction and auto complete by categories"
+							caption="smart search bar can auto complete input according to categories and available filters"
+							zoomable={false}
+						>
+							<Gif
+								srcWebm={require("./assets/cases/CreativityLab/demo_search.webm")}
+								srcMov={require("./assets/cases/CreativityLab/demo_search.mov")}
+							/>
+						</Image>
+					</>],
+				],
+			]],
 			evidence: [],
 			credits: [],
-			//img: require("./assets/cases/_case/_img.png"),
+			img:
+				<Img
+					srcWebp={require("./assets/cases/CreativityLab/cover_img.webp")}
+					srcPng={require("./assets/cases/CreativityLab/cover_img.png")}
+				/>,
 		},
 		theme: {
 			object: <ObjectCreativityLab />,

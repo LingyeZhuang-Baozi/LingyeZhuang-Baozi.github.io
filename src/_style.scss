@@ -535,6 +535,10 @@
 		@include transition($transition: (color $link-hover-transition-out));
 		//font-family: $font-sans-serif-bold;
 
+		// &.wrappable {
+		// 	white-space: wrap;
+		// }
+
 		&::before {
 			content: "";
 			background-color: $link-color;

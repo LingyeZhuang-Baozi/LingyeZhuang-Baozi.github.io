@@ -20,10 +20,10 @@ import { isSafari, isIE } from "react-device-detect";
 
 /* Local Storage */
 const localStorageName = "lingye_juliet_zhuang_portfolio";
-const getLocalStorage = (idx) => {
+export const getLocalStorage = (idx) => {
 	return (localStorage.getItem(localStorageName)[idx] == "1" ? true : false);
 }
-const setLocalStorage = (idx, newValue) => {
+export const setLocalStorage = (idx, newValue) => {
 	const localStoragePrev = localStorage.getItem(localStorageName);
 	localStorage.setItem(localStorageName,
 		localStoragePrev.slice(0,idx) +
@@ -157,11 +157,13 @@ export default function App() {
 
 	/* Local Storage */
 	useEffect(() => {
-		if (localStorage && !localStorage.getItem(localStorageName)) {
-			localStorage.setItem(localStorageName, "11");
+		if (localStorage && (!localStorage.getItem(localStorageName) || /^[01]{3}$/.test(localStorage.getItem(localStorageName))==false)) {
+			localStorage.setItem(localStorageName, "110");
 				// [0] mode: 1 = true = light, 0 = false = dark
 				// [1] language: 1 = true = English, 0 = false = Chinese
+				// [2] passed case guard: 0 = false, 1 = true
 		}
+		//setLocalStorage(2, false);	// reset case guard on every new session
 	}, []);
 
 	/* Mode Switch 1: Light-dark Mode */

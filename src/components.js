@@ -454,7 +454,7 @@ export function ControlExpandable ({btnContent}) {
 
 
 
-export function A ({children, href, target='_blank', className=""}) {
+export function A ({children, href, target='_blank', wrappable=false, className=""}) {
 
 	/* Cursor */
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
@@ -478,6 +478,7 @@ export function A ({children, href, target='_blank', className=""}) {
 		<a
 			className={
 				className + " " +
+				//(wrappable==true ? "wrappable" : "") + " " +	// TODO: wrap
 				(clicked==true ? "clicked" : "")
 			}
 			href={href}
@@ -592,7 +593,7 @@ export function Gif ({className="", alt="", srcWebm, srcMov, srcMp4, onLoad}) {	
 			onLoad={onLoad}
 		>
 			{srcWebm ? <source type="video/webm" src={srcWebm} /> : null}
-			{srcMov ? <source type="video/mov" src={srcMov} /> : null}
+			{srcMov ? <source type="video/mp4" src={srcMov} /> : null	/* mov has to be loaded with mp4 */}
 			{srcMp4 ? <source type="video/mp4" src={srcMp4} /> : null}
 			{alt}
 		</video>

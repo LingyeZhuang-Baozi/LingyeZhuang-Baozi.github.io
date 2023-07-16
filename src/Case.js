@@ -7,7 +7,7 @@ import './Case.scss';
 /* Foreign Components */
 import { btns, /*images*/ } from './assets.js';
 import { cases, casesNames, bioStructure } from './cases.js';
-import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
+import { getLocalStorage, setLocalStorage, modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
 import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, ImgGallery, ScrollableMobile, ScrollableDesktop } from "./components.js";
 
 /* Important Assets */
@@ -34,7 +34,10 @@ export default function CaseSteamer () {
 
 	/* Guard */
 	const [guarded, setGuarded] = useState(cases[caseId].guarded);
-	const guardOff = () => { setGuarded(false); }
+	const guardOff = () => {
+		setGuarded(false);
+		setLocalStorage(2, true);
+	}
 
 	/* Restore Scroll */
 	const location = useLocation();
@@ -51,7 +54,7 @@ export default function CaseSteamer () {
 	/* Render */
 	if (URLValidator() == false) {
 		return ( <PageNotFound /> );
-	} else if (guarded == true) {
+	} else if (guarded==true && getLocalStorage(2)==false) {
 		return ( <CaseGuard guardOff={guardOff} /> );
 	} else {
 		return (
