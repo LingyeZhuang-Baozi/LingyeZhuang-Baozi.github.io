@@ -603,6 +603,7 @@ export const cases = {
 			tldr: ["TL;DR",
 				<>I led a 4-person team to design and develop a database website using Figma and ReactJS. The objective was to assist analysis of human behavior and guide gesture design in AR settings. Our website enables researchers to upload images capturing human behaviors, and label them with an encoding system we devised based on observation and collection of 2500 photos. Gesture designers can leverage our database to explore real-world human behaviors and occupancy of modalities across different scenarios.</>
 			],
+			link: ["Github\nRepo", "https://github.com/haijun-ucsd/GesturesSearch"],
 			body: ["challenge-solution", [
 				[	// Challenge
 					["", <>
@@ -643,7 +644,7 @@ export const cases = {
 						<Image
 							sizeId={0}
 							alt="demo: drag and drop to upload images"
-							caption="drag and drop to upload"
+							caption="drag and drop to upload images"
 							zoomable={false}
 						>
 							<Gif

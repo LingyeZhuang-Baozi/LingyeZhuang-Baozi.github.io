@@ -19,7 +19,6 @@
 			all: unset;
 		}
 		overflow-x: hidden;
-		//cursor: crosshair;	//cursor: none;	// TODO: improve cursor performance
 		transform-style: preserve-3d;
 	}
 
@@ -576,7 +575,6 @@
 		text-decoration: none;
 		color:inherit;
 		display: inline-block;
-		//cursor: crosshair;	//cursor: none;	// TODO: improve cursor performance
 
 		&:not(.ghost) {
 			position: relative;
@@ -640,6 +638,16 @@
 		&:has(.cursor-readmore) { cursor: $cursor-readmore, pointer; }
 		&:has(.cursor-none) { cursor: auto; }
 	}
+
+	.cursor-default a { cursor: $cursor-default, default; }
+	.cursor-pointer a { cursor: $cursor-pointer, pointer; }
+	.cursor-zoomin a { cursor: $cursor-zoomin, zoom-in; }
+	.cursor-zoomout a { cursor: $cursor-zoomout, zoom-out; }
+	.cursor-grab a { cursor: $cursor-grab, grab; }
+	.cursor-grabbing a { cursor: $cursor-grabbing, grabbing; }
+	.cursor-progress a { cursor: $cursor-progress, wait; }
+	.cursor-readmore a { cursor: $cursor-readmore, pointer; }
+	.cursor-none a { cursor: auto; }
 
 	.cursor-space-out {
 		z-index: $z-top;
