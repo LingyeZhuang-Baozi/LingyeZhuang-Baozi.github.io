@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.4abb73d4.css",
-    "main.js": "/static/js/main.b05530e3.js",
+    "main.js": "/static/js/main.7d9a2189.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
+    "static/media/demo_search.webm": "/static/media/demo_search.16d78b59088b4cf518aa.webm",
     "static/media/DelaGothicOne.ttf": "/static/media/DelaGothicOne.401851edd0d782de8f11.ttf",
     "static/media/demo_upload.mov": "/static/media/demo_upload.e610cfb31fdf3eec88ce.mov",
     "static/media/EmojiOneBW.otf": "/static/media/EmojiOneBW.776bd29aacc83d7cbbf3.otf",
     "static/media/demo_upload.webm": "/static/media/demo_upload.534b2ab2abd333ea64b6.webm",
-    "static/media/demo_search.mov": "/static/media/demo_search.068259ebaf2f3a7fce5a.mov",
-    "static/media/demo_search.webm": "/static/media/demo_search.582d4df19624e7a3d25a.webm",
     "static/media/DelaGothicOne.woff": "/static/media/DelaGothicOne.94485ac095af13e6676b.woff",
     "static/media/demo_filters.webm": "/static/media/demo_filters.d3dcc1a514abfdb28e56.webm",
+    "static/media/demo_search.mov": "/static/media/demo_search.021ca24079c1cc0d1cc1.mov",
     "static/media/loneliness_comic_final_line_drawing.jpeg": "/static/media/loneliness_comic_final_line_drawing.046e80e4d7976a9d10d3.jpeg",
     "static/media/demo_filters.mov": "/static/media/demo_filters.a2e49cdf9a74a7031a34.mov",
     "static/media/EmojiOneBW.woff": "/static/media/EmojiOneBW.8194ed996f3e77b25d05.woff",
@@ -62,7 +62,6 @@
     "static/media/mascot_coloring.mov": "/static/media/mascot_coloring.f0fd079a9c4262368e23.mov",
     "static/media/mascot_coloring.webm": "/static/media/mascot_coloring.b15deb9b6d417b1b2eb1.webm",
     "static/media/me-2.jpg": "/static/media/me-2.b91363c7a4cee909f4a7.jpg",
-    "static/media/demo_drag_drop.mov": "/static/media/demo_drag_drop.0c5edef50778123bd40f.mov",
     "static/media/eeg_1.png": "/static/media/eeg_1.9537f6edeb3d0f5961aa.png",
     "static/media/breadbaker_toast.png": "/static/media/breadbaker_toast.67f129a1b6c023442d3a.png",
     "static/media/facet_states.webp": "/static/media/facet_states.66f294ff90511b16a1ca.webp",
@@ -72,7 +71,6 @@
     "static/media/tracking_orders_3.png": "/static/media/tracking_orders_3.fd8d27cf42ea1afefd82.png",
     "static/media/loneliness_comic_character_design_1_1.png": "/static/media/loneliness_comic_character_design_1_1.a6f7ef7bb5533ecb5d98.png",
     "static/media/userflow_example.png": "/static/media/userflow_example.ebc20d1657a3c3450990.png",
-    "static/media/demo_drag_drop.webm": "/static/media/demo_drag_drop.a8fbb5518f076b9b95ac.webm",
     "static/media/ambulances_menu_iterations.png": "/static/media/ambulances_menu_iterations.73a7e658c17fcc276c39.png",
     "static/media/me-2.webp": "/static/media/me-2.10797e4363b45863ac0a.webp",
     "static/media/gui_cover.png": "/static/media/gui_cover.a4e06158024c89eae0c3.png",
@@ -182,6 +180,7 @@
     "static/media/SukhumvitSet-Bold.ttf": "/static/media/SukhumvitSet-Bold.199b4d73dcf8e8dedd71.ttf",
     "static/media/merch_shirt.png": "/static/media/merch_shirt.64c32f912a8a297cdc62.png",
     "static/media/breadbaker_small_round_breads.png": "/static/media/breadbaker_small_round_breads.5cdf184a8dededa7d948.png",
+    "static/media/framework.png": "/static/media/framework.d74f233c96d1e166abff.png",
     "static/media/sketch3.webp": "/static/media/sketch3.29520404ba8703965e28.webp",
     "static/media/navbar_mobile.webp": "/static/media/navbar_mobile.4d7e84005e5a7ea6f896.webp",
     "static/media/design_system_card.webp": "/static/media/design_system_card.52a240fb1dc89396d254.webp",
@@ -240,6 +239,7 @@
     "static/media/loneliness_comic_character_design_4.webp": "/static/media/loneliness_comic_character_design_4.a5b9219f2fd67bb806d0.webp",
     "static/media/tracking_orders_sketch.webp": "/static/media/tracking_orders_sketch.ae11675435735d642ab6.webp",
     "static/media/breadbaker_toast.webp": "/static/media/breadbaker_toast.d369581bbac5715b986c.webp",
+    "static/media/framework.webp": "/static/media/framework.4319d6cb8e2e8e8e0185.webp",
     "static/media/loneliness_comic_character_design_5.webp": "/static/media/loneliness_comic_character_design_5.015ab00900607bf866d1.webp",
     "static/media/instagram_project_showcase.webp": "/static/media/instagram_project_showcase.354b29fe68cb686bffcb.webp",
     "static/media/profile.webp": "/static/media/profile.fc3465b42d84ba696a3d.webp",
@@ -293,11 +293,11 @@
     "index.html": "/index.html",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
     "main.4abb73d4.css.map": "/static/css/main.4abb73d4.css.map",
-    "main.b05530e3.js.map": "/static/js/main.b05530e3.js.map",
+    "main.7d9a2189.js.map": "/static/js/main.7d9a2189.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4abb73d4.css",
-    "static/js/main.b05530e3.js"
+    "static/js/main.7d9a2189.js"
   ]
 }
