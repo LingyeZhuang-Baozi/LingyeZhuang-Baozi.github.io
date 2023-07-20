@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.4abb73d4.css",
-    "main.js": "/static/js/main.7d9a2189.js",
+    "main.js": "/static/js/main.b760e621.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
-    "static/media/demo_search.webm": "/static/media/demo_search.16d78b59088b4cf518aa.webm",
     "static/media/DelaGothicOne.ttf": "/static/media/DelaGothicOne.401851edd0d782de8f11.ttf",
+    "static/media/demo_search.webm": "/static/media/demo_search.9945d8f834b8a770a9e0.webm",
     "static/media/demo_upload.mov": "/static/media/demo_upload.e610cfb31fdf3eec88ce.mov",
     "static/media/EmojiOneBW.otf": "/static/media/EmojiOneBW.776bd29aacc83d7cbbf3.otf",
     "static/media/demo_upload.webm": "/static/media/demo_upload.534b2ab2abd333ea64b6.webm",
     "static/media/DelaGothicOne.woff": "/static/media/DelaGothicOne.94485ac095af13e6676b.woff",
     "static/media/demo_filters.webm": "/static/media/demo_filters.d3dcc1a514abfdb28e56.webm",
-    "static/media/demo_search.mov": "/static/media/demo_search.021ca24079c1cc0d1cc1.mov",
     "static/media/loneliness_comic_final_line_drawing.jpeg": "/static/media/loneliness_comic_final_line_drawing.046e80e4d7976a9d10d3.jpeg",
     "static/media/demo_filters.mov": "/static/media/demo_filters.a2e49cdf9a74a7031a34.mov",
     "static/media/EmojiOneBW.woff": "/static/media/EmojiOneBW.8194ed996f3e77b25d05.woff",
+    "static/media/demo_search.mov": "/static/media/demo_search.e6c27b3302787fde6e23.mov",
     "static/media/DelaGothicOne.woff2": "/static/media/DelaGothicOne.6b4b87c1c43aea7a818a.woff2",
     "static/media/mascot_draft_to_final.mov": "/static/media/mascot_draft_to_final.43ce8b8f126e4866fbac.mov",
     "static/media/notifications_timeline.png": "/static/media/notifications_timeline.477cdc7ab602bd16b8b6.png",
@@ -293,11 +293,11 @@
     "index.html": "/index.html",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
     "main.4abb73d4.css.map": "/static/css/main.4abb73d4.css.map",
-    "main.7d9a2189.js.map": "/static/js/main.7d9a2189.js.map",
+    "main.b760e621.js.map": "/static/js/main.b760e621.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4abb73d4.css",
-    "static/js/main.7d9a2189.js"
+    "static/js/main.b760e621.js"
   ]
 }
