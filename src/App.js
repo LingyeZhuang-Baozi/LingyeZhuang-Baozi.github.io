@@ -158,6 +158,7 @@ export default function App() {
 	/* Local Storage */
 	useEffect(() => {
 		if (localStorage && (!localStorage.getItem(localStorageName) || /^[01]{3}$/.test(localStorage.getItem(localStorageName))==false)) {
+			localStorage.clear();
 			localStorage.setItem(localStorageName, "110");
 				// [0] mode: 1 = true = light, 0 = false = dark
 				// [1] language: 1 = true = English, 0 = false = Chinese
