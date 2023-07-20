@@ -610,7 +610,7 @@ export const cases = {
 						<P>As mixed reality becomes more integrated into our daily lives, gesture interaction with AR devices is essential. However, the availability of body parts for gesture input varies depending on our activities, and there is no guarantee that any particular modality will always be available.</P>
 						<Image
 							sizeId={0}
-							caption="modalities for gesture input vary depending on daily activities"
+							caption="Modalities for gesture input vary depending on daily activities."
 							zoomable={false}
 						>
 							<Img
@@ -629,11 +629,25 @@ export const cases = {
 				],
 				[	// Solution
 					["Framework And Image Coding", <>
-						<P>To categorize availability of modalities during daily activities and assist AR gesture design, we captured 1579 photos at 50 locations and observed the modality occupancy patterns in them. Using this data, we started developing a framework to categorize daily activities based on aspects that impact gesture design. Our reference for identifying these aspects was the paper <A href="https://doi.org/10.1145/3503537" wrappable={true}>Iteratively Designing Gesture Vocabularies</A> by Professor Haijun Xia, the head of our research lab.</P>
+						<P>To categorize availability of modalities during daily activities and assist AR gesture design, we captured 1579 photos at 50 locations and observed the modality occupancy patterns in them.</P>
+						<P>Using this data, we started developing a framework to categorize daily activities based on factors that impact gesture design. Our reference for identifying these factors was the paper <A href="https://doi.org/10.1145/3503537" wrappable={true}>Iteratively Designing Gesture Vocabularies</A> by Professor Haijun Xia, the head of our research lab. In our framework, daily activities were categorized under key dimensions, such as Location, Spectators, Modality and Posture.</P>
+						<Image
+							sizeId={1}
+							caption="In our framework, daily activities were categorized under key dimensions, such as Modality and Spectators."
+							zoomable={false}
+						>
+							<Img
+								srcWebp={require("./assets/cases/CreativityLab/framework.webp")}
+								srcPng={require("./assets/cases/CreativityLab/framework.png")}
+								alt="framework diagram, categories include: Location, Modality, Demographic, Spectators, Activity, Posture, Spatial Mobility, Cognitive Load"
+							/>
+						</Image>
+						<P>I led the design and development of our database website. We aimed to provide a tool for gesture designers to explore daily activity photos and labels, inspiring their work based on our framework. We self-taught ReactJS through practical application in the project.</P>
+						<P>The first key feature was to allow researchers to upload and code images using our framework.</P>
 						<Image
 							sizeId={0}
 							alt="demo: label images under the preset framework and upload"
-							caption="upload and label images"
+							caption="The user can upload images and label each of them based on our framework."
 							zoomable={false}
 						>
 							<Gif
@@ -641,21 +655,11 @@ export const cases = {
 								srcMov={require("./assets/cases/CreativityLab/demo_upload.mov")}
 							/>
 						</Image>
-						<Image
-							sizeId={0}
-							alt="demo: drag and drop to upload images"
-							caption="drag and drop to upload images"
-							zoomable={false}
-						>
-							<Gif
-								srcWebm={require("./assets/cases/CreativityLab/demo_drag_drop.webm")}
-								srcMov={require("./assets/cases/CreativityLab/demo_drag_drop.mov")}
-							/>
-						</Image>
+						<P>We carefully planned the data structure and input fields for each category and subcategory. We overcame technical challenges, including drag and drop upload, heic format conversion, hoverable toolkit, searchable tags field, clickable body map, canvas annotation, and progress tracking.</P>
 						<Image
 							sizeId={0}
 							alt="demo: add annotation during image labeling"
-							caption="draw annotation on image to indicate the person of interest"
+							caption="The function of drawing annotation on image to highlight the person of interest was implemented using canvas."
 							zoomable={false}
 						>
 							<Gif
@@ -663,10 +667,13 @@ export const cases = {
 								srcMov={require("./assets/cases/CreativityLab/demo_annotation_add.mov")}
 							/>
 						</Image>
+					</>],
+					["Search Facet", <>
+						<P>Uploaded images, labels, and annotations would be stored on Firebase and fetched into our website's exploration gallery, allowing gesture designers to view and find inspiration.</P>
 						<Image
 							sizeId={0}
 							alt="demo: view annotation in the exploration gallery"
-							caption="view uploaded images with labels and annotations in gallery"
+							caption="Gesture designers can view uploaded images with labels and annotations in gallery."
 							zoomable={false}
 						>
 							<Gif
@@ -674,9 +681,7 @@ export const cases = {
 								srcMov={require("./assets/cases/CreativityLab/demo_annotation_view.mov")}
 							/>
 						</Image>
-					</>],
-					["Search Facet", <>
-						<P></P>
+						<P>We designed a comprehensive filter system to empower users with maximum control and guide them in gesture design using our framework. The system allowed both keyword searching and recognition-based selection, all organized as a facet. Upon image upload, customized labels automatically become new filters in our facet.</P>
 						<Image
 							sizeId={3}
 							caption="facet key features"
@@ -699,6 +704,7 @@ export const cases = {
 								alt="pros and cons table comparing 3 designs of the modality selector"
 							/>
 						</Image>
+						<P>Users would have the flexibility to add filters from search results or the filter list, remove them from the facet and applied filters list, and adjust the filter priorities for finding the best-matching images. We designed for redundancy to ensure users can interact with the interface in a manner that matches their mental model.</P>
 						<Image
 							sizeId={0}
 							alt="demo: applying filters in the facet and their effects on the gallery"
@@ -710,10 +716,11 @@ export const cases = {
 								srcMov={require("./assets/cases/CreativityLab/demo_filters.mov")}
 							/>
 						</Image>
+						<P>If the gesture designer had specific keywords in mind, they could use our smart search bar to find the closest matching filters in our database. It highlighted matching terms, color-coded and displayed them by categories in a dropdown for easy selection.</P>
 						<Image
 							sizeId={0}
 							alt="demo: search bar interaction and auto complete by categories"
-							caption="smart search bar can auto complete input according to categories and available filters"
+							caption="Smart search bar could auto complete input according to categories and available filters."
 							zoomable={false}
 						>
 							<Gif
@@ -2025,7 +2032,7 @@ export const cases = {
 		],
 		thumbnail: {
 			brief: [
-				"Proposed a buy-1-give-1 model to help small restaurants and homeless individuals survive the outbreak of Covid-19. Collaborated with a multi-disciplinary, multi-generational team to develop the solution.",
+				"Proposed a buy-1-donate-1 model to help small restaurants and homeless individuals survive the outbreak of Covid-19. Collaborated with a multi-disciplinary, multi-generational team to develop the solution.",
 			],
 			img:
 				<Img
@@ -2035,7 +2042,7 @@ export const cases = {
 		},
 		contentNAH: {
 			tldr: ["TL;DR",
-				<>In response to the Covid-19 outbreak, my team proposed a buy-1-give-1 model to recover the supply and consumption chain, and help small restaurants and homeless individuals survive hard time. This was one of my first real-world projects. I collaborated with a group of problem solvers from various walks of life, practiced design thinking, researched stakeholders, and developed this proposal.</>
+				<>In response to the Covid-19 outbreak, my team proposed a buy-1-donate-1 model to recover the supply and consumption chain, and help small restaurants and homeless individuals survive hard time. This was one of my first real-world projects. I collaborated with a group of problem solvers from various walks of life, practiced design thinking, researched stakeholders, and developed this proposal.</>
 			],
 			body: ["challenge-solution", []],
 			evidence: [],
