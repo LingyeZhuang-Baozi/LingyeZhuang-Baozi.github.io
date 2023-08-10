@@ -1,8 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.4abb73d4.css",
-    "main.js": "/static/js/main.b760e621.js",
+    "main.css": "/static/css/main.a1d7abcf.css",
+    "main.js": "/static/js/main.9bb3e077.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
+    "static/media/HanSansSC-Heavy.otf": "/static/media/HanSansSC-Heavy.c9b2608b3cc62fe5e79f.otf",
+    "static/media/HanSansSC-Bold.otf": "/static/media/HanSansSC-Bold.fcb688eb60d2a2d55cd1.otf",
+    "static/media/HanSansSC-Light.otf": "/static/media/HanSansSC-Light.fe6e333bd41bfd9ed0ef.otf",
+    "static/media/HanSansSC-Regular.otf": "/static/media/HanSansSC-Regular.9e7a10965dd54b1340c8.otf",
     "static/media/DelaGothicOne.ttf": "/static/media/DelaGothicOne.401851edd0d782de8f11.ttf",
     "static/media/demo_search.webm": "/static/media/demo_search.9945d8f834b8a770a9e0.webm",
     "static/media/demo_upload.mov": "/static/media/demo_upload.e610cfb31fdf3eec88ce.mov",
@@ -278,12 +282,20 @@
     "static/media/branding.webp": "/static/media/branding.682290d87db21519d062.webp",
     "static/media/linkedin.svg": "/static/media/linkedin.5dd7ff799ba02f2a4abdabfd03878dd0.svg",
     "static/media/wechat.svg": "/static/media/wechat.4879e46039eb3dc0121f35086eaf5026.svg",
+    "static/media/HanSansSC-Bold.woff": "/static/media/HanSansSC-Bold.2e804d08daa7c62b78da.woff",
+    "static/media/HanSansSC-Heavy.woff": "/static/media/HanSansSC-Heavy.4c920ee07871f032d25d.woff",
     "static/media/read_more_here.svg": "/static/media/read_more_here.d6a757090eb9c7c107df7b8122be630d.svg",
+    "static/media/HanSansSC-Regular.woff": "/static/media/HanSansSC-Regular.e33e0fd3b2464c321474.woff",
+    "static/media/HanSansSC-Light.woff": "/static/media/HanSansSC-Light.f53b3a58fe96b70ee411.woff",
     "static/media/object.svg": "/static/media/object.fb480409a456d6bba1ec68c8e4cc380f.svg",
     "static/media/cursor_grab.svg": "/static/media/cursor_grab.f3ea05f748148075347c.svg",
     "static/media/back_home.svg": "/static/media/back_home.12fceba0ac5360bcfa0b41dc11b0c819.svg",
     "static/media/cursor_pointer.svg": "/static/media/cursor_pointer.bfab709af2dab8bf8613.svg",
     "static/media/cursor_grabbing.svg": "/static/media/cursor_grabbing.4dd9463d08cd1bdcbc05.svg",
+    "static/media/HanSansSC-Heavy.woff2": "/static/media/HanSansSC-Heavy.5018f0b4e65bd49c9113.woff2",
+    "static/media/HanSansSC-Bold.woff2": "/static/media/HanSansSC-Bold.4b3fa0a8def5c046ded0.woff2",
+    "static/media/HanSansSC-Light.woff2": "/static/media/HanSansSC-Light.bb0366edcae44716c6de.woff2",
+    "static/media/HanSansSC-Regular.woff2": "/static/media/HanSansSC-Regular.ca05a074984910ffe6c2.woff2",
     "static/media/cursor_progress.svg": "/static/media/cursor_progress.b25cf76948e4c858ebab.svg",
     "static/media/cursor_zoomin.svg": "/static/media/cursor_zoomin.b92520eb3d729e3829b9.svg",
     "static/media/cursor_zoomout.svg": "/static/media/cursor_zoomout.4f48dd46924e8467d4e2.svg",
@@ -292,12 +304,12 @@
     "static/media/cursor_default.svg": "/static/media/cursor_default.790c9c290a50d5461564.svg",
     "index.html": "/index.html",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
-    "main.4abb73d4.css.map": "/static/css/main.4abb73d4.css.map",
-    "main.b760e621.js.map": "/static/js/main.b760e621.js.map",
+    "main.a1d7abcf.css.map": "/static/css/main.a1d7abcf.css.map",
+    "main.9bb3e077.js.map": "/static/js/main.9bb3e077.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4abb73d4.css",
-    "static/js/main.b760e621.js"
+    "static/css/main.a1d7abcf.css",
+    "static/js/main.9bb3e077.js"
   ]
 }
