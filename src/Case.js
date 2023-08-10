@@ -397,8 +397,8 @@ function Body () {
 				return (
 					<>{bodyContent[1].map((collection, idx) => 
 						<div key={idx} className="case-body-gallery-collection">
-							{collection[getLanguageId()].title ?
-								<div className="case-body-section-title">{collection[getLanguageId()].title}</div>
+							{collection.title ?
+								<div className="case-body-section-title">{collection.title}</div>
 							: null }
 							{collection.spotlight ?
 								<>{collection.spotlight[0] == "mobile" ?
