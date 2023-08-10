@@ -96,7 +96,7 @@ function sortByReducer (currState, sortByAction) {
 			return newState;
 		}
 		case "changeSecondaryByClick": {
-			scrollTo(currState.secondary[currState.mode==true ? 0 : 1].content[sortByAction.toSection][0]);
+			scrollTo(currState.secondary[currState.mode==true ? 0 : 1].content[sortByAction.toSection].title[0]);
 			return currState;
 		}
 		case "observerChingLing": {
