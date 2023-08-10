@@ -539,10 +539,13 @@
 		flex-direction: row;
 		align-items: flex-start;
 		gap: $home-hero-case-bio-entry-gap;
+	}
 
-		.home-hero-case-bio-entry-title {
-			font-family: $font-sans-serif-bold;
-		}
+	.language-en .home-hero-case-bio-entry .home-hero-case-bio-entry-title {
+		font-family: $font-sans-serif-bold-en;
+	}
+	.language-cn .home-hero-case-bio-entry .home-hero-case-bio-entry-title {
+		font-family: $font-sans-serif-bold-cn;
 	}
 
 

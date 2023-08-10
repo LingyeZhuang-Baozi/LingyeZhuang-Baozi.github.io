@@ -7,7 +7,7 @@ import './Case.scss';
 /* Foreign Components */
 import { btns, /*images*/ } from './assets.js';
 import { cases, casesNames, bioStructure } from './cases.js';
-import { getLocalStorage, setLocalStorage, modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
+import { getLocalStorage, setLocalStorage, modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, getLanguageIdContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
 import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, ImgGallery, ScrollableMobile, ScrollableDesktop } from "./components.js";
 
 /* Important Assets */
@@ -23,11 +23,12 @@ export default function CaseSteamer () {
 	// Redirection is handled by PageNotFound.
 	const params = useParams();
 	const [URLtype, caseId] = params.caseId.split("-");	// standard format of a case URL must be: "case-<caseId>"
+	const getLanguageId = useContext(getLanguageIdContext);
 	const URLValidator = () => {
 		if (
 			URLtype=="case"
 			&& casesNames.some(cn => cn === caseId)
-			&& cases[caseId].content
+			&& cases[caseId][getLanguageId()].content
 		) { return true; }
 		else { return false; }
 	}
@@ -246,16 +247,19 @@ function Header ({singleLinePrompt}) {
 	const caseId = useContext(caseIdContext);
 	const caseContent = cases[caseId];
 
+	/* Language */
+	const getLanguageId = useContext(getLanguageIdContext);
+
 	/* Render */
 	return (
 		<div className="case-header">
 			<div className="case-header-img">
-				{caseContent.content.img ? caseContent.content.img : null}
+				{caseContent[getLanguageId()].content.img ? caseContent[getLanguageId()].content.img : null}
 			</div>
-			<div className="case-header-title">{caseContent.title}</div>
+			<div className="case-header-title">{caseContent[getLanguageId()].title}</div>
 			<div className="case-header-bio-container">
 				<div className="case-header-bio">
-					{caseContent.bio.map((entry, idx) => {
+					{caseContent[getLanguageId()].bio.map((entry, idx) => {
 						if (entry != null && entry != "") {
 							return (
 								<div key={bioStructure[idx]} className="case-header-bio-entry-container">
@@ -268,17 +272,17 @@ function Header ({singleLinePrompt}) {
 				</div>
 				<div className="case-header-bio-entry-container case-header-bio-tldr">
 					<div className="case-header-bio-entry-title">
-						{caseContent.content.tldr[0] && caseContent.content.tldr[0] != "" ?
-							caseContent.content.tldr[0] : "TL;DR"
+						{caseContent[getLanguageId()].content.tldr[0] && caseContent[getLanguageId()].content.tldr[0] != "" ?
+							caseContent[getLanguageId()].content.tldr[0] : "TL;DR"
 						}
 					</div>
 					<div className="case-header-bio-entry-content">
-						{caseContent.content.tldr[1]}
-						{caseContent.content.link ?
+						{caseContent[getLanguageId()].content.tldr[1]}
+						{caseContent[getLanguageId()].content.link ?
 							<HeaderObject />
 						: null }
 					</div>
-					{caseContent.content.link ?
+					{caseContent[getLanguageId()].content.link ?
 						<div className="case-header-object-pillar"></div>
 					: null }
 				</div>
@@ -291,6 +295,9 @@ function HeaderObject () {
 
 	const caseId = useContext(caseIdContext);
 	const caseContent = cases[caseId];
+
+	/* Language */
+	const getLanguageId = useContext(getLanguageIdContext);
 
 	/* Cursor */
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
@@ -313,7 +320,7 @@ function HeaderObject () {
 		<div className="case-header-object-container-out">
 			<div className="case-header-object-rotater">
 				<a
-					href={caseContent.content.link[1]}
+					href={caseContent[getLanguageId()].content.link[1]}
 					className={
 						"case-header-object-container-in ghost " +
 						(hovering==true ? "curr" : "")
@@ -327,7 +334,7 @@ function HeaderObject () {
 			</div>
 			<div className="case-header-object-prompt-container">
 				<a
-					href={caseContent.content.link[1]}
+					href={caseContent[getLanguageId()].content.link[1]}
 					className={
 						"case-header-object-prompt ghost " +
 						(hovering==true ? "focused" : "")
@@ -336,7 +343,7 @@ function HeaderObject () {
 					onMouseOver={hoverStarts}
 					onMouseLeave={hoverEnds}
 				>
-					<div className="case-header-object-prompt-text">{caseContent.content.link[0]}</div>
+					<div className="case-header-object-prompt-text">{caseContent[getLanguageId()].content.link[0]}</div>
 					<OpenExternal className="case-header-object-prompt-icon" />
 				</a>
 			</div>
@@ -347,9 +354,12 @@ function HeaderObject () {
 function Body () {
 
 	const caseId = useContext(caseIdContext);
-	const bodyContent = cases[caseId].content.body;
+
+	/* Language */
+	const getLanguageId = useContext(getLanguageIdContext);
 
 	/* Render */
+	const bodyContent = cases[caseId][getLanguageId()].content.body;
 	const caseBody = () => {
 		switch (bodyContent[0]) {
 
@@ -387,8 +397,8 @@ function Body () {
 				return (
 					<>{bodyContent[1].map((collection, idx) => 
 						<div key={idx} className="case-body-gallery-collection">
-							{collection.title ?
-								<div className="case-body-section-title">{collection.title}</div>
+							{collection[getLanguageId()].title ?
+								<div className="case-body-section-title">{collection[getLanguageId()].title}</div>
 							: null }
 							{collection.spotlight ?
 								<>{collection.spotlight[0] == "mobile" ?

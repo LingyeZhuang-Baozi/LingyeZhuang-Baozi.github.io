@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 /* Foreign Components */
 import { btns } from './assets.js';
-import { modeContext, modalIsOnContext, dispatchModeContext, languageContext, dispatchLanguageContext, dispatchModalContext, dispatchCursorTypeContext } from './App.js';
+import { modeContext, modalIsOnContext, dispatchModeContext, languageContext, dispatchLanguageContext, getLanguageIdContext, dispatchModalContext, dispatchCursorTypeContext } from './App.js';
 
 /* Libraries */
 import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
@@ -209,6 +209,9 @@ export function ControlToggle ({btnContent, togglerCurr, togglerUpdateHandler, s
 		secondaryUpdateHandler(newCurr);
 	}
 
+	/* Language */
+	const getLanguageId = useContext(getLanguageIdContext);
+
 	/* Render */
 	return (
 		<div className="control-toggle">
@@ -244,7 +247,7 @@ export function ControlToggle ({btnContent, togglerCurr, togglerUpdateHandler, s
 				{toggleSecondary.content.map((tab, idx) =>
 					<ControlToggleSecondaryTab
 						key={idx}
-						tabContent={tab[0]}
+						tabContent={tab.title[(getLanguageId() == "en" ? 0 : 1)]}
 						curr={
 							newlyClickedSecondary===idx
 							|| (newlyClickedSecondary<0 && toggleSecondary.curr===idx)

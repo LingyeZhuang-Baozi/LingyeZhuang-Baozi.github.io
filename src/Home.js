@@ -7,7 +7,7 @@ import './Home.scss';
 /* Foreign Components */
 import { btns, /*images*/ } from './assets.js';
 import { cases, casesNames, casesGoats, casesByCategory, casesByTimeline } from './cases.js';
-import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, cursorTypeContext, dispatchCursorTypeContext, isScrollingContext } from './App.js';
+import { modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, getLanguageIdContext, cursorTypeContext, dispatchCursorTypeContext, isScrollingContext } from './App.js';
 import { ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, Img } from "./components.js";
 
 /* Important Assets */
@@ -192,11 +192,10 @@ export default function Home () {
 		}, []);
 	// Cases Observers
 		const caseAPrecedesB = (caseA, caseB) => {
-			//console.log(caseA, "precedes", caseB, "?");
 			for (let i = 0; i < sections.length; i++) {
-				for (let j = 0; j < sections[i][1].length; j++) {
-					if (sections[i][1][j] == caseA) { /*console.log("yes");*/return true; }
-					else if (sections[i][1][j] == caseB) { /*console.log("nah");*/return false; }
+				for (let j = 0; j < sections[i].cases.length; j++) {
+					if (sections[i].cases[j] == caseA) { return true; }
+					else if (sections[i].cases[j] == caseB) { return false; }
 					else { continue; }
 				}
 			}
@@ -318,6 +317,7 @@ function Hero ({inViewSetter}) {
 
 	/* Language */
 	//const language = useContext(languageContext);	// TODO: wechat contact, QR code?
+	const getLanguageId = useContext(getLanguageIdContext);
 
 	/* Switch Content According To Hovered Object */
 	const goatsContent = casesGoats.map(caseId => cases[caseId]);
@@ -350,15 +350,43 @@ function Hero ({inViewSetter}) {
 		}
 	}, [hoveringObjects, hoveredIdx]);
 
-	/* Proper Greeting According To Time */
-	const getInTimeGreeting = () => {
+	/* Proper Content According To Time And Language */
+	const getGreeting = () => {
 		var curHr = new Date().getHours();
-		if (curHr < 4) { return (<>Hey! My night owl buddy <Emoji>🦉</Emoji></>); }
-		else if (curHr < 12) { return (<>Morning! <Emoji>😎</Emoji></>); }
-		else if (curHr < 18) { return (<>Good afternoon! <Emoji>🌼</Emoji></>); }
-		else { return (<>Good evening <Emoji>✨</Emoji></>); }
+		var inTimeGreeting;
+		if (getLanguageId() == "en") {
+			if (curHr < 4) { inTimeGreeting = <>Hey! My night owl buddy <Emoji>🦉</Emoji></>; }
+			else if (curHr < 12) { inTimeGreeting = <>Morning! <Emoji>😎</Emoji></>; }
+			else if (curHr < 18) { inTimeGreeting = <>Good afternoon! <Emoji>🌼</Emoji></>; }
+			else { inTimeGreeting = <>Good evening <Emoji>✨</Emoji></>; }
+			return (<>{inTimeGreeting} You found my little cabin on the internet!</>);
+		} else {
+			if (curHr < 4) { inTimeGreeting = <>欢迎你！我的夜猫子同伴 <Emoji>🦉</Emoji></>; }
+			else if (curHr < 12) { inTimeGreeting = <>早上好！<Emoji>😎</Emoji></>; }
+			else if (curHr < 18) { inTimeGreeting = <>幸会！<Emoji>🌼</Emoji></>; }
+			else { inTimeGreeting = <>晚上好 <Emoji>✨</Emoji></>; }
+			return (<>{inTimeGreeting} 我是：</>);
+		}
 	};
-	const inTimeGreeting = getInTimeGreeting();
+	const heroGreeting = getGreeting();
+	const heroTitles = getLanguageId() == "en" ?
+		<>UX/UI Designer + Frontend Developer</>
+	:
+		<>设计 / 编程 / 插画 的斜杠青年</>
+	;
+	const heroSelfIntro = getLanguageId() == "en" ?
+		<>
+			I design for social good, and I believe practice makes perfect.
+			<br/>Walking on the path toward being a full-stack designer.
+			<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
+		</>
+	:
+		<>
+			脚踏实地，勤于自学，好奇心和社会责任感是我的内驱力。
+			<br/>目标成为既能设计也会实现的全栈设计师。
+			<br/>本作品集网站由本人原创设计并<A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master">独立开发</A>，希望你能喜欢 <Emoji>💛</Emoji>。
+		</>
+	;
 
 	/* Hero In View Observer */
 	const heroRef = useRef(null);
@@ -407,7 +435,7 @@ function Hero ({inViewSetter}) {
 						<div className="home-hero-selfintro-container">
 							<div className="home-hero-selfintro">
 								<div className="home-hero-contacts-container">
-									<div className="home-hero-selfintro-body">{inTimeGreeting} You found my little cabin on the internet!</div>
+									<div className="home-hero-selfintro-body">{heroGreeting}</div>
 									<div className="home-hero-contacts">
 										<HeroContactBtn btnContent="resume" />
 										<HeroContactBtn btnContent="email" />
@@ -417,16 +445,10 @@ function Hero ({inViewSetter}) {
 									</div>
 								</div>
 								<div className="home-hero-selfintro-name-container">
-									<HeroName />
-									<div className="home-hero-selfintro-title">
-										UX/UI Designer + Frontend Developer
-									</div>
+									{ getLanguageId() == "en" ? <HeroNameEN /> : <HeroNameCN /> }
+									<div className="home-hero-selfintro-title">{heroTitles}</div>
 								</div>
-								<div className="home-hero-selfintro-body">
-									I design for social good, and I believe practice makes perfect.
-									<br/>Walking on the path toward being a full-stack designer.
-									<br/>This website is <A href="https://github.com/LingyeZhuang-Baozi/LingyeZhuang-Baozi.github.io/tree/master">hand-coded</A> with React.js and <Emoji>💛</Emoji>.
-								</div>
+								<div className="home-hero-selfintro-body">{heroSelfIntro}</div>
 							</div>
 							<div className="home-hero-objects-pillar"></div>
 						</div>
@@ -444,27 +466,34 @@ function Hero ({inViewSetter}) {
 							} : {})}
 						>
 							<div className="home-hero-case-img-container">
-								{caseContent.thumbnail.img ? caseContent.thumbnail.img : null}
+								{caseContent[getLanguageId()].thumbnail.img ? caseContent[getLanguageId()].thumbnail.img : null}
 							</div>
 							<div className="home-hero-case-text-container">
 								<div className="home-hero-case-title">
-									{caseContent.title}
+									{caseContent[getLanguageId()].title}
 								</div>
 								<div className="home-hero-case-bio-container">
 									<div className="home-hero-case-bio">
 										<div className="home-hero-case-bio-entry">
 											<div className="home-hero-case-bio-entry-title">My Role:</div>
-											{ caseContent.bio[1] }
+											{ caseContent[getLanguageId()].bio[1] }
 										</div>
 										<div className="home-hero-case-bio-entry">
 											<div className="home-hero-case-bio-entry-title">Timeline:</div>
-											{ caseContent.bio[2] }
+											{ caseContent[getLanguageId()].bio[2] }
 										</div>
 									</div>
-									<div className="home-hero-case-brief">
-										{caseContent.thumbnail.brief.map((bullet, idx) =>
+									{/*<div className="home-hero-case-brief">
+										{caseContent[getLanguageId()].thumbnail.brief.map((bullet, idx) =>
 											<Fragment key={idx}>{bullet} </Fragment>
 										)}
+									</div>*/}
+									<div className="home-hero-case-brief">
+										<ul>
+											{caseContent[getLanguageId()].thumbnail.brief.map((bullet, idx) =>
+												<li key={idx}>{bullet}</li>
+											)}
+										</ul>
 									</div>
 								</div>
 							</div>
@@ -498,7 +527,7 @@ function Hero ({inViewSetter}) {
 	);
 }
 
-function HeroName () {
+function HeroNameEN () {
 
 	/* Name */
 	const firstName = "Juliet";
@@ -514,6 +543,23 @@ function HeroName () {
 			}</div>
 			<div className="home-hero-selfintro-name-chargroup">{
 				lastName.split("").map((c, i) =>
+					<HeroNameChar key={i} char={c} />
+				)
+			}</div>
+		</div>
+	);
+}
+
+function HeroNameCN () {
+
+	/* Name */
+	const name = "庄令晔";
+
+	/* Render */
+	return (
+		<div className="home-hero-selfintro-name">
+			<div className="home-hero-selfintro-name-chargroup">{
+				name.split("").map((c, i) =>
 					<HeroNameChar key={i} char={c} />
 				)
 			}</div>
@@ -664,6 +710,9 @@ function ControlBar ({departed}) {
 		}
 	}, [newlyClickedSecondary]);
 
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
 	/* Render */
 	return (
 		<div className="home-control">
@@ -698,6 +747,7 @@ function ControlBar ({departed}) {
 									left: 0,
 									behavior: "smooth",
 								});
+								dispatchCursorType({type: "default"});
 							}}
 							itchClass="control-btn-totop-itching"
 						/>
@@ -793,7 +843,7 @@ function Cases () {
 			<div className="home-cases">
 				{sections.map((section, idx) =>
 					<CasesSection
-						key={section[0]}
+						key={section.title[0]}
 						sectionContent={section}
 						sectionRef={sortBy.secondary[sortBy.mode==true ? 0 : 1].refs.current[idx]}
 						sectionInViewStateSetter={(state) => { sectionInViewStateSetter(idx, state); }}
@@ -804,7 +854,7 @@ function Cases () {
 	);
 }
 
-function CasesSection ({sectionContent, sectionRef, sectionInViewStateSetter}) {	// sectionContent: [0] title, [1] content, [2] bullet, [3] caption
+function CasesSection ({sectionContent, sectionRef, sectionInViewStateSetter}) {	// sectionContent: title, subtitle, cases, bullet
 
 	/* Curr Section In View */
 	// Content
@@ -832,11 +882,14 @@ function CasesSection ({sectionContent, sectionRef, sectionInViewStateSetter}) {
 		dispatchCaseInView({type: "observerChingLing", caseName: caseName, caseInViewState: state});
 	}
 
+	/* Language */
+	const getLanguageId = useContext(getLanguageIdContext);
+
 	/* Render */
 	return (
 		<div
 			ref={sectionContentRef}
-			id={idCreator(sectionContent[0])}
+			id={idCreator(sectionContent.title[0])}
 			className="home-cases-section"
 		>
 			<div
@@ -846,20 +899,22 @@ function CasesSection ({sectionContent, sectionRef, sectionInViewStateSetter}) {
 					(titleAllInView==true ? "home-cases-section-title-inview" : "")
 				}
 			>
-				{sectionContent.length >= 3 ?
-					sectionContent[2]
+				{sectionContent.bullet ?
+					sectionContent.bullet
 				:
 					<div className="home-cases-section-title-bullet-placeholder"></div>
 				}
 				<div className="home-cases-section-title">
-					{sectionContent[0]}
-					{sectionContent.length >= 4 ?
-						<div className="home-cases-section-title-caption">{sectionContent[3]}</div>
+					{sectionContent.title[(getLanguageId() == "en" ? 0 : 1)]}
+					{sectionContent.subtitle ?
+						<div className="home-cases-section-title-caption">
+							{sectionContent.subtitle[(getLanguageId() == "en" ? 0 : 1)]}
+						</div>
 					: null }
 				</div>
 			</div>
 			<div className="home-cases-section-content">
-				{sectionContent[1].map((caseName, idx) =>
+				{sectionContent.cases.map((caseName, idx) =>
 					<CaseCard
 						key={caseName}
 						caseId={caseName}
@@ -876,6 +931,9 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 
 	const caseContent = cases[caseId];
 	const ID = idCreator(caseId);
+
+	/* Language */
+	const getLanguageId = useContext(getLanguageIdContext);
 
 	/* Curr Case In View */
 	const caseInView = useContext(caseInViewContext);
@@ -902,7 +960,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 	const isScrolling = useContext(isScrollingContext);
 	const hoverStarts = (e) => {
 		e.preventDefault();
-		if (caseContent.content) {
+		if (caseContent[getLanguageId()].content) {
 			if (isScrolling == true) {
 				dispatchCursorType({type: "pointer"});
 			} else {
@@ -921,7 +979,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 	const navigate = useNavigate();
 	const clickOpenCase = (e) => {
 		e.preventDefault();
-		if (caseContent.content) {
+		if (caseContent[getLanguageId()].content) {
 			navigate("/case-" + caseId);
 		}
 	}
@@ -1006,23 +1064,23 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 			>
 				<>
 					<div className="home-case-img">
-						{caseContent.thumbnail.img ? caseContent.thumbnail.img : null}
+						{caseContent[getLanguageId()].thumbnail.img ? caseContent[getLanguageId()].thumbnail.img : null}
 					</div>
 					<div className="home-case-text-container">
 						<div className="home-case-title">
-							{caseContent.title}
+							{caseContent[getLanguageId()].title}
 						</div>
 						<div className="home-case-bio">
 							<div className="home-case-bio-item">{
-								caseContent.bio[1]//role
+								caseContent[getLanguageId()].bio[1]//role
 							}</div>
 							<div className="home-case-bio-item">{
-								caseContent.bio[2]//duration
+								caseContent[getLanguageId()].bio[2]//duration
 							}</div>
 						</div>
 						<div className="home-case-brief">
 							<ul>
-								{caseContent.thumbnail.brief.map((bullet, idx) =>
+								{caseContent[getLanguageId()].thumbnail.brief.map((bullet, idx) =>
 									<li key={idx}>{bullet}</li>
 								)}
 							</ul>
@@ -1030,7 +1088,7 @@ function CaseCard ({caseId, caseRef, caseInViewStateSetter}) {
 					</div>
 				</>
 				<>
-					{caseContent.content ?
+					{caseContent[getLanguageId()].content ?
 						<CaseObject
 							caseId={caseId}
 							caseIsActive={inViewStage===2}

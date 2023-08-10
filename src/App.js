@@ -64,6 +64,7 @@ function modeReducer (currState, modeAction) {
 /* Mode Switch 2: Language */
 export const languageContext = createContext(null);
 export const dispatchLanguageContext = createContext(null);
+export const getLanguageIdContext = createContext(null);
 function languageReducer (currLanguage, languageAction) {
 	switch (languageAction.type) {
 		case "toggle": {
@@ -186,6 +187,9 @@ export default function App() {
 		localStorage && localStorage.getItem(localStorageName) ? getLocalStorage(1) : true,
 	);
 	useEffect(() => { document.documentElement.lang = (language==true ? "en" : "zh") }, [language]);
+	const getLanguageId = () => {
+		return (language==true ? "en" : "cn");
+	}
 
 	/* Modal */
 	const [modal, dispatchModal] = useReducer(modalReducer, {
@@ -298,6 +302,7 @@ export default function App() {
 			<dispatchModeContext.Provider value={dispatchMode}>
 			<languageContext.Provider value={language}>
 			<dispatchLanguageContext.Provider value={dispatchLanguage}>
+			<getLanguageIdContext.Provider value={getLanguageId}>
 			<modalIsOnContext.Provider value={modal.state>0}>
 			<dispatchModalContext.Provider value={dispatchModal}>
 			<cursorTypeContext.Provider value={cursorType}>
@@ -309,6 +314,7 @@ export default function App() {
 			</cursorTypeContext.Provider>
 			</dispatchModalContext.Provider>
 			</modalIsOnContext.Provider>
+			</getLanguageIdContext.Provider>
 			</dispatchLanguageContext.Provider>
 			</languageContext.Provider>
 			</dispatchModeContext.Provider>

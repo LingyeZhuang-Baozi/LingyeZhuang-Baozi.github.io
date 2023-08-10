@@ -52,36 +52,92 @@
 	$time-inf: 100000ms;
 
 	/* Font family */
-	//@font-face { font-family: "DelaGothicOne"; src: url("./assets/basic/fonts/DelaGothicOne.ttf"); }
-	@font-face { font-family: "DelaGothicOne"; src:
-		local("DelaGothicOne"),
-		url("./assets/basic/fonts/DelaGothicOne.woff2") format("woff2"),
-		url("./assets/basic/fonts/DelaGothicOne.woff") format("woff"),
-		url("./assets/basic/fonts/DelaGothicOne.ttf") format("opentype"); }
-	@font-face { font-family: "SukhumvitSet"; src:
-		local("SukhumvitSet-Text"),
-		url("./assets/basic/fonts/SukhumvitSet-Text.woff2") format("woff2"),
-		url("./assets/basic/fonts/SukhumvitSet-Text.woff") format("woff"),
-		url("./assets/basic/fonts/SukhumvitSet-Text.ttf") format("opentype"); }
-	@font-face { font-family: "SukhumvitSet-Light"; src:
-		local("SukhumvitSet-Light"),
-		url("./assets/basic/fonts/SukhumvitSet-Light.woff2") format("woff2"),
-		url("./assets/basic/fonts/SukhumvitSet-Light.woff") format("woff"),
-		url("./assets/basic/fonts/SukhumvitSet-Light.ttf") format("opentype"); }
-	@font-face { font-family: "SukhumvitSet-Bold"; src:
-		local("SukhumvitSet-Bold"),
-		url("./assets/basic/fonts/SukhumvitSet-Bold.woff2") format("woff2"),
-		url("./assets/basic/fonts/SukhumvitSet-Bold.woff") format("woff"),
-		url("./assets/basic/fonts/SukhumvitSet-Bold.ttf") format("opentype"); }
-	@font-face { font-family: "EmojiOneBW"; src:
-		local("EmojiOneBW"),
-		url("./assets/basic/fonts/EmojiOneBW.woff2") format("woff2"),
-		url("./assets/basic/fonts/EmojiOneBW.woff") format("woff"),
-		url("./assets/basic/fonts/EmojiOneBW.otf") format("opentype"); }
-	$font-serif: "DelaGothicOne", Georgia, Times, "Times New Roman", serif;
-	$font-sans-serif: "SukhumvitSet-Text", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	$font-sans-serif-light: "SukhumvitSet-Light", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	$font-sans-serif-bold: "SukhumvitSet-Bold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	@font-face { font-family: "DelaGothicOne"; src: url("./assets/basic/fonts/DelaGothicOne.ttf"); }
+	@font-face {
+		font-family: "DelaGothicOne";
+		src:
+			local("DelaGothicOne"),
+			url("./assets/basic/fonts/DelaGothicOne.woff2") format("woff2"),
+			url("./assets/basic/fonts/DelaGothicOne.woff") format("woff"),
+			url("./assets/basic/fonts/DelaGothicOne.ttf") format("opentype");
+		unicode-range: U+00-024F;
+		}
+	@font-face {
+		font-family: "HanSansSC-Display";
+		src:
+			local("SourceHanSansSC-Heavy"),
+			url("./assets/basic/fonts/HanSansSC-Heavy.woff2") format("woff2"),
+			url("./assets/basic/fonts/HanSansSC-Heavy.woff") format("woff"),
+			url("./assets/basic/fonts/HanSansSC-Heavy.otf") format("opentype");
+		//unicode-range: U+4E00-9FFF;
+		}
+	@font-face {
+		font-family: "SukhumvitSet";
+		src:
+			local("SukhumvitSet-Text"),
+			url("./assets/basic/fonts/SukhumvitSet-Text.woff2") format("woff2"),
+			url("./assets/basic/fonts/SukhumvitSet-Text.woff") format("woff"),
+			url("./assets/basic/fonts/SukhumvitSet-Text.ttf") format("opentype");
+		}
+	@font-face {
+		font-family: "HanSansSC";
+		src:
+			local("SourceHanSansSC-Regular"),
+			url("./assets/basic/fonts/HanSansSC-Regular.woff2") format("woff2"),
+			url("./assets/basic/fonts/HanSansSC-Regular.woff") format("woff"),
+			url("./assets/basic/fonts/HanSansSC-Regular.otf") format("opentype");
+		unicode-range: U+4E00-9FFF;
+		}
+	@font-face {
+		font-family: "SukhumvitSet-Light";
+		src:
+			local("SukhumvitSet-Light"),
+			url("./assets/basic/fonts/SukhumvitSet-Light.woff2") format("woff2"),
+			url("./assets/basic/fonts/SukhumvitSet-Light.woff") format("woff"),
+			url("./assets/basic/fonts/SukhumvitSet-Light.ttf") format("opentype");
+		}
+	@font-face {
+		font-family: "HanSansSC-Light";
+		src:
+			local("SourceHanSansSC-Light"),
+			url("./assets/basic/fonts/HanSansSC-Light.woff2") format("woff2"),
+			url("./assets/basic/fonts/HanSansSC-Light.woff") format("woff"),
+			url("./assets/basic/fonts/HanSansSC-Light.otf") format("opentype");
+		unicode-range: U+4E00-9FFF;
+		}
+	@font-face {
+		font-family: "SukhumvitSet-Bold";
+		src:
+			local("SukhumvitSet-Bold"),
+			url("./assets/basic/fonts/SukhumvitSet-Bold.woff2") format("woff2"),
+			url("./assets/basic/fonts/SukhumvitSet-Bold.woff") format("woff"),
+			url("./assets/basic/fonts/SukhumvitSet-Bold.ttf") format("opentype");
+		}
+	@font-face {
+		font-family: "HanSansSC-Bold";
+		src:
+			local("SourceHanSansSC-Bold"),
+			url("./assets/basic/fonts/HanSansSC-Bold.woff2") format("woff2"),
+			url("./assets/basic/fonts/HanSansSC-Bold.woff") format("woff"),
+			url("./assets/basic/fonts/HanSansSC-Bold.otf") format("opentype");
+		unicode-range: U+4E00-9FFF;
+		}
+	@font-face {
+		font-family: "EmojiOneBW";
+		src:
+			local("EmojiOneBW"),
+			url("./assets/basic/fonts/EmojiOneBW.woff2") format("woff2"),
+			url("./assets/basic/fonts/EmojiOneBW.woff") format("woff"),
+			url("./assets/basic/fonts/EmojiOneBW.otf") format("opentype");
+		}
+	$font-serif-en: "DelaGothicOne", Georgia, Times, "Times New Roman", serif;
+	$font-sans-serif-en: "SukhumvitSet-Text", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	$font-sans-serif-light-en: "SukhumvitSet-Light", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	$font-sans-serif-bold-en: "SukhumvitSet-Bold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	$font-serif-cn: "HanSansSC-Display", "Noto Sans TC", "微软正黑体", sans-serif;
+	$font-sans-serif-cn: "HanSansSC", "Noto Sans TC", "微软正黑体", sans-serif;
+	$font-sans-serif-light-cn: "HanSansSC-Light", "Noto Sans TC", "微軟正黑體", sans-serif;
+	$font-sans-serif-bold-cn: "HanSansSC-Bold", "Noto Sans TC", "微軟正黑體", sans-serif;
 	$font-emoji: "EmojiOneBW";
 
 	/* Font size & lineheight */
@@ -350,9 +406,14 @@
 	$text-color-caption-dark: $color-gray3-99;
 
 	%text-display {
-		font-family: $font-serif;
 		font-size: $font-display;
 		line-height: $lineheight-display;
+	}
+	.language-en %text-display {
+		font-family: $font-serif-en;
+	}
+	.language-cn %text-display {
+		font-family: $font-serif-cn;
 	}
 	.mode-light %text-display {
 		color: $text-color-display-light;
@@ -362,9 +423,14 @@
 	}
 
 	%text-h1 {
-		font-family: $font-serif;
 		font-size: $font-h1;
 		line-height: $lineheight-h1;
+	}
+	.language-en %text-h1 {
+		font-family: $font-serif-en;
+	}
+	.language-cn %text-h1 {
+		font-family: $font-serif-cn;
 	}
 	.mode-light %text-h1 {
 		color: $text-color-h1-light;
@@ -374,9 +440,15 @@
 	}
 
 	%text-h2 {
-		font-family: $font-serif;
+		font-family: $font-serif-en;
 		font-size: $font-h2;
 		line-height: $lineheight-h2;
+	}
+	.language-en %text-h2 {
+		font-family: $font-serif-en;
+	}
+	.language-cn %text-h2 {
+		font-family: $font-serif-cn;
 	}
 	.mode-light %text-h2 {
 		color: $text-color-h2-light;
@@ -386,9 +458,14 @@
 	}
 
 	%text-body {
-		font-family: $font-sans-serif-light;
 		font-size: $font-default;
 		line-height: $lineheight-default;
+	}
+	.language-en %text-body {
+		font-family: $font-sans-serif-light-en;
+	}
+	.language-cn %text-body {
+		font-family: $font-sans-serif-light-cn;
 	}
 	.mode-light %text-body {
 		color: $text-color-body-light;
@@ -398,9 +475,14 @@
 	}
 
 	%text-body-important {
-		font-family: $font-sans-serif-light;
 		font-size: $font-default;
 		line-height: $lineheight-default;
+	}
+	.language-en %text-body-important {
+		font-family: $font-sans-serif-light-en;
+	}
+	.language-cn %text-body-important {
+		font-family: $font-sans-serif-light-cn;
 	}
 	.mode-light %text-body-important {
 		color: $text-color-body-important-light;
@@ -410,9 +492,14 @@
 	}
 
 	%text-caption {
-		font-family: $font-sans-serif-light;
 		font-size: $font-hint;
 		line-height: $lineheight-hint;
+	}
+	.language-en %text-caption {
+		font-family: $font-sans-serif-light-en;
+	}
+	.language-cn %text-caption {
+		font-family: $font-sans-serif-light-cn;
 	}
 	.mode-light %text-caption {
 		color: $text-color-caption-light;
@@ -494,8 +581,13 @@
 		left: 50%;
 		bottom: $paragraph-expandable-prompt-bottom;
 		@extend %text-body;	//@extend %text-body-important;
-		font-family: $font-sans-serif-bold !important;
 		@extend %link;
+	}
+	.language-en .paragraph-expandable-prompt {
+		font-family: $font-sans-serif-bold-en !important;
+	}
+	.language-cn .paragraph-expandable-prompt {
+		font-family: $font-sans-serif-bold-cn !important;
 	}
 
 	/* List */
@@ -532,7 +624,6 @@
 	%link {
 		white-space: nowrap;
 		@include transition($transition: (color $link-hover-transition-out));
-		//font-family: $font-sans-serif-bold;
 
 		// &.wrappable {
 		// 	white-space: wrap;
@@ -552,7 +643,6 @@
 		}
 
 		&:hover {
-			font-family: $font-sans-serif;
 			color: $link-color !important;
 			@include transition($transition: (color $link-hover-transition-in));
 
@@ -562,6 +652,13 @@
 				@include transition($transition: (background-color $link-hover-transition-in, height $link-hover-transition-in));
 			}
 		}
+	}
+
+	.language-en %link:hover {
+		font-family: $font-sans-serif-en;
+	}
+	.language-cn %link:hover {
+		font-family: $font-sans-serif-cn;
 	}
 
 	.mode-light %link::before {
@@ -1758,18 +1855,21 @@
 		color: $control-toggle-secondary-color-dark;
 	}
 
-	%control .control-toggle-secondary-tab-curr {
-		font-family: $font-sans-serif-bold;
-
-		&::before {
-			@include control-toggle-secondary-tab-curr-indicator-shown;
-		}
+	.language-en %control .control-toggle-secondary-tab-curr {
+		font-family: $font-sans-serif-bold-en;
+	}
+	.language-cn %control .control-toggle-secondary-tab-curr {
+		font-family: $font-sans-serif-bold-cn;
 	}
 	.mode-light %control .control-toggle-secondary-tab-curr  {
 		color: $control-toggle-secondary-curr-color-light;
 	}
 	.mode-dark %control .control-toggle-secondary-tab-curr  {
 		color: $control-toggle-secondary-curr-color-dark;
+	}
+
+	%control .control-toggle-secondary-tab-curr::before {
+		@include control-toggle-secondary-tab-curr-indicator-shown;
 	}
 
 	%control .control-toggle-secondary-tab:not(.control-toggle-secondary-tab-curr):hover::before {

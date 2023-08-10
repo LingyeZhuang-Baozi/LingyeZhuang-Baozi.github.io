@@ -61,7 +61,8 @@ export const btns = {
 							</g>
 						</svg>
 						,
-					url: "https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing",
+					url: "/resume.pdf",
+					//url: "https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing",
 					hintblob: {
 						blob: require("./assets/basic/hintblobs/resume.svg").default,
 						left: -67,
@@ -211,7 +212,8 @@ export const btns = {
 							<path d="M20 22C20.55 22 21.021 21.804 21.413 21.412C21.805 21.02 22.0007 20.5493 22 20C22 19.45 21.804 18.979 21.412 18.587C21.02 18.195 20.5493 17.9993 20 18C19.45 18 18.979 18.196 18.587 18.588C18.195 18.98 17.9993 19.4507 18 20C18 20.55 18.196 21.021 18.588 21.413C18.98 21.805 19.4507 22.0007 20 22ZM16 26H24V25.425C24 25.025 23.8917 24.6583 23.675 24.325C23.4583 23.9917 23.1583 23.7417 22.775 23.575C22.3417 23.3917 21.8957 23.25 21.437 23.15C20.9783 23.05 20.4993 23 20 23C19.5 23 19.0207 23.05 18.562 23.15C18.1033 23.25 17.6577 23.3917 17.225 23.575C16.8417 23.7417 16.5417 23.9917 16.325 24.325C16.1083 24.6583 16 25.025 16 25.425V26ZM26 30H14C13.45 30 12.979 29.804 12.587 29.412C12.195 29.02 11.9993 28.5493 12 28V12C12 11.45 12.196 10.979 12.588 10.587C12.98 10.195 13.4507 9.99934 14 10H22L28 16V28C28 28.55 27.804 29.021 27.412 29.413C27.02 29.805 26.5493 30.0007 26 30ZM26 28V16.85L21.15 12H14V28H26Z"/>
 						</svg>
 						,
-					url: "https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing",
+					url: "/resume.pdf",
+					//url: "https://drive.google.com/file/d/15mV_lu6YbVqO-gnV1KTIy-s8za3UBpwe/view?usp=sharing",
 					hintblob: {
 						blob: require("./assets/basic/hintblobs/resume.svg").default,
 						left: -58,
@@ -379,8 +381,8 @@ export const btns = {
 						],
 						[
 							{
-								blob: require("./assets/basic/hintblobs/email.svg").default,
-								left: -26,
+								blob: require("./assets/basic/hintblobs/resume.svg").default,
+								left: -58,
 								top: 36,
 							},
 							{
