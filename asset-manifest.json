@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.a1d7abcf.css",
-    "main.js": "/static/js/main.3836de12.js",
+    "main.js": "/static/js/main.50027905.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
     "static/media/HanSansSC-Heavy.otf": "/static/media/HanSansSC-Heavy.c9b2608b3cc62fe5e79f.otf",
     "static/media/HanSansSC-Bold.otf": "/static/media/HanSansSC-Bold.fcb688eb60d2a2d55cd1.otf",
@@ -305,11 +305,11 @@
     "index.html": "/index.html",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
     "main.a1d7abcf.css.map": "/static/css/main.a1d7abcf.css.map",
-    "main.3836de12.js.map": "/static/js/main.3836de12.js.map",
+    "main.50027905.js.map": "/static/js/main.50027905.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a1d7abcf.css",
-    "static/js/main.3836de12.js"
+    "static/js/main.50027905.js"
   ]
 }
