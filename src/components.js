@@ -612,9 +612,11 @@ export function Image ({children, caption="", sizeId=0, zoomable=true}) {	// chi
 		["100%", "auto"],
 		["75%", "auto"],
 		["50%", "auto"],
+		["25%", "auto"],
 		["125%", "auto"],
 		["150%", "auto"],
 		["1000%", "auto"],	// CSS will clamp this to page width
+		["100vw", "auto"],
 		["auto", "100%"],
 	];
 
@@ -997,6 +999,13 @@ export function ScrollableDesktop ({children}) {	// TODO
 
 export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, prototypeWidth="100%", prototypeHeight="100%", prototypeTop="0%", prototypeLeft="auto", prototypeRight="auto"}) {	// Prototype data should be in percentage.
 
+	/* Frame Ratio */
+	const ratioMap = ["1-1", "3-4", "4-3", "1-2", "2-1"];	// height-width
+
+	/* Prototype Indicator */
+	const prototypeHintblob = btns.components.prototype.hintblob;
+	const [interacting, setInteracting] = useState(false);	// TODO: observe interacting state?
+
 	/* Cursor */
 	const dispatchCursorType = useContext(dispatchCursorTypeContext);
 	const cursorOver = (e) => {
@@ -1007,9 +1016,6 @@ export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, 
 		e.preventDefault();
 		dispatchCursorType({type: "default"});
 	}
-
-	/* Frame Ratio */
-	const ratioMap = ["1-1", "3-4", "4-3", "1-2", "2-1"];	// height-width
 
 	/* Render */
 	return (
@@ -1028,7 +1034,9 @@ export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, 
 			}}
 		>
 			<div className="prototype-container-mid">
-				<div className="prototype-container-in">
+				<div
+					className="prototype-container-in"
+				>
 					<iframe
 						src={src}
 						className="prototype"
@@ -1037,6 +1045,15 @@ export function Prototype ({src, caption="", frameWidth="100%", frameRatioId=0, 
 						onMouseLeave={cursorOut}
 					></iframe>
 				</div>
+				<img
+					className={
+						"hintblob-left-top " +
+						(interacting==false ? "hintblob-shown" : "")
+					}
+					src={prototypeHintblob.blob}
+					style={{"--hintblob-left": prototypeHintblob.left+"px", "--hintblob-top": prototypeHintblob.top+"px"}}
+					alt=""
+				/>
 			</div>
 			{caption != "" ?
 				<div className="image-caption">{caption}</div>

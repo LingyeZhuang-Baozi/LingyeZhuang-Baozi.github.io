@@ -229,6 +229,9 @@
 	$home-hero-selfintro-gap: $spacing-5;
 	$home-hero-selfintro-name-container-gap: $spacing-4;
 	$home-hero-selfintro-name-gap: 0 $spacing-4;
+	$home-hero-selfintro-name-cn-size: 112px;
+	$home-hero-selfintro-name-cn-letterspacing: 3px;
+	$home-hero-selfintro-name-cn-T: -4px;
 	$home-hero-selfintro-name-color-light: $color-lanlv;
 	$home-hero-selfintro-name-color-dark: $color-lvsongshi;
 	$home-hero-selfintro-name-char-hover-color-light: $color-lvsongshi;
@@ -279,12 +282,19 @@
 	.mode-dark .home-hero-selfintro-name {
 		color: $home-hero-selfintro-name-color-dark;
 	}
+	.language-cn .home-hero-selfintro-name {
+		font-size: $home-hero-selfintro-name-cn-size;
+	}
 
 	.home-hero-selfintro-name-chargroup {
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
 		flex-wrap: nowrap;
+	}
+	.language-cn .home-hero-selfintro-name-chargroup {
+		transform: translateY($home-hero-selfintro-name-cn-T);
+		gap: $home-hero-selfintro-name-cn-letterspacing;
 	}
 
 	.home-hero-selfintro-name-char {

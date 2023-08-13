@@ -30,8 +30,9 @@
 	$case-header-object-hover-transition-in: transform ($transition-bouncer-l-time * $time-s) $transition-bouncer-l;
 	$case-header-object-hover-transition-out: transform $time-m ease-in-out;
 	$case-header-object-prompt-gap: $spacing-3;
-	$case-header-object-prompt-fontsize: $font-h2;
-	$case-header-object-prompt-lineheight: 0.96 * $case-header-object-prompt-fontsize;
+	$case-header-object-prompt-fontsize: $font-h1;
+	$case-header-object-prompt-lineheight-en: 0.84 * $case-header-object-prompt-fontsize;
+	$case-header-object-prompt-lineheight-cn: 1.2 * $case-header-object-prompt-fontsize;
 	$case-header-object-prompt-icon-size: 48px;
 	$case-header-object-prompt-icon-hover-displace: $spacing-2;
 	$case-header-object-prompt-icon-hover-transition-in: transform ($transition-bouncer-s-time * $time-xs) $transition-bouncer-s;
@@ -52,7 +53,7 @@
 	%case {
 		display: flex;
 		flex-direction: column;
-		padding: $case-padding 0;
+		padding-top: $case-padding;
 		overflow: hidden;
 	}
 
@@ -200,12 +201,17 @@
 	}
 
 	%case .case-header-object-prompt-text {
-		@extend %text-h2;
-		line-height: $case-header-object-prompt-lineheight;
 		text-align: right;
 		white-space: pre-wrap;
+		@extend %text-h1;
 		color: $case-header-object-prompt-color !important;
 		flex-shrink: 0;
+	}
+	.language-en %case .case-header-object-prompt-text {
+		line-height: $case-header-object-prompt-lineheight-en;
+	}
+	.language-cn %case .case-header-object-prompt-text {
+		line-height: $case-header-object-prompt-lineheight-cn;
 	}
 	.mode-light %case .case-header-object-prompt-text {
 		@include textstroke($color: $color-bg-light);
@@ -337,6 +343,71 @@
 		flex-direction: column;
 		align-items: flex-start;
 		gap: $case-body-section-paragraph-gap;
+	}
+
+	/* Footer */
+	$case-footer-height: 320px;
+	$case-footer-object-container-size: 200px;
+	$case-footer-object-resizer: 0.8;
+	$case-footer-object-size: $case-footer-object-resizer * $object-width;
+	$case-footer-object-hover-displace: $spacing-7;
+	$case-footer-object-ccwrotate: -45deg;
+	$case-footer-object-hover-transition-out: transform $time-m ease-in-out;
+
+	%case .case-footer-container {
+		position: relative;
+		width: 100%;
+		height: $case-footer-height;
+	}
+
+	%case .case-footer-empty {
+		width: 100%;
+		height: $case-padding;
+	}
+
+	%case .case-footer-object-container-out {
+		position: absolute;
+		width: $case-footer-object-container-size;
+		height: $case-footer-object-container-size;
+		right: 0;
+		bottom: 0;
+	}
+
+	%case .case-footer-object-positioner {
+		position: relative;
+		display: inline-block;
+		// width: 100%;
+		// height: 100%;
+	}
+
+	%case .case-footer-object-rotater {
+		position: relative;
+		display: inline-block;
+		width: $case-footer-object-size;
+		height: $case-footer-object-size;
+		transform: rotate($case-footer-object-ccwrotate);
+	}
+
+	%case .case-footer-object-container-in {
+		@include object-container($resizer: $case-footer-object-resizer, $curr-displace: $case-footer-object-hover-displace);
+		@include transition($transition: $case-footer-object-hover-transition-out);
+
+		&.curr {
+			@include transition($transition: $object-hover-transition-in-bounce);
+		}
+	}
+
+	.mode-light %case .case-footer-object-container-in .object {
+		.object-fill-1 { fill: $case-object-fill-1-light; }
+		.object-stroke-1 { stroke: $case-object-fill-1-light; }
+		.object-fill-2 { fill: $case-object-fill-2-light; }
+		.object-stroke-2 { stroke: $case-object-fill-2-light; }
+	}
+	.mode-dark %case .case-footer-object-container-in .object {
+		.object-fill-1 { fill: $case-object-fill-1-dark; }
+		.object-stroke-1 { stroke: $case-object-fill-1-dark; }
+		.object-fill-2 { fill: $case-object-fill-2-dark; }
+		.object-stroke-2 { stroke: $case-object-fill-2-dark; }
 	}
 
 

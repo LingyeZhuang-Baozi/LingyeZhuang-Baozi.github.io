@@ -60,16 +60,6 @@
 			url("./assets/basic/fonts/DelaGothicOne.woff2") format("woff2"),
 			url("./assets/basic/fonts/DelaGothicOne.woff") format("woff"),
 			url("./assets/basic/fonts/DelaGothicOne.ttf") format("opentype");
-		unicode-range: U+00-024F;
-		}
-	@font-face {
-		font-family: "HanSansSC-Display";
-		src:
-			local("SourceHanSansSC-Heavy"),
-			url("./assets/basic/fonts/HanSansSC-Heavy.woff2") format("woff2"),
-			url("./assets/basic/fonts/HanSansSC-Heavy.woff") format("woff"),
-			url("./assets/basic/fonts/HanSansSC-Heavy.otf") format("opentype");
-		//unicode-range: U+4E00-9FFF;
 		}
 	@font-face {
 		font-family: "SukhumvitSet";
@@ -80,30 +70,12 @@
 			url("./assets/basic/fonts/SukhumvitSet-Text.ttf") format("opentype");
 		}
 	@font-face {
-		font-family: "HanSansSC";
-		src:
-			local("SourceHanSansSC-Regular"),
-			url("./assets/basic/fonts/HanSansSC-Regular.woff2") format("woff2"),
-			url("./assets/basic/fonts/HanSansSC-Regular.woff") format("woff"),
-			url("./assets/basic/fonts/HanSansSC-Regular.otf") format("opentype");
-		unicode-range: U+4E00-9FFF;
-		}
-	@font-face {
 		font-family: "SukhumvitSet-Light";
 		src:
 			local("SukhumvitSet-Light"),
 			url("./assets/basic/fonts/SukhumvitSet-Light.woff2") format("woff2"),
 			url("./assets/basic/fonts/SukhumvitSet-Light.woff") format("woff"),
 			url("./assets/basic/fonts/SukhumvitSet-Light.ttf") format("opentype");
-		}
-	@font-face {
-		font-family: "HanSansSC-Light";
-		src:
-			local("SourceHanSansSC-Light"),
-			url("./assets/basic/fonts/HanSansSC-Light.woff2") format("woff2"),
-			url("./assets/basic/fonts/HanSansSC-Light.woff") format("woff"),
-			url("./assets/basic/fonts/HanSansSC-Light.otf") format("opentype");
-		unicode-range: U+4E00-9FFF;
 		}
 	@font-face {
 		font-family: "SukhumvitSet-Bold";
@@ -114,13 +86,28 @@
 			url("./assets/basic/fonts/SukhumvitSet-Bold.ttf") format("opentype");
 		}
 	@font-face {
+		font-family: "BiaoXiaoZhiWuJieHei";
+		src:
+			local("BiaoXiaoZhiWuJieHei"),
+			url("./assets/basic/fonts/BiaoXiaoZhiWuJieHei.woff2") format("woff2"),
+			url("./assets/basic/fonts/BiaoXiaoZhiWuJieHei.woff") format("woff"),
+			url("./assets/basic/fonts/BiaoXiaoZhiWuJieHei.ttf") format("opentype");
+		}
+	@font-face {
+		font-family: "HanSansSC";
+		src:
+			local("SourceHanSansSC-Regular"),
+			url("./assets/basic/fonts/HanSansSC-Regular.woff2") format("woff2"),
+			url("./assets/basic/fonts/HanSansSC-Regular.woff") format("woff"),
+			url("./assets/basic/fonts/HanSansSC-Regular.otf") format("opentype");
+		}
+	@font-face {
 		font-family: "HanSansSC-Bold";
 		src:
 			local("SourceHanSansSC-Bold"),
 			url("./assets/basic/fonts/HanSansSC-Bold.woff2") format("woff2"),
 			url("./assets/basic/fonts/HanSansSC-Bold.woff") format("woff"),
 			url("./assets/basic/fonts/HanSansSC-Bold.otf") format("opentype");
-		unicode-range: U+4E00-9FFF;
 		}
 	@font-face {
 		font-family: "EmojiOneBW";
@@ -134,9 +121,8 @@
 	$font-sans-serif-en: "SukhumvitSet-Text", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	$font-sans-serif-light-en: "SukhumvitSet-Light", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	$font-sans-serif-bold-en: "SukhumvitSet-Bold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	$font-serif-cn: "HanSansSC-Display", "Noto Sans TC", "微软正黑体", sans-serif;
+	$font-serif-cn: "BiaoXiaoZhiWuJieHei", "Noto Sans TC", "微软正黑体", sans-serif;
 	$font-sans-serif-cn: "HanSansSC", "Noto Sans TC", "微软正黑体", sans-serif;
-	$font-sans-serif-light-cn: "HanSansSC-Light", "Noto Sans TC", "微軟正黑體", sans-serif;
 	$font-sans-serif-bold-cn: "HanSansSC-Bold", "Noto Sans TC", "微軟正黑體", sans-serif;
 	$font-emoji: "EmojiOneBW";
 
@@ -448,7 +434,7 @@
 		font-family: $font-serif-en;
 	}
 	.language-cn %text-h2 {
-		font-family: $font-serif-cn;
+		font-family: $font-sans-serif-bold-cn;
 	}
 	.mode-light %text-h2 {
 		color: $text-color-h2-light;
@@ -465,7 +451,7 @@
 		font-family: $font-sans-serif-light-en;
 	}
 	.language-cn %text-body {
-		font-family: $font-sans-serif-light-cn;
+		font-family: $font-sans-serif-cn;
 	}
 	.mode-light %text-body {
 		color: $text-color-body-light;
@@ -482,7 +468,7 @@
 		font-family: $font-sans-serif-light-en;
 	}
 	.language-cn %text-body-important {
-		font-family: $font-sans-serif-light-cn;
+		font-family: $font-sans-serif-cn;
 	}
 	.mode-light %text-body-important {
 		color: $text-color-body-important-light;
@@ -499,7 +485,7 @@
 		font-family: $font-sans-serif-light-en;
 	}
 	.language-cn %text-caption {
-		font-family: $font-sans-serif-light-cn;
+		font-family: $font-sans-serif-cn;
 	}
 	.mode-light %text-caption {
 		color: $text-color-caption-light;
@@ -1256,6 +1242,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
+		position: relative;
 	}
 
 	.prototype-container-in {
@@ -1828,7 +1815,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		padding-left: $control-toggle-gap-l;
+		padding: 0 $control-toggle-gap-l;
 		gap: $control-toggle-gap-s;
 		border-left: $control-element-border;
 	}
@@ -1845,6 +1832,7 @@
 		position: relative;
 		display: inline-flex;
 		align-items: center;
+		white-space: nowrap;
 
 		&::before {
 			@include control-toggle-secondary-tab-curr-indicator;

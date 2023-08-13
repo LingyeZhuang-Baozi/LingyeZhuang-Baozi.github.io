@@ -29,7 +29,6 @@
  *				template?: <template-id | 0, 1, 2>(int),
  *			},
  *			guarded: (bool),
- *			next: <next_case_id>(str),
  *		},
  *		... : {...}
  *	}
@@ -74,6 +73,8 @@ export const casesNames = ["AsTheWindBlows", "ALUM", "CheeseClub", "CreativityLa
 
 export const casesGoats = ["CreativityLab", "AsTheWindBlows", "ALUM"];
 
+export const casesChain = ["CreativityLab", "AsTheWindBlows", "ALUM", "CheeseClub", "TSE", "Bitsrealm", "CruzRoja", "ACM", "RehaBuddy", "Neureality"];
+
 export const casesByCategory = [
 	{
 		title: ["UX/UI", "UX/UI 设计"],
@@ -108,31 +109,31 @@ export const casesByCategory = [
 export const casesByTimeline = [
 	{
 		title: ["2023", "2023"],
-		subtitle: ["Year of the Rabbit", "兔年"],
+		subtitle: ["Year of the Rabbit", ""],
 		cases: ["AsTheWindBlows", "ALUM", "CheeseClub", "TSE", "CharmLife",],
 		bullet: <svg className="home-cases-section-title-bullet" xmlns="http://www.w3.org/2000/svg"> <path className="home-cases-section-title-bullet-color1" d="M0 40H120C164.183 40 200 75.8172 200 120V120C200 164.183 164.183 200 120 200H0V40Z"/> <rect className="home-cases-section-title-bullet-color1" x="168" y="4" width="24" height="80" rx="12" transform="rotate(15 168 4)"/> <rect className="home-cases-section-title-bullet-color1" x="120" width="24" height="80" rx="12"/> <rect className="home-cases-section-title-bullet-color2" x="168" y="72" width="8" height="16" rx="4"/> <rect className="home-cases-section-title-bullet-color2" x="124" y="64" width="8" height="16" rx="4"/> <path className="home-cases-section-title-bullet-color2" fillRule="evenodd" clipRule="evenodd" d="M154.63 103.111V103.111C155.251 102.182 156.751 102.182 157.371 103.111C158.094 104.193 158.926 105.209 159.859 106.142C163.136 109.419 167.433 111.442 172.004 111.9C173.103 112.01 174.001 111.105 174.001 110V110C174.001 108.895 173.102 108.013 172.006 107.875C168.498 107.434 165.214 105.84 162.687 103.314C160.161 100.787 158.566 97.5028 158.126 93.9949C157.988 92.8989 157.105 92 156.001 92V92C154.896 92 154.014 92.8989 153.876 93.9948C153.567 96.4525 152.691 98.8145 151.304 100.889C149.546 103.52 147.047 105.571 144.124 106.782C141.2 107.993 137.983 108.31 134.879 107.693C132.432 107.206 130.142 106.155 128.186 104.636C127.314 103.958 126.054 103.947 125.273 104.728V104.728C124.492 105.509 124.486 106.784 125.341 107.483C127.87 109.551 130.876 110.974 134.099 111.616C137.979 112.387 142 111.991 145.655 110.478C149.309 108.964 152.433 106.4 154.63 103.111Z"/> </svg>,
 	},
 	{
 		title: ["2022", "2022"],
-		subtitle: ["Year of the Tiger", "虎年"],
+		subtitle: ["Year of the Tiger", ""],
 		cases: ["CreativityLab", "LAK", "MAW", "MercuryAlert", /*"3DCG",*/ /*"2022Art",*/],
 		bullet: <svg className="home-cases-section-title-bullet" xmlns="http://www.w3.org/2000/svg"> <path className="home-cases-section-title-bullet-color1" d="M0 40H120C164.183 40 200 75.8172 200 120V120C200 164.183 164.183 200 120 200H0V40Z"/> <circle className="home-cases-section-title-bullet-color1" cx="180" cy="60" r="12"/> <circle className="home-cases-section-title-bullet-color1" cx="132" cy="36" r="12"/> <circle className="home-cases-section-title-bullet-color2" cx="152" cy="148" r="32"/> <path className="home-cases-section-title-bullet-color1" d="M144.98 123.25C144.781 123.993 143.852 124.242 143.307 123.698L138 118.391L146.923 116L144.98 123.25Z"/> <rect className="home-cases-section-title-bullet-color2" x="128" y="84" width="24" height="8" rx="4" transform="rotate(30 128 84)"/> <rect className="home-cases-section-title-bullet-color2" x="176" y="104" width="16" height="8" rx="4"/> <path className="home-cases-section-title-bullet-color2" fillRule="evenodd" clipRule="evenodd" d="M153.081 46.983C152.097 46.5407 151 47.2716 151 48.3508V48.3508C151 48.9533 151.358 49.4972 151.907 49.7445C158.342 52.6416 164.338 56.4123 169.729 60.9447C170.632 61.7032 170.839 63.0011 170.249 64.0219V64.0219C169.457 65.3948 167.599 65.681 166.383 64.6637C162.311 61.2566 157.872 58.3133 153.147 55.8885C152.157 55.3804 151 56.112 151 57.2248V57.2248C151 57.8007 151.327 58.3257 151.839 58.5892C156.829 61.1569 161.487 64.329 165.706 68.035C166.573 68.7966 166.76 70.0659 166.183 71.0653V71.0653C165.378 72.4599 163.477 72.7259 162.264 71.6668C159.449 69.2093 156.426 67.0073 153.23 65.0848C152.238 64.4881 151 65.2182 151 66.3758V66.3758C151 66.9175 151.288 67.4172 151.752 67.697C155.936 70.2213 159.809 73.2489 163.28 76.72C165.359 78.7992 167.279 81.0224 169.027 83.3703C169.32 83.764 169.78 84 170.271 84V84C171.497 84 172.218 82.6352 171.487 81.6504C170.403 80.1907 169.256 78.7767 168.049 77.4127C167.31 76.5777 167.165 75.3641 167.723 74.3984V74.3984C168.559 72.9501 170.546 72.6981 171.658 73.9471C174.247 76.8543 176.58 79.9735 178.634 83.2696C178.916 83.7213 179.408 84 179.941 84V84C181.109 84 181.837 82.7394 181.22 81.7468C178.34 77.1148 174.933 72.8167 171.058 68.9419V68.9419C170.989 68.8727 170.975 68.7657 171.024 68.6809L172.77 65.6555C173.152 64.9941 174.054 64.8663 174.594 65.4063V65.4063C179.83 70.6426 184.268 76.6014 187.78 83.0897C188.081 83.6473 188.662 84 189.296 84H190.002C190.553 84 191 83.5532 191 83.0021V83.0021C191 82.8415 190.961 82.6832 190.887 82.541C187.167 75.4568 182.392 68.9623 176.715 63.285C169.887 56.4571 161.877 50.935 153.081 46.983Z"/> </svg>,
 	},
 	{
 		title: ["2021", "2021"],
-		subtitle: ["Year of the Ox", "牛年"],
+		subtitle: ["Year of the Ox", ""],
 		cases: ["Bitsrealm", "CruzRoja", "ACM", "Atlas", "RehaBuddy", /*"PadPal",*/ /*"GroupReads",*/ /*"2021Art",*/],
 		bullet: <svg className="home-cases-section-title-bullet" xmlns="http://www.w3.org/2000/svg"> <path className="home-cases-section-title-bullet-color1" d="M0 40H120C164.183 40 200 75.8172 200 120V120C200 164.183 164.183 200 120 200H0V40Z"/> <path className="home-cases-section-title-bullet-color1" fillRule="evenodd" clipRule="evenodd" d="M100.414 8C101.497 8 102.053 9.94347 101.306 10.7282C99.2576 12.8809 98 15.7936 98 19C98 25.6274 103.373 31 110 31H150C156.627 31 162 25.6274 162 19C162 15.7936 160.742 12.8809 158.694 10.7282C157.947 9.94347 158.503 8 159.586 8H160C171.046 8 180 16.9543 180 28C180 39.0457 171.046 48 160 48C158.758 48 158.335 49.7547 159.415 50.3676C179.02 61.4888 193.466 80.6504 198.269 103.37C200.182 112.419 192.502 120 183.252 120H156C136.118 120 120 103.882 120 84V68C120 56.9543 111.046 48 100 48C88.9543 48 80 39.0457 80 28C80 16.9543 88.9543 8 100 8H100.414Z"/> <rect className="home-cases-section-title-bullet-color2" x="144" y="40" width="8" height="16" rx="4"/> <rect className="home-cases-section-title-bullet-color2" x="120" y="40" width="8" height="16" rx="4"/> </svg>,
 	},
 	{
 		title: ["2020", "2020"],
-		subtitle: ["Year of the Rat", "鼠年"],
+		subtitle: ["Year of the Rat", ""],
 		cases: ["ThriveSD", "Neureality", /*"CellInTheSpace",*/ /*"2020Art",*/ /*"GaokaoFighting",*/],
 		bullet: <svg className="home-cases-section-title-bullet" xmlns="http://www.w3.org/2000/svg"> <path className="home-cases-section-title-bullet-color1" d="M0 40H120C164.183 40 200 75.8172 200 120V120C200 164.183 164.183 200 120 200H0V40Z"/> <path className="home-cases-section-title-bullet-color1" fillRule="evenodd" clipRule="evenodd" d="M207.141 107.652C212.659 101.326 216.001 93.0533 216.001 83.9999C216.001 64.1176 199.883 47.9999 180.001 47.9999C177.211 47.9999 174.496 48.3171 171.889 48.9176C190.639 62.6278 203.761 83.5771 207.141 107.652Z"/> <path className="home-cases-section-title-bullet-color2" d="M140 69.359C130.813 64.0547 119.894 62.6172 109.647 65.363C99.4001 68.1087 90.6633 74.8126 85.359 84C80.0547 93.1874 78.6172 104.106 81.363 114.353C84.1087 124.6 90.8126 133.337 100 138.641L120 104L140 69.359Z"/> <rect className="home-cases-section-title-bullet-color2" x="176" y="116" width="8" height="16" rx="4"/> <rect className="home-cases-section-title-bullet-color2" x="148" y="136" width="8" height="16" rx="4"/> <path className="home-cases-section-title-bullet-color1" fillRule="evenodd" clipRule="evenodd" d="M206.297 137.318C206.213 137.736 206.404 138.161 206.773 138.374L216.919 144.232C217.397 144.508 218.009 144.344 218.285 143.866C218.561 143.388 218.397 142.776 217.919 142.5L207.773 136.642C207.182 136.301 206.43 136.649 206.297 137.318V137.318ZM207.124 132.468C207.053 132.967 207.363 133.441 207.85 133.571L220.217 136.885C220.75 137.028 221.298 136.711 221.441 136.178C221.584 135.644 221.268 135.096 220.734 134.953L208.368 131.639C207.79 131.484 207.208 131.875 207.124 132.468V132.468ZM207.649 127.912C207.598 128.495 208.054 129 208.64 129L221 129C221.553 129 222 128.552 222 128C222 127.448 221.553 127 221 127H208.64C208.124 127 207.695 127.398 207.649 127.912V127.912Z"/> <path className="home-cases-section-title-bullet-color2" fillRule="evenodd" clipRule="evenodd" d="M135.047 174.019C134.629 173.936 134.204 174.126 133.991 174.495L128.133 184.642C127.857 185.12 128.021 185.731 128.499 186.008C128.978 186.284 129.589 186.12 129.865 185.642L135.723 175.495C136.065 174.904 135.717 174.153 135.047 174.019V174.019ZM139.897 174.847C139.399 174.776 138.925 175.086 138.794 175.573L135.481 187.939C135.338 188.473 135.654 189.021 136.188 189.164C136.721 189.307 137.269 188.99 137.412 188.457L140.726 176.09C140.881 175.512 140.49 174.931 139.897 174.847V174.847ZM144.453 175.372C143.87 175.32 143.365 175.777 143.365 176.363L143.365 188.723C143.365 189.275 143.813 189.723 144.365 189.723C144.918 189.723 145.365 189.275 145.365 188.723L145.365 176.363C145.365 175.847 144.967 175.418 144.453 175.372V175.372Z"/> </svg>,
 	},
 	{
 		title: ["2019", "2019"],
-		subtitle: ["Year of the Pig", "猪年"],
+		subtitle: ["Year of the Pig", ""],
 		cases: [/*"2DCG",*/ /*"KaonashiRobot",*/ "CU"],
 		bullet: <svg className="home-cases-section-title-bullet" xmlns="http://www.w3.org/2000/svg"> <path className="home-cases-section-title-bullet-color1" d="M0 40H120C164.183 40 200 75.8172 200 120V120C200 164.183 164.183 200 120 200H0V40Z"/> <ellipse className="home-cases-section-title-bullet-color2" cx="175.46" cy="114.278" rx="20" ry="16" transform="rotate(-15 175.46 114.278)"/> <circle className="home-cases-section-title-bullet-color1" cx="163.868" cy="117.384" r="4" transform="rotate(-15 163.868 117.384)"/> <circle className="home-cases-section-title-bullet-color1" cx="187.049" cy="111.173" r="4" transform="rotate(-15 187.049 111.173)"/> <path className="home-cases-section-title-bullet-color2" d="M85.3726 98.6274C91.3737 104.629 99.5131 108 108 108C116.487 108 124.626 104.629 130.627 98.6274C136.629 92.6263 140 84.4869 140 76C140 67.5131 136.629 59.3738 130.627 53.3726L108 76L85.3726 98.6274Z"/> <path className="home-cases-section-title-bullet-color1" fillRule="evenodd" clipRule="evenodd" d="M203.992 93.6679C210.575 91.007 216.125 86.2134 219.712 80L191.999 64L183.535 59.1132C192.805 68.7839 199.889 80.5669 203.992 93.6679Z"/> <rect className="home-cases-section-title-bullet-color2" x="124" y="120" width="8" height="16" rx="4"/> </svg>,
 	},
@@ -140,7 +141,10 @@ export const casesByTimeline = [
 
 
 
-export const bioStructure = ["Client", "My Role", "Timeline"];
+export const bioStructure = {
+	en: ["Client", "My Role", "Timeline"],
+	cn: ["客户", "职责", "时间"],
+};
 
 
 
@@ -167,7 +171,7 @@ export const cases = {
 			},
 			content: {
 				tldr: ["Overview",
-					<>A Korok fan art game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy.</>
+					<>A Korok fan game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy. My team created the entire game engine from scratch within 10 weeks, and demoed to 300+ audience, including students and game creators from the industry.</>
 				],
 				link: ["Watch\nDemo", "https://youtu.be/MUKqqoazBh4"],
 				body: ["freeform", [
@@ -187,7 +191,7 @@ export const cases = {
 							animation="all"
 						/>
 						<Image
-							sizeId={3}
+							sizeId={4}
 							caption={<>Players can customize their Koroks.<br/>I standardized the grayscale of the color options to ensure that all combinations look nice and cohesive.</>}
 							zoomable={false}
 						>
@@ -260,18 +264,17 @@ export const cases = {
 						/>
 					</>],
 					["GUI And More", <>
-						<ImgGallery
+						<Image
+							sizeId={7}
+							caption=""
+							zoomable={false}
+						>
+							<ImgGallery
 								heightId={3}
 								widthId={-1}
 								wrap={false}
 								autoplay={true}
 								zoomable={false}
-								style={{
-									"position": "absolute",
-									"transform": "translateX(-50%)",
-									"left": "50%",
-									"marginTop": "0",
-								}}
 								imgList={[
 									<Img
 										srcWebp={require("./assets/cases/AsTheWindBlows/gui_cover.webp")}
@@ -300,6 +303,7 @@ export const cases = {
 									/>,
 								]}
 							/>
+						</Image>
 					</>],
 				]],
 				evidence: [],
@@ -316,7 +320,7 @@ export const cases = {
 			bio: [
 				null,
 				"3D美工，\nUI 设计，\n平面设计",
-				<>2023年04月-2023年06月</>,
+				<>2023年4月-2023年6月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -331,10 +335,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["Overview",
-					<>A Korok fan art game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy.</>
+				tldr: ["简述",
+					<>A Korok fan game set in the far east, easy to pick up and fun to play. I was in charge of the game art and crafted the characters and map models using Blender. I themed the game world with cel shading and traditional colors inspired by ink wash paintings, and iterated animations until the Koroks appear cute and squishy. My team created the entire game engine from scratch within 10 weeks, and demoed to 300+ audience, including students and game creators from the industry.</>
 				],
-				link: ["Watch\nDemo", "https://youtu.be/MUKqqoazBh4"],
+				link: ["演示视频", "https://youtu.be/MUKqqoazBh4"],
 				body: ["freeform", [
 					["Character Model", <>
 						<Model
@@ -352,7 +356,7 @@ export const cases = {
 							animation="all"
 						/>
 						<Image
-							sizeId={3}
+							sizeId={4}
 							caption={<>Players can customize their Koroks.<br/>I standardized the grayscale of the color options to ensure that all combinations look nice and cohesive.</>}
 							zoomable={false}
 						>
@@ -425,18 +429,17 @@ export const cases = {
 						/>
 					</>],
 					["GUI And More", <>
-						<ImgGallery
+						<Image
+							sizeId={7}
+							caption=""
+							zoomable={false}
+						>
+							<ImgGallery
 								heightId={3}
 								widthId={-1}
 								wrap={false}
 								autoplay={true}
 								zoomable={false}
-								style={{
-									"position": "absolute",
-									"transform": "translateX(-50%)",
-									"left": "50%",
-									"marginTop": "0",
-								}}
 								imgList={[
 									<Img
 										srcWebp={require("./assets/cases/AsTheWindBlows/gui_cover.webp")}
@@ -465,6 +468,7 @@ export const cases = {
 									/>,
 								]}
 							/>
+						</Image>
 					</>],
 				]],
 				evidence: [],
@@ -482,7 +486,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"ALUM": {
@@ -519,37 +522,38 @@ export const cases = {
 								<P>Another challenge was the tedious and error-prone process for ALUM admins to manual manage applications, pair mentors and mentees, and keep track of feedback. To tackle this, we created a neat admin portal. It allowed admins to access organized information about members and sessions, and streamlined the reviewing and pairing process.</P>
 								<P>Keeping in mind the time constraint, we upheld versioning and scalability. We acknowledged that perfection couldn't be achieved at once, so we brainstormed, refined, implemented quickly, and iterated frequently. We planted seeds of potentially useful features in the app, which would be tested and harvested in the upcoming mentorship season.</P>
 							</ExpandablePs>
-							<Image
-								sizeId={0}
-								caption="iterations of the app icon"
-								zoomable={false}
-							>
-								<Img
-									srcWebp={require("./assets/cases/ALUM/app_icon_iterations.webp")}
-									srcPng={require("./assets/cases/ALUM/app_icon_iterations.png")}
-									alt="iterations of the app icon based on ALUM logo"
-								/>
-							</Image>
 						</>],
 					],
 					[	// Solution
+						["", <>
+							<Image
+								sizeId={5}
+								caption="In the ALUM app we designed, mentors and mentees will sign up for the program and schedule mentorship sessions."
+								zoomable={false}
+							>
+								<Img
+									srcWebp={require("./assets/cases/ALUM/flow.webp")}
+									srcPng={require("./assets/cases/ALUM/flow.png")}
+									alt="overall flow of the ALUM app"
+								/>
+							</Image>
+						</>],
 						["Neat Flowcharts As Bones", <>
 							<P>Learning from past experience, I required our design team to be clear about the app's high-level structure and the purpose of each feature before diving into specific design details.</P>
 							<P>We introduced a new method of creating userflow diagrams that allowed us to view the interface at different levels of abstraction. We began by organizing user tasks into sections at an abstract level to structure the skeleton of the interface. From there, we fleshed out specific UI elements that aligned with each section's purpose. This process led us to identify reusable components and gain a thorough understanding of the interface before creating any sketches or prototypes.</P>
 							<Image
-								sizeId={4}
-								caption="example of our multi-level userflow based on high-level user goals"
+								sizeId={3}
+								caption="We created a multi-level userflow to make sure our design adhered to high-level user goals."
 								zoomable={false}
 							>
-								<Img
-									srcWebp={require("./assets/cases/ALUM/userflow_example.webp")}
-									srcPng={require("./assets/cases/ALUM/userflow_example.png")}
-									alt="userflow of the home tab to showcase how our new method can help us adhere to the high-level goals"
+								<Gif
+									srcWebm={require("./assets/cases/ALUM/userflow_example.webm")}
+									srcMp4={require("./assets/cases/ALUM/userflow_example.mp4")}
 								/>
 							</Image>
 							<P>We designed a comprehensive push notification system to guide users before, during, and after mentorship meetings. To make it easier for internal communication, I created a notification timeline that visualized timing of each notification message.</P>
 							<Image
-								sizeId={5}
+								sizeId={6}
 								caption="notification timelines that I created for internal communication"
 								zoomable={false}
 							>
@@ -574,7 +578,7 @@ export const cases = {
 								/>
 							</Image>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="example of our modular design, which helped ensure scalability"
 								zoomable={false}
 							>
@@ -595,9 +599,20 @@ export const cases = {
 									alt="the searching tag UI block is composed of basic components such as search bar, list of tags, list of options"
 								/>
 							</Image>
+							{/*<Image
+								sizeId={0}
+								caption="iterations of the app icon"
+								zoomable={false}
+							>
+								<Img
+									srcWebp={require("./assets/cases/ALUM/app_icon_iterations.webp")}
+									srcPng={require("./assets/cases/ALUM/app_icon_iterations.png")}
+									alt="iterations of the app icon based on ALUM logo"
+								/>
+							</Image>*/}
 							<P>We brainstormed even more ideas to enhance engagement, such as a goals tab to track mentee's progress and facilitate mentorship meetings, and an iOS widget to further improve accessibility. While these ideas were simplified or postponed in the current version, they can be revisited in future updates.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="To assist mentees in goal tracking, we explored various ideas. But considering time constraints and trade-offs with other features, we decided to simplify and pilot an action item list associated with each session in the MVP."
 								zoomable={false}
 							>
@@ -611,7 +626,7 @@ export const cases = {
 						["Vital Branding As Blood", <>
 							<P>At first, we strictly followed ALUM's existing branding, but the app turned out dull and unengaging with the provided colors and fonts. Recognizing the importance of visual appeal in user engagement, we discussed this concern with the clients and received their support. As a result, we revitalized the branding, adopting a bolder and more modern style.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="Recognizing the importance of visual appeal in user engagement, we revitalized the branding."
 								zoomable={false}
 							>
@@ -638,7 +653,7 @@ export const cases = {
 			bio: [
 				<><A href="https://alumfornorthwood.org/">ALUM for Northwood</A>,<br/>北木高中校友网络非营利性组织</>,
 				"UX/UI 设计，\n设计总负责",
-				<>2022年09月-2023年06月</>,
+				<>2022年9月-2023年6月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -654,7 +669,7 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
+				tldr: ["简述",
 					<>ALUM, the mentorship program, seeked to enhance member engagement and simplify meeting scheduling. To address this need, my team designed an iOS app, where students can network with alumni mentors, schedule meetings, and keep track of their academic and career goals. We maintained an intuitive interface and a vibrant branding to keep the young students engaged. The app is now ready to be launched and facilitate mentorship for 2000+ students.</>
 				],
 				body: ["challenge-solution", [
@@ -667,37 +682,38 @@ export const cases = {
 								<P>Another challenge was the tedious and error-prone process for ALUM admins to manual manage applications, pair mentors and mentees, and keep track of feedback. To tackle this, we created a neat admin portal. It allowed admins to access organized information about members and sessions, and streamlined the reviewing and pairing process.</P>
 								<P>Keeping in mind the time constraint, we upheld versioning and scalability. We acknowledged that perfection couldn't be achieved at once, so we brainstormed, refined, implemented quickly, and iterated frequently. We planted seeds of potentially useful features in the app, which would be tested and harvested in the upcoming mentorship season.</P>
 							</ExpandablePs>
-							<Image
-								sizeId={0}
-								caption="iterations of the app icon"
-								zoomable={false}
-							>
-								<Img
-									srcWebp={require("./assets/cases/ALUM/app_icon_iterations.webp")}
-									srcPng={require("./assets/cases/ALUM/app_icon_iterations.png")}
-									alt="iterations of the app icon based on ALUM logo"
-								/>
-							</Image>
 						</>],
 					],
 					[	// Solution
+						["", <>
+							<Image
+								sizeId={5}
+								caption="In the ALUM app we designed, mentors and mentees will sign up for the program and schedule mentorship sessions."
+								zoomable={false}
+							>
+								<Img
+									srcWebp={require("./assets/cases/ALUM/flow.webp")}
+									srcPng={require("./assets/cases/ALUM/flow.png")}
+									alt="overall flow of the ALUM app"
+								/>
+							</Image>
+						</>],
 						["Neat Flowcharts As Bones", <>
 							<P>Learning from past experience, I required our design team to be clear about the app's high-level structure and the purpose of each feature before diving into specific design details.</P>
 							<P>We introduced a new method of creating userflow diagrams that allowed us to view the interface at different levels of abstraction. We began by organizing user tasks into sections at an abstract level to structure the skeleton of the interface. From there, we fleshed out specific UI elements that aligned with each section's purpose. This process led us to identify reusable components and gain a thorough understanding of the interface before creating any sketches or prototypes.</P>
 							<Image
-								sizeId={4}
-								caption="example of our multi-level userflow based on high-level user goals"
+								sizeId={3}
+								caption="We created a multi-level userflow to make sure our design adhered to high-level user goals."
 								zoomable={false}
 							>
-								<Img
-									srcWebp={require("./assets/cases/ALUM/userflow_example.webp")}
-									srcPng={require("./assets/cases/ALUM/userflow_example.png")}
-									alt="userflow of the home tab to showcase how our new method can help us adhere to the high-level goals"
+								<Gif
+									srcWebm={require("./assets/cases/ALUM/userflow_example.webm")}
+									srcMp4={require("./assets/cases/ALUM/userflow_example.mp4")}
 								/>
 							</Image>
 							<P>We designed a comprehensive push notification system to guide users before, during, and after mentorship meetings. To make it easier for internal communication, I created a notification timeline that visualized timing of each notification message.</P>
 							<Image
-								sizeId={5}
+								sizeId={6}
 								caption="notification timelines that I created for internal communication"
 								zoomable={false}
 							>
@@ -722,7 +738,7 @@ export const cases = {
 								/>
 							</Image>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="example of our modular design, which helped ensure scalability"
 								zoomable={false}
 							>
@@ -743,9 +759,20 @@ export const cases = {
 									alt="the searching tag UI block is composed of basic components such as search bar, list of tags, list of options"
 								/>
 							</Image>
+							{/*<Image
+								sizeId={0}
+								caption="iterations of the app icon"
+								zoomable={false}
+							>
+								<Img
+									srcWebp={require("./assets/cases/ALUM/app_icon_iterations.webp")}
+									srcPng={require("./assets/cases/ALUM/app_icon_iterations.png")}
+									alt="iterations of the app icon based on ALUM logo"
+								/>
+							</Image>*/}
 							<P>We brainstormed even more ideas to enhance engagement, such as a goals tab to track mentee's progress and facilitate mentorship meetings, and an iOS widget to further improve accessibility. While these ideas were simplified or postponed in the current version, they can be revisited in future updates.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="To assist mentees in goal tracking, we explored various ideas. But considering time constraints and trade-offs with other features, we decided to simplify and pilot an action item list associated with each session in the MVP."
 								zoomable={false}
 							>
@@ -759,7 +786,7 @@ export const cases = {
 						["Vital Branding As Blood", <>
 							<P>At first, we strictly followed ALUM's existing branding, but the app turned out dull and unengaging with the provided colors and fonts. Recognizing the importance of visual appeal in user engagement, we discussed this concern with the clients and received their support. As a result, we revitalized the branding, adopting a bolder and more modern style.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="Recognizing the importance of visual appeal in user engagement, we revitalized the branding."
 								zoomable={false}
 							>
@@ -787,7 +814,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"CheeseClub": {
@@ -903,7 +929,11 @@ export const cases = {
 				]],
 				evidence: [],
 				credits: [],
-				//img: require("./assets/cases/CheeseClub/logo.png"),
+				img:
+					<Img
+						srcWebp={require("./assets/cases/CheeseClub/cover_img.webp")}
+						srcPng={require("./assets/cases/CheeseClub/cover_img.png")}
+					/>,
 			},
 		},
 		cn: {
@@ -911,7 +941,7 @@ export const cases = {
 			bio: [
 				<>Cheese Club @UCSD</>,
 				"UI 设计，\nWebflow设计开发",
-				<>2023年05月</>,
+				<>2023年5月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -925,10 +955,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
+				tldr: ["简述",
 					<>As a response to the return-to-school challenge following the COVID-19 pandemic, my roommates and I founded Cheese Club. By hosting many cheese-related events, we created a safe space for students to connect and socialize. I designed and implemented our website using Figma and Webflow.</>
 				],
-				link: ["Visit\nWebsite", "https://cheese-club-ucsd.webflow.io/"],
+				link: ["打开网站", "https://cheese-club-ucsd.webflow.io/"],
 				body: ["freeform", [
 					["Branding", <>
 						<P>We are a club about friendship, sharing, and fun, offering a gentle and warm space for socialization and destressing. To convey this message in the branding, I selected colors and typographies that balance between playfulness and comfort, creating a striking yet welcoming vibe.</P>
@@ -1018,7 +1048,11 @@ export const cases = {
 				]],
 				evidence: [],
 				credits: [],
-				//img: require("./assets/cases/CheeseClub/logo.png"),
+				img:
+					<Img
+						srcWebp={require("./assets/cases/CheeseClub/cover_img.webp")}
+						srcPng={require("./assets/cases/CheeseClub/cover_img.png")}
+					/>,
 			},
 		},
 		theme: {
@@ -1027,7 +1061,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"CreativityLab": {
@@ -1068,18 +1101,22 @@ export const cases = {
 									alt="examples showing that a different set of modalities occupied during different daily activities"
 								/>
 							</Image>
-							<P>To tackle this challenge, we focused on improving gesture transferability across different contexts and modalities. Our project consisted of 3 steps:<ol>
-								<li>Gathering images of individuals engaged in diverse daily activities,</li>
-								<li>Analyzing the images and creating a framework to categorize activity scenarios,</li>
-								<li>Developing a database website where gesture designers can filter and explore scenarios of interest.</li>
-								</ol>We designed the database website using Figma and implemented it in ReactJS. Our goal was to assist analysis of human behavior, and guide the design of intuitive and adaptable gestures for AR interfaces.
-							</P>
+							<P>To address this challenge in gesture design, we created a database website. Here, gesture designers can explore diverse human activities across contexts and modalities. Our goal was to assist analysis of human behavior, guide the design of intuitive and adaptable gestures for AR interfaces, and promote attention to gesture transferability.</P>
 						</>],
 					],
 					[	// Solution
+						["", <>
+							<P>Our project consisted of 3 steps:<ol>
+								<li>Gathering images of individuals engaged in diverse daily activities,</li>
+								<li>Analyzing the images and creating a framework to categorize activity scenarios,</li>
+								<li>Developing a database website where gesture designers can filter and explore scenarios of interest.</li>
+							</ol></P>
+							<P>We designed the database website using Figma and implemented it in ReactJS.</P>
+						</>],
 						["Framework And Image Coding", <>
 							<P>To categorize availability of modalities during daily activities and assist AR gesture design, we captured 1579 photos at 50 locations and observed the modality occupancy patterns in them.</P>
-							<P>Using this data, we started developing a framework to categorize daily activities based on factors that impact gesture design. Our reference for identifying these factors was the paper <A href="https://doi.org/10.1145/3503537" wrappable={true}>Iteratively Designing Gesture Vocabularies</A> by Professor Haijun Xia, the head of our research lab. In our framework, daily activities were categorized under key dimensions, such as Location, Spectators, Modality and Posture.</P>
+							<P>Using this data, we developed a framework to categorize daily activities based on factors that impact gesture design. Our reference for identifying these factors was the paper <A href="https://doi.org/10.1145/3503537" wrappable={true}>Iteratively Designing Gesture Vocabularies</A> by Professor Haijun Xia, the head of our research lab.</P>
+							<P>In our framework, daily activities were categorized under key dimensions, such as Location, Spectators, Modality and Posture.</P>
 							<Image
 								sizeId={1}
 								caption="In our framework, daily activities were categorized under key dimensions, such as Modality and Spectators."
@@ -1091,7 +1128,7 @@ export const cases = {
 									alt="framework diagram, categories include: Location, Modality, Demographic, Spectators, Activity, Posture, Spatial Mobility, Cognitive Load"
 								/>
 							</Image>
-							<P>I led the design and development of our database website. We aimed to provide a tool for gesture designers to explore daily activity photos and labels, inspiring their work based on our framework. We self-taught ReactJS through practical application in the project.</P>
+							<P>I led the design and development of our database website, centering around our framework. On the website, gesture designers would explore daily activity photos and labels for inspiration. We self-taught ReactJS through practical application in the project.</P>
 							<P>The first key feature was to allow researchers to upload and code images using our framework.</P>
 							<Image
 								sizeId={0}
@@ -1117,8 +1154,8 @@ export const cases = {
 								/>
 							</Image>
 						</>],
-						["Search Facet", <>
-							<P>Uploaded images, labels, and annotations would be stored on Firebase and fetched into our website's exploration gallery, allowing gesture designers to view and find inspiration.</P>
+						["Search And Filters", <>
+							<P>For gesture designers to explore human behaviors in various scenarios and find inspiration, we offered a gallery where users can search and view the uploaded images, labels, and annotations.</P>
 							<Image
 								sizeId={0}
 								alt="demo: view annotation in the exploration gallery"
@@ -1132,7 +1169,7 @@ export const cases = {
 							</Image>
 							<P>We designed a comprehensive filter system to empower users with maximum control and guide them in gesture design using our framework. The system allowed both keyword searching and recognition-based selection, all organized as a facet. Upon image upload, customized labels automatically become new filters in our facet.</P>
 							<Image
-								sizeId={3}
+								sizeId={4}
 								caption="facet key features"
 								zoomable={false}
 							>
@@ -1143,7 +1180,7 @@ export const cases = {
 								/>
 							</Image>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="comparative analysis of different designs of the modality selector"
 								zoomable={false}
 							>
@@ -1165,7 +1202,7 @@ export const cases = {
 									srcMov={require("./assets/cases/CreativityLab/demo_filters.mov")}
 								/>
 							</Image>
-							<P>If the gesture designer had specific keywords in mind, they could use our smart search bar to find the closest matching filters in our database. It highlighted matching terms, color-coded and displayed them by categories in a dropdown for easy selection.</P>
+							<P>If the user had specific keywords in mind, they could use our smart search bar to find the closest matching filters in our database. It highlighted matching terms, color-coded and displayed them by categories in a dropdown for easy selection.</P>
 							<Image
 								sizeId={0}
 								alt="demo: search bar interaction and auto complete by categories"
@@ -1192,9 +1229,9 @@ export const cases = {
 		cn: {
 			title: <>Creativity Lab，交互手势设计灵感网站</>,
 			bio: [
-				<><A href="https://creativity.ucsd.edu/">Creativity Lab</A>,<br/>Charm人机交互实验室</>,
+				<><A href="https://creativity.ucsd.edu/">Creativity Lab</A>,<br/>人机交互实验室</>,
 				"UX/UI 设计，\n前端开发",
-				<>2022年06月-2023年04月</>,
+				<>2022年6月-2023年4月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -1207,10 +1244,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
+				tldr: ["简述",
 					<>I led a 4-person team to design and develop a database website using Figma and ReactJS. The objective was to assist analysis of human behavior and guide gesture design in AR settings. Our website enables researchers to upload images capturing human behaviors, and label them with an encoding system we devised based on observation and collection of 2500 photos. Gesture designers can leverage our database to explore real-world human behaviors and occupancy of modalities across different scenarios.</>
 				],
-				link: ["Github\nRepo", "https://github.com/haijun-ucsd/GesturesSearch"],
+				link: ["打开 Github", "https://github.com/haijun-ucsd/GesturesSearch"],
 				body: ["challenge-solution", [
 					[	// Challenge
 						["", <>
@@ -1226,18 +1263,22 @@ export const cases = {
 									alt="examples showing that a different set of modalities occupied during different daily activities"
 								/>
 							</Image>
-							<P>To tackle this challenge, we focused on improving gesture transferability across different contexts and modalities. Our project consisted of 3 steps:<ol>
-								<li>Gathering images of individuals engaged in diverse daily activities,</li>
-								<li>Analyzing the images and creating a framework to categorize activity scenarios,</li>
-								<li>Developing a database website where gesture designers can filter and explore scenarios of interest.</li>
-								</ol>We designed the database website using Figma and implemented it in ReactJS. Our goal was to assist analysis of human behavior, and guide the design of intuitive and adaptable gestures for AR interfaces.
-							</P>
+							<P>To address this challenge in gesture design, we created a database website. Here, gesture designers can explore diverse human activities across contexts and modalities. Our goal was to assist analysis of human behavior, guide the design of intuitive and adaptable gestures for AR interfaces, and promote attention to gesture transferability.</P>
 						</>],
 					],
 					[	// Solution
+						["", <>
+							<P>Our project consisted of 3 steps:<ol>
+								<li>Gathering images of individuals engaged in diverse daily activities,</li>
+								<li>Analyzing the images and creating a framework to categorize activity scenarios,</li>
+								<li>Developing a database website where gesture designers can filter and explore scenarios of interest.</li>
+							</ol></P>
+							<P>We designed the database website using Figma and implemented it in ReactJS.</P>
+						</>],
 						["Framework And Image Coding", <>
 							<P>To categorize availability of modalities during daily activities and assist AR gesture design, we captured 1579 photos at 50 locations and observed the modality occupancy patterns in them.</P>
-							<P>Using this data, we started developing a framework to categorize daily activities based on factors that impact gesture design. Our reference for identifying these factors was the paper <A href="https://doi.org/10.1145/3503537" wrappable={true}>Iteratively Designing Gesture Vocabularies</A> by Professor Haijun Xia, the head of our research lab. In our framework, daily activities were categorized under key dimensions, such as Location, Spectators, Modality and Posture.</P>
+							<P>Using this data, we developed a framework to categorize daily activities based on factors that impact gesture design. Our reference for identifying these factors was the paper <A href="https://doi.org/10.1145/3503537" wrappable={true}>Iteratively Designing Gesture Vocabularies</A> by Professor Haijun Xia, the head of our research lab.</P>
+							<P>In our framework, daily activities were categorized under key dimensions, such as Location, Spectators, Modality and Posture.</P>
 							<Image
 								sizeId={1}
 								caption="In our framework, daily activities were categorized under key dimensions, such as Modality and Spectators."
@@ -1249,7 +1290,7 @@ export const cases = {
 									alt="framework diagram, categories include: Location, Modality, Demographic, Spectators, Activity, Posture, Spatial Mobility, Cognitive Load"
 								/>
 							</Image>
-							<P>I led the design and development of our database website. We aimed to provide a tool for gesture designers to explore daily activity photos and labels, inspiring their work based on our framework. We self-taught ReactJS through practical application in the project.</P>
+							<P>I led the design and development of our database website, centering around our framework. On the website, gesture designers would explore daily activity photos and labels for inspiration. We self-taught ReactJS through practical application in the project.</P>
 							<P>The first key feature was to allow researchers to upload and code images using our framework.</P>
 							<Image
 								sizeId={0}
@@ -1275,8 +1316,8 @@ export const cases = {
 								/>
 							</Image>
 						</>],
-						["Search Facet", <>
-							<P>Uploaded images, labels, and annotations would be stored on Firebase and fetched into our website's exploration gallery, allowing gesture designers to view and find inspiration.</P>
+						["Search And Filters", <>
+							<P>For gesture designers to explore human behaviors in various scenarios and find inspiration, we offered a gallery where users can search and view the uploaded images, labels, and annotations.</P>
 							<Image
 								sizeId={0}
 								alt="demo: view annotation in the exploration gallery"
@@ -1290,7 +1331,7 @@ export const cases = {
 							</Image>
 							<P>We designed a comprehensive filter system to empower users with maximum control and guide them in gesture design using our framework. The system allowed both keyword searching and recognition-based selection, all organized as a facet. Upon image upload, customized labels automatically become new filters in our facet.</P>
 							<Image
-								sizeId={3}
+								sizeId={4}
 								caption="facet key features"
 								zoomable={false}
 							>
@@ -1301,7 +1342,7 @@ export const cases = {
 								/>
 							</Image>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="comparative analysis of different designs of the modality selector"
 								zoomable={false}
 							>
@@ -1323,7 +1364,7 @@ export const cases = {
 									srcMov={require("./assets/cases/CreativityLab/demo_filters.mov")}
 								/>
 							</Image>
-							<P>If the gesture designer had specific keywords in mind, they could use our smart search bar to find the closest matching filters in our database. It highlighted matching terms, color-coded and displayed them by categories in a dropdown for easy selection.</P>
+							<P>If the user had specific keywords in mind, they could use our smart search bar to find the closest matching filters in our database. It highlighted matching terms, color-coded and displayed them by categories in a dropdown for easy selection.</P>
 							<Image
 								sizeId={0}
 								alt="demo: search bar interaction and auto complete by categories"
@@ -1353,7 +1394,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: true,
-		next: "",
 	},
 
 	"TSE": {
@@ -1505,7 +1545,7 @@ export const cases = {
 			bio: [
 				<><A href="https://tse.ucsd.edu/">Triton Software Engineering</A>,<br/>a highly selective student club creating software for 20+ nonprofit clients</>,
 				"数字营销负责人，\nUX/UI 设计，\n设计体系",
-				<>2021年11月-2023年06月</>,
+				<>2021年11月-2023年6月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -1519,10 +1559,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["In A Nutshell",
+				tldr: ["简述",
 					<>I wore several hats in TSE. As the marketing lead, I designed social media posts, flyers, and merchandise, maintaining a branding that upholds professionalism. I co-established the first design system at TSE, standardizing design tokens and fundamental components for future projects.</>
 				],
-				link: ["Instagram\nPosts", "https://www.instagram.com/ucsd_tse/?hl=en"],
+				link: ["打开 Ins", "https://www.instagram.com/ucsd_tse/?hl=en"],
 				body: ["gallery", [
 					{
 						title: "Posts And Flyers",
@@ -1649,7 +1689,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"CharmLife": {
@@ -1686,7 +1725,7 @@ export const cases = {
 			bio: [
 				<>Charm Life,<br/>医美咨询社交软件创业公司</>,
 				"UX/UI 设计，\n设计总负责",
-				<>2023年04月-2023年05月</>,
+				<>2023年4月-2023年5月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -1707,7 +1746,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"LAK": {
@@ -1743,7 +1781,7 @@ export const cases = {
 			bio: [
 				<>FirstMile Bhutan,<br/>旨在优化不丹物流的公益组织</>,
 				"UX/UI 设计",
-				<>2021年11月-2023年06月</>,
+				<>2021年11月-2023年6月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -1763,7 +1801,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"MAW": {
@@ -1799,7 +1836,7 @@ export const cases = {
 			bio: [
 				<><A href="https://wish.org/sandiego">Make-A-Wish San Diego</A>,<br/>为重病儿童实现愿望的公益组织</>,
 				"UX/UI 设计",
-				<>2021年11月-2022年06月</>,
+				<>2021年11月-2022年6月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -1819,7 +1856,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"MercuryAlert": {
@@ -1858,7 +1894,7 @@ export const cases = {
 			bio: [
 				<>Mercury Alert,<br/>老年人健康监控创业公司</>,
 				"UX/UI 设计，\n平面设计，\n数字营销",
-				<>2022年03月-2022年06月</>,
+				<>2022年3月-2022年6月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -1880,7 +1916,6 @@ export const cases = {
 			template: 0,
 		},
 		//guarded: true,
-		next: "",
 	},
 
 	"3DCG": {	//NAH
@@ -1910,7 +1945,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"2022Art": {	//NAH
@@ -1940,7 +1974,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"Bitsrealm": {
@@ -1963,13 +1996,12 @@ export const cases = {
 			},
 			content: {
 				tldr: ["TL;DR",
-					<>I joined Bitsrealm when it was still a startup. As the sole designer on the team, I worked closely with game writers and developers to craft branding and prototypes for 4 digital products, and enabled a successful debut of the company's virtual concerts. The branding I started is still in use today.</>
+					<>Working closely with game writers and developers, we enabled a successful debut of Bitsrealm's virtual concerts. As the sole designer on the team, I crafted branding and prototypes for 4 digital products within 6 weeks: the company's main website, a virtual concert ticketing site, a performer control center, and an interface for mobile audience. The branding I initialized is still in use today.</>
 				],
 				link: ["Visit\nWebsite", "https://bitsrealm.com/home"],
 				body: ["challenge-solution", [	// TODO: go through ChatGPT
 					[	// Challenge
 						["", <>
-							<P>When I interned at Bitsrealm, the VR startup only had 6 members. Thanks to the compact size, every member took on a big share of responsibility, and we formed a tight bond among our team. I was the only designer on the team, and I produced branding and prototypes for a series of 4 websites during my 6 weeks internship. I had a glance of the fast pace of the industry, upgraded my design skill, and received precious friendship.</P>
 							<P>Bitsrealm was planning its first virtual concert. It needed 4 UI designs to supplement the event:<ol>
 								<li>A main website to introduce the project and attract audience,</li>
 								<li>A ticketing flow,</li>
@@ -1991,7 +2023,7 @@ export const cases = {
 					],
 					[	// Solution
 						["Branding", <>
-							<P>For Bitsrealm whose ambition is in the metaverse, I aimed for the branding to convey a futuristic vibe. Therefore, I selected a color palette with dark gray as background and a with striking neon green as highlight. To add visual interest and prevent the background from feeling overly rigid, I incorporated a subtle glassmorphism texture. As requested by my supervisor, I maintained a minimalist style for both the colors and the typography.</P>
+							<P>For Bitsrealm whose ambition is in the metaverse, I aimed for the branding to convey a futuristic vibe. Therefore, I selected a minimalist color palette with dark gray as background and a with striking neon green as highlight. To add visual interest and prevent the background from feeling overly rigid, I incorporated a subtle glassmorphism texture.</P>
 							<Image
 								sizeId={0}
 								caption="the futuristic branding for Bitsrealm whose ambition is in the metaverse"
@@ -2003,13 +2035,12 @@ export const cases = {
 									alt="branding guidlines including colors, typography, icons"
 								/>
 							</Image>
-							<P>In the following, I will elaborate on 3 features that I'm proud of. I'll begin with the navigation bar on the main company website, which promotes the virtual concert.</P>
+							<P>In the following, I will elaborate on 3 features that I'm the most proud of.</P>
 						</>],
-						["Main Website: Navigation", <>
+						["Navigation (Main Website)", <>
 							<P>The navigation bar design for the main website prioritizes simplicity, precision, and efficiency, aiming to draw minimal attention compared to the page content.</P>
-							<P>The desktop version follows a conventional layout with the logo on the left and tabs on the right. All tab labels are kept concise, enabling users to quickly understand where they lead to. The "login" button stands out visually since it's an action rather than a webpage link.</P>
 							<Image
-								sizeId={3}
+								sizeId={4}
 								caption="a detailed documentation I created for the desktop navigation bar, providing unambiguous guidance to devs"
 								zoomable={false}
 							>
@@ -2019,9 +2050,8 @@ export const cases = {
 									alt="a detailed documentation of the desktop navigation bar and animation effects upon interaction"
 								/>
 							</Image>
-							<P>For the mobile version, I chose a hamburger menu instead of a bottom navigation bar to avoid cluttering with search engine elements or Android navigation buttons. While this may slightly impact discoverability, the three lines icon is widely recognized as the menu symbol among our tech-savvy target audience.</P>
-							<P>I maintained consistency in the highlight style for indicating the current page, but increased the weight to enhance visibility.</P>
 							<P>Secondary tabs were positioned below the header bar, featuring distinct visual layouts for two types of functions: "categorical" tabs for specific genres, and "navigational" tabs for different sections within a page. I carefully crafted these mobile navigation elements with scalability in mind.</P>
+							<P>For the mobile navigation menu, I maintained consistency in the highlight style for indicating the current page, but increased the weight to enhance visibility.</P>
 							<Image
 								sizeId={0}
 								caption="iteration process of mobile navigation"
@@ -2034,9 +2064,9 @@ export const cases = {
 								/>
 							</Image>
 						</>],
-						["Ticketing Site: Ticket Card", <>
+						["Ticket Card (Ticketing Site)", <>
 							<P>The ticketing site would facilitate the audience in booking tickets for the virtual concert. Users could select their desired ticket type (e.g. VIP ticket) and proceed to confirm and make payment.</P>
-							<P>With usability in mind, I created two ticket card layouts to suit different scenarios: one focused on clarity and was used for ticket selection, while the other aimed for visual appeal and appeared on confirmation and post-purchase pages. In order to adhere to established conventions, I drew inspiration from existing event websites and flight ticket apps during the design process.</P>
+							<P>With usability in mind, I created two ticket card layouts to suit different scenarios: one focused on clarity and was used for ticket selection, while the other aimed for visual appeal and appeared on confirmation and post-purchase pages.</P>
 							<Image
 								sizeId={0}
 								caption="ticketing flow showing the two layouts of ticket cards used in different cases"
@@ -2048,6 +2078,7 @@ export const cases = {
 									alt="ticketing flow"
 								/>
 							</Image>
+							<P>In order to adhere to established conventions, I drew inspiration from existing event websites and flight ticket apps during the design process.</P>
 							<P>Here is a prototype of the ticketing site, where you can explore upcoming virtual concerts, learn about the artists, and book tickets:</P>
 							<Prototype
 								src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D411%253A1897%26type%3Ddesign%26node-id%3D411-3294%26viewport%3D227%252C-123%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D411%253A3294%26mode%3Ddesign%26hide-ui%3D1"
@@ -2061,12 +2092,12 @@ export const cases = {
 								prototypeRight="-50%"
 							/>
 						</>],
-						["Mobile Audience Interface: Landscape Game-like UI", <>
+						["Landscape Game-like UI (Mobile Audience Interface)", <>
 							<P>To accommodate audience without VR devices, a mobile interface was created to allow them to enjoy and engage with the virtual concert on their phones.</P>
-							<P>I was really excited for the chance to design a game-like interface in landscape orientation, which presented unique challenges compared to traditional mobile app design. I did plenty of research and took into consideration factors such as thumb zones, bimanual interaction, and physical ergonomics of touch screen buttons during my design. The screen was divided into multiple areas based on thumb zones, and functions were allocated based on expected frequency of usage and potential simultaneous use.</P>
-							<P>Beyond designing on Figma using a laptop, I tested the interface on my own phone to ensure accurate and comfortable tapping experience.</P>
+							<P>I was really excited for the opportunity to design a game-like interface in landscape orientation, which presented unique challenges compared to traditional mobile app design.</P>
+							<P>I did plenty of research and took into consideration factors such as thumb zones, bimanual interaction, and physical ergonomics of touch screen buttons during my design. The screen was divided into multiple areas based on thumb zones, and functions were allocated based on expected frequency of usage and potential simultaneous use.</P>
 							<Image
-								sizeId={3}
+								sizeId={4}
 								caption="As seen in the mapping between the locations of interactable elements and thumb zones, the most crucial functions are also the easiest to reach."
 								zoomable={false}
 							>
@@ -2076,6 +2107,7 @@ export const cases = {
 									alt="diagram showing the overlapping of important functions and easy-to-reach thumb zones"
 								/>
 							</Image>
+							<P>Beyond designing on Figma using a laptop, I tested the interface on my own phone to ensure accurate and comfortable tapping experience.</P>
 							<P>Please play with the prototypes and see it for yourself!</P>
 							<Prototype
 								src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D562%253A7532%26type%3Ddesign%26node-id%3D562-9601%26viewport%3D342%252C226%252C0.05%26scaling%3Dcontain%26starting-point-node-id%3D562%253A9601%26mode%3Ddesign%26hide-ui%3D1"
@@ -2092,8 +2124,9 @@ export const cases = {
 					],
 					[	// Reflection
 						["", <>
+							<P>When I interned at Bitsrealm, it only had 6 members. Thanks to the compact size, every member took on a big share of responsibility, and we formed a tight bond among our team.</P>
 							<P>I really enjoyed the learning by doing, which is the best term to describe my internship experience. I actively absorbed industry standards, frequently asked for feedback for iterative design improvements, and tested the interface to ensure a seamless user experience. The fast-paced nature of the industry taught me the importance of thorough documentation and responsible quality control.</P>
-							<P>6 months after I left, Bitsrealm's first virtual concert took place successfully! The main website that I prototyped underwent further iterations, while preserving the original branding I created.</P>
+							<P>6 months after I left, Bitsrealm's first virtual concert took place successfully and attracted 300k audience! The main website that I prototyped underwent further iterations, while preserving the original branding I created.</P>
 						</>],
 					],
 				]],
@@ -2111,7 +2144,7 @@ export const cases = {
 			bio: [
 				<><A href="https://bitsrealm.com/home">彼真科技</A>,<br/>VR社交游戏公司</>,
 				"UX/UI 设计",
-				<>2021年08月-2021年09月</>,
+				<>2021年8月-2021年9月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -2125,14 +2158,13 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
-					<>I joined Bitsrealm when it was still a startup. As the sole designer on the team, I worked closely with game writers and developers to craft branding and prototypes for 4 digital products, and enabled a successful debut of the company's virtual concerts. The branding I started is still in use today.</>
+				tldr: ["简述",
+					<>Working closely with game writers and developers, we enabled a successful debut of Bitsrealm's virtual concerts. As the sole designer on the team, I crafted branding and prototypes for 4 digital products within 6 weeks: the company's main website, a virtual concert ticketing site, a performer control center, and an interface for mobile audience. The branding I initialized is still in use today.</>
 				],
-				link: ["Visit\nWebsite", "https://bitsrealm.com/home"],
+				link: ["打开网站", "https://bitsrealm.com/home"],
 				body: ["challenge-solution", [	// TODO: go through ChatGPT
 					[	// Challenge
 						["", <>
-							<P>When I interned at Bitsrealm, the VR startup only had 6 members. Thanks to the compact size, every member took on a big share of responsibility, and we formed a tight bond among our team. I was the only designer on the team, and I produced branding and prototypes for a series of 4 websites during my 6 weeks internship. I had a glance of the fast pace of the industry, upgraded my design skill, and received precious friendship.</P>
 							<P>Bitsrealm was planning its first virtual concert. It needed 4 UI designs to supplement the event:<ol>
 								<li>A main website to introduce the project and attract audience,</li>
 								<li>A ticketing flow,</li>
@@ -2154,7 +2186,7 @@ export const cases = {
 					],
 					[	// Solution
 						["Branding", <>
-							<P>For Bitsrealm whose ambition is in the metaverse, I aimed for the branding to convey a futuristic vibe. Therefore, I selected a color palette with dark gray as background and a with striking neon green as highlight. To add visual interest and prevent the background from feeling overly rigid, I incorporated a subtle glassmorphism texture. As requested by my supervisor, I maintained a minimalist style for both the colors and the typography.</P>
+							<P>For Bitsrealm whose ambition is in the metaverse, I aimed for the branding to convey a futuristic vibe. Therefore, I selected a minimalist color palette with dark gray as background and a with striking neon green as highlight. To add visual interest and prevent the background from feeling overly rigid, I incorporated a subtle glassmorphism texture.</P>
 							<Image
 								sizeId={0}
 								caption="the futuristic branding for Bitsrealm whose ambition is in the metaverse"
@@ -2166,13 +2198,12 @@ export const cases = {
 									alt="branding guidlines including colors, typography, icons"
 								/>
 							</Image>
-							<P>In the following, I will elaborate on 3 features that I'm proud of. I'll begin with the navigation bar on the main company website, which promotes the virtual concert.</P>
+							<P>In the following, I will elaborate on 3 features that I'm the most proud of.</P>
 						</>],
-						["Main Website: Navigation", <>
+						["Navigation (Main Website)", <>
 							<P>The navigation bar design for the main website prioritizes simplicity, precision, and efficiency, aiming to draw minimal attention compared to the page content.</P>
-							<P>The desktop version follows a conventional layout with the logo on the left and tabs on the right. All tab labels are kept concise, enabling users to quickly understand where they lead to. The "login" button stands out visually since it's an action rather than a webpage link.</P>
 							<Image
-								sizeId={3}
+								sizeId={4}
 								caption="a detailed documentation I created for the desktop navigation bar, providing unambiguous guidance to devs"
 								zoomable={false}
 							>
@@ -2182,9 +2213,8 @@ export const cases = {
 									alt="a detailed documentation of the desktop navigation bar and animation effects upon interaction"
 								/>
 							</Image>
-							<P>For the mobile version, I chose a hamburger menu instead of a bottom navigation bar to avoid cluttering with search engine elements or Android navigation buttons. While this may slightly impact discoverability, the three lines icon is widely recognized as the menu symbol among our tech-savvy target audience.</P>
-							<P>I maintained consistency in the highlight style for indicating the current page, but increased the weight to enhance visibility.</P>
 							<P>Secondary tabs were positioned below the header bar, featuring distinct visual layouts for two types of functions: "categorical" tabs for specific genres, and "navigational" tabs for different sections within a page. I carefully crafted these mobile navigation elements with scalability in mind.</P>
+							<P>For the mobile navigation menu, I maintained consistency in the highlight style for indicating the current page, but increased the weight to enhance visibility.</P>
 							<Image
 								sizeId={0}
 								caption="iteration process of mobile navigation"
@@ -2197,9 +2227,9 @@ export const cases = {
 								/>
 							</Image>
 						</>],
-						["Ticketing Site: Ticket Card", <>
+						["Ticket Card (Ticketing Site)", <>
 							<P>The ticketing site would facilitate the audience in booking tickets for the virtual concert. Users could select their desired ticket type (e.g. VIP ticket) and proceed to confirm and make payment.</P>
-							<P>With usability in mind, I created two ticket card layouts to suit different scenarios: one focused on clarity and was used for ticket selection, while the other aimed for visual appeal and appeared on confirmation and post-purchase pages. In order to adhere to established conventions, I drew inspiration from existing event websites and flight ticket apps during the design process.</P>
+							<P>With usability in mind, I created two ticket card layouts to suit different scenarios: one focused on clarity and was used for ticket selection, while the other aimed for visual appeal and appeared on confirmation and post-purchase pages.</P>
 							<Image
 								sizeId={0}
 								caption="ticketing flow showing the two layouts of ticket cards used in different cases"
@@ -2211,6 +2241,7 @@ export const cases = {
 									alt="ticketing flow"
 								/>
 							</Image>
+							<P>In order to adhere to established conventions, I drew inspiration from existing event websites and flight ticket apps during the design process.</P>
 							<P>Here is a prototype of the ticketing site, where you can explore upcoming virtual concerts, learn about the artists, and book tickets:</P>
 							<Prototype
 								src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D411%253A1897%26type%3Ddesign%26node-id%3D411-3294%26viewport%3D227%252C-123%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D411%253A3294%26mode%3Ddesign%26hide-ui%3D1"
@@ -2224,12 +2255,12 @@ export const cases = {
 								prototypeRight="-50%"
 							/>
 						</>],
-						["Mobile Audience Interface: Landscape Game-like UI", <>
+						["Landscape Game-like UI (Mobile Audience Interface)", <>
 							<P>To accommodate audience without VR devices, a mobile interface was created to allow them to enjoy and engage with the virtual concert on their phones.</P>
-							<P>I was really excited for the chance to design a game-like interface in landscape orientation, which presented unique challenges compared to traditional mobile app design. I did plenty of research and took into consideration factors such as thumb zones, bimanual interaction, and physical ergonomics of touch screen buttons during my design. The screen was divided into multiple areas based on thumb zones, and functions were allocated based on expected frequency of usage and potential simultaneous use.</P>
-							<P>Beyond designing on Figma using a laptop, I tested the interface on my own phone to ensure accurate and comfortable tapping experience.</P>
+							<P>I was really excited for the opportunity to design a game-like interface in landscape orientation, which presented unique challenges compared to traditional mobile app design.</P>
+							<P>I did plenty of research and took into consideration factors such as thumb zones, bimanual interaction, and physical ergonomics of touch screen buttons during my design. The screen was divided into multiple areas based on thumb zones, and functions were allocated based on expected frequency of usage and potential simultaneous use.</P>
 							<Image
-								sizeId={3}
+								sizeId={4}
 								caption="As seen in the mapping between the locations of interactable elements and thumb zones, the most crucial functions are also the easiest to reach."
 								zoomable={false}
 							>
@@ -2239,6 +2270,7 @@ export const cases = {
 									alt="diagram showing the overlapping of important functions and easy-to-reach thumb zones"
 								/>
 							</Image>
+							<P>Beyond designing on Figma using a laptop, I tested the interface on my own phone to ensure accurate and comfortable tapping experience.</P>
 							<P>Please play with the prototypes and see it for yourself!</P>
 							<Prototype
 								src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FGq9kO2dbnaRXAVyUw5Tzmr%2FL.-Juliet-Zhuang's-website-prototypes%3Fpage-id%3D562%253A7532%26type%3Ddesign%26node-id%3D562-9601%26viewport%3D342%252C226%252C0.05%26scaling%3Dcontain%26starting-point-node-id%3D562%253A9601%26mode%3Ddesign%26hide-ui%3D1"
@@ -2255,8 +2287,9 @@ export const cases = {
 					],
 					[	// Reflection
 						["", <>
+							<P>When I interned at Bitsrealm, it only had 6 members. Thanks to the compact size, every member took on a big share of responsibility, and we formed a tight bond among our team.</P>
 							<P>I really enjoyed the learning by doing, which is the best term to describe my internship experience. I actively absorbed industry standards, frequently asked for feedback for iterative design improvements, and tested the interface to ensure a seamless user experience. The fast-paced nature of the industry taught me the importance of thorough documentation and responsible quality control.</P>
-							<P>6 months after I left, Bitsrealm's first virtual concert took place successfully! The main website that I prototyped underwent further iterations, while preserving the original branding I created.</P>
+							<P>6 months after I left, Bitsrealm's first virtual concert took place successfully and attracted 300k audience! The main website that I prototyped underwent further iterations, while preserving the original branding I created.</P>
 						</>],
 					],
 				]],
@@ -2275,7 +2308,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: true,
-		next: "",
 	},
 
 	"CruzRoja": {
@@ -2336,7 +2368,7 @@ export const cases = {
 							<P>Two solutions were considered: using auto-collapse accordions to limit expanded sections, or grouping elements into packs under multiple tabs. The second option was chosen to reduce interaction costs.</P>
 							<P>The ambulances menu was divided into two tabs: "ambulances" for frequently used ambulance states, and a "settings" tab for less commonly used filters. Ambulance states were simplified, condensed from over 10 states into 6.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="ambulances menu iterations"
 								zoomable={false}
 							>
@@ -2435,7 +2467,7 @@ export const cases = {
 			bio: [
 				<>墨西哥蒂华纳红十字会</>,
 				"UX/UI 设计，\n设计总负责",
-				<>2021年03月-2021年12月</>,
+				<>2021年3月-2021年12月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -2450,10 +2482,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
+				tldr: ["简述",
 					<>Red Cross Tijuana was cultivating an ambulance dispatching system to coordinate the limited emergency service resources. I collaborated with a cross-disciplinary team and redesigned the UI of the dispatching system, prioritizing usability and information hierarchy to optimize efficiency, bringing reliable health care to millions of citizens in Tijuana, Mexico. This project was one of the most complex and rewarding design challenges I have undertaken.</>
 				],
-				link: ["Read Article\nAbout Us", "https://today.ucsd.edu/story/lifesaving-app"],
+				link: ["相关报道", "https://today.ucsd.edu/story/lifesaving-app"],
 				body: ["challenge-solution", [
 					[	// Challenge
 						["", <>
@@ -2488,7 +2520,7 @@ export const cases = {
 							<P>Two solutions were considered: using auto-collapse accordions to limit expanded sections, or grouping elements into packs under multiple tabs. The second option was chosen to reduce interaction costs.</P>
 							<P>The ambulances menu was divided into two tabs: "ambulances" for frequently used ambulance states, and a "settings" tab for less commonly used filters. Ambulance states were simplified, condensed from over 10 states into 6.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="ambulances menu iterations"
 								zoomable={false}
 							>
@@ -2588,7 +2620,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"ACM": {
@@ -2644,7 +2675,7 @@ export const cases = {
 								<li>Preserve the widely appreciated rainbow + white style.</li>
 							</ul></P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="new userflow that we planned based on user feedback"
 								zoomable={false}
 							>
@@ -2660,12 +2691,12 @@ export const cases = {
 						["", <>
 							<P>We optimized our solution via many rounds of iteration. In the following I will elaborate on 2 features that I took charge of and turned out successful among our target users.</P>
 						</>],
-						["Communities", <>
+						["Communities Page", <>
 							<P>In the old version of the website, ACM's sub-communities, such as AI, Hack, and Design, were presented merely as names without any additional context. Clicking on these names would redirect users to Discord channels, which our interviewees found unexpected and counterintuitive.</P>
-							<P>To address this issue, we introduced a "communities" tab. By using the plural term "communities", we prevented confusion with the existing "about us" page.</P>
+							<P>To address this issue, we introduced a "communities" tab. By using the plural term "communities", we prevented confusion with the "about us" page.</P>
 							<P>After gathering information about each sub-community, we organized them into an accordion list on the "communities" page. However, we noticed that the plain white background created a slight ambiguity in distinguishing one section from another. As a solution, we added a subtle detail to the design: By introducing a minimalistic color bar next to each section, we achieved clear differentiation between the sub-community sections, while maintaining a clean and polished style.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption=""
 								zoomable={false}
 							>
@@ -2676,7 +2707,7 @@ export const cases = {
 								/>
 							</Image>
 						</>],
-						["About Us", <>
+						["About Us Page", <>
 							<P>ACM had long recognized the importance of introducing its board members to website visitors. Our interviewees also expressed the desire to emphasize with real member faces on our website.</P>
 							<P>To effectively present the board members, we designed compact profile cards that summarized each member's name, title, and contact information. Additionally, considering the large size of ACM's board, we provided a filter functionality, allowing users to search for members from specific sub-communities. For the filter design, we decided to use rounded chips, which conveyed a youthful and approachable vibe, appealing to the target audience of ACM who were college students especially freshmen.</P>
 							<Image
@@ -2697,86 +2728,86 @@ export const cases = {
 							<P>Collaborating closely with the developers provided me with a deeper understanding of the implementation process. Over time, I developed a stronger sense of the cost-effectiveness of different design choices.</P>
 						</>],
 						["Illustrations For Bread Baker Game",
-							<ImgGallery
-								heightId={4}
-								widthId={-1}
-								wrap={false}
-								autoplay={true}
+							<Image
+								sizeId={7}
+								caption=""
 								zoomable={false}
-								style={{
-									"position": "absolute",
-									"transform": "translateX(-50%)",
-									"left": "50%",
-									"marginTop": "0",
-								}}
-								imgList={[
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_croissant.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_croissant.png")}
-										alt="bread baker game illustration croissant cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_bun.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_bun.png")}
-										alt="bread baker game illustration bun cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_small_round_breads.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_small_round_breads.png")}
-										alt="bread baker game illustration bun small round bread cats"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager1.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager1.png")}
-										alt="bread baker game illustration manager 1"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager2.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager2.png")}
-										alt="bread baker game illustration manager 2"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_bagel.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_bagel.png")}
-										alt="bread baker game illustration bagel cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_donut.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_donut.png")}
-										alt="bread baker game illustration donut cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_sandwich.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_sandwich.png")}
-										alt="bread baker game illustration sandwich cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager3.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager3.png")}
-										alt="bread baker game illustration manager 3"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_muffin.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_muffin.png")}
-										alt="bread baker game illustration muffin cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_pretzel.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_pretzel.png")}
-										alt="bread baker game illustration pretzel cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_toast.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_toast.png")}
-										alt="bread baker game illustration toast cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager4.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager4.png")}
-										alt="bread baker game illustration manager 4"
-									/>,
-								]}
-							/>
+							>
+								<ImgGallery
+									heightId={4}
+									widthId={-1}
+									wrap={false}
+									autoplay={true}
+									zoomable={false}
+									imgList={[
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_croissant.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_croissant.png")}
+											alt="bread baker game illustration croissant cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_bun.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_bun.png")}
+											alt="bread baker game illustration bun cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_small_round_breads.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_small_round_breads.png")}
+											alt="bread baker game illustration bun small round bread cats"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager1.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager1.png")}
+											alt="bread baker game illustration manager 1"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager2.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager2.png")}
+											alt="bread baker game illustration manager 2"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_bagel.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_bagel.png")}
+											alt="bread baker game illustration bagel cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_donut.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_donut.png")}
+											alt="bread baker game illustration donut cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_sandwich.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_sandwich.png")}
+											alt="bread baker game illustration sandwich cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager3.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager3.png")}
+											alt="bread baker game illustration manager 3"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_muffin.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_muffin.png")}
+											alt="bread baker game illustration muffin cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_pretzel.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_pretzel.png")}
+											alt="bread baker game illustration pretzel cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_toast.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_toast.png")}
+											alt="bread baker game illustration toast cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager4.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager4.png")}
+											alt="bread baker game illustration manager 4"
+										/>,
+									]}
+								/>
+							</Image>
 						],
 					],
 				]],
@@ -2794,7 +2825,7 @@ export const cases = {
 			bio: [
 				<>ACM@UCSD,<br/>UCSD 最大的科技社团</>,
 				"UX/UI 设计，\n平面设计，\n手绘插画",
-				<>2021年02月-2022年03月</>,
+				<>2021年2月-2022年3月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -2808,10 +2839,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
+				tldr: ["简述",
 					<><ul><li>To help ACM@UCSD attract potential members, my team upgraded its website. We strategically restructured the layout, curated fresh content, and enhanced user interactions for intuitive navigation.</li><li>As a personal side project, I also created graphic design for external marketing, and illustrations for a small game.</li></ul></>
 				],
-				link: ["Visit\nWebsite", "https://acmucsd.com/"],
+				link: ["打开网站", "https://acmucsd.com/"],
 				body: ["challenge-solution", [
 					[	// Challenge
 						["", <>
@@ -2841,7 +2872,7 @@ export const cases = {
 								<li>Preserve the widely appreciated rainbow + white style.</li>
 							</ul></P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption="new userflow that we planned based on user feedback"
 								zoomable={false}
 							>
@@ -2857,12 +2888,12 @@ export const cases = {
 						["", <>
 							<P>We optimized our solution via many rounds of iteration. In the following I will elaborate on 2 features that I took charge of and turned out successful among our target users.</P>
 						</>],
-						["Communities", <>
+						["Communities Page", <>
 							<P>In the old version of the website, ACM's sub-communities, such as AI, Hack, and Design, were presented merely as names without any additional context. Clicking on these names would redirect users to Discord channels, which our interviewees found unexpected and counterintuitive.</P>
-							<P>To address this issue, we introduced a "communities" tab. By using the plural term "communities", we prevented confusion with the existing "about us" page.</P>
+							<P>To address this issue, we introduced a "communities" tab. By using the plural term "communities", we prevented confusion with the "about us" page.</P>
 							<P>After gathering information about each sub-community, we organized them into an accordion list on the "communities" page. However, we noticed that the plain white background created a slight ambiguity in distinguishing one section from another. As a solution, we added a subtle detail to the design: By introducing a minimalistic color bar next to each section, we achieved clear differentiation between the sub-community sections, while maintaining a clean and polished style.</P>
 							<Image
-								sizeId={4}
+								sizeId={5}
 								caption=""
 								zoomable={false}
 							>
@@ -2873,7 +2904,7 @@ export const cases = {
 								/>
 							</Image>
 						</>],
-						["About Us", <>
+						["About Us Page", <>
 							<P>ACM had long recognized the importance of introducing its board members to website visitors. Our interviewees also expressed the desire to emphasize with real member faces on our website.</P>
 							<P>To effectively present the board members, we designed compact profile cards that summarized each member's name, title, and contact information. Additionally, considering the large size of ACM's board, we provided a filter functionality, allowing users to search for members from specific sub-communities. For the filter design, we decided to use rounded chips, which conveyed a youthful and approachable vibe, appealing to the target audience of ACM who were college students especially freshmen.</P>
 							<Image
@@ -2894,86 +2925,86 @@ export const cases = {
 							<P>Collaborating closely with the developers provided me with a deeper understanding of the implementation process. Over time, I developed a stronger sense of the cost-effectiveness of different design choices.</P>
 						</>],
 						["Illustrations For Bread Baker Game",
-							<ImgGallery
-								heightId={4}
-								widthId={-1}
-								wrap={false}
-								autoplay={true}
+							<Image
+								sizeId={7}
+								caption=""
 								zoomable={false}
-								style={{
-									"position": "absolute",
-									"transform": "translateX(-50%)",
-									"left": "50%",
-									"marginTop": "0",
-								}}
-								imgList={[
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_croissant.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_croissant.png")}
-										alt="bread baker game illustration croissant cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_bun.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_bun.png")}
-										alt="bread baker game illustration bun cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_small_round_breads.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_small_round_breads.png")}
-										alt="bread baker game illustration bun small round bread cats"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager1.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager1.png")}
-										alt="bread baker game illustration manager 1"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager2.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager2.png")}
-										alt="bread baker game illustration manager 2"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_bagel.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_bagel.png")}
-										alt="bread baker game illustration bagel cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_donut.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_donut.png")}
-										alt="bread baker game illustration donut cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_sandwich.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_sandwich.png")}
-										alt="bread baker game illustration sandwich cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager3.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager3.png")}
-										alt="bread baker game illustration manager 3"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_muffin.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_muffin.png")}
-										alt="bread baker game illustration muffin cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_pretzel.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_pretzel.png")}
-										alt="bread baker game illustration pretzel cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_toast.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_toast.png")}
-										alt="bread baker game illustration toast cat"
-									/>,
-									<Img
-										srcWebp={require("./assets/cases/ACM/breadbaker_manager4.webp")}
-										srcPng={require("./assets/cases/ACM/breadbaker_manager4.png")}
-										alt="bread baker game illustration manager 4"
-									/>,
-								]}
-							/>
+							>
+								<ImgGallery
+									heightId={4}
+									widthId={-1}
+									wrap={false}
+									autoplay={true}
+									zoomable={false}
+									imgList={[
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_croissant.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_croissant.png")}
+											alt="bread baker game illustration croissant cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_bun.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_bun.png")}
+											alt="bread baker game illustration bun cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_small_round_breads.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_small_round_breads.png")}
+											alt="bread baker game illustration bun small round bread cats"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager1.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager1.png")}
+											alt="bread baker game illustration manager 1"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager2.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager2.png")}
+											alt="bread baker game illustration manager 2"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_bagel.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_bagel.png")}
+											alt="bread baker game illustration bagel cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_donut.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_donut.png")}
+											alt="bread baker game illustration donut cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_sandwich.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_sandwich.png")}
+											alt="bread baker game illustration sandwich cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager3.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager3.png")}
+											alt="bread baker game illustration manager 3"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_muffin.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_muffin.png")}
+											alt="bread baker game illustration muffin cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_pretzel.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_pretzel.png")}
+											alt="bread baker game illustration pretzel cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_toast.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_toast.png")}
+											alt="bread baker game illustration toast cat"
+										/>,
+										<Img
+											srcWebp={require("./assets/cases/ACM/breadbaker_manager4.webp")}
+											srcPng={require("./assets/cases/ACM/breadbaker_manager4.png")}
+											alt="bread baker game illustration manager 4"
+										/>,
+									]}
+								/>
+							</Image>
 						],
 					],
 				]],
@@ -2992,7 +3023,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"Atlas": {
@@ -3153,7 +3183,7 @@ export const cases = {
 			bio: [
 				<>Atlas,<br/>电子商务创业公司</>,
 				"UI 设计",
-				<>2021年06月</>,
+				<>2021年6月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -3173,7 +3203,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"RehaBuddy": {
@@ -3244,7 +3273,7 @@ export const cases = {
 							Besides, I took my mentor's advice to read the works of <A href="https://neuroscience.stanford.edu/people/caitlyn-seim">Professor Caitlyn Seim</A> from Stanford University, which greatly inspired me.
 						</P>
 						<Image
-							sizeId={3}
+							sizeId={4}
 							caption="a piece of sketch from the brainstorming stage"
 							zoomable={false}
 						>
@@ -3279,7 +3308,7 @@ export const cases = {
 					["About \"Motivation\"", <>
 						<P>In order to further evaluate the feasibility of RehaBuddy, I conducted interviews with therapists and stroke patients. One crucial point emphasized by the therapists was the potential risks associated with the concept of "motivation" in the field of stroke recovery. There are instances where stroke patients are unable to achieve certain physical goals, despite their strong desire to do so. Therefore, it is important to avoid making hasty judgments about the patient's motivation or labeling them as unmotivated, as such actions can have detrimental effects. This valuable insight provided me with a new perspective, based on which I refined the target user group of RehaBuddy to focus on individuals who have already been discharged from the hospital and have started home-based recovery, yet struggle to persevere. My product aims to serve as an external source of motivation when giving up seems tempting, and persistence becomes challenging.</P>
 						<Image
-							sizeId={3}
+							sizeId={4}
 							caption="some of my naive ideas of potential implementation"
 							zoomable={false}
 						>
@@ -3325,10 +3354,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
+				tldr: ["简述",
 					<>Based on interview data and literature reviews, I conceptualized an electronic pet therapy putty device, which would provide stroke patients with ongoing motivation during their upper-limb rehabilitation exercises at home, fostering engagement and progress.</>
 				],
-				link: ["Watch Video\nPresentation", "https://youtu.be/guaNhrMuORA?t=1214"],
+				link: ["演讲视频", "https://youtu.be/guaNhrMuORA?t=1214"],
 				body: ["freeform", [
 					["Problem", <>
 						<P>Stroke occurs when blood supply to a part of the brain is interrupted, resulting in weakness and numbness in limbs, particularly among seniors. For upper-limb recovery, patients engage in exercises for months or even years. However, pain, boredom, and post-stroke depression can all impact adherence, despite the knowledge that recovery exercises are necessary.</P>
@@ -3373,7 +3402,7 @@ export const cases = {
 							Besides, I took my mentor's advice to read the works of <A href="https://neuroscience.stanford.edu/people/caitlyn-seim">Professor Caitlyn Seim</A> from Stanford University, which greatly inspired me.
 						</P>
 						<Image
-							sizeId={3}
+							sizeId={4}
 							caption="a piece of sketch from the brainstorming stage"
 							zoomable={false}
 						>
@@ -3408,7 +3437,7 @@ export const cases = {
 					["About \"Motivation\"", <>
 						<P>In order to further evaluate the feasibility of RehaBuddy, I conducted interviews with therapists and stroke patients. One crucial point emphasized by the therapists was the potential risks associated with the concept of "motivation" in the field of stroke recovery. There are instances where stroke patients are unable to achieve certain physical goals, despite their strong desire to do so. Therefore, it is important to avoid making hasty judgments about the patient's motivation or labeling them as unmotivated, as such actions can have detrimental effects. This valuable insight provided me with a new perspective, based on which I refined the target user group of RehaBuddy to focus on individuals who have already been discharged from the hospital and have started home-based recovery, yet struggle to persevere. My product aims to serve as an external source of motivation when giving up seems tempting, and persistence becomes challenging.</P>
 						<Image
-							sizeId={3}
+							sizeId={4}
 							caption="some of my naive ideas of potential implementation"
 							zoomable={false}
 						>
@@ -3441,7 +3470,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"PadPal": {	// NAH. Abandoned bc way too much arrogant in this project, very bad.
@@ -3479,7 +3507,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"GroupReads": {	//NAH
@@ -3515,7 +3542,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"2021Art": {	//NAH
@@ -3545,7 +3571,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"ThriveSD": {
@@ -3581,7 +3606,7 @@ export const cases = {
 			bio: [
 				null,
 				"概念设计，\n志愿服务",
-				<>2020年04月-2020年07月</>,
+				<>2020年4月-2020年7月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -3601,7 +3626,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"Neureality": {
@@ -3730,7 +3754,7 @@ export const cases = {
 			bio: [
 				<><A href="https://neu-reality.com/">神经现实</A>,<br/>神经和认知科学科普公众号</>,
 				"手绘插画",
-				<>2020年02月-2021年02月</>,
+				<>2020年2月-2021年2月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -3743,10 +3767,10 @@ export const cases = {
 					/>,
 			},
 			content: {
-				tldr: ["TL;DR",
+				tldr: ["简述",
 				<>I crafted stylized illustrations and comics for articles on neuroscience and cognitive science, promoting popularization of the latest discoveries in these fields among the general public.</>,// By visually engaging audiences, my work bridged the gap between complex scientific concepts and wider understanding.</>
 			],
-				link: ["Read The\nComic", "https://mp.weixin.qq.com/s/L-uOl1hxBeGsVr0k_ifKxw"],
+				link: ["打开漫画", "https://mp.weixin.qq.com/s/L-uOl1hxBeGsVr0k_ifKxw"],
 				body: ["gallery", [
 					{
 						title: "Illustrations",
@@ -3851,7 +3875,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"CellInTheSpace": {	//NAH
@@ -3881,7 +3904,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"2020Art": {	//NAH
@@ -3911,7 +3933,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"GaokaoFighting": {	//NAH
@@ -3941,7 +3962,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"2DCG": {	//NAH
@@ -3971,7 +3991,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"KaonashiRobot": {	//NAH
@@ -4001,7 +4020,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	"CU": {
@@ -4083,7 +4101,7 @@ export const cases = {
 			bio: [
 				<><A href="https://www.chineseunion.org/">中国同学联合会</A></>,
 				"吉祥物设计，\n手绘插画",
-				<>2020年12月-2021年03月</>,
+				<>2020年12月-2021年3月</>,
 			],
 			thumbnail: {
 				brief: [
@@ -4104,7 +4122,6 @@ export const cases = {
 			template: 0,
 		},
 		guarded: false,
-		next: "",
 	},
 
 	// "Portfolio": [{},{}],

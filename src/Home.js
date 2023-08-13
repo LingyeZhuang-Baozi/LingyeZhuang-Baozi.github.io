@@ -475,11 +475,23 @@ function Hero ({inViewSetter}) {
 								<div className="home-hero-case-bio-container">
 									<div className="home-hero-case-bio">
 										<div className="home-hero-case-bio-entry">
-											<div className="home-hero-case-bio-entry-title">My Role:</div>
+											<div className="home-hero-case-bio-entry-title">
+												{getLanguageId() == "en" ?
+													<>My Role:</>
+												:
+													<>职责：</>
+												}
+											</div>
 											{ caseContent[getLanguageId()].bio[1] }
 										</div>
 										<div className="home-hero-case-bio-entry">
-											<div className="home-hero-case-bio-entry-title">Timeline:</div>
+											<div className="home-hero-case-bio-entry-title">
+												{getLanguageId() == "en" ?
+													<>Timeline:</>
+												:
+													<>时间：</>
+												}
+											</div>
 											{ caseContent[getLanguageId()].bio[2] }
 										</div>
 									</div>
@@ -906,7 +918,7 @@ function CasesSection ({sectionContent, sectionRef, sectionInViewStateSetter}) {
 				}
 				<div className="home-cases-section-title">
 					{sectionContent.title[(getLanguageId() == "en" ? 0 : 1)]}
-					{sectionContent.subtitle ?
+					{sectionContent.subtitle && sectionContent.subtitle[(getLanguageId()=="en" ? 0 : 1)]!="" ?
 						<div className="home-cases-section-title-caption">
 							{sectionContent.subtitle[(getLanguageId() == "en" ? 0 : 1)]}
 						</div>

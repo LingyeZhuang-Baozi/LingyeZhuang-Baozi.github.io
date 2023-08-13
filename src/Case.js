@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useReducer, createContext, useContext, useRef } from 'react';
 import { useParams, useLocation } from "react-router-dom";
-//import { HashLink } from 'react-router-hash-link';
+import { Link } from "react-router-dom";
 
 import './Case.scss';
 
 /* Foreign Components */
 import { btns, /*images*/ } from './assets.js';
-import { cases, casesNames, bioStructure } from './cases.js';
+import { cases, casesNames, casesChain, bioStructure } from './cases.js';
 import { getLocalStorage, setLocalStorage, modeContext, dispatchModeContext, languageContext, dispatchLanguageContext, getLanguageIdContext, dispatchCursorTypeContext, PageNotFound } from './App.js';
 import { Logo, ControlBtn, ControlToggle, ControlSwitch, ControlExpandable, A, Emoji, ImgGallery, ScrollableMobile, ScrollableDesktop } from "./components.js";
 
@@ -170,9 +170,12 @@ function Case () {
 			<ControlBar />
 			<Header />
 			<Body />
+			<Footer />
 		</div>
 	);
 }
+
+
 
 function ControlBar () {
 
@@ -242,6 +245,8 @@ function ControlBarExpandable ({btnContent}) {
 	: null }</>);
 }
 
+
+
 function Header ({singleLinePrompt}) {
 
 	const caseId = useContext(caseIdContext);
@@ -262,8 +267,8 @@ function Header ({singleLinePrompt}) {
 					{caseContent[getLanguageId()].bio.map((entry, idx) => {
 						if (entry != null && entry != "") {
 							return (
-								<div key={bioStructure[idx]} className="case-header-bio-entry-container">
-									<div className="case-header-bio-entry-title">{bioStructure[idx]}</div>
+								<div key={bioStructure[getLanguageId()][idx]} className="case-header-bio-entry-container">
+									<div className="case-header-bio-entry-title">{bioStructure[getLanguageId()][idx]}</div>
 									<div className="case-header-bio-entry-content">{entry}</div>
 								</div>
 							);
@@ -350,6 +355,8 @@ function HeaderObject () {
 		</div>
 	);
 }
+
+
 
 function Body () {
 
@@ -442,6 +449,88 @@ function Body () {
 	return (
 		<div className="case-body">
 			{caseBody()}
+		</div>
+	);
+}
+
+
+
+function Footer () {
+
+	const caseIdCurr = useContext(caseIdContext);
+	const idxInChainCurr = casesChain.indexOf(caseIdCurr);
+	const idxInChainNext =
+		(idxInChainCurr > -1 ?
+			(idxInChainCurr < casesChain.length-1 ?
+				idxInChainCurr + 1
+			: 0 )
+		: -1 );
+	const caseIdNext =
+		(idxInChainNext > -1 ?
+			casesChain[idxInChainNext]
+		: "" );
+
+	/* Render */
+	if (idxInChainNext > -1) {
+		return (
+			<div className="case-footer-container">
+				<FooterObject next={caseIdNext}/>
+			</div>
+		);
+	} else {
+		return (
+			<div className="case-footer-empty"></div>
+		);
+	}
+}
+
+function FooterObject ({next}) {
+
+	const caseId = useContext(caseIdContext);
+	const caseObject = cases[caseId].theme.object;
+	const hintblobSrc = btns.case.next.hintblob;
+
+	/* Cursor */
+	const dispatchCursorType = useContext(dispatchCursorTypeContext);
+
+	/* Hover Handler */
+	const [hovering, setHovering] = useState(false);
+	const hoverStarts = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "pointer"});
+		setHovering(true);
+	}
+	const hoverEnds = (e) => {
+		e.preventDefault();
+		dispatchCursorType({type: "default"});
+		setHovering(false);
+	}
+
+	/* Render */
+	return (
+		<div className="case-footer-object-container-out">
+			<div className="case-footer-object-positioner">
+				<div className="case-footer-object-rotater">
+					<Link
+						to={"/case-" + next}
+						className={
+							"case-footer-object-container-in ghost " +
+							(hovering==true ? "curr" : "")
+						}
+						onMouseEnter={hoverStarts}
+						onMouseOver={hoverStarts}
+						onMouseLeave={hoverEnds}
+					>
+						{caseObject}
+					</Link>
+				</div>
+				<img
+					className="case-footer-object-hintblob hintblob-left-top hintblob-shown"
+					src={hintblobSrc.blob}
+					style={{"--hintblob-left": hintblobSrc.left+"px", "--hintblob-top": hintblobSrc.top+"px"}}
+					alt=""
+				/>
+			</div>
 		</div>
 	);
 }
