@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.c9779a91.css",
-    "main.js": "/static/js/main.0a8f0769.js",
+    "main.js": "/static/js/main.65d997ac.js",
     "static/js/787.0b292e7d.chunk.js": "/static/js/787.0b292e7d.chunk.js",
     "static/media/HanSansSC-Bold.otf": "/static/media/HanSansSC-Bold.fcb688eb60d2a2d55cd1.otf",
     "static/media/HanSansSC-Regular.otf": "/static/media/HanSansSC-Regular.9e7a10965dd54b1340c8.otf",
@@ -283,7 +283,7 @@
     "static/media/resume.svg": "/static/media/resume.fe4c90767da5557084a2edc6bb5e1520.svg",
     "static/media/branding.webp": "/static/media/branding.682290d87db21519d062.webp",
     "static/media/linkedin.svg": "/static/media/linkedin.5dd7ff799ba02f2a4abdabfd03878dd0.svg",
-    "static/media/next.svg": "/static/media/next.fcc21f556b79d1ac92276e3e09bf7e19.svg",
+    "static/media/next.svg": "/static/media/next.df046de883f0f71d4f5836e1bffde040.svg",
     "static/media/wechat.svg": "/static/media/wechat.4879e46039eb3dc0121f35086eaf5026.svg",
     "static/media/HanSansSC-Bold.woff": "/static/media/HanSansSC-Bold.2e804d08daa7c62b78da.woff",
     "static/media/read_more_here.svg": "/static/media/read_more_here.d6a757090eb9c7c107df7b8122be630d.svg",
@@ -304,11 +304,11 @@
     "index.html": "/index.html",
     "static/media/_object.svg": "/static/media/_object.028b42bc69a09643009ed6f09525dea1.svg",
     "main.c9779a91.css.map": "/static/css/main.c9779a91.css.map",
-    "main.0a8f0769.js.map": "/static/js/main.0a8f0769.js.map",
+    "main.65d997ac.js.map": "/static/js/main.65d997ac.js.map",
     "787.0b292e7d.chunk.js.map": "/static/js/787.0b292e7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c9779a91.css",
-    "static/js/main.0a8f0769.js"
+    "static/js/main.65d997ac.js"
   ]
 }
